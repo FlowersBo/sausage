@@ -1,0 +1,121 @@
+/* pages/bankCard/bankCard.wxss */
+@import '../../iconCss/icon.wxss';
+
+.infoIdWrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.faceWrap {
+  width: 100%;
+  height: 360rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 15px;
+  font-family: PingFang SC;
+  font-weight: 500;
+  justify-content: space-between;
+  padding-top: 100rpx;
+  color: #333;
+}
+
+.faceWrap image {
+  width: 180rpx;
+  height: 166rpx;
+}
+
+.infoCard {
+  width: 100%;
+}
+
+.formFaceUpload {
+  width: 100%;
+  margin-top: 250rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formInputWrap {
+  width: 670rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  background-color: #eee;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding-left: 20rpx;
+}
+
+.verificationCodeWrap{
+  display: flex;
+  align-items: center;
+}
+.verificationCode{
+  width: 400rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20rpx;
+  background-color: #eee;
+}
+
+
+.code{
+  width: 180rpx;
+  height: 80rpx;
+  text-align: center;
+  line-height: 80rpx;
+  background-color: #F87039;
+  border-radius: 10rpx;
+  color: #fff;
+  margin-left: 90rpx;
+}
+.formInput-img{
+  width: 70rpx;
+}
+
+.icon {
+  font-size: 44rpx;
+  vertical-align: middle;
+  margin-right: 16rpx;
+}
+
+.formInput {
+  /* width: 72%; */
+  flex: 1;
+  min-width: 0;
+  height: 100rpx;
+}
+
+.btnWrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.fromBtn {
+  width: 95%;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+  background-color: #F87039;
+  box-shadow: 0 0 10px #F87039;
+  /* background-image: linear-gradient(90deg, #0042BB, #3600f8); */
+  color: #fff;
+  font-size: 40rpx;
+  font-weight: bold;
+  letter-spacing: 20rpx;
+  display: block;
+  margin-top: 150rpx;
+  border-radius: 50rpx;
+  z-index: 10;
+}

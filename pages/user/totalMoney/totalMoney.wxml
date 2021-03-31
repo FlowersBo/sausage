@@ -1,0 +1,44 @@
+<!--pages/user/totalMoney/totalMoney.wxml-->
+<view class="totalMoneyWrap">
+  <view class="totalMoney">
+    <view class="sales">
+      <view class="sales_list">
+        <view class="quantity">设备销售总额</view>
+        <view class="num">{{incomes.saleAmount?incomes.saleAmount:'0'}}<text class="num_unit" space> 元</text></view>
+      </view>
+      <view class="sales_list">
+        <view class="quantity">总收入</view>
+        <view class="num">{{incomes.inCome?incomes.inCome:'0'}}<text class="num_unit" space> 元</text>
+        </view>
+      </view>
+    </view>
+    <view class="goodsListWrap">
+      <view class="title">
+        <view class="leftBorder"></view>
+        <view class="title-text">分账统计</view>
+      </view>
+      <view class="goodsList" wx:if="{{incomes.accountFlow.length>0}}">
+        <view class="goodsNav">
+          <view class="nav-item" wx:for="{{goodsNav}}" wx:key="index">
+            {{item}}
+          </view>
+        </view>
+        <view class="goods {{index%2==0?'bac_a':''}}" wx:for="{{incomes.accountFlow}}" wx:key="index"
+          data-id="{{item.id}}" bindtap="selectGoods">
+          <view class="goods-item">
+            2021
+          </view>
+          <view class="goods-item">
+            2021
+          </view>
+          <view class="goods-item">
+            2021
+          </view>
+        </view>
+      </view>
+      <view class="noData" wx:else>
+        暂无数据，稍后再来吧
+      </view>
+    </view>
+  </view>
+</view>

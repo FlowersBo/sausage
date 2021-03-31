@@ -1,0 +1,65 @@
+<!--pages/user/user.wxml-->
+<view>
+	<!-- 加盟头像昵称 -->
+	<view class="weui-cell boder">
+		<view class="head">
+			<image src="{{userInfo.logourl}}" />
+		</view>
+		<view class="weui-cell__bd">
+			<view>{{userInfo.name}}</view>
+			<view class="phone">{{userInfo.mobile}}</view>
+		</view>
+	</view>
+	<!-- 累计金额 -->
+	<block wx:if="{{result.status==2}}">
+		<view class="sales">
+			<view class="sales_list" bindtap="bindUserSaleDetailly">
+				<view class="quantity">总收入</view>
+				<view class="num">{{result.totalAmount?result.totalAmount:'0'}}<text class="num_unit" space> 元</text></view>
+			</view>
+			<view class="sales_list" bindtap="bindUserWallet">
+				<view class="quantity">钱包余额</view>
+				<view class="num">{{result.balance?result.balance:'0'}}<text class="num_unit" space> 元</text>
+				</view>
+			</view>
+		</view>
+	</block>
+
+	<block wx:else>
+		<view class="sales_blank" bindtap="gotoauthenticationFn">
+			<view class="blankText">开通收款账户</view>
+			<view class="flowPath">
+				<view class="ynumber">1</view>实名认证 <view class="flowBlank"></view>
+				<view class="ynumber">2</view>签约协议<view class="flowBlank"></view>
+				<view class="ynumber">3</view>绑定卡号
+			</view>
+		</view>
+	</block>
+	<!-- 我的 -->
+	<view>
+		<!-- <view class="weui-cell weui-cell_access">
+			<view class="commercialWrap">
+				<view class="alliance">
+					
+				</view> 
+			</view>
+		</view> -->
+		<view class="weui-cell weui-cell_access" bindtap="bindUserOrder">
+			<view class="weui-cell__bd">
+				<view style="display: inline-block; vertical-align: middle">我的订货</view>
+			</view>
+			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
+		</view>
+		<view class="weui-cell weui-cell_access" bindtap="openPhone" data-servicetel="{{userInfo.servicetel}}">
+			<view class="weui-cell__bd">
+				<view style="display: inline-block; vertical-align: middle">联系运营商：{{userInfo.servicetel}}</view>
+			</view>
+			<view class="weui-cell__ft weui-cell__ft_in-access">
+				<image src="../../assets/img/phone.png"></image>
+			</view>
+		</view>
+	</view>
+	<button formType="" class="out" size="default" hover-class="out_hover" hover-stay-time="100"
+		bindtap="bindLogOut">退出登录</button>
+
+</view>

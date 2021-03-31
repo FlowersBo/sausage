@@ -1,0 +1,68 @@
+@import '../../utils/weui.wxss';
+
+/* pages/new_address/new_address.wxss */
+page {
+    width: 100%;
+    padding: 20rpx 50rpx 20rpx 20rpx;
+    overflow: hidden;
+    box-sizing: border-box;
+
+}
+
+
+.weui-label {
+    width: 195rpx;
+}
+
+view {
+    font-size: 28rpx;
+}
+
+.weui-cells:before {
+    top: 0;
+    border-top: 1rpx solid white;
+}
+
+.weui-cell {
+    line-height: 3.5rem;
+}
+
+.weui-cells:after {
+    bottom: 0;
+    border-bottom: 1rpx solid white
+}
+
+.weui-btn {
+    position: fixed;
+    bottom: 112rpx;
+    left: 0;
+    width: 100%;
+    border-radius: 0;
+    background:rgb(0, 155, 8);
+    color: #fff;
+}
+.weui-btn-del{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 0;
+}
+button[type=primary] ,.weui-btn.button-hover {
+    background-color: #f75910;
+}
+
+    
+.fuhao {
+    position: absolute;
+    right: 0rpx;
+}
+
+.radio {
+    margin-right: 30rpx;
+}
+
+.radio radio {
+    vertical-align: top;
+    margin-top: -3rpx;
+}

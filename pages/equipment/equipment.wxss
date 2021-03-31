@@ -1,0 +1,72 @@
+@import'../../app.wxss';
+/* pages/equipment/equipment.wxss */
+page {
+    padding: 20rpx;
+    box-sizing: border-box;
+}
+
+/* 点位明细 */
+.serch {
+    position: relative;
+    width: 100%;
+    margin-top: 20rpx;
+    margin-bottom: 20rpx;
+    border-radius: 10rpx;
+    box-sizing: border-box;
+}
+
+.serch input {
+    height: 50rpx;
+    line-height: 50rpx;
+    font-size: 26rpx;
+    padding-left: 20rpx;
+    border: 1px solid #c9c9c9;
+    border-radius: 100rpx;
+    box-sizing: border-box;
+}
+
+.serch image {
+    position: absolute;
+    right: 20rpx;
+top: 8rpx;
+width: 32rpx;
+height: 32rpx;
+z-index: 1;
+
+}
+
+/* list */
+.demo-item {
+    padding: 20rpx;
+    margin-bottom: 20rpx;
+    border-radius: 10rpx;
+    background: #f8f8f8;
+    overflow: hidden;
+}
+
+.demo-item view {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.demo-item>view {
+    height: 50rpx;
+    line-height: 50rpx;
+}
+
+.demo-item view view {
+    display: inline-block;
+    font-size: 30rpx;
+
+}
+
+.right {
+    float: right;
+}
+
+.demo-item image {
+    width: 26rpx;
+    height: 26rpx;
+    margin-right: 20rpx;
+}

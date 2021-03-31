@@ -1,0 +1,50 @@
+<!--pages/device_details/device_details.wxml-->
+
+<view class="content">
+    <view class="demo-item">
+        <view>
+            <view>
+                <view>设备编号：</view>
+                <view>{{deviceid}}</view>
+            </view>
+            <view class="right">
+                <view>
+                    <image class="" src="{{signalIconSrc}}" mode="aspectFit|aspectFill|widthFix"></image>
+                </view>
+                <view>
+                    <image class="" src="{{deviceStatusIconSrc}}" mode="aspectFit|aspectFill|widthFix"></image>
+                </view>
+            </view>
+        </view>
+        <view>
+            <view>点位名称：</view>
+            <view>{{pointname}}</view>
+        </view>
+        <view>
+            <view>点位地址：</view>
+            <view>{{pointaddress}}</view>
+        </view>
+    </view>
+    <!-- 故障告警 -->
+    <view class="content" wx:for="{{alarmList}}" wx:key="index" wx:for-item="item">
+        <view class="demo-item">
+            <view>
+                <view>告警时间：</view>
+                <view>{{item.alarmtime}}</view>
+            </view>
+            <view>
+                <view>告警级别：</view>
+                <view>{{item.alarmlevel}}</view>
+            </view>
+            <view>
+                <view>点位名称：</view>
+                <view>{{item.pointname}}</view>
+            </view>
+            <view class="error">
+                <view>告警详情：</view>
+                <view>{{item.alarmconent}}</view>
+            </view>
+        </view>
+    </view>
+    <!-- 库存告警 -->
+</view>

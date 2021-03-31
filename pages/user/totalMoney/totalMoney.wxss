@@ -1,0 +1,111 @@
+/* pages/user/totalMoney/totalMoney.wxss */
+.totalMoneyWrap{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.totalMoney{
+  width: 97%;
+}
+/* 累计金额 */
+.sales {
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+  border-radius: 10rpx;
+  background: #f8f8f8;
+  overflow: hidden;
+}
+
+.sales_list {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60rpx 0;
+  color: #333;
+  text-align: center;
+  border-right: 1px solid #dedede;
+}
+
+.sales_list:last-child {
+  border-right: none;
+}
+
+.quantity {
+  font-size: 30rpx;
+  padding-bottom: 15rpx;
+}
+
+.num {
+  font-size: 44rpx;
+}
+
+/* 列表 */
+.goodsListWrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f8f8f8;
+}
+
+.title{
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+}
+.leftBorder{
+  width: 8rpx;
+  height: 50rpx;
+  background-color: #F75910;
+  margin: 0 10rpx;
+}
+.goodsList {
+  width: 97%;
+  color: #808080;
+}
+
+.goodsNav {
+  width: 100%;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid#e6e6e6;
+} 
+
+.goods {
+  width: 100%;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.bac_a {
+  background: rgba(255, 153, 0, 0.03);
+}
+
+.nav-item,
+.goods-item {
+  text-align: center;
+  flex: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+.nav-item:nth-child(2),
+.goods-item:nth-child(2) {
+  flex: 1.8;
+}
+.noData{
+  font-size: 28rpx;
+  color: #aaa;
+}

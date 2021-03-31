@@ -1,0 +1,19 @@
+<!--pages/user/wallet/bindingBank/addBankCard/addBankCard.wxml-->
+<view class="bankCardWrap">
+  <view class="bankCard">
+    <form bindsubmit="formSubmit">
+      <view class="inpWrap">
+        <input name="bankCard" class="inp" type="number" placeholder="请输入银行卡号" placeholder-style="color:#A7A7A7"
+          type="number" bindinput='bankCardFun'></input>
+        <input name="bankPhone" class="inp" maxlength="11" placeholder="请输入银行绑定手机号" placeholder-style="color:#A7A7A7" type="number"
+          bindinput='bankNameFun'></input>  
+        <view class="verificationWrap">
+          <input name="bankCode" type="number" class="inp" placeholder="输入手机验证码"
+            placeholder-style="color:#A7A7A7"></input>
+          <button class='verification' bindtap='getVerificationCode' disabled='{{disabled}}'>{{codename}}</button>
+        </view>
+        <button formType="submit" class="verification_btn">绑定</button>
+      </view>
+    </form>
+  </view>
+</view>

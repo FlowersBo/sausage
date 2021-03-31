@@ -1,0 +1,21 @@
+<!--pages/user/wallet/bindingBank/bindingBank.wxml-->
+<view class="bankCardWrap">
+  <view class="bankCard">
+    <view class="backWrap {{index%2==0?'bac_a':''}}" wx:for="{{bankCardList}}" wx:key="index">
+      <view class="back">
+        <!-- <view class="backType">储蓄卡</view> -->
+        <view class="backName">{{item.bankName}}</view>
+      </view>
+      <view class="backNumber">
+        <!-- <text wx:for="{{3}}" wx:key="index" class="dotWrap" decode="{{true}}" >
+          <text wx:for="{{4}}" wx:key="index" class="dot"></text>&ensp;
+        </text> -->
+        <text class="number">{{item.bankCardNo}}</text>
+      </view>
+    </view>
+    <view class="addBackCard" bindtap="addBankCard">
+      <icon class="iconfont icon icon-shuaqiaqiapianyinhangqia"></icon>
+      <view class="add-text">绑定银行卡</view>
+    </view>
+  </view>
+</view>

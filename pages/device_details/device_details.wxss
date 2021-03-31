@@ -1,0 +1,55 @@
+/* pages/device_details/device_details.wxss */
+page {
+    padding: 20rpx;
+    box-sizing: border-box;
+}
+
+/* list */
+.demo-item {
+    padding: 20rpx;
+    margin-bottom: 20rpx;
+    border-radius: 10rpx;
+    background: #f8f8f8;
+    overflow: hidden;
+}
+
+.demo-item .title {
+    padding-bottom: 10rpx;
+    margin-bottom: 15rpx;
+    border-bottom: 1px solid #c9c9c9;
+}
+
+.demo-item .title view {
+    font-size: 35rpx;
+    letter-spacing: 1px;
+}
+
+.demo-item view {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.demo-item>view {
+    height: 50rpx;
+    line-height: 50rpx;
+}
+
+.demo-item view view {
+    display: inline-block;
+    font-size: 30rpx;
+
+}
+
+.right {
+    float: right;
+}
+
+.demo-item image {
+    width: 26rpx;
+    height: 26rpx;
+    margin-right: 20rpx;
+}
+.error{
+    color:#f75910 ;
+}

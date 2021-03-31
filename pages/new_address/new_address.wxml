@@ -1,0 +1,63 @@
+<!--pages/new_address/new_address.wxml-->
+<form bindsubmit="saveAddress">
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+                <view class="weui-label">收货人</view>
+            </view>
+            <view class="weui-cell__bd">
+                <input class="weui-input" name="consignee" value="{{userInfo.name}}" placeholder="请输入收货人真实姓名" bindinput="bindUserName" />
+            </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+                <view class="weui-label"></view>
+            </view>
+            <view class="weui-cell__bd">
+                <radio-group class="item-right radio-group" bindchange="changeSex">
+                    <label class="radio" wx:for="{{items}}">
+                        <radio value="{{item.name}}" checked="{{item.checked}}" style="zoom:.7;" />{{item.name}}
+                    </label>
+                </radio-group>
+            </view>
+        </view>
+
+        <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+                <view class="weui-label">联系方式</view>
+            </view>
+            <view class="weui-cell__bd">
+                <input class="weui-input" name="mobile" value="{{userInfo.phoneNumber}}" placeholder="请输入收货人手机号" bindinput="bindUserPhoneNumber" />
+            </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+                <view class="weui-label">收货地址</view>
+            </view>
+            <input type="text" class="weui-input" placeholder="请选择收货地址" bindtap="onChangeAddress"
+                value="{{userInfo.address}}" />
+            <view class="fuhao" bindtap="bindSelectAddress">></view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+                <view class="weui-label">详情地址</view>
+            </view>
+            <view class="weui-cell__bd">
+                <input class="weui-input" name="mobile" placeholder="输入门牌号/楼号" bindinput="bindDetaillAddress" />
+            </view>
+        </view>
+        <!-- <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+                <view class="weui-label">设为默认地址</view>
+            </view>
+            <view class="weui-cell__bd">
+                <view class="weui-cell__ft">
+                    <switch style="zoom:.5;" checked='{{userInfo.isDefaultAddress}}' bindchange="bindChangeDefalutAddress"/>
+                </view>
+            </view>
+        </view> -->
+    </view>
+    <view class="weui-cells__title"></view>
+    <button class="weui-btn" bindtap = "bindSaveUserInfo" >保存</button>
+    <button class="weui-btn-del" bindtap = "bindCancelSavaUserInfo" >取消</button>
+</form>

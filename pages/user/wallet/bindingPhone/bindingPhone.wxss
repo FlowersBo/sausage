@@ -1,0 +1,17 @@
+/* pages/user/wallet/bindingPhone/bindingPhone.wxss */
+@import "../../../login/login.wxss";
+
+.content {
+  margin-top: 300rpx;
+}
+
+.phone-box {
+  margin-top: 30rpx;
+}
+
+.startLogin {
+  margin-top: 200rpx;
+  background: #F75910;
+  color: #fff;
+  font-size: 40rpx;
+}

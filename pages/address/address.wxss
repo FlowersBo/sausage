@@ -1,0 +1,147 @@
+/* pages/address/address.wxss */
+page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: rgb(248, 248, 248);
+}
+
+scroll-view {
+    margin-bottom: 101rpx;
+}
+
+scroll-view .list {
+    position: relative;
+    padding: 15rpx 0;
+    margin: 15rpx 0;
+    border-bottom: 1px solid #c9c9c9;
+    background: #fff;
+}
+
+.product-name-wrap {
+    width: 600rpx;
+    margin: 0px 10px;
+    font-size: 14px;
+    color: #404040;
+    padding-bottom: 10rpx;
+}
+
+.product-btn {
+    position: absolute;
+    top: 33rpx;
+    right: 36rpx;
+    width: 100rpx;
+
+}
+
+.product-btn button {
+    width: 100rpx;
+    padding: 0;
+    margin: 0;
+    font-size: 23rpx;
+
+}
+
+.product-btn>view {
+    width: 100%;
+    text-align: center;
+    color: red;
+    line-height: 2;
+
+
+}
+
+.ui-list-item-info {
+    margin: 5px 0px;
+}
+
+.ui-list-item-info .default {
+    color: red;
+}
+
+.ui-list-item-address {
+    color: #585c64;
+}
+
+.ui-list-item-time {
+    height: 30rpx;
+    font-size: 26rpx;
+    margin: 5rpx 24rpx;
+    text-align: center;
+    color: #999;
+    border-top: 1px solid #c9c9c9;
+    padding: 20rpx 0;
+
+}
+
+.ui-list-item-defa>view {
+    display: inline-block;
+}
+
+.radio-group {
+    float: left;
+}
+
+radio {
+    transform: scale(0.8);
+}
+
+.ui-list-item-defa .default {
+    float: left;
+    margin-left: 8rpx;
+}
+
+.ui-list-item-edit {
+    float: right;
+    margin-right: 25rpx;
+}
+
+/* 分割线 */
+.separate {
+    margin: 5px 0px;
+    height: 2rpx;
+    background-color: #f2f2f2;
+}
+
+.add-address {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 100rpx;
+    line-height: 100rpx;
+    font-size: 28rpx;
+    letter-spacing: 1px;
+    border-top: 1px #c9c9c9 solid;
+    text-align: center;
+    color: #f2f2f2;
+    background: #f75910;
+}
+
+/* 删除 */
+
+.touchdel {
+    position: absolute;
+    right: 0;
+    width: 125rpx;
+    height: 125rpx;
+    line-height: 125rpx;
+    text-align: center;
+    font-size: 30rpx;
+    background: #f55757;
+    color: #ffffff;
+    top: 0;
+}
+
+/*移除按钮*/
+.remove {
+    width: 160rpx;
+    height: 100%;
+    background-color: red;
+    color: white;
+    position: absolute;
+    top: 0;
+    right: -160rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

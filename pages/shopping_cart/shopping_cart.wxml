@@ -1,0 +1,55 @@
+<!--pages/shopping_cart/shopping_cart.wxml-->
+<!-- 物品展示 -->
+<view class="container">
+    <view class="section section-good">
+        <checkbox-group bindchange="checkboxChange">
+            <view class="good" wx:for="{{cartGoodsList}}" wx:for-item="goods">
+                <label class="checkbox" bindtap="bindCheckboxChange" data-index="{{index}}">
+                    <checkbox checked="{{goods.isChecked}}" hidden="hidden" />
+                    <icon type="circle" size="23" wx:if="{{!goods.isChecked}}"></icon>
+                    <icon type="success" size="23" wx:if="{{goods.isChecked}}"></icon>
+                </label>
+                <image class="cover" src="{{goods.cover}}"></image>
+                <view class="content">
+                    <view class="text name">{{goods.goodsname}}</view>
+                    <view class="text specifications">{{goods.norm}}</view>
+                    <view class="text price">
+                        <text>¥{{goods.realprice}}</text>
+                        <text>¥{{goods.price}}</text>
+                    </view>
+                </view>
+                <view class="stepper">
+                    <view class="subtract" data-index="{{index}}" catchtap="bindReduceGoods">-</view>
+                    <input class="count" value="{{goods.count}}" type="number" confirm-type="done"
+                        bindconfirm="bindChangeGoodsNum" data-id="goods." />
+                    <view class="add" data-index="{{index}}" catchtap="bindAddGoods">+</view>
+                </view>
+                <view data-index="{{index}}" class="inner del" bindtap="bindDeleteGoods">删除</view>
+            </view>
+        </checkbox-group>
+    </view>
+    <view class="section-bottom">
+        <checkbox-group bindchange="bindSelectAllGoods">
+            <label class="checkbox-allcheck">
+                <checkbox checked="{{isSelectAllGoods}}" hidden="hidden" />
+                <icon type="circle" size="23" wx:if="{{!isSelectAllGoods}}"></icon>
+                <icon type="success" size="23" wx:if="{{isSelectAllGoods}}"></icon>
+                <text class="check-all-text">全选</text>
+            </label>
+        </checkbox-group>
+        <view class="total">
+            <view class="totalPrice">合计：
+                <text>¥{{cartSettlement.moneyPaid}}</text>
+            </view>
+            <view class="totalPrice">立省：
+                <text>¥{{cartSettlement.economize}}</text>
+            </view>
+        </view>
+
+        <view class="btn {{cartSettlement.moneyPaid > 0 ? 'btn-primary': 'btn-default'}}"
+            url="../confirmation_order/confirmation_order" bindtap="bindSettlementMoney">
+            去结算({{cartSettlement.moneyPaid}})
+        </view>
+
+    </view>
+</view>

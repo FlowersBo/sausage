@@ -1,0 +1,76 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/my_money/my_money",
+    "pages/status_details/status_details",
+    "pages/device_details/device_details",
+    "pages/index/index",
+    "pages/report_details/report_details",
+    "pages/order/order",
+    "pages/order_details/order_details",
+    "pages/equipment/equipment",
+    "pages/user/user",
+    "pages/details/details",
+    "pages/order_goods/order_goods",
+    "pages/address/address",
+    "pages/shopping_cart/shopping_cart",
+    "pages/new_address/new_address",
+    "pages/confirmation_order/confirmation_order",
+    "pages/authentication/authentication",
+    "pages/bankCard/bankCard",
+    "pages/user/totalMoney/totalMoney",
+    "pages/user/wallet/wallet",
+    "pages/user/wallet/myMoney/myMoney",
+    "pages/user/wallet/bindingPhone/bindingPhone",
+    "pages/user/wallet/bindingBank/bindingBank",
+    "pages/user/wallet/bindingBank/addBankCard/addBankCard",
+    "pages/user/wallet/paymentPassword/paymentPassword",
+    "pages/user/wallet/forgetPassword/forgetPassword",
+    "pages/user/wallet/modificationPasswrod/modificationPasswrod",
+    "pages/user/wallet/modificationPhone/modificationPhone"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#f75910",
+    "navigationBarTitleText": "智能烤肠机加盟",
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": true,
+    "backgroundColor": "#fff"
+  },
+  "tabBar": {
+    "selectedColor": "#f75910",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "报表",
+        "iconPath": "assets/tabbar/baobiao.png",
+        "selectedIconPath": "assets/tabbar/baobiao-h.png"
+      },
+      {
+        "pagePath": "pages/order/order",
+        "text": "订单",
+        "iconPath": "assets/tabbar/dingdan.png",
+        "selectedIconPath": "assets/tabbar/dingdan-h.png"
+      },
+      {
+        "pagePath": "pages/equipment/equipment",
+        "text": "设备",
+        "iconPath": "assets/tabbar/shebei.png",
+        "selectedIconPath": "assets/tabbar/shebei-h.png"
+      },
+      {
+        "pagePath": "pages/order_goods/order_goods",
+        "text": "订货",
+        "iconPath": "assets/tabbar/dinghuo.png",
+        "selectedIconPath": "assets/tabbar/dinghuo-h.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "assets/tabbar/menu-mine.png",
+        "selectedIconPath": "assets/tabbar/menu-mine-h.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

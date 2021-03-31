@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "销售报表",
+  "component": true,
+  "usingComponents": {
+    "ec-canvas": "../../ec-canvas/ec-canvas"
+  }
+}

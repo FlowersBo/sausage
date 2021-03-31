@@ -1,0 +1,41 @@
+<!--pages/equipment/equipment.wxml-->
+<view>
+    <view class="serch">
+        <input confirm-type="search" bindconfirm="bindPointSerch"  placeholder="设备编号"/>
+        <image src="../../assets/img/fangdajing.png"  ></image>
+    </view>
+    <view class="content">
+        <view  wx:for="{{devicesData}}" wx:key="index" wx:for-item="item" data-item="{{item}}" bindtap="bindDeviceDetaill">
+            <view class="demo-item">
+                <view>
+                    <view>
+                        <view>设备编号：</view>
+                        <view>{{item.deviceno}}</view>
+                    </view>
+                    <view class="right">
+                        <view>
+                            <image class="" src="{{item.signalIconSrc}}" ></image>
+                        </view>
+                        <view>
+                            <image class="" src="{{item.deviceStatusIconSrc}}" ></image>
+                        </view>
+                    </view>
+                </view>
+                <view>
+                    <view>点位名称：</view>
+                    <view>{{item.pointname}}</view>
+                </view>
+                <view>
+                    <view>点位地址：</view>
+                    <view>{{item.pointaddress}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- 点击加载更多 -->
+    <view class="button-wrapper">
+        <button type="default" size="default" loading="{{loading}}" disabled="{{disabled}}" bindtap="setLoading">
+            {{loadText}}
+        </button>
+    </view>
+</view>

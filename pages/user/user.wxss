@@ -1,0 +1,225 @@
+/* pages/user/user.wxss */
+page {
+	padding: 30rpx;
+	box-sizing: border-box;
+}
+
+/* 加盟头像 */
+
+.weui-cell {
+	padding: 16px;
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+	border-bottom: 1rpx solid #c9c9c9;
+}
+
+
+.weui-cell.boder {
+	border-bottom: 0;
+}
+
+.weui-badge {
+	display: inline-block;
+	padding: 0.15em 0.4em;
+	min-width: 8px;
+	border-radius: 18px;
+	background-color: #fa5151;
+	color: #fff;
+	line-height: 1.2;
+	text-align: center;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+.weui-cell__bd {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	flex: 1;
+	font-size: 28rpx;
+}
+
+.phone {
+	margin-top: 10rpx;
+}
+
+.weui-cell .head {
+	display: inline-block;
+	width: 140rpx;
+	height: 140rpx;
+	margin-right: 40rpx;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.weui-cell .head image {
+	width: 140rpx;
+	height: 140rpx;
+}
+
+/* 累计金额 */
+.sales {
+	width: 100%;
+	height: 200rpx;
+	display: flex;
+	border-radius: 10rpx;
+	background: #f8f8f8;
+	overflow: hidden;
+}
+
+.sales_list {
+	flex: 4;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	padding: 60rpx 0;
+	color: #333;
+	text-align: center;
+	border-right: 1px solid #dedede;
+}
+
+.sales_list:last-child {
+	border-right: none;
+}
+
+.quantity {
+	font-size: 30rpx;
+	padding-bottom: 15rpx;
+}
+
+.num {
+	font-size: 44rpx;
+}
+
+.num_unit {
+	font-size: 24rpx;
+}
+
+.blankText{
+	width: 280rpx;
+	height: 100rpx;
+	text-align: center;
+	line-height: 100rpx;
+	border-radius: 20rpx;
+	background-color: #fff;
+	border: 1px solid #333;
+}
+
+.sales_blank {
+	width: 100%;
+	height: 200rpx;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	padding: 60rpx 0;
+	border-radius: 10rpx;
+	background: #f8f8f8;
+	overflow: hidden;
+}
+
+.flowPath {
+	font-size: 24rpx;
+}
+
+.ynumber {
+	display: inline-block;
+	width: 30rpx;
+	height: 30rpx;
+	border-radius: 50%;
+	border: 1rpx solid rgb(95, 95, 95);
+	text-align: center;
+	line-height: 30rpx;
+	margin-right: 4rpx;
+}
+
+.flowBlank {
+	display: inline-block;
+	width: 50rpx;
+	height: 1px;
+	background-color: rgb(139, 139, 139);
+	margin-right: 6rpx;
+}
+
+/* 我的 */
+.weui-cell.weui-cell_access {
+	padding: 40rpx 0;
+	margin: 0 40rpx;
+}
+
+.weui-cell_access {
+	color: inherit;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+
+.weui-badge {
+	display: inline-block;
+	padding: 0.15em 0.4em;
+	min-width: 8px;
+	border-radius: 18px;
+	background-color: #fa5151;
+	color: #fff;
+	line-height: 1.2;
+	text-align: center;
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+
+.weui-cell__ft_in-access {
+	padding-right: 16px;
+	position: relative;
+}
+
+.weui-cell__ft {
+	font-size: 28rpx;
+	text-align: right;
+	color: rgba(0, 0, 0, 0.5);
+}
+
+.weui-cell__ft_in-access:after {
+	content: " ";
+	display: inline-block;
+	height: 8px;
+	width: 8px;
+	border-width: 2px 2px 0 0;
+	border-color: #b2b2b2;
+	border-style: solid;
+	-webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+	transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+	position: relative;
+	top: -2px;
+	position: absolute;
+	top: 50%;
+	margin-top: -5px;
+	right: 0;
+}
+
+.weui-cell__ft image {
+	width: 30rpx;
+	height: 30rpx;
+	margin-top: 3rpx;
+
+}
+
+button.out {
+	display: block;
+	width: 100%;
+	height: 80rpx;
+	font-size: 32rpx;
+	color: #fff;
+	margin-top: 80rpx;
+	border-radius: 8rpx;
+	background: rgba(248, 112, 57, 1);
+}
+
+.out_hover,
+.getNum_hover {
+	transform: scale(0.98, 0.98);
+}

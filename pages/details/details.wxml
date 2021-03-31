@@ -1,0 +1,78 @@
+<!--pages/details/details.wxml-->
+
+<view>
+  <!-- 单张图片展示 -->
+  <view class="banner">
+    <image src="{{goodsDetaillyInfo.picname}}" mode="aspectFill"></image>
+  </view>
+  <!-- 轮播 多张展示 暂无需求-->
+  <!-- <swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000"
+    duration="500">
+    <swiper-item wx:for="{{swiperList}}" wx:key>
+      <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
+      <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover"
+        wx:if="{{item.type=='video'}}"></video>
+    </swiper-item>
+  </swiper> -->
+  <!-- 价格 -->
+  <view class="con">
+    <view class="good_info_back">
+      <view class="good_info_price_back">
+        <view class="price">
+          <text>¥{{goodsDetaillyInfo.price}}</text>
+        </view>
+        <view class="price_discount">
+          <text>¥{{special_offer}}</text>
+        </view>
+        <view class="detail_num">库存数量：{{goodsDetaillyInfo.stock}}</view>
+      </view>
+      <view class="good_info_title">{{goodsDetaillyInfo.goodsname}}</view>
+    </view>
+    <!-- 参数 -->
+    <view class="comment_title_back_view">
+      <text class="comment_order_title">商品信息</text>
+    </view>
+    <view class="integral_back_view">
+      <text class="info_name">单位：</text>
+      <text class="info_content">{{goodsDetaillyInfo.unit}}</text>
+    </view>
+    <view class="integral_back_view">
+      <text class="info_name">规格：</text>
+      <text class="info_content">{{goodsDetaillyInfo.norm}}</text>
+    </view>
+    <view class="integral_back_view">
+      <text class="info_name">保质期：</text>
+      <text class="info_content">{{goodsDetaillyInfo.exp}}</text>
+    </view>
+
+    <view class="integral_back_view">
+      <text class="info_name">储存方式：</text>
+      <text class="info_content">{{goodsDetaillyInfo.storage}}</text>
+    </view>
+    <!-- 图片详情 -->
+    <view class="comment_title_back_view">
+      <text class="comment_order_title">商品详情</text>
+      <text class="info_content">{{goodsDetaillyInfo.goodsdesc}}</text>
+    </view>
+    <view class="description" wx:for="{{goodsDescriptivePicture}}">
+      <image src="{{item.picname}}" ></image>
+    </view>
+  </view>
+  <!-- 底部首页购物车 -->
+  <view class="nav">
+    <navigator open-type="switchTab" url="../index/index" role="navigation">
+      <view>
+        <image src="../../assets/img/shopcarNormal.png" mode="widthFix"></image>
+        <text>首页</text>
+      </view>
+    </navigator>
+    <navigator open-type="navigate" url="../shopping_cart/shopping_cart" role="navigation">
+      <view>
+        <image src="../../assets/img/shopcarNormal.png" mode="widthFix"></image>
+        <text>购物车</text>
+        <text class="num">{{shoppingCartGoodsCount}}</text>
+      </view>
+    </navigator>
+    <view class="buycar" bindtap="bindAddGoodsNum">加入购物车</view>
+  </view>
+</view>

@@ -1,0 +1,41 @@
+<!-- pages/address/address.wxml -->
+<view class="">
+    <scroll-view class="" scroll-y="true">
+        <view class="list" wx:for="{{userInfos}}" wx:for-index="idx" data-index='{{idx}}' bindtouchstart="drawStart" bindtouchmove="drawMove" bindtouchend="drawEnd" style="right:{{item.right}}rpx">
+                <view class="product-name-wrap" data-index="{{idx}}">
+                    <view class="ui-list-item-info">
+                        {{item.name}} {{item.mobile}} 
+                    </view>
+                    <view class="ui-list-item-address">{{item.address}}</view>
+                </view>
+                <view wx:if="{{!item.usedStatus}}" class="product-btn">
+                    <button data-id="{{item.id}}" bindtap="bindSettingUsedInfo">使用</button>
+                </view>
+                <view wx:if="{{item.usedStatus}}" class="product-btn">
+                    <view>✔</view>
+                </view>
+                <view class="ui-list-item-time">
+                    <view class="ui-list-item-defa">
+                        <radio-group class="radio-group" >
+                            <label class="radio">
+                                <radio value="设为默认" checked="{{item.isdefault}}" data-index="{{idx}}" bindtap="bindChangeDefalutAddress"/>
+                                <block wx:if="{{item.isdefault}}">
+                                    <text>默认地址</text>
+                               </block>
+                               <block wx:if="{{!item.isdefault}}">
+                               <text checked='{{userInfo.isDefaultAddress}}' > 设置默认地址 </text>
+                           </block>
+                            </label>
+                        </radio-group>
+                        <view class="ui-list-item-edit" data-index="{{idx}}" bindtap="bindEditUserInfo">编辑</view>
+                        <view class="ui-list-item-edit" data-index="{{idx}}" bindtap="bindSettingTop">置顶</view>
+                    </view>
+                    <view class="remove" data-addressCode="{{item.id}}" bindtap="bindDeleteAddress">删除 </view>
+                </view>
+        </view>
+    </scroll-view>
+    <view class="add-address" bindtap="bindAddNewAddress">
+        增加新地址
+    </view>
+</view>
+<!-- delAddress -->

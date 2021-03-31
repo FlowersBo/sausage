@@ -1,0 +1,256 @@
+/* pages/mine/mine.wxss */
+page {
+  background: #f5f5f5;
+}
+
+/*总体主盒子*/
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  color: #939393;
+}
+
+/*左侧栏主盒子*/
+.nav_left {
+  /* position: fixed; */
+  /*设置行内块级元素（没使用定位）*/
+  display: flex;
+  width: 25%;
+  /*主盒子设置背景色为灰色*/
+  background: #f5f5f5;
+  text-align: center;
+  flex-direction: column;
+}
+
+/*左侧栏list的item*/
+.nav_left .nav_left_items {
+  /*每个高30rpx*/
+  height: 80rpx;
+  /*垂直居中*/
+  line-height: 80rpx;
+  /*再设上下padding增加高度，总高42rpx*/
+  padding: 12rpx 0;
+  /*只设下边线*/
+  border-bottom: 1rpx solid #dedede;
+  /*文字14rpx*/
+  font-size: 28rpx;
+}
+
+/*左侧栏list的item被选中时*/
+.nav_left .nav_left_items.active {
+  /*背景色变成白色*/
+  background: #fff;
+  color: #f0145a;
+}
+
+/*右侧栏主盒子*/
+.nav_right {
+  /*右侧盒子使用了绝对定位*/
+  position: absolute;
+  top: 0;
+  right: 0;
+  /*宽度75%，高度占满，并使用百分比布局*/
+  width: 75%;
+  height: 100vh;
+  box-sizing: border-box;
+  background: #fff;
+  overflow: hidden;
+
+}
+
+.nav_right navigator {
+  padding: 20rpx;
+  background: #fff;
+}
+
+/*左侧侧列表字体*/
+.left_list_text {
+  text-align: center;
+  font-size: 15rpx;
+  line-height: 44rpx;
+  position: absolute;
+  top: 0rpx;
+  bottom: 1rpx;
+  left: 2rpx;
+  right: 0rpx;
+  display: block
+}
+
+.left_list_text_nomal {
+  color: #787878;
+  background-color: #E5E5E5;
+}
+
+.left_list_text_select {
+  color: #FF6261;
+  background-color: white;
+}
+
+/*右侧列表样式*/
+
+.nav_right_items {
+  position: relative;
+}
+
+.right_list_style {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 150rpx;
+  background-color: #F5F5F5;
+}
+
+/*右侧列表item*/
+.right_list_item {
+  position: relative;
+  width: 100%;
+  height: 180rpx;
+}
+
+/*商品主图*/
+.right_list_item_image {
+  position: absolute;
+  height: 160rpx;
+  width: 160rpx;
+  top: 10rpx;
+  left: 10rpx;
+  right: 10rpx;
+}
+
+/*商品名称*/
+.right_list_item_title {
+  position: absolute;
+  left: 180rpx;
+  right: 10rpx;
+  top: 20rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  font-size: 32rpx;
+  color: #333;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/*规格*/
+.right_list_item_specification {
+  position: absolute;
+  left: 180rpx;
+  top: 70rpx;
+  line-height: 20rpx;
+  font-size: 20rpx;
+  color: #B2B2B2;
+}
+
+
+/*售价*/
+.right_list_item_price {
+  position: absolute;
+  bottom: 40rpx;
+  left: 180rpx;
+  height: 40rpx;
+  color: #FF6261;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+
+
+/*市场价*/
+.right_list_item_market_price {
+  position: absolute;
+  bottom: 10rpx;
+  left: 180rpx;
+  font-size: 20rpx;
+  color: #333333;
+  margin-left: 6rpx;
+  text-decoration: line-through;
+}
+
+.right_list_itemnumber {
+  position: absolute;
+  bottom: 44rpx;
+  right: 20rpx;
+}
+
+/*+号按钮*/
+.add_image_style {
+  float: right;
+  width: 35rpx;
+  height: 35rpx;
+}
+
+/*——号按钮*/
+.reduce_image_style {
+  float: right;
+  width: 35rpx;
+  height: 35rpx;
+
+}
+
+/*购买数量*/
+.good_buy_number {
+  float: right;
+  height: 35rpx;
+  line-height: 35rpx;
+  font-size: 28rpx;
+  margin-right: 6rpx;
+  margin-left: 6rpx;
+}
+
+.right_line {
+  position: absolute;
+  bottom: 0rpx;
+  width: 100%;
+  height: 1px;
+  background-color: #F5F5F5;
+}
+
+/* 购物车 */
+.buycar {
+  position: fixed;
+  bottom: 30rpx;
+  left: 50rpx;
+  width: 80rpx;
+  height: 80rpx;
+  line-height: 106rpx;
+  text-align: center;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+
+}
+
+.buycar image {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.buycar text {
+  position: absolute;
+  top: 3rpx;
+  right: 0rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  background: red;
+  border-radius: 50%;
+  width: 30rpx;
+  color: #fff;
+  font-size: 20rpx;
+  text-align: center;
+
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+  width: 100%;
+  height: 300px;
+}
+
+
+
+

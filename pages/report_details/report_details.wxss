@@ -1,0 +1,88 @@
+/* pages/report_details/report_details.wxss */
+page{
+    padding-top: 20rpx;
+}
+.con {
+    display: flex;
+    padding: 20rpx 0;
+    font-size: 30rpx;
+}
+
+.con h5 {
+    flex: 8;
+    margin-left: 20rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+}
+/* 日期 */
+.con mp-cell {
+    flex: 4;
+    font-size: 28rpx;
+    margin-right: 20rpx;
+    border: 1px solid #c9c9c9;
+    border-radius: 30rpx;
+    background: #f8f8f8;
+}
+
+.con mp-cell picker {
+    float: left;
+    padding-left: 25rpx;
+
+}
+
+.con mp-cell image {
+    float: right;
+    width: 30rpx;
+    height: 30rpx;
+    margin-top: 6rpx;
+    margin-right: 10rpx;
+}
+
+.container {
+    width: 100%;
+    text-align: center;
+    margin: 20rpx auto;
+    border-radius: 10rpx;
+    overflow: hidden;
+
+}
+
+canvas {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.anniu-box {
+    display: flex;
+}
+
+.anniu-box view {
+    flex: 1;
+    padding: 10rpx 0;
+    margin: 100rpx 0;
+    font-size: 30rpx;
+    text-align: center;
+    border: 1px solid #c9c9c9;
+    border-radius: 30rpx;
+    background: #f8f8f8;
+}
+
+.anniu-box .anniu-shang {
+    margin-left: 150rpx;
+    margin-right: 40rpx;
+}
+
+.anniu-box .anniu-xia {
+    margin-left: 40rpx;
+    margin-right: 150rpx;
+}
+
+.anniu-box view image {
+    width: 18rpx;
+    height: 14rpx;
+    margin-bottom: 4rpx;
+
+}

@@ -1,0 +1,16 @@
+/* 点击加载更多 */
+
+.button-wrapper button {
+  width: 100%;
+  height: 50rpx;
+  line-height: 1.5;
+  font-size: 28rpx;
+  color: #f75910;
+  background: none;
+}
+.button-wrapper .button-hover{
+  color: #fff;
+  background-color: #999;
+  
+  }
+  

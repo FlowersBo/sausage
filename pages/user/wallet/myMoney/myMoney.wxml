@@ -1,0 +1,39 @@
+<!--pages/user/wallet/myMoney/myMoney.wxml-->
+<view class="myMoney">
+  <!-- 日期选择 -->
+  <view class="con">
+    <mp-cell prop="date" title="日期">
+      <picker data-field="date" mode="date" value="{{date}}" bindchange="bindStartDateChange">
+        <view class="weui-input">{{startDate}}</view>
+      </picker>
+      <image src="../../../../assets/img/timg.png" alt="" mode="aspectFit" />
+    </mp-cell>
+    <view class="center">——</view>
+    <mp-cell class="right" prop="date" title="日期">
+      <picker data-field="date" mode="date" value="{{date}}" bindchange="bindEndDateChange">
+        <view class="weui-input">{{endDate}}</view>
+      </picker>
+      <image src="../../../../assets/img/timg.png" alt="" mode="aspectFit" />
+    </mp-cell>
+  </view>
+  <view class="title">
+    <view class="leftBorder"></view>
+    <view class="title-text">收支明细</view>
+  </view>
+  <view class="list">
+    <view class="listDetail">
+      <view class="goods {{index%2==0?'bac_a':''}}" wx:for="{{6}}" wx:key="index" data-id="{{item.id}}"
+        bindtap="selectGoods">
+        <view class="goods-item">
+          2021-03-24 09:39:37
+        </view>
+        <view class="goods-item">
+          收入
+        </view>
+        <view class="goods-item">
+          2021000
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

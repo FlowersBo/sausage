@@ -1,0 +1,91 @@
+<!--pages/status_details/status_details.wxml-->
+<!-- 地址 -->
+<view class="contion">
+    <view class="order-status">{{orderInfo.status}}</view>
+
+    <view class="user-info">
+        <view class="characterIcon">
+            <text>{{userInfo.name[0]}}</text>
+            <view class="circle"></view>
+        </view>
+        <!-- <canvas disable-scroll="true" type="2d" id="characterIcon" width="100rpx" height="100rpx"></canvas> -->
+        <view class="left">
+            <view>
+                <!-- <image src="../../assets/img/add.png"></image> -->
+                <text>{{userInfo.name}}</text> <text>{{userInfo.mobile}}</text>
+            </view>
+            <view><text>{{userInfo.address}}</text></view>
+        </view>
+    </view>
+    
+    
+    <view class="total">
+        共{{orderInfo.quantity}}件
+    </view>
+</view>
+
+<!-- 物品展示 -->
+<view class="container">
+  
+
+    <view class="section section-good">
+
+        <view class="good" wx:for="{{orderInfo.detail}}" wx:for-item="goods"  >
+            <view class="cover">
+                <image src="{{goods.url}}"></image>
+            </view>
+            <view class="content">
+                <view class="text name">{{goods.goodsname}}</view>
+                <view class="text specifications">
+                    {{goods.norm}}
+                </view>
+                <view class="text price">
+                    <text>¥{{goods.realprice}}</text>
+                    <text>¥{{goods.price}}</text>
+                </view>
+            </view>
+            <view class="stepper">
+                <input class="count" type="number" value="x{{goods.count}}" />
+            </view>
+        </view>
+    </view>
+
+    <!-- 订单详情 -->
+    <view class="order_details">
+            <view>
+                <text>订单号</text>：<text>{{orderInfo.id}}</text>
+            </view>
+            <view>
+                <text>下单时间</text>：<text>{{orderInfo.orderTime}}</text>
+            </view>
+            <view>
+                <text>商品金额</text>：<text>{{orderInfo.goodsamount}}</text>
+            </view>
+            <view>
+                <text>配送费</text>：<text>{{orderInfo.shipfee}}</text>
+            </view>
+            <view>
+                <text>订单备注</text>：<text>{{orderInfo.memo}}</text>
+            </view>
+    </view>
+
+    <!-- 去支付 -->
+    <view class="section-bottom">
+        <view class="total">
+            <view class="totalPrice">应付金额：
+                <text>¥{{orderInfo.settleAccounts}}</text>
+            </view>
+        </view>
+        <view class="order-btn" >
+            <block wx:if="{{isShowBtn}}"  wx:for="{{btnGenre}}" wx:for-item="name">
+                <button data-OrderId="{{orderInfo.id}}" data-OperationGenre="{{name}}" catchtap = "bindOperationOrder">{{name}}</button>
+            </block>
+        </view>
+        <!-- <view class="btn close" catchtap="bindCancelOrder">
+            取消订单
+        </view>
+        <view class="btn" catchtap="bindPayOrder">
+            继续支付
+        </view> -->
+    </view>
+</view>

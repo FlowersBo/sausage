@@ -1,0 +1,46 @@
+/* pages/order_details/order_details.wxss */
+page,
+.content {
+    padding: 20rpx;
+    box-sizing: border-box;
+}
+
+.order {
+    margin-bottom: 20rpx;
+    border-radius: 10rpx;
+    background: #f8f8f8;
+    overflow: hidden;
+}
+.title{
+    height: 70rpx;
+    line-height: 70rpx;
+    font-size: 30rpx;
+    color: #fff;
+    letter-spacing: 1px;
+    text-align: center;
+    background: #f75910;
+}
+.demo-item {
+    height: 50rpx;
+    line-height: 50rpx;
+    font-size: 26rpx;
+    border-bottom: 1rpx solid #c9c9c9;
+}
+.demo-item:last-child{
+    border-bottom: none;
+}
+
+
+.demo-item:last-child:after {
+    display: none;
+}
+
+.demo-item view {
+    display: inline-block;
+}
+
+.demo-item view:first-child {
+    width: 160rpx;
+    text-align: justify;
+    text-align-last: justify;
+}

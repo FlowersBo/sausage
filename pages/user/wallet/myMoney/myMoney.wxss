@@ -1,0 +1,59 @@
+/* pages/user/wallet/myMoney/myMoney.wxss */
+@import "../../totalMoney/totalMoney.wxss";
+.myMoney{
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.detail {
+  padding: 25rpx 15rpx;
+}
+
+.tabTit {
+  width: 670rpx;
+}
+
+.flex1:first-child,.flex1:last-child, .info.box view.flex1 {
+  flex: 4;
+}
+
+.tabTit .flex1:last-child image {
+  display: inline-block;
+}
+
+/* 日期 */
+.con {
+  display: flex;
+  margin: 30rpx 0;
+}
+
+.con mp-cell {
+  flex: 4;
+  font-size: 28rpx;
+  border: 1px solid #c9c9c9;
+  border-radius: 30rpx;
+  background: #f8f8f8;
+}
+
+.center {
+  flex: 4;
+  text-align: center;
+}
+
+.con mp-cell picker {
+  float: left;
+  padding-left: 25rpx;
+}
+
+.con mp-cell image {
+  float: right;
+  width: 30rpx;
+  height: 30rpx;
+  margin-top: 6rpx;
+}
+
+.goods-item:first-child{
+  flex: 3;
+}
+.goods-item:last-child{
+  flex: 1.5;
+}

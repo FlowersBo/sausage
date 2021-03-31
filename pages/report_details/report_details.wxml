@@ -1,0 +1,27 @@
+<!--pages/report_details/report_details.wxml-->
+<view>
+    <view class="con">
+        <h5>{{pointName}}</h5>
+        <mp-cell prop="date" title="日期">
+            <picker data-field="date" mode="date" value="{{date}}" bindchange="bindDateChange">
+                <view class="weui-input">{{date}}</view>
+            </picker>
+            <image src="../../assets/img/timg.png" alt="" mode="aspectFit" />
+        </mp-cell>
+    </view>
+    <view class="container">
+        <ec-canvas id="hour-chart" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
+    </view>
+
+    <view class="anniu-box">
+        <view class="anniu-shang" bindtap="lowerJump" >
+            <image class="" src="../../assets/img/lt.png" mode="aspectFill" ></image>
+            前一天
+        </view>
+        <view class="anniu-xia" bindtap="upJump" >
+            后一天
+            <image class="" src="../../assets/img/gt.png" mode="aspectFill" ></image>
+        </view>
+    </view>
+
+</view>
