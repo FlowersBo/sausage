@@ -30,7 +30,37 @@ Page({
     that.setData({
       endDate: endTime,
     });
+    that.incomeDetailFn();
   },
+
+  incomeDetailFn: () => {
+    let data = {
+      bizUserId: wx.getStorageSync('bizUserId'),
+      dateStart: that.data.startDate,
+      dateEnd: that.data.endDate,
+      startPosition: '1',
+      queryNum: '10'
+    };
+    mClient.PostIncludeData(api.InExpDetail, data)
+      .then(resp => {
+        console.log('收支详情', resp);
+        if (resp.data.success) {
+          that.setData({
+
+          })
+        } else {
+          wx.showToast({
+            title: resp.data.msg,
+            icon: 'none',
+            duration: 2000
+          });
+        }
+      })
+      .catch(rej => {
+        console.log('错误', rej)
+      })
+  },
+
   bindStartDateChange: function (e) {
     this.setData({
       startDate: e.detail.value,

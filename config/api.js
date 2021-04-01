@@ -63,4 +63,5 @@ module.exports = {
     BindPhone: ApiRootUrl + "allinpay/member/bindPhone",//绑定手机号
     UpdatePhone: ApiRootUrl + "allinpay/member/updatePhoneByPayPwd",//修改手机号
     QueryBankCard: ApiRootUrl + "allinpay/member/queryBankCard",//卡信息查询
+    InExpDetail: ApiRootUrl + "allinpay/order/queryInExpDetail",//收支明细
 }
