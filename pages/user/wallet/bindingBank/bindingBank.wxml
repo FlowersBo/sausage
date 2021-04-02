@@ -15,7 +15,7 @@
     </view>
     <view class="addBackCard" bindtap="addBankCard">
       <icon class="iconfont icon icon-shuaqiaqiapianyinhangqia"></icon>
-      <view class="add-text">绑定银行卡</view>
+      <view class="add-text">{{bankStatus}}</view>
     </view>
   </view>
 </view>

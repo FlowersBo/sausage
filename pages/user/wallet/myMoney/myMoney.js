@@ -9,7 +9,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    loadText: '点击加载',
+    pageIndex: 1,
+    pageSize: 10
   },
 
   /**
@@ -30,23 +32,28 @@ Page({
     that.setData({
       endDate: endTime,
     });
-    that.incomeDetailFn();
+    let startPosition = that.data.pageIndex,
+      queryNum = that.data.pageSize;
+    that.incomeDetailFn(startPosition, queryNum);
   },
 
-  incomeDetailFn: () => {
+  incomeDetailFn: (startPosition, queryNum) => {
     let data = {
       bizUserId: wx.getStorageSync('bizUserId'),
       dateStart: that.data.startDate,
       dateEnd: that.data.endDate,
-      startPosition: '1',
-      queryNum: '10'
+      startPosition,
+      queryNum
     };
     mClient.PostIncludeData(api.InExpDetail, data)
       .then(resp => {
         console.log('收支详情', resp);
         if (resp.data.success) {
+          let incomeDetail = JSON.parse(resp.data.data);
+          console.log(incomeDetail)
           that.setData({
-
+            totalNum: incomeDetail.totalNum,
+            pageIndex: that.data.pageIndex + 1
           })
         } else {
           wx.showToast({
@@ -72,6 +79,36 @@ Page({
       endDate: e.detail.value,
     })
   },
+
+
+
+
+  // 加载更多
+  bindLoading: function () {
+    let pageIndex = that.data.pageIndex,
+      pageSize = that.data.pageSize,
+      totalNum = that.data.totalNum;
+    if ((totalNum / pageSize) < pageIndex) {
+      this.setData({
+        loadText: '已经到底了',
+      })
+    }
+
+    if (((pageIndex * pageSize) - totalNum) > pageSize) {
+      this.setData({
+        loadText: '已经到底了',
+      })
+      return;
+    };
+
+    this.incomeDetailFn(pageIndex,that.data.pageSize);
+    this.setData({
+      pageIndex: pageIndex + 1,
+    })
+  },
+
+
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

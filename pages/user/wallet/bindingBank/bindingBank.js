@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    bankStatus: '绑定银行卡'
   },
 
   /**
@@ -42,6 +42,11 @@ Page({
       .then(resp => {
         console.log('卡', resp);
         if (resp.data.success) {
+          if (resp.data.data.length > 0) {
+            that.setData({
+              bankStatus: '添加银行卡'
+            })
+          }
           that.setData({
             bankCardList: resp.data.data
           })

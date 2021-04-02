@@ -22,8 +22,7 @@
   </view>
   <view class="list">
     <view class="listDetail">
-      <view class="goods {{index%2==0?'bac_a':''}}" wx:for="{{6}}" wx:key="index" data-id="{{item.id}}"
-        bindtap="selectGoods">
+      <view class="goods {{index%2==0?'bac_a':''}}" wx:for="{{6}}" wx:key="index" data-id="{{item.id}}">
         <view class="goods-item">
           2021-03-24 09:39:37
         </view>
@@ -35,5 +34,10 @@
         </view>
       </view>
     </view>
+  </view>
+  <view class="button-wrapper">
+    <button type="default" size="default" loading="{{loading}}" disabled="{{disabled}}" bindtap="bindLoading">
+      {{loadText}}
+    </button>
   </view>
 </view>

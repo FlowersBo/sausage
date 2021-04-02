@@ -86,7 +86,9 @@
   align-items: center;
   border-bottom: 1px solid #e6e6e6;
 }
-
+.goods:last-child{
+  border: none;
+}
 .bac_a {
   background: rgba(255, 153, 0, 0.03);
 }
