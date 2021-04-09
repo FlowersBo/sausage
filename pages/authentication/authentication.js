@@ -17,6 +17,7 @@ Page({
   onLoad: function (options) {
     that = this;
   },
+  
   //提交
   formFaceUpload: (e) => {
     console.log('提交表单', e)

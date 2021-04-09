@@ -10,11 +10,12 @@
       </view> -->
       <view class="authorization_content">
         <slot name='isContent'></slot>
+        <image class="img" src="../../assets/img/paswordImg.png"></image>
       </view>
     </view>
   </view>
   <view class="btnWrap">
-    <button class="drawer_box_btn" data-status="0" catchtap="gotobargainDetailFuns">设置/修改密码</button>
+    <button class="drawer_box_btn" data-status="0" catchtap="gotobargainDetailFuns">修改密码</button>
     <button class="drawer_box_btn" data-status="1" catchtap="gotobargainDetailFuns">忘记密码</button>
   </view>
 </view>

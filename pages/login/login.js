@@ -25,7 +25,7 @@ Page({
 			return;
 		}
 		//is qualified phone number
-		if ((/^1[34578]\d{9}$/.test(phoneNumber))) {
+		if ((/^1[3456789]\d{9}$/.test(phoneNumber))) {
 			isPhoneNumber = true;
 		} else {
 			isPhoneNumber = false;
@@ -63,7 +63,7 @@ Page({
 			return;
 		}
 
-		if (!(/^1[34578]\d{9}$/.test(phoneNumber))) {
+		if (!(/^1[3456789]\d{9}$/.test(phoneNumber))) {
 			wx.showToast({
 				title: '手机号格式有误',
 				icon: 'none',
@@ -116,8 +116,6 @@ Page({
 				duration: 1000
 			});
 		}
-
-
 	},
 
 	bindInputVerificationCode: function (e) {

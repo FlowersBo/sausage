@@ -26,10 +26,10 @@ Component({
   methods: {
     gotobargainDetailFuns: function(e) {
       let status = e.currentTarget.dataset.status;
-      this.util('close',status);
+      this.utilFn('close',status);
     },
     // 模态动画
-    util: function(currentStatu,status){
+    utilFn: function(currentStatu,status){
       console.log('模态动画');
       /* 动画部分 */
       // 第1步：创建动画实例

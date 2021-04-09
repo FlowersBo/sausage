@@ -5,7 +5,7 @@
       <view class="balanceTitle">
         <view class="balancetext">现金账户余额(元)</view>
         <view class="btnWrap">
-          <view class="btn" bindtap="bindLogOut">支付密码</view>
+          <view class="btn" bindtap="bindLogOut">{{setPaswordText}}</view>
           <view class="btn">提现申请</view>
         </view>
       </view>
@@ -28,7 +28,7 @@
       <view class="bindingPhone">
         <view class="bindingTitle">我的手机号</view>
         <view class="phoneReveal">
-          <view class="phone"></view>
+          <view class="phone">{{walletDetail.phone}}</view>
           <view class="binding" bindtap="bindingPhone">{{bindingPhoneState}}</view>
         </view>
       </view>
@@ -37,7 +37,7 @@
         <view class="bankCardName">{{walletDetail.bankName}}</view>
         <view class="phoneReveal">
           <view class="phone">{{walletDetail.bankCardNo}}</view>
-          <view class="binding" bindtap="bindingBank">绑定银行卡</view>
+          <view class="binding" bindtap="bindingBank">{{bindingBankState}}</view>
         </view>
       </view>
     </view>
@@ -47,15 +47,23 @@
         <view class="incomeDetailBtn" bindtap="gotomyMoney">收支明细</view>
       </view>
       <view class="incomeDetail">
-        <view class="incomeDetail-item" wx:for="{{3}}" wx:key="index">
+        <view class="incomeDetail-item">
           <view class="incomeDetail-time">上月收入(元)</view>
-          <view class="incomeDetail-money">5000.00</view>
+          <view class="incomeDetail-money">{{accountFlow[0].beforeMonth}}</view>
+        </view>
+        <view class="incomeDetail-item">
+          <view class="incomeDetail-time">本月收入(元)</view>
+          <view class="incomeDetail-money">{{accountFlow[1].thisMonth}}</view>
+        </view>
+        <view class="incomeDetail-item">
+          <view class="incomeDetail-time">昨日收入(元)</view>
+          <view class="incomeDetail-money">{{accountFlow[2].yesterday}}</view>
         </view>
       </view>
     </view>
   </view>
   <mask id="mask" openSetting="{{openSetting}}" bind:statusNumber="statusNumberFn">
     <!-- <view slot='isTitle'>支付密码</view> -->
-    <view slot='isContent'>支付密码</view>
+    <view slot='isContent'>修改密码</view>
   </mask>
 </view>

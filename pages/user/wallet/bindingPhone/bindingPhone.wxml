@@ -8,8 +8,7 @@
     </view>
     <view class="phone-box">
       <text class="phone">验证码：</text>
-      <input name="phoneCode" placeholder="请输入验证码" class="number" placeholder-style="color:#bbb"
-        bindinput="bindInputVerificationCode" />
+      <input name="phoneCode" placeholder="请输入验证码" class="number" placeholder-style="color:#bbb" />
       <view bindtap="getVerificationCode" class="getNum" hover-class="getNum_hover" hover-stay-time="100">
         {{verificationControlText}}</view>
     </view>

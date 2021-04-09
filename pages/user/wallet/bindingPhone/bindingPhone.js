@@ -162,7 +162,7 @@ Page({
 			});
 			return;
 		}
-		if (verificationCode.length != 6) {
+		if (verificationCode.length > 6) {
 			wx.showToast({
 				title: '验证码错误',
 				icon: 'none',
@@ -176,18 +176,19 @@ Page({
 			verificationCode
 		};
 		mClient.PostIncludeData(api.BindPhone, data)
-		console.log('绑定手机号',resp)
 			.then((resp) => {
-				if (resp.data.success) {
-					wx.redirectTo({
-						url: '../wallet/wallet'
-					});
-				} else {
+				console.log('绑定手机号', resp)
+				if (resp.data.code == 0) {
 					wx.showToast({
 						title: resp.data.msg,
 						icon: 'none',
 						duration: 1000
 					});
+					setTimeout(function () {
+						wx.redirectTo({
+							url: '/pages/user/wallet/wallet'
+						});
+					}, 1500)
 				}
 			});
 	},

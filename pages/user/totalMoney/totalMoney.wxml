@@ -23,18 +23,20 @@
             {{item}}
           </view>
         </view>
-        <view class="goods {{index%2==0?'bac_a':''}}" wx:for="{{incomes.accountFlow}}" wx:key="index"
-          data-id="{{item.id}}" bindtap="selectGoods">
-          <view class="goods-item">
-            2021
-          </view>
-          <view class="goods-item">
-            2021
-          </view>
-          <view class="goods-item">
-            2021
-          </view>
+        <view class="incomeDetail">
+        <view class="incomeDetail-item">
+          <view class="incomeDetail-time">上月收入(元)</view>
+          <view class="incomeDetail-money">{{incomes.accountFlow[0].beforeMonth}}</view>
         </view>
+        <view class="incomeDetail-item">
+          <view class="incomeDetail-time">本月收入(元)</view>
+          <view class="incomeDetail-money">{{incomes.accountFlow[1].thisMonth}}</view>
+        </view>
+        <view class="incomeDetail-item">
+          <view class="incomeDetail-time">昨日收入(元)</view>
+          <view class="incomeDetail-money">{{incomes.accountFlow[2].yesterday}}</view>
+        </view>
+      </view>
       </view>
       <view class="noData" wx:else>
         暂无数据，稍后再来吧

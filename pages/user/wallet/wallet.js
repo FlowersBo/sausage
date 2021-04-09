@@ -9,7 +9,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    bindingPhoneState: '绑定手机'
+    bindingPhoneState: '绑定手机号',
+    bindingBankState: '绑定银行卡',
+    setPaswordText: '设置密码'
   },
 
   /**
@@ -20,9 +22,43 @@ Page({
     this.mask = this.selectComponent('#mask');
   },
 
-  // bindLogOut: function () {
-  //   this.mask.util('open');
-  // },
+  //设置密码
+  bindLogOut: function () {
+    let data = {
+      bizUserId: wx.getStorageSync('bizUserId')
+    };
+    if (that.data.ledgerTarget.payPwdVerify == 0) {
+      mClient.PostIncludeData(api.SetPayPwd, data)
+        .then(resp => {
+          console.log('设置密码', resp);
+          if (resp.data.success) {
+            let parameter = resp.data.data;
+            wx.navigateToMiniProgram({
+              appId: 'wxc46c6d2eed27ca0a',
+              path: 'pages/merchantAddress/merchantAddress',
+              extraData: {
+                targetUrl: parameter
+              },
+              // envVersion: 'develop',
+              success(res) {
+                console.log('打开成功', res)
+              }
+            })
+          } else {
+            wx.showToast({
+              title: resp.data.msg,
+              icon: 'none',
+              duration: 2000
+            });
+          }
+        })
+        .catch(rej => {
+          console.log('错误', rej)
+        })
+    } else {
+      this.mask.utilFn('open');
+    }
+  },
 
   myWalletFn: () => {
     let data = {
@@ -30,13 +66,65 @@ Page({
     };
     mClient.PostIncludeData(api.Wallet, data)
       .then(resp => {
+        let dateTextWrap = [{
+          dateText: '上月收入'
+        }, {
+          dateText: '当月收入'
+        }, {
+          dateText: '当日收入'
+        }];
         console.log('钱包详情', resp);
+        let accountFlow = resp.data.data.accountFlow;
+        console.log(accountFlow)
+
+        // for (const key in accountFlow) {
+        //   const element = accountFlow[key];
+        //   console.log(element)
+        //   for (let [key, val] of element.entries()) {
+        //     console.log(key, val)
+        //   };
+        // }
+
+        // var obj = dateTextWrap.map((item, index) => {
+        //   return {
+        //     ...item,
+        //     ...resp.data.data.accountFlow[index]
+        //   };
+        // });
+        // console.log('合并数组', obj);
         if (resp.data.success) {
           that.setData({
             walletDetail: resp.data.data,
-            accountFlow: resp.data.data.accountFlow,
+            accountFlow: accountFlow,
             ledgerTarget: resp.data.data.ledgerTarget
           })
+          if (that.data.ledgerTarget.phoneVerify == 0) {
+            that.setData({
+              bindingPhoneState: '绑定手机号'
+            })
+          } else {
+            that.setData({
+              bindingPhoneState: '修改手机号'
+            })
+          }
+          if (that.data.ledgerTarget.cardVerify == 0) {
+            that.setData({
+              bindingBankState: '绑定银行卡'
+            })
+          } else {
+            that.setData({
+              bindingBankState: '添加银行卡'
+            })
+          }
+          if (that.data.ledgerTarget.payPwdVerify == 0) {
+            that.setData({
+              setPaswordText:'设置密码'
+            })
+          } else {
+            that.setData({
+              setPaswordText:'修改密码'
+            })
+          }
         } else {
           wx.showToast({
             title: resp.data.msg,
@@ -52,14 +140,65 @@ Page({
 
   // mask模态框
   statusNumberFn: (e) => {
+    let data = {
+      bizUserId: wx.getStorageSync('bizUserId')
+    };
     if (e.detail.status === '0') {
-      wx.navigateTo({
-        url: 'paymentPassword/paymentPassword',
-      })
+      mClient.PostIncludeData(api.UpdatePayPwd, data)
+        .then(resp => {
+          console.log('修改密码', resp);
+          if (resp.data.success) {
+            let parameter = resp.data.data;
+            wx.navigateToMiniProgram({
+              appId: 'wxc46c6d2eed27ca0a',
+              path: 'pages/merchantAddress/merchantAddress',
+              extraData: {
+                targetUrl: parameter
+              },
+              // envVersion: 'develop',
+              success(res) {
+                console.log('打开成功', res)
+              }
+            })
+          } else {
+            wx.showToast({
+              title: resp.data.msg,
+              icon: 'none',
+              duration: 2000
+            });
+          }
+        })
+        .catch(rej => {
+          console.log('错误', rej)
+        })
     } else {
-      wx.navigateTo({
-        url: 'forgetPassword/forgetPassword',
-      })
+      mClient.PostIncludeData(api.ResetPayPwd, data)
+        .then(resp => {
+          console.log('忘记密码', resp);
+          if (resp.data.success) {
+            let parameter = resp.data.data;
+            wx.navigateToMiniProgram({
+              appId: 'wxc46c6d2eed27ca0a',
+              path: 'pages/merchantAddress/merchantAddress',
+              extraData: {
+                targetUrl: parameter
+              },
+              // envVersion: 'develop',
+              success(res) {
+                console.log('打开成功', res)
+              }
+            })
+          } else {
+            wx.showToast({
+              title: resp.data.msg,
+              icon: 'none',
+              duration: 2000
+            });
+          }
+        })
+        .catch(rej => {
+          console.log('错误', rej)
+        })
     }
   },
 
@@ -71,17 +210,23 @@ Page({
       url: "myMoney/myMoney?time=" + time,
     });
   },
+
   bindingPhone: () => {
     if (that.data.ledgerTarget.phoneVerify == 0) {
       wx.navigateTo({
         url: 'bindingPhone/bindingPhone',
       })
-      that.setData({
-        bindingPhoneState: '绑定手机'
+      return
+    } else if (that.data.ledgerTarget.payPwdVerify == 0) {
+      wx.showToast({
+        title: '请先设置支付密码',
+        icon: 'none',
+        duration: 2000
       })
+      return
     } else {
-      that.setData({
-        bindingPhoneState: '修改手机号'
+      wx.navigateTo({
+        url: 'modificationPhone/modificationPhone',
       })
     }
   },

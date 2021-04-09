@@ -72,12 +72,16 @@ Page({
     this.setData({
       startDate: e.detail.value,
     })
+    let pageIndex = 1;
+    that.incomeDetailFn(pageIndex,that.data.pageSize);
   },
 
   bindEndDateChange: function (e) {
     this.setData({
       endDate: e.detail.value,
     })
+    let pageIndex = 1;
+    that.incomeDetailFn(pageIndex,that.data.pageSize);
   },
 
 

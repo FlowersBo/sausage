@@ -64,4 +64,7 @@ module.exports = {
     UpdatePhone: ApiRootUrl + "allinpay/member/updatePhoneByPayPwd",//修改手机号
     QueryBankCard: ApiRootUrl + "allinpay/member/queryBankCard",//卡信息查询
     InExpDetail: ApiRootUrl + "allinpay/order/queryInExpDetail",//收支明细
+    SetPayPwd: ApiRootUrl + "allinpay/member/setPayPwd",//设置密码
+    UpdatePayPwd: ApiRootUrl + "allinpay/member/updatePayPwd", //修改密码
+    ResetPayPwd: ApiRootUrl + "allinpay/member/resetPayPwd", //忘记密码
 }

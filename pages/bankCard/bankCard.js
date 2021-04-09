@@ -78,9 +78,9 @@ Page({
         if (resp.data.success) {
           if (resp.data.data) {
             if (that.data.routeName) {
-              wx.switchTab({
-                url: '/pages/user/wallet/wallet'
-              });
+              wx.navigateBack({
+                delta: 1
+              })
             } else {
               wx.switchTab({
                 url: '/pages/user/user'

@@ -118,9 +118,9 @@
 }
 
 .bankCardName {
-  color: rgb(212, 200, 32);
+  color: rgb(14, 223, 77);
   font-size: 28rpx;
-  margin-bottom: 30rpx;
+  padding-top: 20rpx;
 }
 
 .binding {
@@ -172,4 +172,6 @@
   border-bottom: 1px solid #e6e1e1;
   display: flex;
   justify-content: space-between;
+  box-sizing: border-box;
+  padding-right: 40rpx;
 }
