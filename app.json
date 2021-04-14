@@ -23,7 +23,6 @@
     "pages/user/wallet/myMoney/myMoney",
     "pages/user/wallet/bindingPhone/bindingPhone",
     "pages/user/wallet/bindingBank/bindingBank",
-    "pages/user/wallet/bindingBank/addBankCard/addBankCard",
     "pages/user/wallet/paymentPassword/paymentPassword",
     "pages/user/wallet/forgetPassword/forgetPassword",
     "pages/user/wallet/modificationPasswrod/modificationPasswrod",

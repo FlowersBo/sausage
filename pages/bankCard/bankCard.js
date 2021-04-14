@@ -8,7 +8,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    phoneNumber: '',
+    verificationCode: '',
+    isVerifyOutTime: true,
+    verificationControlText: '获取验证码',
+    verificationTimeTotal: 60,
+    isRepeatClick: false
   },
 
   /**
@@ -24,6 +29,118 @@ Page({
       })
     }
   },
+
+  bindUserName: e => {
+    that.setData({
+      userName: e.detail.value
+    });
+  },
+  bindIdCardNumber: e => {
+    that.setData({
+      idCardNumber: e.detail.value
+    });
+  },
+
+  bindBankCardNumber: e => {
+    that.setData({
+      bankCardNumber: e.detail.value
+    });
+  },
+
+  bindPhoneNumber(e) {
+    that.setData({
+      phoneNumber: e.detail.value
+    });
+  },
+
+
+  getVerificationCode: function () {
+    let that = this;
+    let userName = that.data.userName,
+    idCardNumber = that.data.idCardNumber,
+    bankCardNumber= that.data.bankCardNumber,
+    phoneNumber = that.data.phoneNumber;
+    let isVerifyOutTime = that.data.isVerifyOutTime;
+    let verificationTimeTotal = that.data.verificationTimeTotal;
+    let isRepeatClick = that.data.isRepeatClick;
+
+    if (isRepeatClick == true) {
+      return
+    }
+
+    if (!(/^1[3456789]\d{9}$/.test(phoneNumber))) {
+      wx.showToast({
+        title: '手机号有误',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    }
+
+    let data = {
+      bizUserId: wx.getStorageSync('bizUserId'),
+      phone: phoneNumber, 
+    }
+
+    if (isVerifyOutTime == true) {
+      wx.showLoading({
+        title: '验证码获取中',
+      })
+      mClient.PostIncludeData(api.ApplyBindBankCard, data)
+        .then((resp) => {
+          console.log(resp);
+          if (resp.data.success) {
+            this.setData({
+              isRepeatClick: true
+            })
+            that.startVerificationCountDown(verificationTimeTotal);
+            wx.showToast({
+              title: '发送成功',
+              icon: 'none',
+              duration: 1000
+            });
+          } else {
+            wx.showToast({
+              title: resp.data.msg,
+              icon: 'none',
+              duration: 2000
+            });
+          }
+          wx.hideLoading();
+        });
+
+    } else {
+      wx.showToast({
+        title: '请稍后重新获取验证码',
+        icon: 'none',
+        duration: 1000
+      });
+    }
+  },
+
+
+  // 运营商15001081726
+  startVerificationCountDown: function (count) {
+    if (count == 0) {
+      this.setData({
+        verificationControlText: '获取验证码',
+        isVerifyOutTime: true,
+        isRepeatClick: false
+      });
+      return;
+    } else {
+      this.setData({
+        isRepeatClick: true,
+        verificationControlText: count,
+      });
+      count = count - 1;
+      setTimeout(() => {
+        this.startVerificationCountDown(count)
+      }, 1000);
+    }
+  },
+
+
 
   formFaceUpload: (e) => {
     console.log(e);
@@ -72,7 +189,7 @@ Page({
       identityNo,
       cardNo
     };
-    mClient.PostIncludeData(api.BindBankCard, data)
+    mClient.PostIncludeData(api.ApplyBindBankCard, data)
       .then(resp => {
         console.log('绑卡', resp);
         if (resp.data.success) {

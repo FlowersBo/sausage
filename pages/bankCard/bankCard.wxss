@@ -33,7 +33,7 @@
 
 .formFaceUpload {
   width: 100%;
-  margin-top: 250rpx;
+  margin-top: 150rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -118,4 +118,31 @@
   margin-top: 150rpx;
   border-radius: 50rpx;
   z-index: 10;
+}
+
+.verificationWrap {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+}
+
+.verificationWrap .inp {
+  width: 300rpx;
+  height: 90rpx;
+  padding-left: 20rpx;
+  line-height: 90rpx;
+  border-radius: 10rpx;
+  background-color: #eee;
+}
+
+.verification {
+  margin-left: 20rpx;
+  width: 220rpx;
+  height: 90rpx;
+  background-color: #F75910;
+  color: #fff;
+  border-radius: 10rpx;
+  line-height: 90rpx;
+  text-align: center;
+  font-size: 32rpx;
 }

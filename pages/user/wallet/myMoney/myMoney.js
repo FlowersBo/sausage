@@ -49,10 +49,11 @@ Page({
       .then(resp => {
         console.log('收支详情', resp);
         if (resp.data.success) {
-          let incomeDetail = JSON.parse(resp.data.data);
+          let incomeDetail = resp.data.data.inExpDetail;
           console.log(incomeDetail)
           that.setData({
-            totalNum: incomeDetail.totalNum,
+            incomeDetail: incomeDetail,
+            totalNum: resp.data.data.totalNum,
             pageIndex: that.data.pageIndex + 1
           })
         } else {
@@ -71,17 +72,19 @@ Page({
   bindStartDateChange: function (e) {
     this.setData({
       startDate: e.detail.value,
+      loadText: '点击加载',
     })
     let pageIndex = 1;
-    that.incomeDetailFn(pageIndex,that.data.pageSize);
+    that.incomeDetailFn(pageIndex, that.data.pageSize);
   },
 
   bindEndDateChange: function (e) {
     this.setData({
       endDate: e.detail.value,
+      loadText: '点击加载',
     })
     let pageIndex = 1;
-    that.incomeDetailFn(pageIndex,that.data.pageSize);
+    that.incomeDetailFn(pageIndex, that.data.pageSize);
   },
 
 
@@ -89,6 +92,7 @@ Page({
 
   // 加载更多
   bindLoading: function () {
+    console.log('加载');
     let pageIndex = that.data.pageIndex,
       pageSize = that.data.pageSize,
       totalNum = that.data.totalNum;
@@ -96,6 +100,7 @@ Page({
       this.setData({
         loadText: '已经到底了',
       })
+      return
     }
 
     if (((pageIndex * pageSize) - totalNum) > pageSize) {
@@ -105,7 +110,7 @@ Page({
       return;
     };
 
-    this.incomeDetailFn(pageIndex,that.data.pageSize);
+    this.incomeDetailFn(pageIndex, that.data.pageSize);
     this.setData({
       pageIndex: pageIndex + 1,
     })

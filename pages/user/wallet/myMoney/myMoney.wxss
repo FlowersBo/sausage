@@ -53,7 +53,11 @@
 
 .goods-item:first-child{
   flex: 3;
+  font-size: 28rpx;
 }
 .goods-item:last-child{
   flex: 1.5;
+}
+.Moneycolor{
+  color: #1163df;
 }

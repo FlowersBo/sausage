@@ -22,15 +22,15 @@
   </view>
   <view class="list">
     <view class="listDetail">
-      <view class="goods {{index%2==0?'bac_a':''}}" wx:for="{{6}}" wx:key="index" data-id="{{item.id}}">
+      <view class="goods {{index%2==0?'bac_a':''}}" wx:for="{{incomeDetail}}" wx:key="index" data-id="{{item.id}}">
         <view class="goods-item">
-          2021-03-24 09:39:37
+          {{item.changeTime}}
         </view>
         <view class="goods-item">
-          收入
+          {{item.tradeType}}
         </view>
         <view class="goods-item">
-          2021000
+          <text class=" {{item.tradeType=='提现'?'Moneycolor':''}}">{{item.chgAmount}}</text>  元
         </view>
       </view>
     </view>

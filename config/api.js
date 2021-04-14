@@ -55,9 +55,10 @@ module.exports = {
     Essential: ApiRootUrl + "allinpay/member/essential", //收入/余额
     SetRealName: ApiRootUrl + "allinpay/member/setRealName", //个人认证
     SignContract: ApiRootUrl + "allinpay/member/signContract", //签约协议
-    BindBankCard: ApiRootUrl + "allinpay/member/applyBindBankCard", //绑卡
+    ApplyBindBankCard: ApiRootUrl + "allinpay/member/applyBindBankCard", //请求绑卡
+    BindBankCard: ApiRootUrl + "allinpay/member/bindBankCard", //确认绑卡
 
-    MyIncome: ApiRootUrl + "allinpay/member/myIncome", //绑卡
+    MyIncome: ApiRootUrl + "allinpay/member/myIncome", //收入
     Wallet: ApiRootUrl + "allinpay/member/myWallet", //钱包
     SendVerificationCode: ApiRootUrl + "allinpay/member/sendVerificationCode",//发送短信
     BindPhone: ApiRootUrl + "allinpay/member/bindPhone",//绑定手机号
