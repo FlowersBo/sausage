@@ -11,7 +11,8 @@ Page({
   data: {
     bindingPhoneState: '绑定手机号',
     bindingBankState: '绑定银行卡',
-    setPaswordText: '设置密码'
+    setPaswordText: '设置密码',
+    showModalStatus: false
   },
 
   /**
@@ -59,6 +60,76 @@ Page({
       this.mask.utilFn('open');
     }
   },
+
+  //充值
+  bindRechargeFn: () => {
+    that.setData({
+      showModalStatus: true
+    })
+  },
+  rechargePriceFn: e => {
+    that.setData({
+      rechargePrice: e.detail.value
+    })
+  },
+
+  gotobargainDetailFuns: function (e) {
+    let status = e.currentTarget.dataset.status;
+    this.utilFn('close', status);
+  },
+  // 模态动画
+  utilFn: function (currentStatu, status) {
+    var animation = wx.createAnimation({
+      duration: 300, //动画时长
+      timingFunction: "linear", //线性
+      delay: 0 //0则不延迟
+    });
+    this.animation = animation;
+    animation.opacity(0).step();
+    this.setData({
+      animationData: animation.export()
+    })
+    setTimeout(function () {
+      animation.opacity(1).step();
+      this.setData({
+        animationData: animation
+      })
+      //关闭
+      if (currentStatu == "close") {
+        this.setData({
+          showModalStatus: false
+        });
+        if (status == 1) {
+          if (!that.data.rechargePrice) {
+            wx.showToast({
+              title: '请输入充值金额',
+              icon: 'none',
+              duration: 2000
+            })
+            return
+          }
+          wx.navigateTo({
+            url: 'bindingBank/bindingBank',
+            success: function (res) {
+              res.eventChannel.emit('acceptDataFromOpenerPage', {
+                rechargePrice: that.data.rechargePrice
+              })
+            }
+          })
+        }
+      } else if (currentStatu == "open") {
+        this.setData({
+          showModalStatus: true
+        });
+      }
+    }.bind(this), 300)
+    // 显示
+    // if (currentStatu == "open") {
+
+    // }
+  },
+
+
 
   myWalletFn: () => {
     let data = {
@@ -118,11 +189,11 @@ Page({
           }
           if (that.data.ledgerTarget.payPwdVerify == 0) {
             that.setData({
-              setPaswordText:'设置密码'
+              setPaswordText: '设置密码'
             })
           } else {
             that.setData({
-              setPaswordText:'修改密码'
+              setPaswordText: '修改密码'
             })
           }
         } else {

@@ -11,7 +11,7 @@
       </view>
       <view class="balanceSumWrap">
         <view class="balanceSum">{{walletDetail.totalBalance}}</view>
-        <view class="recharge">充值</view>
+        <view class="recharge" bindtap="bindRechargeFn">充值</view>
       </view>
       <view class="balanceDetail">
         <view class="detail-item">
@@ -61,6 +61,25 @@
         </view>
       </view>
     </view>
+    <block>
+      <view class="drawer_screen" bindtap="gotobargainDetailFuns" data-status="1" wx:if="{{showModalStatus}}"></view>
+      <view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">
+        <view class="drawer_box_content">
+          <view class="drawer_box_contentText">
+            <view class="authorization_title">
+              输入充值金额
+            </view>
+            <view class="authorization_content">
+              <input class="maskInput" type="digit" placeholder="请输入金额" bindinput="rechargePriceFn" />
+            </view>
+          </view>
+        </view>
+        <view class="maskBtnWrap">
+          <button class="drawer_box_btn" data-status="0" catchtap="gotobargainDetailFuns">取消</button>
+          <button class="drawer_box_btn" data-status="1" catchtap="gotobargainDetailFuns">确认</button>
+        </view>
+      </view>
+    </block>
   </view>
   <mask id="mask" openSetting="{{openSetting}}" bind:statusNumber="statusNumberFn">
     <!-- <view slot='isTitle'>支付密码</view> -->

@@ -49,13 +49,15 @@ Page({
       .then(resp => {
         console.log('收支详情', resp);
         if (resp.data.success) {
-          let incomeDetail = resp.data.data.inExpDetail;
-          console.log(incomeDetail)
-          that.setData({
-            incomeDetail: incomeDetail,
-            totalNum: resp.data.data.totalNum,
-            pageIndex: that.data.pageIndex + 1
-          })
+          if (resp.data.data.totalNum!='0') {
+            let incomeDetail = resp.data.data.inExpDetail;
+            console.log(incomeDetail)
+            that.setData({
+              incomeDetail: incomeDetail,
+              totalNum: resp.data.data.totalNum,
+              pageIndex: that.data.pageIndex + 1
+            })
+          }
         } else {
           wx.showToast({
             title: resp.data.msg,

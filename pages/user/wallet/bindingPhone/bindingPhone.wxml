@@ -3,7 +3,7 @@
   <form action="" bindsubmit="bindPhoneFn">
     <view class="phone-box">
       <text class="phone">手机号：</text>
-      <input name="phone" type="number" placeholder="请输入手机号" maxlength="11" name="phone" class="number"
+      <input name="phone" type="number" placeholder="请输入手机号" placeholder-style="color:#bbb" maxlength="11" name="phone" class="number"
         bindinput="bindInputPhoneNumber" />
     </view>
     <view class="phone-box">

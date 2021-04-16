@@ -32,18 +32,18 @@ Page({
 
   bindUserName: e => {
     that.setData({
-      userName: e.detail.value
+      name: e.detail.value
     });
   },
   bindIdCardNumber: e => {
     that.setData({
-      idCardNumber: e.detail.value
+      identityNo: e.detail.value
     });
   },
 
   bindBankCardNumber: e => {
     that.setData({
-      bankCardNumber: e.detail.value
+      cardNo: e.detail.value
     });
   },
 
@@ -56,10 +56,10 @@ Page({
 
   getVerificationCode: function () {
     let that = this;
-    let userName = that.data.userName,
-    idCardNumber = that.data.idCardNumber,
-    bankCardNumber= that.data.bankCardNumber,
-    phoneNumber = that.data.phoneNumber;
+    let name = that.data.name,
+      identityNo = that.data.identityNo,
+      cardNo = that.data.cardNo,
+      phoneNumber = that.data.phoneNumber;
     let isVerifyOutTime = that.data.isVerifyOutTime;
     let verificationTimeTotal = that.data.verificationTimeTotal;
     let isRepeatClick = that.data.isRepeatClick;
@@ -67,7 +67,50 @@ Page({
     if (isRepeatClick == true) {
       return
     }
-
+    if (!name) {
+      wx.showToast({
+        title: '姓名不能为空',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    } else if (!identityNo) {
+      wx.showToast({
+        title: '身份证号不能为空',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    } else if (identityNo.length < 18) {
+      wx.showToast({
+        title: '身份证号输入错误',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    } else if (!cardNo) {
+      wx.showToast({
+        title: '银行卡号不能为空',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    } else if (cardNo.length < 16 || cardNo.length > 19) {
+      wx.showToast({
+        title: '银行卡号输入错误',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    }
+    if (!phoneNumber) {
+      wx.showToast({
+        title: '手机号不能为空',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    }
     if (!(/^1[3456789]\d{9}$/.test(phoneNumber))) {
       wx.showToast({
         title: '手机号有误',
@@ -79,19 +122,23 @@ Page({
 
     let data = {
       bizUserId: wx.getStorageSync('bizUserId'),
-      phone: phoneNumber, 
+      name,
+      identityNo,
+      cardNo,
+      phone: phoneNumber,
     }
 
     if (isVerifyOutTime == true) {
-      wx.showLoading({
-        title: '验证码获取中',
-      })
+      // wx.showLoading({
+      //   title: '验证码获取中',
+      // })
       mClient.PostIncludeData(api.ApplyBindBankCard, data)
         .then((resp) => {
           console.log(resp);
           if (resp.data.success) {
             this.setData({
-              isRepeatClick: true
+              isRepeatClick: true,
+              tranceNum: resp.data.data.tranceNum
             })
             that.startVerificationCountDown(verificationTimeTotal);
             wx.showToast({
@@ -146,7 +193,9 @@ Page({
     console.log(e);
     let name = e.detail.value.info,
       identityNo = e.detail.value.idCard,
-      cardNo = e.detail.value.bankCard;
+      cardNo = e.detail.value.bankCard,
+      phone = e.detail.value.bankPhone,
+      verificationCode = e.detail.value.bankCode;
     if (!name) {
       wx.showToast({
         title: '姓名不能为空',
@@ -182,46 +231,82 @@ Page({
         duration: 1000
       })
       return
+    } else if (!phone) {
+      wx.showToast({
+        title: '手机号不能为空',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    } else if (!(/^1[3456789]\d{9}$/.test(phone))) {
+      wx.showToast({
+        title: '手机号有误',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    } else if (!verificationCode) {
+      wx.showToast({
+        title: '请输入验证码',
+        icon: 'none',
+        duration: 1000
+      })
+      return
+    } else if (verificationCode.length < 6) {
+      wx.showToast({
+        title: '验证码错误',
+        icon: 'none',
+        duration: 1000
+      })
+      return
     }
     let data = {
       bizUserId: wx.getStorageSync('bizUserId'),
-      name,
-      identityNo,
-      cardNo
+      phone,
+      verificationCode,
+      tranceNum: that.data.tranceNum
     };
-    mClient.PostIncludeData(api.ApplyBindBankCard, data)
-      .then(resp => {
-        console.log('绑卡', resp);
-        if (resp.data.success) {
-          if (resp.data.data) {
-            if (that.data.routeName) {
-              wx.navigateBack({
-                delta: 1
-              })
+    if (that.data.tranceNum) {
+      mClient.PostIncludeData(api.BindBankCard, data)
+        .then(resp => {
+          console.log('绑卡', resp);
+          if (resp.data.success) {
+            if (resp.data.data) {
+              if (that.data.routeName) {
+                wx.navigateBack({
+                  delta: 1
+                })
+              } else {
+                wx.switchTab({
+                  url: '/pages/user/user'
+                });
+              }
             } else {
-              wx.switchTab({
-                url: '/pages/user/user'
-              });
+              wx.showToast({
+                title: resp.data.msg,
+                icon: 'none',
+                duration: 2000
+              })
+              return
             }
           } else {
             wx.showToast({
               title: resp.data.msg,
               icon: 'none',
               duration: 2000
-            })
-            return
+            });
           }
-        } else {
-          wx.showToast({
-            title: resp.data.msg,
-            icon: 'none',
-            duration: 2000
-          });
-        }
-      })
-      .catch(rej => {
-        console.log('错误', rej)
-      })
+        })
+        .catch(rej => {
+          console.log('错误', rej)
+        })
+    } else {
+      wx.showToast({
+        title: '验证码错误',
+        icon: 'none',
+        duration: 2000
+      });
+    }
   },
 
   /**

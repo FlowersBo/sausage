@@ -178,7 +178,7 @@ Page({
 		mClient.PostIncludeData(api.BindPhone, data)
 			.then((resp) => {
 				console.log('绑定手机号', resp)
-				if (resp.data.code == 0) {
+				if (resp.data.success) {
 					wx.showToast({
 						title: resp.data.msg,
 						icon: 'none',
@@ -189,6 +189,12 @@ Page({
 							url: '/pages/user/wallet/wallet'
 						});
 					}, 1500)
+				} else {
+					wx.showToast({
+						title: resp.data.msg,
+						icon: 'none',
+						duration: 2000
+					});
 				}
 			});
 	},

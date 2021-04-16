@@ -27,7 +27,7 @@
           <input name="bankPhone" class="formInput" maxlength="11" placeholder="银行绑定手机号" type="number" bindinput='bindPhoneNumber'></input>
         </view>
         <view class="verificationWrap">
-          <input name="bankCode" type="number" class="inp" placeholder="输入手机验证码"></input>
+          <input name="bankCode" type="number" class="inp" placeholder="手机验证码"></input>
           <button class='verification' bindtap='getVerificationCode' disabled='{{disabled}}'>{{verificationControlText}}</button>
         </view>
         <view class="btnWrap">

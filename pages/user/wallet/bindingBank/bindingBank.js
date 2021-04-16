@@ -16,6 +16,13 @@ Page({
    */
   onLoad: function (options) {
     that = this;
+    const eventChannel = this.getOpenerEventChannel()
+    eventChannel.on('acceptDataFromOpenerPage', function (data) {
+      console.log('充值金额', data.rechargePrice);
+      that.setData({
+        rechargePrice: data.rechargePrice
+      })
+    })
   },
 
   addBankCard: () => {
@@ -23,6 +30,131 @@ Page({
       url: '../../../bankCard/bankCard?routeName=' + 'bindingBank',
     })
   },
+
+  selectBankFn: e => {
+    if (that.data.rechargePrice) {
+      console.log('银行卡', e);
+      let bankCardNo = e.currentTarget.dataset.bankcardno;
+      that.setData({
+        showModalStatus: true
+      })
+      let data = {
+        bizUserId: wx.getStorageSync('bizUserId'),
+        amount: that.data.rechargePrice,
+        cardNo: bankCardNo
+      };
+      mClient.PostIncludeData(api.DepositApply, data)
+        .then(resp => {
+          console.log('充值', resp);
+          if (resp.data.success) {
+            that.setData({
+              bizOrderNo: resp.data.data.bizOrderNo
+            })
+          } else {
+            wx.showToast({
+              title: resp.data.msg,
+              icon: 'none',
+              duration: 2000
+            });
+          }
+        })
+        .catch(rej => {
+          console.log('错误', rej)
+        })
+    }
+  },
+
+  rechargeCodeFn: e => {
+    that.setData({
+      rechargeCode: e.detail.value
+    })
+  },
+
+  gotobargainDetailFuns: function (e) {
+    let status = e.currentTarget.dataset.status;
+    this.utilFn('close', status);
+  },
+  // 模态动画
+  utilFn: function (currentStatu, status) {
+    var animation = wx.createAnimation({
+      duration: 300, //动画时长
+      timingFunction: "linear", //线性
+      delay: 0 //0则不延迟
+    });
+    this.animation = animation;
+    animation.opacity(0).step();
+    this.setData({
+      animationData: animation.export()
+    })
+    setTimeout(function () {
+      animation.opacity(1).step();
+      this.setData({
+        animationData: animation
+      })
+      //关闭
+      if (currentStatu == "close") {
+        this.setData({
+          showModalStatus: false
+        });
+        if (status == 1) {
+          if (!that.data.rechargeCode) {
+            wx.showToast({
+              title: '请输入验证码',
+              icon: 'none',
+              duration: 2000
+            })
+            return
+          }
+          if (that.data.rechargeCode.length < 6) {
+            wx.showToast({
+              title: '验证码错误',
+              icon: 'none',
+              duration: 2000
+            })
+            return
+          }
+          let data = {
+            bizUserId: wx.getStorageSync('bizUserId'),
+            bizOrderNo: that.data.bizOrderNo,
+            verificationCode: that.data.rechargeCode
+          };
+          mClient.PostIncludeData(api.PayByBackSMS, data)
+            .then(resp => {
+              console.log('充值确认', resp);
+              if (resp.data.success) {
+                wx.showToast({
+                  title: resp.data.data,
+                  icon: 'none',
+                  duration: 2000
+                });
+                setTimeout(function () {
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                }, 1500)
+              } else {
+                wx.showToast({
+                  title: resp.data.msg,
+                  icon: 'none',
+                  duration: 2000
+                });
+              }
+            })
+            .catch(rej => {
+              console.log('错误', rej)
+            })
+
+        }
+      } else if (currentStatu == "open") {
+        this.setData({
+          showModalStatus: true
+        });
+      }
+    }.bind(this), 300)
+  },
+
+
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
