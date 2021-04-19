@@ -25,16 +25,19 @@
         </view>
         <view class="incomeDetail">
         <view class="incomeDetail-item">
-          <view class="incomeDetail-time">上月收入(元)</view>
-          <view class="incomeDetail-money">{{incomes.accountFlow[0].beforeMonth}}</view>
+          <view class="incomeDetail-money">上月收入(元)</view>
+          <view class="incomeDetail-money">{{incomes.accountFlow[0].totalAmount}}</view>
+          <view class="incomeDetail-money">{{incomes.accountFlow[0].amount}}</view>
         </view>
         <view class="incomeDetail-item">
-          <view class="incomeDetail-time">本月收入(元)</view>
-          <view class="incomeDetail-money">{{incomes.accountFlow[1].thisMonth}}</view>
+          <view class="incomeDetail-money">本月收入(元)</view>
+          <view class="incomeDetail-money">{{incomes.accountFlow[1].totalAmount}}</view>
+          <view class="incomeDetail-money">{{incomes.accountFlow[1].amount}}</view>
         </view>
         <view class="incomeDetail-item">
-          <view class="incomeDetail-time">昨日收入(元)</view>
-          <view class="incomeDetail-money">{{incomes.accountFlow[2].yesterday}}</view>
+          <view class="incomeDetail-money">昨日收入(元)</view>
+          <view class="incomeDetail-money">{{incomes.accountFlow[2].totalAmount}}</view>
+          <view class="incomeDetail-money">{{incomes.accountFlow[2].amount}}</view>
         </view>
       </view>
       </view>

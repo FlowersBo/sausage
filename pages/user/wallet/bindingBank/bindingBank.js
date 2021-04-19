@@ -19,9 +19,22 @@ Page({
     const eventChannel = this.getOpenerEventChannel()
     eventChannel.on('acceptDataFromOpenerPage', function (data) {
       console.log('充值金额', data.rechargePrice);
-      that.setData({
-        rechargePrice: data.rechargePrice
-      })
+      console.log('提现', data.withdraw);
+      if(data.rechargePrice){
+        that.setData({
+          rechargePrice: data.rechargePrice
+        })
+        wx.setNavigationBarTitle({
+          title: '充值'
+       })
+      }else if(data.withdraw){
+        that.setData({
+          withdraw: data.withdraw
+        })
+        wx.setNavigationBarTitle({
+          title: '余额提现'
+       })
+      }
     })
   },
 
@@ -31,36 +44,45 @@ Page({
     })
   },
 
+  rechargeAmountFn: e => {
+    that.setData({
+      bankAmount: e.detail.value
+    })
+  },
+
   selectBankFn: e => {
-    if (that.data.rechargePrice) {
+    if (that.data.rechargePrice || that.data.withdraw) {
       console.log('银行卡', e);
       let bankCardNo = e.currentTarget.dataset.bankcardno;
       that.setData({
-        showModalStatus: true
+        showModalStatus: true,
+        bankCardNo: bankCardNo
       })
-      let data = {
-        bizUserId: wx.getStorageSync('bizUserId'),
-        amount: that.data.rechargePrice,
-        cardNo: bankCardNo
-      };
-      mClient.PostIncludeData(api.DepositApply, data)
-        .then(resp => {
-          console.log('充值', resp);
-          if (resp.data.success) {
-            that.setData({
-              bizOrderNo: resp.data.data.bizOrderNo
-            })
-          } else {
-            wx.showToast({
-              title: resp.data.msg,
-              icon: 'none',
-              duration: 2000
-            });
-          }
-        })
-        .catch(rej => {
-          console.log('错误', rej)
-        })
+      if (that.data.rechargePrice) {
+        let data = {
+          bizUserId: wx.getStorageSync('bizUserId'),
+          amount: that.data.rechargePrice,
+          cardNo: bankCardNo
+        };
+        mClient.PostIncludeData(api.DepositApply, data)
+          .then(resp => {
+            console.log('充值', resp);
+            if (resp.data.success) {
+              that.setData({
+                bizOrderNo: resp.data.data.bizOrderNo
+              })
+            } else {
+              wx.showToast({
+                title: resp.data.msg,
+                icon: 'none',
+                duration: 2000
+              });
+            }
+          })
+          .catch(rej => {
+            console.log('错误', rej)
+          })
+      }
     }
   },
 
@@ -97,53 +119,93 @@ Page({
           showModalStatus: false
         });
         if (status == 1) {
-          if (!that.data.rechargeCode) {
-            wx.showToast({
-              title: '请输入验证码',
-              icon: 'none',
-              duration: 2000
-            })
-            return
-          }
-          if (that.data.rechargeCode.length < 6) {
-            wx.showToast({
-              title: '验证码错误',
-              icon: 'none',
-              duration: 2000
-            })
-            return
-          }
-          let data = {
-            bizUserId: wx.getStorageSync('bizUserId'),
-            bizOrderNo: that.data.bizOrderNo,
-            verificationCode: that.data.rechargeCode
-          };
-          mClient.PostIncludeData(api.PayByBackSMS, data)
-            .then(resp => {
-              console.log('充值确认', resp);
-              if (resp.data.success) {
-                wx.showToast({
-                  title: resp.data.data,
-                  icon: 'none',
-                  duration: 2000
-                });
-                setTimeout(function () {
-                  wx.navigateBack({
-                    delta: 1
-                  })
-                }, 1500)
-              } else {
-                wx.showToast({
-                  title: resp.data.msg,
-                  icon: 'none',
-                  duration: 2000
-                });
-              }
-            })
-            .catch(rej => {
-              console.log('错误', rej)
-            })
+          if (that.data.rechargePrice) {
+            if (!that.data.rechargeCode) {
+              wx.showToast({
+                title: '请输入验证码',
+                icon: 'none',
+                duration: 2000
+              })
+              return
+            }
+            if (that.data.rechargeCode.length < 6) {
+              wx.showToast({
+                title: '验证码错误',
+                icon: 'none',
+                duration: 2000
+              })
+              return
+            }
+            let data = {
+              bizUserId: wx.getStorageSync('bizUserId'),
+              bizOrderNo: that.data.bizOrderNo,
+              verificationCode: that.data.rechargeCode
+            };
+            mClient.PostIncludeData(api.PayByBackSMS, data)
+              .then(resp => {
+                console.log('充值确认', resp);
+                if (resp.data.success) {
+                  wx.showToast({
+                    title: resp.data.data,
+                    icon: 'none',
+                    duration: 2000
+                  });
+                  setTimeout(function () {
+                    wx.navigateBack({
+                      delta: 1
+                    })
+                  }, 1500)
+                } else {
+                  wx.showToast({
+                    title: resp.data.msg,
+                    icon: 'none',
+                    duration: 2000
+                  });
+                }
+              })
+              .catch(rej => {
+                console.log('错误', rej)
+              })
 
+          } else if (that.data.withdraw) {
+            if (!that.data.bankAmount) {
+              wx.showToast({
+                title: '请输入提现金额',
+                icon: 'none',
+                duration: 2000
+              })
+              return
+            }
+            if (that.data.bankAmount <= 0) {
+              wx.showToast({
+                title: '提现金额需大于0元',
+                icon: 'none',
+                duration: 2000
+              })
+              return
+            }
+            let data = {
+              bizUserId: wx.getStorageSync('bizUserId'),
+              bankCardNo: that.data.bankCardNo,
+              amount: that.data.bankAmount
+            };
+            mClient.PostIncludeData(api.WithdrawApply, data)
+              .then(resp => {
+                console.log('提现', resp);
+                if (resp.data.success) {
+
+                } else {
+                  wx.showToast({
+                    title: resp.data.msg,
+                    icon: 'none',
+                    duration: 2000
+                  });
+                }
+              })
+              .catch(rej => {
+                console.log('错误', rej)
+              })
+          }
         }
       } else if (currentStatu == "open") {
         this.setData({

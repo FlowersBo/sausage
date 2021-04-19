@@ -1,7 +1,8 @@
 <!--pages/user/wallet/bindingBank/bindingBank.wxml-->
 <view class="bankCardWrap">
   <view class="bankCard">
-    <view class="backWrap {{index%2==0?'bac_a':''}}" bindtap="selectBankFn" data-bankcardno="{{item.bankCardNoHidden}}" wx:for="{{bankCardList}}" wx:key="index">
+    <view class="backWrap {{index%2==0?'bac_a':''}}" bindtap="selectBankFn" data-bankcardno="{{item.bankCardNoHidden}}"
+      wx:for="{{bankCardList}}" wx:key="index">
       <view class="back">
         <!-- <view class="backType">储蓄卡</view> -->
         <view class="backName">{{item.bankName}}</view>
@@ -13,24 +14,32 @@
         <text class="number">{{item.bankCardNo}}</text>
       </view>
     </view>
-    <view wx:if="{{!rechargePrice}}" class="addBackCard" bindtap="addBankCard">
-      <icon class="iconfont icon icon-shuaqiaqiapianyinhangqia"></icon>
-      <view class="add-text">{{bankStatus}}</view>
-    </view>
-    <view wx:else class="addBackCard">
+    <view wx:if="{{rechargePrice||withdraw}}" class="addBackCard">
       <icon class="iconfont icon icon-shuaqiaqiapianyinhangqia"></icon>
       <view class="add-text">请选择充值银行卡</view>
     </view>
+    <view wx:else class="addBackCard" bindtap="addBankCard">
+      <icon class="iconfont icon icon-shuaqiaqiapianyinhangqia"></icon>
+      <view class="add-text">{{bankStatus}}</view>
+    </view>
     <block>
-      <view class="drawer_screen" bindtap="gotobargainDetailFuns" data-status="1" wx:if="{{showModalStatus}}"></view>
+      <view class="drawer_screen" bindtap="gotobargainDetailFuns" wx:if="{{showModalStatus}}"></view>
       <view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">
         <view class="drawer_box_content">
-          <view class="drawer_box_contentText">
+          <view class="drawer_box_contentText" wx:if="{{rechargePrice}}">
             <view class="authorization_title">
               输入短信验证码
             </view>
             <view class="authorization_content">
               <input class="maskInput" type="number" placeholder="请输入验证码" bindinput="rechargeCodeFn" />
+            </view>
+          </view>
+          <view class="drawer_box_contentText" wx:elif="{{withdraw}}">
+            <view class="authorization_title">
+              输入提现金额
+            </view>
+            <view class="authorization_content">
+              <input class="maskInput" type="digit" placeholder="请输入金额" bindinput="rechargeAmountFn" />
             </view>
           </view>
         </view>

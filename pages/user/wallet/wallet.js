@@ -61,6 +61,18 @@ Page({
     }
   },
 
+  // 提现
+  bindwithdrawFn: e => {
+    wx.navigateTo({
+      url: 'bindingBank/bindingBank',
+      success: function (res) {
+        res.eventChannel.emit('acceptDataFromOpenerPage', {
+          withdraw: "withdraw"
+        })
+      }
+    })
+  },
+
   //充值
   bindRechargeFn: () => {
     that.setData({
@@ -103,6 +115,14 @@ Page({
           if (!that.data.rechargePrice) {
             wx.showToast({
               title: '请输入充值金额',
+              icon: 'none',
+              duration: 2000
+            })
+            return
+          }
+          if (that.data.rechargePrice <= 0) {
+            wx.showToast({
+              title: '充值金额需大于0元',
               icon: 'none',
               duration: 2000
             })

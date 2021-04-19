@@ -70,4 +70,5 @@ module.exports = {
     ResetPayPwd: ApiRootUrl + "allinpay/member/resetPayPwd", //忘记密码
     DepositApply: ApiRootUrl + "allinpay/order/depositApply", //充值
     PayByBackSMS: ApiRootUrl + "allinpay/order/payByBackSMS", //确认充值
+    WithdrawApply: ApiRootUrl + "allinpay/order/withdrawApply", //提现
 }
