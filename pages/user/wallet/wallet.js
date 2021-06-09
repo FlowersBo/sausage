@@ -63,14 +63,25 @@ Page({
 
   // 提现
   bindwithdrawFn: e => {
-    wx.navigateTo({
-      url: 'bindingBank/bindingBank',
-      success: function (res) {
-        res.eventChannel.emit('acceptDataFromOpenerPage', {
-          withdraw: "withdraw"
-        })
-      }
-    })
+    console.log(e)
+    let balance = e.currentTarget.dataset.balance;
+    if (balance > 0) {
+      wx.navigateTo({
+        url: 'bindingBank/bindingBank',
+        success: function (res) {
+          res.eventChannel.emit('acceptDataFromOpenerPage', {
+            withdraw: "withdraw",
+            balance: balance
+          })
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '余额不足，无法提现',
+        icon: 'none',
+        duration: 2000
+      })
+    }
   },
 
   //充值

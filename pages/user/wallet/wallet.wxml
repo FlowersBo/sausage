@@ -6,7 +6,7 @@
         <view class="balancetext">现金账户余额(元)</view>
         <view class="btnWrap">
           <view class="btn" bindtap="bindLogOut">{{setPaswordText}}</view>
-          <view class="btn" bindtap="bindwithdrawFn">提现申请</view>
+          <view class="btn" data-balance="{{walletDetail.enableBalance}}" bindtap="bindwithdrawFn">提现申请</view>
         </view>
       </view>
       <view class="balanceSumWrap">

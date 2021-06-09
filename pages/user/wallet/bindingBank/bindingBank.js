@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    bankStatus: '绑定银行卡'
+    bankStatus: ''
   },
 
   /**
@@ -20,20 +20,21 @@ Page({
     eventChannel.on('acceptDataFromOpenerPage', function (data) {
       console.log('充值金额', data.rechargePrice);
       console.log('提现', data.withdraw);
-      if(data.rechargePrice){
+      if (data.rechargePrice) {
         that.setData({
           rechargePrice: data.rechargePrice
         })
         wx.setNavigationBarTitle({
           title: '充值'
-       })
-      }else if(data.withdraw){
+        })
+      } else if (data.withdraw) {
         that.setData({
-          withdraw: data.withdraw
+          withdraw: data.withdraw,
+          balance: data.balance
         })
         wx.setNavigationBarTitle({
           title: '余额提现'
-       })
+        })
       }
     })
   },
@@ -238,7 +239,7 @@ Page({
         if (resp.data.success) {
           if (resp.data.data.length > 0) {
             that.setData({
-              bankStatus: '添加银行卡'
+              bankStatus: '添加银行卡+'
             })
           }
           that.setData({

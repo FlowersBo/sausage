@@ -27,9 +27,8 @@ Page({
         let pageSize = that.data.pageSize;
         let orederStatus = '';
         let date = util.customFormatTime(new Date());
-
         let data = {
-            orderdate: orderDate,
+            orderdate: date,
             status: orederStatus,
             pageindex: pageIndex,
             pagesize: pageSize
@@ -84,6 +83,7 @@ Page({
         };
 
         mClient.get(api.OrderList, data).then((resp) => {
+            console.log(resp);
             if (resp.data.code == 200) {
                 pageIndex = pageIndex + 1;
                 let orderTotal = resp.data.data.total;
