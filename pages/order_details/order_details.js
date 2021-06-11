@@ -1,5 +1,6 @@
 import * as mClient from '../../utils/customClient';
 import * as api from '../../config/api';
+import * as util from '../../utils/util';
 // pages/order_details/order_details.js
 Page({
 
@@ -17,9 +18,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
     let orderID = options.id;
-    let data = {orderid: orderID};
+    let data = {
+      orderid: orderID
+    };
     let isSuccessfulTransaction = options.isSuccessfulTransaction;
     let orderDate = options.orderDate;
     console.log(isSuccessfulTransaction);
@@ -31,14 +33,17 @@ Page({
     mClient.get(api.OrderDetail, data).then((resp) => {
       console.log(resp);
       if (resp.data.code == 200) {
-          this.setData({
-              orderDetail: resp.data.data.detail,
-              orderId: orderID
-          });
+        let OrderDate = resp.data.data.detail.OrderDate;
+        OrderDate = util.timestampToTimeLong(OrderDate);
+        resp.data.data.detail.OrderDate = OrderDate;
+        this.setData({
+          orderDetail: resp.data.data.detail,
+          orderId: orderID,
+        });
       } else {
-          console.log('fail');
+        console.log('fail');
       }
-  });
+    });
   },
 
 })

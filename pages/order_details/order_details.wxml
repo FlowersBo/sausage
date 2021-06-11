@@ -32,10 +32,10 @@
                 <view>实收金额：</view>
                 <view>{{orderDetail.RealPay}}</view>
             </view>
-            <view class="demo-item">
+            <!-- <view class="demo-item">
                 <view>支付渠道：</view>
                 <view>{{orderDetail.PayPlatform}}</view>
-            </view>
+            </view> -->
             <view class="demo-item">
                 <view>点位名称：</view>
                 <view>{{orderDetail.PointName}}</view>
@@ -51,7 +51,7 @@
         </view>
     </view>
     <!-- 退款详情 -->
-    <view class="order refund" wx:if="{{isSuccessfulTransaction==1?false:true}}">
+    <view wx:if="{{orderDetail.RefundID}}" class="order refund">
         <view class="title">退款详情</view>
         <view class="content">
             <view class="demo-item">

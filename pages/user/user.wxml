@@ -11,7 +11,7 @@
 		</view>
 	</view>
 	<!-- 累计金额 -->
-	<block wx:if="{{result.status==2}}">
+	<!-- <block wx:if="{{result.status==2}}">
 		<view class="sales">
 			<view class="sales_list" bindtap="bindUserSaleDetailly">
 				<view class="quantity">总收入</view>
@@ -23,9 +23,9 @@
 				</view>
 			</view>
 		</view>
-	</block>
+	</block> -->
 
-	<block wx:else>
+	<!-- <block wx:else>
 		<view class="sales_blank" bindtap="gotoauthenticationFn">
 			<view class="blankText">开通收款账户</view>
 			<view class="flowPath">
@@ -34,7 +34,7 @@
 				<view class="ynumber">3</view>绑定卡号
 			</view>
 		</view>
-	</block>
+	</block> -->
 	<!-- 我的 -->
 	<view>
 		<!-- <view class="weui-cell weui-cell_access">
