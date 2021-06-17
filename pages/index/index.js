@@ -41,7 +41,7 @@ Page({
 		info: {
 			reportGenres: ['销售日报', '销售月报'],
 			dateRange: [
-				['昨日', '近7天', '近30天'],
+				['今日', '近7天', '近30天'],
 				['近3个月', '近6个月', '近12个月'],
 			],
 		},
@@ -200,7 +200,7 @@ Page({
 		console.log('当前的dateRange', dateRange)
 		if (dateRange === 0 || dateRange === 2) { //今天||近30天
 			if (dateRange === 0) {
-				pointReportDate.setDate(pointReportDate.getDate() - 1);
+				pointReportDate.setDate(pointReportDate.getDate());
 				let startDate = util.customFormatTime(pointReportDate);
 				let endDate = util.customFormatTime(pointReportDate);
 				let pointDetaillyDate = util.customFormatOnlyMonthDay(pointReportDate);
@@ -318,7 +318,7 @@ Page({
 		if (dateRange === 0 || dateRange === 2) {
 			if (dateRange === 0) {
 
-				pointReportDate.setDate(pointReportDate.getDate() - 1);
+				pointReportDate.setDate(pointReportDate.getDate());
 				let startDate = util.customFormatTime(pointReportDate);
 				let endDate = util.customFormatTime(pointReportDate);
 				let data = {
@@ -332,7 +332,7 @@ Page({
 
 				mClient.get(api.PointToday, data)
 					.then(resp => {
-						console.log('昨日返回', resp);
+						console.log('今日返回', resp);
 						pointsData = pointsData.concat(resp.data.data.list);
 						pointTotal = resp.data.data.total
 						if ((pointTotal / pageSize) < pageIndex) {
@@ -402,6 +402,7 @@ Page({
 
 				mClient.get(api.PointDataByDay, data)
 					.then(resp => {
+						console.log('近7天返回',resp);
 						pointsData = pointsData.concat(resp.data.data.list);
 						pointTotal = resp.data.data.total
 						if ((pointTotal / pageSize) < pageIndex) {

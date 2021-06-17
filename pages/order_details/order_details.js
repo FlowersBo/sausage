@@ -1,6 +1,6 @@
 import * as mClient from '../../utils/customClient';
 import * as api from '../../config/api';
-import * as util from '../../utils/util';
+import * as util from '../../utils/util';   
 // pages/order_details/order_details.js
 Page({
 
