@@ -178,6 +178,17 @@ Page({
 
 		mClient.get(api.PointSummarybydate, data)
 			.then(resp => {
+				console.log('销量',resp);
+				if(!resp.data.data.summary){
+					that.setData({
+						reportTotal: {
+							'销售额': 0,
+							'订单量': 0,
+							'销售量': 0
+						},
+					})
+					return
+				}
 				reportTotal['销售额'] = resp.data.data.summary.amount;
 				reportTotal['订单量'] = resp.data.data.summary.count;
 				reportTotal['销售量'] = resp.data.data.summary.productcount;

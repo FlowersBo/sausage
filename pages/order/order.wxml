@@ -23,7 +23,7 @@
             </view>
             <view class="list_con">
                 <view class="name">{{item.PointName}}</view>
-                <view>{{item.TradeID}}</view>
+                <view class="TradeID">{{item.TradeID}}</view>
                 <view class="volume">{{item.ProductCount}} 根</view>                
                 <view class="money">{{item.RealPay}}</view>
                 <view class="mode">{{item.PayPlatform}}</view>
