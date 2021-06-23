@@ -1,4 +1,5 @@
 // pages/equipment/equipment.js
+let that;
 import * as api from '../../config/api';
 import * as mClient from '../../utils/customClient';
 Page({
@@ -18,7 +19,7 @@ Page({
   },
 
   onLoad: function () {
-    let that = this;
+    that = this;
     let pageIndex = that.data.pageIndex;
     let pageSize = that.data.pageSize;
     let data = {
@@ -86,9 +87,7 @@ Page({
             isLoad: 0,
           });
         };
-
       });
-
   },
 
   bindDeviceDetaill: function (e) {
@@ -117,11 +116,11 @@ Page({
           let devicesInfo = resp.data.data.list;
           devicesInfo = this.addDevicesObjectProperty(devicesInfo);
           this.setData({
-          devicesData: devicesInfo,
+            devicesData: devicesInfo,
           });
         } else {
           wx.showToast({
-            title: '为查找到相关信息',
+            title: '未查找到相关信息',
             icon: 'none',
             duration: 1000
           });
@@ -153,5 +152,39 @@ Page({
       }
     }
     return devicesInfo;
-  }
+  },
+
+  // 刷新
+  onPullDownRefresh: function () {
+    console.log("下拉刷新")
+    // 显示顶部刷新图标  
+    wx.showNavigationBarLoading();
+    console.log('刷新');
+    let pageSize = that.data.pageSize,
+      pageIndex = 1;
+    let data = {
+      deviceno: '',
+      pageindex: pageIndex,
+      pagesize: pageSize
+    };
+
+    mClient.get(api.DeviceList)
+      .then(resp => {
+        wx.hideNavigationBarLoading();
+        wx.stopPullDownRefresh();
+        let devicesInfo = resp.data.data.data;
+        devicesInfo = this.addDevicesObjectProperty(devicesInfo);
+        let deviceTotal = resp.data.data.total;
+        if ((pageIndex * pageSize) > deviceTotal) {
+          this.setData({
+            loadText: '已经到底了',
+            isLoad: 0,
+          });
+        };
+        this.setData({
+          devicesData: devicesInfo,
+          deviceTotal: resp.data.data.total
+        });
+      });
+  },
 })

@@ -77,6 +77,7 @@ Page({
         console.log('错误', rej)
       })
   },
+  
   bindLogOut: function () {
     try {
       wx.clearStorageSync()
