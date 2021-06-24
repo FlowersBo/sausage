@@ -84,40 +84,21 @@ Page({
   onReachBottom: function () {
     let that = this;
     let deviceId = that.data.deviceid;
-    let pageIndex = that.data.pageIndex;
+    let pageIndex = 1;
     let pageSize = that.data.pageSize;
-    let alarmList = that.data.alarmList;
-    let alarmTotal = that.data.alarmTotal;
-
-    if ((pageIndex * pageSize) > alarmTotal) {
-      wx.showToast({
-        title: '已经到底了',
-        icon: 'none',
-        duration: 1000
-      });
-      return;
-    };
-
-    pageIndex = pageIndex + 1;
     let data = {
       deviceid: deviceId,
       pageindex: pageIndex,
       pagesize: pageSize
     };
-    wx.showLoading({
-      title: '加载中',
-    })
-
     mClient.get(api.AlarmList, data)
       .then(resp => {
+        let alarmTotal = resp.data.data.total;
         this.setData({
-          alarmList: alarmList.concat(resp.data.data.alarmlist),
+          alarmList: resp.data.data.alarmlist,
           pageIndex: pageIndex,
+          alarmTotal: alarmTotal
         });
-
-        wx.hideLoading();
-      }, );
-
+      });
   },
-
 })

@@ -14,7 +14,7 @@ Page({
 		pageIndex: 1,
 		pageSize: 5,
 		orderList: [],
-		loadText: '加载中...',
+		loadText: '点击加载',
 		isLoad: 1,
 		selected: 0,
 		isSuccessfulTransaction: 0,
