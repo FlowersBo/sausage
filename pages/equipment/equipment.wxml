@@ -1,7 +1,7 @@
 <!--pages/equipment/equipment.wxml-->
 <view>
 	<view class="serch">
-		<input confirm-type="search" bindconfirm="bindPointSerch" placeholder="设备编号" />
+		<input confirm-type="search" bindconfirm="bindPointSerch" value="{{serchContent}}" placeholder="设备编号" />
 		<image src="../../assets/img/fangdajing.png"></image>
 	</view>
 	<view class="content">

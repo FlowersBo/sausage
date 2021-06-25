@@ -1,6 +1,9 @@
 // pages/equipment/equipment.js
 let that;
 import * as api from '../../config/api';
+import {
+  OrderList
+} from '../../config/api';
 import * as mClient from '../../utils/customClient';
 Page({
 
@@ -126,6 +129,7 @@ Page({
           });
           this.setData({
             devicesData: [],
+            serchContent: serchContent
           });
         }
       });
@@ -183,7 +187,8 @@ Page({
         };
         this.setData({
           devicesData: devicesInfo,
-          deviceTotal: resp.data.data.total
+          deviceTotal: resp.data.data.total,
+          serchContent: ''
         });
       });
   },
