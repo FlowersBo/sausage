@@ -2,6 +2,7 @@
 import * as mClient from '../../utils/customClient';
 import * as api from '../../config/api';
 import * as util from '../../utils/util';
+const watch = require('../../utils/util');
 
 Page({
 
@@ -19,6 +20,8 @@ Page({
     globalData: {}, // 保存屏幕的宽高
     hide_good_box: true, // 是否隐藏添加购物车时的圆点
     hidden: false,
+    // isAuthor: false,
+    // result: 1
   },
 
   /**
@@ -26,14 +29,42 @@ Page({
    */
   onLoad: function (options) {
     this.renderGoodsCategroy();
+    watch.setWatcher(this);
+    // this.setData({
+    //   isAuthor:true,
+    //   result: 2
+    // })
   },
 
-  onShow: function(){
+  cartWwing: function () {
+    var animation = wx.createAnimation({
+      duration: 100, //动画持续时间
+      timingFunction: 'ease-in', //动画以低速开始
+    })
+    animation.translateX(6).rotate(21).step()
+    animation.translateX(-6).rotate(-21).step()
+    animation.translateX(0).rotate(0).step()
+    this.setData({
+      ani: animation.export()
+    })
+  },
+
+  //监听data里的数据
+  watch: {
+    isAuthor: function (newValue, oldValue) {
+      console.log(newValue, oldValue, '查看data里数据的变化');
+    },
+    result: function (newValue, oldValue) {
+      console.log(newValue, oldValue, '查看data里数据的变化');
+    },
+  },
+
+  onShow: function () {
     let that = this;
     let goodsCategroy = that.data.goodsCategroy;
     let goodsCategroyIndex = that.data.goodsCategroyIndex;
 
-    if(goodsCategroy.length === 0){
+    if (goodsCategroy.length === 0) {
       return;
     };
     this.renderGoodsList(goodsCategroyIndex);
@@ -48,14 +79,13 @@ Page({
       return;
     };
 
-    if(goodsCount === undefined)
-    {
+    if (goodsCount === undefined) {
       goodsCount = 0;
     };
 
     let data = {
       goodsid: goodsId,
-      count: goodsCount+1,
+      count: goodsCount + 1,
     };
 
     mClient.post(api.AppendShoppingCart, data)
@@ -63,14 +93,15 @@ Page({
         let result = resp.data.data.result;
         if (result === true) {
           that.renderBuyCar();
-        } else{
+          that.cartWwing();
+        } else {
           wx.showToast({
             title: '添加失败',
             icon: 'none',
             duration: 1000
-        });
+          });
         };
-      });  
+      });
   },
 
   bindDecreaseShoppingCart: function (e) {
@@ -84,12 +115,12 @@ Page({
       return;
     }
 
-    if(goodsCount === 1){
+    if (goodsCount === 1) {
       let data = {
         cartid: cartid,
       };
-  
-      mClient.post(api.RemoveShoppingCart,data)
+
+      mClient.post(api.RemoveShoppingCart, data)
         .then(resp => {
           let result = resp.data.data.result;
           if (result === true) {
@@ -99,36 +130,36 @@ Page({
               shelvesGoodsInfos: shelvesGoodsInfos,
             });
             that.renderBuyCar();
-          } else{
+          } else {
             wx.showToast({
               title: '操作失败',
               icon: 'none',
               duration: 1000
-          });
-        };
-      });
+            });
+          };
+        });
 
       return;
     };
 
     let data = {
       cartid: cartid,
-      count: goodsCount-1,
+      count: goodsCount - 1,
     };
 
-    mClient.post(api.ModificationShoppingCart,data)
+    mClient.post(api.ModificationShoppingCart, data)
       .then(resp => {
         let result = resp.data.data.result;
         if (result === true) {
           that.renderBuyCar();;
-        } else{
+        } else {
           wx.showToast({
             title: '操作失败',
             icon: 'none',
             duration: 1000
-        });
-      };
-    });
+          });
+        };
+      });
   },
 
   //select goods cattegroy
@@ -168,7 +199,7 @@ Page({
     mClient.get(api.ShelvesGoodsInfo, data)
       .then(resp => {
         let shelvesGoodsInfos = resp.data.data.list;
-        
+
         this.setData({
           shelvesGoodsInfos: shelvesGoodsInfos,
         });
@@ -196,15 +227,15 @@ Page({
 
         // 新增/初始化 商品列表属性
         //防止商品列表中已在购物车中商品数量混乱
-        for (let index = 0; index < shelvesGoodsInfos.length; index++) {         
+        for (let index = 0; index < shelvesGoodsInfos.length; index++) {
           shelvesGoodsInfos[index].isCart = false;
         };
-        
+
         for (const key in shoppingCartList) {
           if (shoppingCartList.hasOwnProperty(key)) {
             const element = shoppingCartList[key];
             shoppingCartGoodsCount += element.count;
-            
+
             for (let index = 0; index < shelvesGoodsInfos.length; index++) {
               if (shelvesGoodsInfos[index].id === element.goodsid) {
                 shelvesGoodsInfos[index].goodsCount = element.count;
@@ -213,13 +244,13 @@ Page({
               }
             }
           }
-        } 
+        }
 
         for (let index = 0; index < shelvesGoodsInfos.length; index++) {
-          if(shelvesGoodsInfos[index].isCart === false){
+          if (shelvesGoodsInfos[index].isCart === false) {
             shelvesGoodsInfos[index].goodsCount = 0;
           }
-        }   
+        }
 
         console.log(shoppingCartGoodsCount);
         this.setData({

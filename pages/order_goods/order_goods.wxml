@@ -1,41 +1,42 @@
 <!-- pages/mine/mine.wxml -->
 <!-- 主盒子 -->
 <view class="container">
-    <!-- 左侧栏 -->
-    <view class="nav_left" wx:for="{{goodsCategroy}}">
-        <view class="nav_left_items {{goodsCategroyIndex == index ? 'active' : ''}}" bindtap="bindSelectGoodsCategroy"
-            data-index="{{index}}">
-            {{item.goodstype}}
-        </view>
-    </view>
-    <view class="nav_right">
-        <view wx:for="{{shelvesGoodsInfos}}">
-            <view class="right_list_item">
-                <view>
-                    <image data-id="{{item.id}}" bindtap="bindLookGoodsDetailly" class="right_list_item_image" id="0" src="{{item.image}}"
-                        role="img"></image>
-                    <text class="right_list_item_title">{{item.goodsname}}</text>
-                    <text class="right_list_item_specification">规格：{{item.norm}}</text>
-                    <text class="right_list_item_price">¥{{item.realprice}}</text>
-                    <text class="right_list_item_market_price">
-                        ¥{{item.price}}
-                    </text>
-                </view>
-                <view class="right_line"></view>
-                <view class="right_list_itemnumber">
-                    <image bindtap="bindAppendShoppingCart" class="add_image_style" id="{{index}}"
-                        data-count="{{item.goodsCount}}" data-id="{{item.id}}" data-index="{{index}}" data-cartid="{{item.cartid}}" src="../../assets/img/add.png"
-                        role="img"></image>
-                        <text class="good_buy_number">{{item.goodsCount}}</text>
-                        <image bindtap="bindDecreaseShoppingCart" class="reduce_image_style" id="{{index}}"
-                            data-count="{{item.goodsCount}}" data-id="{{item.id}}" data-index="{{index}}" data-cartid="{{item.cartid}}" src="../../assets/img/reduce.png"
-                            role="img" style="visibility:'{{item.goodsCount === 0 ? hidden : visible}}'"></image>                
-                </view>
-            </view>
-        </view>
-    </view>
-    <view class="buycar" bindtap="bindLookBuyCar">
-        <text class="">{{shoppingCartGoodsCount}}</text>
-        <image class="" src="../../assets/img/buycar.png"></image>
-    </view>
+	<!-- 左侧栏 -->
+	<view class="nav_left" wx:for="{{goodsCategroy}}">
+		<view class="nav_left_items {{goodsCategroyIndex == index ? 'active' : ''}}" bindtap="bindSelectGoodsCategroy"
+			data-index="{{index}}">
+			{{item.goodstype}}
+		</view>
+	</view>
+	<view class="nav_right">
+		<view wx:for="{{shelvesGoodsInfos}}">
+			<view class="right_list_item">
+				<view>
+					<image data-id="{{item.id}}" bindtap="bindLookGoodsDetailly" class="right_list_item_image" id="0"
+						src="{{item.image}}" role="img"></image>
+					<text class="right_list_item_title">{{item.goodsname}}</text>
+					<text class="right_list_item_specification">规格：{{item.norm}}</text>
+					<text class="right_list_item_price">¥{{item.realprice}}</text>
+					<text class="right_list_item_market_price">
+						¥{{item.price}}
+					</text>
+				</view>
+				<view class="right_line"></view>
+				<view class="right_list_itemnumber">
+					<image bindtap="bindAppendShoppingCart" class="add_image_style" id="{{index}}"
+						data-count="{{item.goodsCount}}" data-id="{{item.id}}" data-index="{{index}}" data-cartid="{{item.cartid}}"
+						src="../../assets/img/add.png" role="img"></image>
+					<text class="good_buy_number">{{item.goodsCount}}</text>
+					<image bindtap="bindDecreaseShoppingCart" class="reduce_image_style" id="{{index}}"
+						data-count="{{item.goodsCount}}" data-id="{{item.id}}" data-index="{{index}}" data-cartid="{{item.cartid}}"
+						src="../../assets/img/reduce.png" role="img"
+						style="visibility:'{{item.goodsCount === 0 ? hidden : visible}}'"></image>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view animation="{{ani}}" class="buycar" bindtap="bindLookBuyCar">
+		<text class="">{{shoppingCartGoodsCount}}</text>
+		<image class="" src="../../assets/img/buycar.png"></image>
+	</view>
 </view>

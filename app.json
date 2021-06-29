@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/order_goods/order_goods",
     "pages/login/login",
     "pages/my_money/my_money",
     "pages/status_details/status_details",
@@ -11,7 +12,6 @@
     "pages/equipment/equipment",
     "pages/user/user",
     "pages/details/details",
-    "pages/order_goods/order_goods",
     "pages/address/address",
     "pages/shopping_cart/shopping_cart",
     "pages/new_address/new_address",

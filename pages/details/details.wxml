@@ -21,7 +21,7 @@
         <view class="price">
           <text>¥{{goodsDetaillyInfo.price}}</text>
         </view>
-        <view class="price_discount">
+        <view wx:if="{{special_offe}}" class="price_discount">
           <text>¥{{special_offer}}</text>
         </view>
         <view class="detail_num">库存数量：{{goodsDetaillyInfo.stock}}</view>
@@ -60,12 +60,12 @@
   </view>
   <!-- 底部首页购物车 -->
   <view class="nav">
-    <navigator open-type="switchTab" url="../index/index" role="navigation">
+    <!-- <navigator open-type="switchTab" url="../index/index" role="navigation">
       <view>
         <image src="../../assets/img/shopcarNormal.png" mode="widthFix"></image>
         <text>首页</text>
       </view>
-    </navigator>
+    </navigator> -->
     <navigator open-type="navigate" url="../shopping_cart/shopping_cart" role="navigation">
       <view>
         <image src="../../assets/img/shopcarNormal.png" mode="widthFix"></image>

@@ -10,7 +10,7 @@ Page({
     deviceid: 0,
     pointname: '',
     pointaddress: '',
-    isbad: 0,
+    isbad: 0, 
     isonline: 0,
     isoutofstock: 0,
     signalIconSrc: '../../assets/img/xinhao.png',
