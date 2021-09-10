@@ -2,14 +2,14 @@
 <!-- 主盒子 -->
 <view class="container">
 	<!-- 左侧栏 -->
-	<view class="nav_left" wx:for="{{goodsCategroy}}">
+	<view class="nav_left" wx:for="{{goodsCategroy}}" wx:key="index">
 		<view class="nav_left_items {{goodsCategroyIndex == index ? 'active' : ''}}" bindtap="bindSelectGoodsCategroy"
 			data-index="{{index}}">
 			{{item.goodstype}}
 		</view>
 	</view>
 	<view class="nav_right">
-		<view wx:for="{{shelvesGoodsInfos}}">
+		<view wx:for="{{shelvesGoodsInfos}}" wx:key="index">
 			<view class="right_list_item">
 				<view>
 					<image data-id="{{item.id}}" bindtap="bindLookGoodsDetailly" class="right_list_item_image" id="0"
@@ -33,6 +33,7 @@
 						style="visibility:'{{item.goodsCount === 0 ? hidden : visible}}'"></image>
 				</view>
 			</view>
+			<!-- <noData isFlag="{{isFlag}}"></noData> -->
 		</view>
 	</view>
 	<view animation="{{ani}}" class="buycar" bindtap="bindLookBuyCar">

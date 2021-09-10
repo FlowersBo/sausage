@@ -14,7 +14,6 @@ page{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-
 }
 /* 日期 */
 .con mp-cell {

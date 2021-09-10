@@ -1,0 +1,8 @@
+/* pages/test/test.wxss */
+.canvas {
+	width: 700rpx;
+	height: 241rpx;
+	background-color: #ffffff;
+	border: solid 1rpx #eeeeee;
+	box-sizing: border-box;
+}

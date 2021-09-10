@@ -10,6 +10,7 @@ Page({
    */
   data: {
     bindingPhoneState: '绑定手机号',
+    bindPhoneState: true,
     bindingBankState: '绑定银行卡',
     setPaswordText: '设置密码',
     showModalStatus: false
@@ -202,11 +203,13 @@ Page({
           })
           if (that.data.ledgerTarget.phoneVerify == 0) {
             that.setData({
-              bindingPhoneState: '绑定手机号'
+              // bindingPhoneState: '绑定手机号'
+              bindPhoneState: true
             })
           } else {
             that.setData({
-              bindingPhoneState: '修改手机号'
+              // bindingPhoneState: '修改手机号'
+              bindPhoneState: false
             })
           }
           if (that.data.ledgerTarget.cardVerify == 0) {

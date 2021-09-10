@@ -49,7 +49,8 @@ Page({
       .then(resp => {
         console.log('收支详情', resp);
         if (resp.data.success) {
-          if (resp.data.data.totalNum!='0') {
+          console.log(resp.data.data.totalNum == '0');
+          if (resp.data.data.totalNum != '0') {
             let incomeDetail = resp.data.data.inExpDetail;
             console.log(incomeDetail)
             that.setData({
@@ -57,6 +58,10 @@ Page({
               totalNum: resp.data.data.totalNum,
               pageIndex: that.data.pageIndex + 1
             })
+          } else {
+            that.setData({
+              incomeDetail: []
+            });
           }
         } else {
           wx.showToast({

@@ -240,7 +240,6 @@ page {
   color: #fff;
   font-size: 20rpx;
   text-align: center;
-
 }
 
 .main {

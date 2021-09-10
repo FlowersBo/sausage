@@ -15,13 +15,13 @@
 				</view>
 			</view>
 		</view>
-		<view>
+		<view class="PTaddressWrap">
 			<view>点位名称：</view>
-			<view>{{pointname}}</view>
+			<view class="PTaddress">{{pointname}}</view>
 		</view>
-		<view>
+		<view class="PTaddressWrap">
 			<view>点位地址：</view>
-			<view>{{pointaddress}}</view>
+			<view class="PTaddress">{{pointaddress}}</view>
 		</view>
 	</view>
 	<!-- 故障告警 -->
@@ -35,9 +35,9 @@
 				<view>告警级别：</view>
 				<view>{{item.alarmlevel}}</view>
 			</view>
-			<view>
+			<view class="PTaddressWrap">
 				<view>点位名称：</view>
-				<view>{{item.pointname}}</view>
+				<view class="PTaddress">{{item.pointname}}</view>
 			</view>
 			<view class="error">
 				<view>告警详情：</view>

@@ -119,13 +119,12 @@ Page({
 	},
 
 	bindInputVerificationCode: function (e) {
-
 		let verificationCode = e.detail.value;
-
 		this.setData({
 			verificationCode: verificationCode
 		});
 	},
+	
 	// 运营商15001081726
 	startVerificationCountDown: function (count) {
 		if (count == 0) {
@@ -175,6 +174,7 @@ Page({
 		};
 		mClient.loginPhone(loginInfo)
 			.then((resp) => {
+				console.log('登录返回',resp);
 				if (resp.data.code == 200) {
 					wx.switchTab({
 						url: '../index/index'
@@ -195,7 +195,10 @@ Page({
 			url: '../index/index'
 		})
 	},
+
 	// 15001081725
+	// 15001081726
+	// 18911704040
 	//页面加载事件
 	onLoad: function () {
 		mClient.refreshToken()

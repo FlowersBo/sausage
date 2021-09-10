@@ -24,7 +24,7 @@
     <view class="total">
       共{{cartSettlement.goodsCount}}件
     </view>
-    <view class="good" wx:for="{{cartGoodsList}}" wx:for-item="goods"> 
+    <view class="good" wx:for="{{cartGoodsList}}" wx:for-item="goods" wx:key="index"> 
       <view class="cover">
         <image src="{{goods.cover}}"></image>
       </view>
@@ -44,23 +44,23 @@
   <!-- 商品金额 -->
   <view class="money">
     <view>
-      <text>商品金额</text><text>¥{{cartSettlement.goodsSettlement}}</text>
+      <text>商品金额</text><text>¥ {{cartSettlement.goodsSettlement}}</text>
     </view>
     <view>
-      <text>配送费</text><text>¥{{cartSettlement.freight}}</text>
+      <text>配送费</text><text>¥ {{cartSettlement.freight}}</text>
     </view>
     <view>
-      <text>优惠</text><text>¥{{cartSettlement.economize}}</text>
+      <text>优惠</text><text> - ¥ {{cartSettlement.economize}}</text>
     </view>
     <view class="total">
-      <text>总计  </text> <text>  ¥{{cartSettlement.moneyPaid}}</text>
+      <text>总计  </text> <text>¥ {{cartSettlement.moneyPaid}}</text>
     </view>
   </view>
   <!-- 支付方式 -->
   <view class="weui-cell weui-cell_input">
     <view class="weui-cell__bd">
         <radio-group class="item-right radio-group">
-            <label class="radio" wx:for="{{items}}">
+            <label class="radio" wx:for="{{items}}" wx:key="index">
               <image src="{{item.src}}"></image>
               {{item.name}}
                 <radio value="{{item.name}}" checked="{{item.checked}}" style="zoom:.7;" />
@@ -71,7 +71,7 @@
 <!-- 备注 -->
 <view class="remarks">
   <text>订单备注：</text>
-  <input maxlength="50" placeholder="最大输入长度为50" bindinput="bindOrderCommentInput"/>
+  <textarea class="text-area" maxlength="50" placeholder="最大输入长度为50" name="tarea" id="" cols="30" rows="10" bindinput="bindOrderCommentInput"></textarea>
 </view>
   <!-- 去支付 -->
   <view class="section-bottom">

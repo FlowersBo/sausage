@@ -1,0 +1,6 @@
+<!--pages/test/test.wxml-->
+<view class="signature">签名</view>
+<canvas class="canvas" id="canvas" canvas-id="canvas" disable-scroll="true" bindtouchstart="canvasStart" bindtouchmove="canvasMove" bindtouchend="canvasEnd" touchcancel="canvasEnd" binderror="canvasIdErrorCallback"></canvas>
+<view class="reset" type="default" bindtap="cleardraw">重写</view>
+<!-- <button type="default" bindtap="getimg">导出图片</button> -->
+

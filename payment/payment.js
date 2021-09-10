@@ -13,6 +13,7 @@ function payOrder(orderId){
             //发起网络请求
             mClient.get(api.UserPayment, data).then(resp => {
               let info = resp.data.data;
+              console.log('支付参数',info);
               if (info.result === 'SUCCESS') {
                 wx.requestPayment({
                   'timeStamp': info.payinfo.timeStamp,

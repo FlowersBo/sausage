@@ -21,19 +21,19 @@
 						</view>
 					</view>
 				</view>
-				<view>
+				<view class="PTaddressWrap">
 					<view>点位名称：</view>
-					<view>{{item.pointname}}</view>
+					<view class="PTaddress">{{item.pointname}}</view>
 				</view>
-				<view>
+				<view class="PTaddressWrap">
 					<view>点位地址：</view>
-					<view>{{item.pointaddress}}</view>
+					<view class="PTaddress">{{item.pointaddress}}</view>
 				</view>
 			</view>
 		</view>
 	</view>
 	<!-- 点击加载更多 -->
-	<view class="button-wrapper">
+	<view wx:if="{{!serchContent}}" class="button-wrapper">
 		<button type="default" size="default" loading="{{loading}}" disabled="{{disabled}}" bindtap="setLoading">
 			{{loadText}}
 		</button>

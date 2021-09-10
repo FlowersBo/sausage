@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "订货",
-  "usingComponents": {}
+  "usingComponents": {
+    "noData": "/component/noData/noData"
+  }
 }

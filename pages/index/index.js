@@ -2,6 +2,10 @@ import * as echarts from '../../ec-canvas/echarts';
 import * as mClient from '../../utils/customClient';
 import * as api from '../../config/api';
 import * as util from '../../utils/util';
+import {
+	OrderList
+} from '../../config/api';
+let isReportGenre = "天数";
 
 function initChart(canvas, width, height, xsign, xdata) {
 	const chart = echarts.init(canvas, null, {
@@ -9,19 +13,35 @@ function initChart(canvas, width, height, xsign, xdata) {
 		height: height
 	});
 	canvas.setChart(chart);
-
 	var option = {
 		xAxis: {
+			name: isReportGenre,
+			nameLocation: 'end',
+			nameTextStyle: {
+				color: '#BB0012',
+				fontStyle: 'italic',
+				fontSize: '8',
+				verticalAlign: 'middle',
+				align: 'left'
+			},
 			boundaryGap: false,
 			type: 'category',
 			data: xsign
 		},
 		yAxis: {
+			name: '销售额(元)',
 			type: 'value'
 		},
+		nameTextStyle: {
+			color: '#BB0012',
+			fontStyle: 'italic',
+			fontSize: '8',
+			verticalAlign: 'middle',
+			align: 'left'
+		},
 		grid: {
-			top: 20,
-			left: 50,
+			top: 30,
+			left: 30,
 			height: 100
 		},
 		series: [{
@@ -111,6 +131,11 @@ Page({
 		pointTotal: 0,
 	},
 
+	async OrderList() {
+		let result = await (mClient.get(api.order));
+		let url = `/pages/index/index`;
+	},
+
 	onLoad: function () {
 		let that = this;
 		// console.log(that.data.info.dateRange[reportGenre])
@@ -122,13 +147,13 @@ Page({
 
 	// 切换销售日月报
 	selectedReportGenres: function (e) {
-
 		let that = this;
 		let index = e.currentTarget.dataset.index;
 		let dateRangeindex = that.data.dateRangeindex;
 		console.log(index, dateRangeindex);
 		let dateRange = parseInt('' + index + dateRangeindex);
 		console.log('上边', dateRange)
+		console.log(index);
 		let reportDetail = that.data.reportDetail;
 		console.log(reportDetail);
 		reportDetail[1] = '../../assets/img/arrow.png';
@@ -137,12 +162,16 @@ Page({
 		this.renderTransactionSummation(dateRange)
 		this.renderChart(dateRange);
 		this.renderReport(dateRange);
-
 		this.setData({
 			reportGenre: index,
 			dateRange: dateRange,
 			reportDetail: reportDetail,
 		});
+		if (index == 0) {
+			isReportGenre = '天数'
+		} else {
+			isReportGenre = '月份'
+		}
 	},
 
 	// 切换天数月数
@@ -178,8 +207,8 @@ Page({
 
 		mClient.get(api.PointSummarybydate, data)
 			.then(resp => {
-				console.log('销量',resp);
-				if(!resp.data.data.summary){
+				console.log('销量', resp);
+				if (!resp.data.data.summary) {
 					that.setData({
 						reportTotal: {
 							'销售额': 0,
@@ -196,7 +225,10 @@ Page({
 				this.setData({
 					reportTotal: reportTotal,
 				});
-			});
+			})
+			.catch(rej => {
+				console.log('销量错误', rej);
+			})
 	},
 
 	// 计算切换时间段
@@ -236,7 +268,7 @@ Page({
 				this.setData({
 					pointDetaillyDate: pointDetaillyDate
 				});
-
+				console.log(pointDetaillyDate);
 				this.renderReportTotal(startDate, endDate);
 			}
 
@@ -365,8 +397,6 @@ Page({
 
 				pointReportDate.setDate(pointReportDate.getDate() - 30);
 				let startDate = util.customFormatTime(pointReportDate);
-
-
 				let data = {
 					start: startDate,
 					end: endDate,
@@ -413,7 +443,7 @@ Page({
 
 				mClient.get(api.PointDataByDay, data)
 					.then(resp => {
-						console.log('近7天返回',resp);
+						console.log('近7天返回', resp);
 						pointsData = pointsData.concat(resp.data.data.list);
 						pointTotal = resp.data.data.total
 						if ((pointTotal / pageSize) < pageIndex) {
@@ -606,8 +636,15 @@ Page({
 		}
 	},
 
-	createChart: function (echartGenre) {
+	async OrderList() {
+		let id = '0';
+		let url = `/pages/index/index?id={id}`
+		let result = await (mClient.get(api.order));
 
+	},
+
+	//创建eChart
+	createChart: function (echartGenre) {
 		let that = this;
 		let data = [];
 		let reportCharts = [];
@@ -625,6 +662,7 @@ Page({
 		});
 	},
 
+	//时间段切换
 	convertDictionaryToArray: function (dirt = {}, echartGenre = 0) {
 		let dataArray = [];
 		for (let item in dirt) {
@@ -638,7 +676,6 @@ Page({
 		} else if (echartGenre === 3) {
 			dataArray = dataArray.slice(arrayLength - 12, arrayLength)
 		}
-
 		return dataArray;
 	},
 
@@ -664,6 +701,7 @@ Page({
 
 		this.renderReport(dateRange, serchContent);
 	},
+
 
 	// 销售额/销售量排序列表
 	bindPointSort: function (e) {

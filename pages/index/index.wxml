@@ -47,7 +47,7 @@
     </view>
   </view>
 
-  <view class="list">
+  <view class="list" wx:if="{{pointsData}}">
     <block wx:for="{{pointsData}}" wx:key="list" wx:for-item="item">
       <view class="list_item">
         <view class="info .box">
@@ -60,6 +60,9 @@
         </view>
       </view>
     </block>
+  </view>
+  <view wx:else>
+    <icon style="font-size: 100rpx;" class="iconfont icon-zanwushuju"></icon>
   </view>
 
   <view class="button-wrapper">

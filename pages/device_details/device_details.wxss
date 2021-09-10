@@ -24,7 +24,15 @@ page {
 	letter-spacing: 1px;
 }
 
-.demo-item view {
+.demo-item .PTaddressWrap {
+	display: flex;
+	align-items: center;
+}
+
+.PTaddress{
+	width: 500rpx;
+	height: 50rpx;
+	line-height: 50rpx;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;

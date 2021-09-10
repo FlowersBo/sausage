@@ -107,18 +107,28 @@ Page({
 		if (operationGenre === '立即支付') {
 			payment.payOrder(orderId);
 		} else if (operationGenre === '取消订单') {
-			data = {
-				orderid: orderId,
-				status: 9
-			}
-			this.changeOrderStatus(data);
-			for (let index = 0; index < orderList.length; index++) {
-				if (orderList[index].id === orderId) {
-					orderList.slice(index, 1);
+			wx.showModal({
+				title: '提示',
+				content: '确定取消当前订单吗',
+				success(res) {
+					if (res.confirm) {
+						data = {
+							orderid: orderId,
+							status: 9
+						}
+						that.changeOrderStatus(data);
+						for (let index = 0; index < orderList.length; index++) {
+							if (orderList[index].id === orderId) {
+								orderList.slice(index, 1);
+							}
+						}
+						that.setData({
+							orderList: orderList
+						})
+					} else if (res.cancel) {
+						console.log('用户点击取消')
+					}
 				}
-			}
-			this.setData({
-				orderList: orderList
 			})
 		} else if (operationGenre === '延长收货') {
 			data = {
@@ -172,12 +182,12 @@ Page({
 		c.forEach(element => {
 			let d = parseInt(a + element);
 			let e = parseInt(b + element);
-			console.log('d',d);
-			console.log('e',e);
+			console.log('d', d);
+			console.log('e', e);
 		});
 
 	},
- 
+
 	onShow: function () {
 		this.renderOrderList();
 	},

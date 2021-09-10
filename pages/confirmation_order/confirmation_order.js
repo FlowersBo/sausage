@@ -2,6 +2,10 @@ import * as mClient from '../../utils/customClient';
 import * as api from '../../config/api';
 import * as util from '../../utils/util';
 import * as payment from '../../payment/payment';
+import {
+  OrderDetail,
+  userContactInfo
+} from '../../config/api';
 
 Page({
 
@@ -23,28 +27,28 @@ Page({
       moneyPaid: 0,
     },
     orderComment: '',
-    userid:0
+    userid: 0
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     console.log(options)
-    if(options.hasOwnProperty('id')){
+    if (options.hasOwnProperty('id')) {
       this.setData({
         userid: options.id
       })
       this.renderUserContactInfo();
-      
-  } else{
-    let cartSelectedGoodsIds = JSON.parse(options.cartSelectedGoodsIds);
 
-    this.setData({
-      cartSelectedGoodsIds: cartSelectedGoodsIds
-    })
-    this.renderUserDefaultContactInfo();
-  }
-    
+    } else {
+      let cartSelectedGoodsIds = JSON.parse(options.cartSelectedGoodsIds);
+
+      this.setData({
+        cartSelectedGoodsIds: cartSelectedGoodsIds
+      })
+      this.renderUserDefaultContactInfo();
+    }
+
     this.renderShipfee();
     this.renderCartList();
   },
@@ -59,17 +63,17 @@ Page({
     let that = this;
     let userInfo = that.data.userInfo;
     wx.navigateTo({
-      url: '../address/address?userid='+userInfo.id,
+      url: '../address/address?userid=' + userInfo.id,
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-        acceptDataFromOpenedPage: function(data) {
+        acceptDataFromOpenedPage: function (data) {
           console.log(data)
           that.setData({
             userid: data.userid
           })
         },
       },
-      
+
     })
   },
 
@@ -121,27 +125,31 @@ Page({
       const price = cartList[index].price;
       const realprice = cartList[index].realprice;
       const count = cartList[index].count;
-
       if (count != 0) {
         let goodsPriceTotal = realprice * count;
-        let economize = price * count - goodsPriceTotal;
-
+        let economize = Number((price * count - goodsPriceTotal).toFixed(2));
         SettlementTotal += goodsPriceTotal;
         economizeTotal += economize;
+        economizeTotal = Number(economizeTotal.toFixed(2));
         goodsCount += count;
         goodsSettlement += price * count;
-      }
+        goodsSettlement = Number(goodsSettlement.toFixed(2));
+        console.log('总金额', SettlementTotal);
+        console.log('总节省金额', economizeTotal);
+        console.log('总数量', goodsCount);
+        console.log('商品结算', goodsSettlement);
+      };
     }
 
     cartSettlement.goodsCount = goodsCount;
     cartSettlement.goodsSettlement = goodsSettlement;
     cartSettlement.goodsOutOfPocketExpenses = SettlementTotal;
     cartSettlement.economize = economizeTotal;
-
     if (cartSettlement.goodsSettlement === 0) {
       cartSettlement.moneyPaid = 0;
     } else {
       cartSettlement.moneyPaid = cartSettlement.goodsOutOfPocketExpenses + cartSettlement.freight;
+      cartSettlement.moneyPaid = Number(cartSettlement.moneyPaid.toFixed(2));
     }
     console.log(cartSettlement);
     this.setData({
@@ -152,6 +160,8 @@ Page({
   settlementMoney: function () {
 
   },
+
+
 
   //渲染用户联系方式
   renderUserDefaultContactInfo: function () {
@@ -171,27 +181,30 @@ Page({
       });
   },
 
-//渲染用户联系方式
-renderUserContactInfo: function () {
-  let that = this;
-  let userid = that.data.userid;
-  console.log(userid)
-  let data = {
-    isdefault: false,
-  };
 
-  mClient.get(api.userContactInfo, data)
-    .then(resp => {
-      let userInfos = resp.data.data.list;
-      for (let index = 0; index < userInfos.length; index++) {
-        if(userInfos[index].id === userid){
-          this.setData({
-            userInfo: userInfos[index],
-          })
-        };
-      }
-    });
-},
+  //渲染用户联系方式
+  renderUserContactInfo: function () {
+    let that = this;
+    let userid = that.data.userid;
+    console.log(userid)
+    let data = {
+      isdefault: false,
+    };
+
+    mClient.get(api.userContactInfo, data)
+      .then(resp => {
+        let userInfos = resp.data.data.list;
+        for (let index = 0; index < userInfos.length; index++) {
+          if (userInfos[index].id === userid) {
+            this.setData({
+              userInfo: userInfos[index],
+            })
+          };
+        }
+      });
+  },
+
+
   bindPayOrder: function () {
     let that = this;
     let dataInfo = [{
@@ -210,7 +223,7 @@ renderUserContactInfo: function () {
       contactid: userInfo.id,
       memo: orderComment,
     };
-
+    console.log('结算传参', data);
     for (let index = 0; index < cartList.length; index++) {
       const goods = cartList[index];
       dataInfo[0].details.push({
@@ -224,7 +237,7 @@ renderUserContactInfo: function () {
     mClient.PostIncludeData(api.CreatGoodsOder, data, obj).then(resp => {
       let orderId = resp.data.data.orderid;
 
-      //暂时搁置 删除购物车中以结算的商品
+      //暂时搁置 删除购物车中以结算的商品 
       for (let index = 0; index < cartList.length; index++) {
         const goods = cartList[index];
         let data = {
@@ -233,45 +246,45 @@ renderUserContactInfo: function () {
 
         mClient.post(api.RemoveShoppingCart, data);
       }
-      //吊起支付
-      payment.payOrder(orderId).then(resp=>{
-      let isOrderComplete =resp;
-      if(isOrderComplete === true){
-        wx.showToast({
-          title: '支付成功',
-          icon: 'success',
-          duration: 2000
-        })
-        wx.navigateBack({
-          delta: 1
-        })
-      } else if(isOrderComplete === false){
-        wx.showModal({
-          title: '提示',
-          content: '以产生未支付订单,请前往支付',
-          success: function (res) {
-      
-            if (res.confirm) {//这里是点击了确定以后            
-              wx.redirectTo({
-                url: '../status_details/status_details?orderId='+ orderId,
-              })
-            } else {//这里是点击了取消以后
-              wx.navigateBack({
-                delta: 1
-              })             
-            }             
-          }             
-        })
-      } else {
-        wx.showToast({
-          title: '网络出现错误，请重新尝试',
-          icon: 'fail',
-          duration: 2000
-        })
-        return false;
-      }
+      //调起支付
+      payment.payOrder(orderId).then(resp => {
+        let isOrderComplete = resp;
+        if (isOrderComplete === true) {
+          wx.showToast({
+            title: '支付成功',
+            icon: 'success',
+            duration: 2000
+          })
+          wx.navigateBack({
+            delta: 1
+          })
+        } else if (isOrderComplete === false) {
+          wx.showModal({
+            title: '提示',
+            content: '以产生未支付订单,请前往支付',
+            success: function (res) {
+
+              if (res.confirm) { //这里是点击了确定以后            
+                wx.redirectTo({
+                  url: '../status_details/status_details?orderId=' + orderId,
+                })
+              } else { //这里是点击了取消以后
+                wx.navigateBack({
+                  delta: 1
+                })
+              }
+            }
+          })
+        } else {
+          wx.showToast({
+            title: '网络出现错误，请重新尝试',
+            icon: 'fail',
+            duration: 2000
+          })
+          return false;
+        }
       });
-      
+
     })
   },
 

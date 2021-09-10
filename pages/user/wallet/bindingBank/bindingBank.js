@@ -30,7 +30,7 @@ Page({
       } else if (data.withdraw) {
         that.setData({
           withdraw: data.withdraw,
-          balance: data.balance
+          bankAmount: data.balance
         })
         wx.setNavigationBarTitle({
           title: '余额提现'
@@ -169,6 +169,7 @@ Page({
               })
 
           } else if (that.data.withdraw) {
+            console.log('当前金额',that.data.bankAmount);
             if (!that.data.bankAmount) {
               wx.showToast({
                 title: '请输入提现金额',
@@ -192,9 +193,13 @@ Page({
             };
             mClient.PostIncludeData(api.WithdrawApply, data)
               .then(resp => {
-                console.log('提现', resp);
+                console.log('提现返回', resp);
                 if (resp.data.success) {
-
+                 setTimeout(function(){
+                  wx.navigateBack({
+                    delta: 1
+                  })
+                 },3000)
                 } else {
                   wx.showToast({
                     title: resp.data.msg,

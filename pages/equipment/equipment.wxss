@@ -35,6 +35,10 @@ page {
 }
 
 /* list */
+.content {
+	margin-top: 30rpx;
+}
+
 .demo-item {
 	padding: 20rpx;
 	margin-bottom: 20rpx;
@@ -43,7 +47,15 @@ page {
 	overflow: hidden;
 }
 
-.demo-item view {
+.PTaddressWrap{
+	display: flex;
+	align-items: center;
+}
+
+.demo-item .PTaddress {
+	width: 500rpx;
+	height: 50rpx;
+	line-height: 50rpx;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;

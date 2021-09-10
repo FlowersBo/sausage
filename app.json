@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/order_goods/order_goods",
     "pages/login/login",
+    "pages/order_goods/order_goods",
     "pages/my_money/my_money",
     "pages/status_details/status_details",
     "pages/device_details/device_details",
@@ -26,7 +26,8 @@
     "pages/user/wallet/paymentPassword/paymentPassword",
     "pages/user/wallet/forgetPassword/forgetPassword",
     "pages/user/wallet/modificationPasswrod/modificationPasswrod",
-    "pages/user/wallet/modificationPhone/modificationPhone"
+    "pages/user/wallet/modificationPhone/modificationPhone",
+    "pages/test/test"
   ],
   "window": {
     "backgroundTextStyle": "dark",

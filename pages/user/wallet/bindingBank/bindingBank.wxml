@@ -39,7 +39,7 @@
               输入提现金额
             </view>
             <view class="authorization_content">
-              <input class="maskInput" type="digit" value="{{balance}}" placeholder="请输入金额" bindinput="rechargeAmountFn" />
+              <input class="maskInput" type="digit" value="{{bankAmount}}" placeholder="请输入金额" bindinput="rechargeAmountFn" />
             </view>
           </view>
         </view>

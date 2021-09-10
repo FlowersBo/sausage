@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isFlag: true,
     goodsCategroy: [],
     shelvesGoodsInfos: [],
     goodsCategroyIndex: 0,
@@ -48,6 +49,7 @@ Page({
       ani: animation.export()
     })
   },
+
 
   //监听data里的数据
   watch: {
@@ -130,6 +132,7 @@ Page({
               shelvesGoodsInfos: shelvesGoodsInfos,
             });
             that.renderBuyCar();
+            that.cartWwing();
           } else {
             wx.showToast({
               title: '操作失败',
@@ -151,7 +154,8 @@ Page({
       .then(resp => {
         let result = resp.data.data.result;
         if (result === true) {
-          that.renderBuyCar();;
+          that.renderBuyCar();
+          that.cartWwing();
         } else {
           wx.showToast({
             title: '操作失败',
@@ -191,20 +195,23 @@ Page({
   renderGoodsList: function (index) {
     let that = this;
     let categroy = that.data.goodsCategroy[index];
-    let data = {
-      goodstypeid: categroy.id,
-      name: '',
-    };
+    console.log(categroy);
+    if (categroy) {
+      let data = {
+        goodstypeid: categroy.id,
+        name: '',
+      };
 
-    mClient.get(api.ShelvesGoodsInfo, data)
-      .then(resp => {
-        let shelvesGoodsInfos = resp.data.data.list;
+      mClient.get(api.ShelvesGoodsInfo, data)
+        .then(resp => {
+          let shelvesGoodsInfos = resp.data.data.list;
 
-        this.setData({
-          shelvesGoodsInfos: shelvesGoodsInfos,
+          this.setData({
+            shelvesGoodsInfos: shelvesGoodsInfos,
+          });
+          this.renderBuyCar();
         });
-        this.renderBuyCar();
-      });
+    }
   },
 
   //look goods detailly

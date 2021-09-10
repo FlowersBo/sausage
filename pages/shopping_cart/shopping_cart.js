@@ -26,7 +26,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.renderCartList();
+
   },
 
   onShow: function () {
@@ -225,26 +225,34 @@ Page({
     let economizeTotal = 0;
     let SettlementTotal = 0;
 
-    for (let index = 0; index < cartList.length; index++) {
-      const price = cartList[index].price;
-      const realprice = cartList[index].realprice;
-      const count = cartList[index].count;
-      const isChecked = cartList[index].isChecked;
-
-      if (count != 0) {
-        let goodsPriceTotal = realprice * count;
-        let economize = price * count - goodsPriceTotal;
-
-
-        if (isChecked === true) {
-          SettlementTotal += goodsPriceTotal;
-          economizeTotal += economize;
-          goodsCount += count;
-          goodsSettlement += price * count;
-        }
+    for (const key in cartList) {
+      if (cartList.hasOwnProperty(key)) {
+        const element = cartList[key];
+        const price = element.price;
+        const realprice = element.realprice;
+        const count = element.count;
+        const isChecked = element.isChecked;
+        if (count != 0) {
+          let goodsPriceTotal = realprice * count;
+          let economize = Number((price * count - goodsPriceTotal).toFixed(2));
+          console.log('单价', price);
+          console.log('数量', count);
+          console.log('单商品总金额', goodsPriceTotal);
+          console.log('节省金额', economize);
+          if (isChecked === true) {
+            SettlementTotal += goodsPriceTotal;
+            economizeTotal += economize;
+            economizeTotal = Number(economizeTotal.toFixed(2));
+            goodsCount += count;
+            goodsSettlement += price * count;
+            console.log('总金额', SettlementTotal);
+            console.log('总节省金额', economizeTotal);
+            console.log('总数量', goodsCount);
+            console.log('商品结算', goodsSettlement);
+          }
+        };
       }
     }
-
     cartSettlement.goodsCount = goodsCount;
     cartSettlement.goodsSettlement = goodsSettlement;
     cartSettlement.goodsOutOfPocketExpenses = SettlementTotal;
@@ -253,7 +261,7 @@ Page({
     if (cartSettlement.goodsSettlement === 0) {
       cartSettlement.moneyPaid = 0;
     } else {
-      cartSettlement.moneyPaid = cartSettlement.goodsOutOfPocketExpenses;
+      cartSettlement.moneyPaid = cartSettlement.goodsOutOfPocketExpenses.toFixed(2);
     }
     console.log(cartSettlement);
     this.setData({
@@ -269,14 +277,22 @@ Page({
     let cartList = that.data.cartGoodsList;
     let index = e.currentTarget.dataset.index;
     let goods = cartList[index];
-
     if (goods.isChecked === true) {
       goods.isChecked = false;
+      that.setData({
+        isSelectAllGoods: false
+      })
     } else {
       goods.isChecked = true;
     };
+    if (cartList.every(f => f.isChecked)) {
+      that.setData({
+        isSelectAllGoods: true
+      })
+    }
 
-    this.setData({
+    console.log(cartList);
+    that.setData({
       cartGoodsList: cartList,
     });
 

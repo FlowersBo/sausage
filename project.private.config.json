@@ -87,6 +87,12 @@
           "pathName": "pages/user/wallet/modificationPhone/modificationPhone",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "测试",
+          "pathName": "pages/test/test",
+          "query": "",
+          "scene": null
         }
       ]
     }

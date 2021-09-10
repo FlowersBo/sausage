@@ -2,18 +2,20 @@ import * as echarts from '../../ec-canvas/echarts';
 import * as mClient from '../../utils/customClient';
 import * as api from '../../config/api';
 import * as util from '../../utils/util';
-
+import {
+  OrderDetail
+} from '../../config/api';
 Page({
 
   data: {
     date: util.customFormatTime(new Date()),
     ec: {
-      lazyLoad: true      
+      lazyLoad: true
     },
     pointsData: [],
     pointsTimeFrame: [],
     pointid: 0,
-    pointName: '',  
+    pointName: '',
   },
 
   onLoad: function (options) {
@@ -44,7 +46,7 @@ Page({
 
   bindDateChange: function (e) {
     let that = this;
-    let date =  e.detail.value;
+    let date = e.detail.value;
     let pointid = that.data.pointid;
     let currentDate = util.customFormatTime(date);
     let data = {
@@ -68,7 +70,11 @@ Page({
     let that = this;
     let date = that.data.date;
     let pointid = that.data.pointid;
-    let converedDate=new Date(Date.parse(date));
+    console.log(date);
+    let converedDate = new Date(Date.parse(date));
+    console.log('修改时间', converedDate);
+    let myDate = new Date().getTime();
+    console.log('13位时间戳', myDate);
     converedDate.setDate(converedDate.getDate() + 1);
     let currentDate = util.customFormatTime(converedDate);
     let data = {
@@ -83,7 +89,6 @@ Page({
           pointsTimeFrame: this.convertObjectToPointsTimeFrame(resp.data.data.list),
           pointsData: this.convertObjectToPointsData(resp.data.data.list),
         });
-
         this.renderChart();
       });
   },
@@ -92,7 +97,7 @@ Page({
     let that = this;
     let date = that.data.date;
     let pointid = that.data.pointid;
-    let converedDate=new Date(Date.parse(date));
+    let converedDate = new Date(Date.parse(date));
     converedDate.setDate(converedDate.getDate() - 1);
     let currentDate = util.customFormatTime(converedDate);
     let data = {
@@ -130,7 +135,7 @@ Page({
     return dataArray;
   },
 
-  renderChart: function(){
+  renderChart: function () {
     this.ecComponent = this.selectComponent('#hour-chart');
     this.ecComponent.init((canvas, width, height) => {
       // 获取组件的 canvas、width、height 后的回调函数
@@ -149,37 +154,55 @@ Page({
     });
   },
 
-  setHourChartOption: function(){
+  setHourChartOption: function () {
     let that = this;
-    let pointsTimeFrame =this.converArrayInteval(that.data.pointsTimeFrame);
+    let pointsTimeFrame = this.converArrayInteval(that.data.pointsTimeFrame);
     let pointsData = this.converArrayInteval(that.data.pointsData);
     return {
       xAxis: {
+        name: '日期',
+        nameLocation: 'end',
+        nameTextStyle: {
+          color: '#BB0012',
+          fontStyle: 'italic',
+          fontSize: '8',
+          verticalAlign: 'middle',
+          align: 'left'
+        },
         boundaryGap: false,
         type: 'category',
         data: pointsTimeFrame
       },
       yAxis: {
+        name: '销售额(元)',
+        nameLocation: 'end',
+        nameTextStyle: {
+          color: '#BB0012',
+          fontStyle: 'italic',
+          fontSize: '8',
+          verticalAlign: 'middle',
+          align: 'left'
+        },
         type: 'value'
       },
       grid: {
-        top: 20,
-        left: 50,
+        top: 30,
+        left: 30,
         height: 100
       },
       series: [{
-        data:  pointsData,
+        data: pointsData,
         type: 'line'
       }]
     }
   },
 
-  converArrayInteval: function(array=[]){
+  converArrayInteval: function (array = []) {
     let newArray = [];
     newArray.push(0);
     for (let index = 0; index < array.length; index++) {
-      let inteval = (index - 3)%4;
-      if(inteval === 0){
+      let inteval = (index - 3) % 4;
+      if (inteval === 0) {
         newArray.push(array[index]);
       }
     }

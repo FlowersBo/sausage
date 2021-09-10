@@ -2,7 +2,7 @@
 <!-- 物品展示 -->
 <view class="container">
 	<view class="section section-good">
-		<checkbox-group bindchange="checkboxChange">
+		<checkbox-group>
 			<view class="good" wx:for="{{cartGoodsList}}" wx:key="index" wx:for-item="goods">
 				<label class="checkbox" bindtap="bindCheckboxChange" data-index="{{index}}">
 					<checkbox checked="{{goods.isChecked}}" hidden="hidden" />
@@ -20,7 +20,7 @@
 				</view>
 				<view class="stepper">
 					<view class="subtract" data-index="{{index}}" catchtap="bindReduceGoods">-</view>
-					<input class="count" value="{{goods.count}}" type="number" confirm-type="done"
+					<input class="count" value="{{goods.count}}" disabled type="number" confirm-type="done"
 						bindconfirm="bindChangeGoodsNum" data-id="goods." />
 					<view class="add" data-index="{{index}}" catchtap="bindAddGoods">+</view>
 				</view>
@@ -48,7 +48,7 @@
 
 		<view class="btn {{cartSettlement.moneyPaid > 0 ? 'btn-primary': 'btn-default'}}"
 			url="../confirmation_order/confirmation_order" bindtap="bindSettlementMoney">
-			去结算({{cartSettlement.moneyPaid}})
+			去结算 <!--({{cartSettlement.moneyPaid}})-->
 		</view>
 
 	</view>

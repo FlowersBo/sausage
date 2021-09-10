@@ -5,13 +5,13 @@
       <view class="balanceTitle">
         <view class="balancetext">现金账户余额(元)</view>
         <view class="btnWrap">
-          <view class="btn" bindtap="bindLogOut">{{setPaswordText}}</view>
+          <!-- <view class="btn" bindtap="bindLogOut">{{setPaswordText}}</view> -->
           <view class="btn" data-balance="{{walletDetail.enableBalance}}" bindtap="bindwithdrawFn">提现申请</view>
         </view>
       </view>
       <view class="balanceSumWrap">
         <view class="balanceSum">{{walletDetail.totalBalance}}</view>
-        <view class="recharge" bindtap="bindRechargeFn">充值</view>
+        <!-- <view class="recharge" bindtap="bindRechargeFn">充值</view> -->
       </view>
       <view class="balanceDetail">
         <view class="detail-item">
@@ -29,7 +29,7 @@
         <view class="bindingTitle">我的手机号</view>
         <view class="phoneReveal">
           <view class="phone">{{walletDetail.phone}}</view>
-          <view class="binding" bindtap="bindingPhone">{{bindingPhoneState}}</view>
+          <view wx:if="{{bindPhoneState}}" class="binding" bindtap="bindingPhone">{{bindingPhoneState}}</view>
         </view>
       </view>
       <view class="bindingPhone">

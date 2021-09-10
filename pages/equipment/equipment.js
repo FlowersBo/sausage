@@ -15,7 +15,7 @@ Page({
     loadText: "点击加载..",
     isLoad: 1,
     pageIndex: 1,
-    pageSize: 6,
+    pageSize: 5,
     devicesData: [],
     serchContent: '',
     deviceTotal: 0,
@@ -31,7 +31,7 @@ Page({
       pagesize: pageSize
     };
 
-    mClient.get(api.DeviceList)
+    mClient.get(api.DeviceList, data)
       .then(resp => {
         let devicesInfo = resp.data.data.data;
         devicesInfo = this.addDevicesObjectProperty(devicesInfo);
@@ -57,12 +57,11 @@ Page({
     let deviceTotal = that.data.deviceTotal;
     let devicesDataCurrent = that.data.devicesData;
     let isLoad = that.data.isLoad;
-
     if (isLoad === 0) {
       wx.showToast({
         title: '已加载完成',
         icon: 'none',
-        duration: 1000
+        duration: 2000
       });
       return;
     }
@@ -73,12 +72,10 @@ Page({
       pagesize: pageSize
     };
 
-    mClient.get(api.DeviceList)
+    mClient.get(api.DeviceList, data)
       .then(resp => {
         let devicesInfo = resp.data.data.data;
         devicesInfo = this.addDevicesObjectProperty(devicesInfo);
-        pageIndex = pageIndex + 1;
-
         this.setData({
           devicesData: devicesDataCurrent.concat(devicesInfo),
           pageIndex: pageIndex,
@@ -120,6 +117,7 @@ Page({
           devicesInfo = this.addDevicesObjectProperty(devicesInfo);
           this.setData({
             devicesData: devicesInfo,
+            serchContent: serchContent
           });
         } else {
           wx.showToast({
@@ -172,7 +170,7 @@ Page({
       pagesize: pageSize
     };
 
-    mClient.get(api.DeviceList)
+    mClient.get(api.DeviceList, data)
       .then(resp => {
         wx.hideNavigationBarLoading();
         wx.stopPullDownRefresh();
@@ -184,8 +182,14 @@ Page({
             loadText: '已经到底了',
             isLoad: 0,
           });
+        } else {
+          this.setData({
+            loadText: '点击加载',
+            isLoad: 1,
+          });
         };
         this.setData({
+          pageIndex: pageIndex + 1,
           devicesData: devicesInfo,
           deviceTotal: resp.data.data.total,
           serchContent: ''

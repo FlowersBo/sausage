@@ -61,3 +61,7 @@
 .Moneycolor{
   color: #1163df;
 }
+.item-money{
+  margin-left: 10rpx;
+  color: red;
+}

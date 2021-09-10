@@ -8,7 +8,20 @@ App({
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
    */
   onLaunch: function () {
-
+    const statusBar = wx.getSystemInfoSync();
+    console.log(statusBar);
+    wx.getSystemInfo({
+      success: res => {
+        //导航高度
+        this.data.navHeight = res.statusBarHeight + 46;
+        this.data.height = res.statusBarHeight;
+        this.data.boundingClientRect = wx.getMenuButtonBoundingClientRect();
+        console.log(this.data.boundingClientRect);
+      },
+      fail(err) {
+        console.log(err);
+      }
+    })
   },
 
   /**
