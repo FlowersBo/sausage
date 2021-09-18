@@ -67,12 +67,6 @@
           "scene": null
         },
         {
-          "name": "忘记密码",
-          "pathName": "pages/user/wallet/forgetPassword/forgetPassword",
-          "query": "",
-          "scene": null
-        },
-        {
           "name": "跳转小程序",
           "pathName": "pages/authentication/authentication",
           "query": "",
@@ -91,6 +85,12 @@
         {
           "name": "测试",
           "pathName": "pages/test/test",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "报表",
+          "pathName": "pages/index/index",
           "query": "",
           "scene": null
         }

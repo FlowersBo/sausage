@@ -1,6 +1,7 @@
 // pages/device_details/device_details.js
 import * as api from '../../config/api';
 import * as mClient from '../../utils/customClient';
+let that;
 Page({
 
   /**
@@ -10,7 +11,7 @@ Page({
     deviceid: 0,
     pointname: '',
     pointaddress: '',
-    isbad: 0, 
+    isbad: 0,
     isonline: 0,
     isoutofstock: 0,
     signalIconSrc: '../../assets/img/xinhao.png',
@@ -25,10 +26,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-    let that = this;
-    let pageIndex = that.data.pageIndex;
-    let pageSize = that.data.pageSize;
+    that = this;
     let isbad = options.isbad;
     let isonline = options.isonline;
     let isoutofstock = options.isoutofstock;
@@ -40,7 +38,6 @@ Page({
       this.setData({
         signalIconSrc: '../../assets/img/xinhao-v.png'
       })
-
     } else {
       this.setData({
         signalIconSrc: '../../assets/img/xinhao.png'
@@ -60,31 +57,47 @@ Page({
         deviceStatusIconSrc: '../../assets/img/zaixian.png'
       })
     }
+    that.setData({
+      deviceId: deviceId,
+      pointname: pointname,
+      pointaddress: pointaddress
+    })
+    that.alarmListFn();
+  },
 
+  alarmListFn: () => {
+    let {pageIndex,pageSize,deviceId} = that.data;
     let data = {
       deviceid: deviceId,
-      pageindex: pageIndex,
+      pageindex:pageIndex,
       pagesize: pageSize
     };
 
     mClient.get(api.AlarmList, data)
       .then(resp => {
-        this.setData({
-          deviceid: deviceId,
-          pointname: pointname,
-          pointaddress: pointaddress,
+        that.setData({
           alarmTotal: resp.data.data.total,
           alarmList: resp.data.data.alarmlist,
           pageIndex: pageIndex + 1,
         });
-
       }, );
   },
 
+  // 刷新
+  onPullDownRefresh: function () {
+    console.log("下拉刷新")
+    // 显示顶部刷新图标  
+    wx.showNavigationBarLoading();
+    that.alarmListFn();
+    wx.hideNavigationBarLoading();
+    wx.stopPullDownRefresh();
+  },
+
   onReachBottom: function () {
+    console.log('onBottom');
     let that = this;
     let deviceId = that.data.deviceid;
-    let pageIndex = 1;
+    let pageIndex = that.data.pageIndex;
     let pageSize = that.data.pageSize;
     let data = {
       deviceid: deviceId,
@@ -95,8 +108,8 @@ Page({
       .then(resp => {
         let alarmTotal = resp.data.data.total;
         this.setData({
-          alarmList: resp.data.data.alarmlist,
-          pageIndex: pageIndex,
+          alarmList: that.data.alarmList.concat(resp.data.data.alarmlist),
+          pageIndex: pageIndex + 1,
           alarmTotal: alarmTotal
         });
       });

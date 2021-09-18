@@ -1,7 +1,7 @@
 const ApiRootUrl = 'https://api.morninggo.cn/';
 // const ApiRootUrl = 'http://192.168.126.247:8080/morninggo_app_http_war/';
 // const ApiRootUrl = 'https://w3.morninggo.cn/';
-// const ApiRootUrl = 'http://localhost:8080/mg/';
+// const ApiRootUrl = 'http://localhost:8080/mg/';13322265957
 module.exports = {
     Login: ApiRootUrl + 'app/user/auth', //登录授权
     VerificationCode: ApiRootUrl + 'app/user/smscode', //验证码

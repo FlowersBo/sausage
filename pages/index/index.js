@@ -5,7 +5,7 @@ import * as util from '../../utils/util';
 import {
 	OrderList
 } from '../../config/api';
-let isReportGenre = "天数";
+// let isReportGenre = "天数";
 
 function initChart(canvas, width, height, xsign, xdata) {
 	const chart = echarts.init(canvas, null, {
@@ -15,7 +15,7 @@ function initChart(canvas, width, height, xsign, xdata) {
 	canvas.setChart(chart);
 	var option = {
 		xAxis: {
-			name: isReportGenre,
+			// name: isReportGenre,
 			nameLocation: 'end',
 			nameTextStyle: {
 				color: '#BB0012',
@@ -29,7 +29,7 @@ function initChart(canvas, width, height, xsign, xdata) {
 			data: xsign
 		},
 		yAxis: {
-			name: '销售额(元)',
+			// name: '销售额(元)',
 			type: 'value'
 		},
 		nameTextStyle: {
@@ -41,7 +41,7 @@ function initChart(canvas, width, height, xsign, xdata) {
 		},
 		grid: {
 			top: 30,
-			left: 30,
+			left: 50,
 			height: 100
 		},
 		series: [{
@@ -61,7 +61,7 @@ Page({
 		info: {
 			reportGenres: ['销售日报', '销售月报'],
 			dateRange: [
-				['今日', '近7天', '近30天'],
+				['今日', '昨日', '近7天', '近30天'],
 				['近3个月', '近6个月', '近12个月'],
 			],
 		},
@@ -104,7 +104,7 @@ Page({
 		charts: [],
 
 		pageIndex: 1,
-		pageSize: 4,
+		pageSize: 10,
 
 		pointsData: [],
 
@@ -140,7 +140,7 @@ Page({
 		let that = this;
 		// console.log(that.data.info.dateRange[reportGenre])
 		let dateRange = that.data.dateRange;
-		this.renderTransactionSummation(dateRange)
+		this.renderTransactionSummation(dateRange);
 		this.renderChart(dateRange);
 		this.renderReport(dateRange);
 	},
@@ -150,10 +150,25 @@ Page({
 		let that = this;
 		let index = e.currentTarget.dataset.index;
 		let dateRangeindex = that.data.dateRangeindex;
+		let dateRangeindex_off = that.data.dateRangeindex_off;
 		console.log(index, dateRangeindex);
 		let dateRange = parseInt('' + index + dateRangeindex);
-		console.log('上边', dateRange)
-		console.log(index);
+		console.log('上边', dateRange);
+		if (dateRange === 13 && index === 1) {
+			dateRange = 12;
+			dateRangeindex = 2;
+			that.setData({ //设置第四个变第三个
+				dateRangeindex
+			})
+		} else if (dateRangeindex_off === 3) {
+			console.log('原来的', dateRangeindex_off);
+			dateRange = 3;
+			that.setData({
+				dateRange,
+				dateRangeindex: dateRangeindex_off
+			})
+		};
+
 		let reportDetail = that.data.reportDetail;
 		console.log(reportDetail);
 		reportDetail[1] = '../../assets/img/arrow.png';
@@ -167,14 +182,14 @@ Page({
 			dateRange: dateRange,
 			reportDetail: reportDetail,
 		});
-		if (index == 0) {
-			isReportGenre = '天数'
-		} else {
-			isReportGenre = '月份'
-		}
+		// if (index == 0) {
+		// 	isReportGenre = '天数'
+		// } else {
+		// 	isReportGenre = '月份'
+		// }
 	},
 
-	// 切换天数月数
+	// 切换天数/月数
 	selectedDateRange: function (e) {
 		let that = this;
 		let index = e.currentTarget.dataset.index;
@@ -192,6 +207,7 @@ Page({
 		this.setData({
 			dateRange: dateRange,
 			dateRangeindex: index,
+			dateRangeindex_off: index,
 			reportDetail: reportDetail,
 		});
 	},
@@ -241,7 +257,7 @@ Page({
 			loadText: '加载中...',
 		})
 		console.log('当前的dateRange', dateRange)
-		if (dateRange === 0 || dateRange === 2) { //今天||近30天
+		if (dateRange === 0 || dateRange === 3) { //今天||近30天
 			if (dateRange === 0) {
 				pointReportDate.setDate(pointReportDate.getDate());
 				let startDate = util.customFormatTime(pointReportDate);
@@ -255,7 +271,7 @@ Page({
 				this.renderReportTotal(startDate, endDate);
 			}
 
-			if (dateRange === 2) {
+			if (dateRange === 3) {
 				pointReportDate.setDate(pointReportDate.getDate() - 1);
 				let endDate = util.customFormatTime(pointReportDate);
 				let pointDetaillyEndDate = util.customFormatOnlyMonthDay(pointReportDate);
@@ -271,9 +287,26 @@ Page({
 				console.log(pointDetaillyDate);
 				this.renderReportTotal(startDate, endDate);
 			}
-
 		} else {
 			if (dateRange === 1) {
+				pointReportDate.setDate(pointReportDate.getDate() - 1);
+				let endDate = util.customFormatTime(pointReportDate);
+				let pointDetaillyEndDate = util.customFormatOnlyMonthDay(pointReportDate);
+
+				// pointReportDate.setDate(pointReportDate.getDate() - 1);
+				let startDate = util.customFormatTime(pointReportDate);
+				let pointDetaillyStartDate = util.customFormatOnlyMonthDay(pointReportDate);
+
+				console.log('昨日', startDate, endDate);
+				let pointDetaillyDate = pointDetaillyStartDate;
+				this.setData({
+					pointDetaillyDate: pointDetaillyDate
+				});
+
+				this.renderReportTotal(startDate, endDate);
+			}
+
+			if (dateRange === 2) {
 				pointReportDate.setDate(pointReportDate.getDate() - 1);
 				let endDate = util.customFormatTime(pointReportDate);
 				let pointDetaillyEndDate = util.customFormatOnlyMonthDay(pointReportDate);
@@ -358,7 +391,7 @@ Page({
 			loadText: '加载中...',
 		})
 
-		if (dateRange === 0 || dateRange === 2) {
+		if (dateRange === 0 || dateRange === 3) {
 			if (dateRange === 0) {
 
 				pointReportDate.setDate(pointReportDate.getDate());
@@ -391,7 +424,7 @@ Page({
 					});
 			}
 
-			if (dateRange === 2) {
+			if (dateRange === 3) {
 				pointReportDate.setDate(pointReportDate.getDate() - 1);
 				let endDate = util.customFormatTime(pointReportDate);
 
@@ -405,8 +438,6 @@ Page({
 					order: pointSort,
 					name: pointName
 				};
-
-
 				mClient.get(api.PointDataByDay, data)
 					.then(resp => {
 						pointsData = pointsData.concat(resp.data.data.list);
@@ -426,6 +457,40 @@ Page({
 
 		} else {
 			if (dateRange === 1) {
+				pointReportDate.setDate(pointReportDate.getDate() - 1);
+				let endDate = util.customFormatTime(pointReportDate);
+
+				pointReportDate.setDate(pointReportDate.getDate() - 1);
+				let startDate = util.customFormatTime(pointReportDate);
+
+				let data = {
+					start: startDate,
+					end: endDate,
+					pageindex: pageIndex,
+					pagesize: pageSize,
+					order: pointSort,
+					name: pointName
+				};
+
+				mClient.get(api.PointDataByDay, data)
+					.then(resp => {
+						console.log('近7天返回', resp);
+						pointsData = pointsData.concat(resp.data.data.list);
+						pointTotal = resp.data.data.total
+						if ((pointTotal / pageSize) < pageIndex) {
+							this.setData({
+								loadText: '已经到底了',
+							})
+						}
+						this.setData({
+							pointsData: pointsData,
+							pageIndex: pageIndex + 1,
+							pointTotal: pointTotal
+						});
+					});
+			}
+
+			if (dateRange === 2) {
 				pointReportDate.setDate(pointReportDate.getDate() - 1);
 				let endDate = util.customFormatTime(pointReportDate);
 
@@ -563,7 +628,7 @@ Page({
 
 	//渲染echarts
 	renderChart: function (dateRange = 0) {
-		if (dateRange === 0 || dateRange === 2) {
+		if (dateRange === 0 || dateRange === 1 || dateRange === 3) {
 			this.setData({
 				isShowGraph: false
 			});
@@ -573,8 +638,7 @@ Page({
 				isShowGraph: false
 			});
 
-			if (dateRange === 1) {
-
+			if (dateRange === 2) {
 				let echartGenre = 0;
 				this.setData({
 					chartsTitleGenre: echartGenre
@@ -589,7 +653,6 @@ Page({
 			}
 
 			if (dateRange === 10) {
-
 				let echartGenre = 1;
 				this.setData({
 					chartsTitleGenre: echartGenre
@@ -605,7 +668,6 @@ Page({
 			}
 
 			if (dateRange === 11) {
-
 				let echartGenre = 2;
 				this.setData({
 					chartsTitleGenre: echartGenre

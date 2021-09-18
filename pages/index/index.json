@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "销售报表",
+  "enablePullDownRefresh": false,
   "usingComponents": {
     "ec-canvas": "../../ec-canvas/ec-canvas"
   }

@@ -12,7 +12,7 @@ Page({
 		orderGenre: '',
 		orderGenres: ['全部', '已完成', '异常订单'],
 		pageIndex: 1,
-		pageSize: 5,
+		pageSize: 10,
 		orderList: [],
 		loadText: '点击加载',
 		isLoad: 1,
@@ -198,6 +198,20 @@ Page({
 			url: '../order_details/order_details?id=' + order.ID + "&orderDate=" + order.OrderDate + "&isSuccessfulTransaction=" + order.isSuccessfulTransaction
 		})
 	},
+
+
+  // 刷新
+  onPullDownRefresh: function () {
+    console.log("下拉刷新")
+    // 显示顶部刷新图标  
+		wx.showNavigationBarLoading();
+		
+		
+    wx.hideNavigationBarLoading();
+    wx.stopPullDownRefresh();
+  },
+
+
 
 	//加载
 	setLoading: function (e) {
