@@ -13,13 +13,20 @@
       {{item}}
     </view>
   </view>
-  <view class="sales">
-    <view class="sales_list" wx:for="{{reportTotal}}" wx:key="index" wx:for-index="key" data-item="item">
-      <view class="quantity"> {{key}}</view>
-      <view class="num">{{item}}</view>
+  <view>
+    <view class="sales">
+      <view class="sales_list" wx:for="{{reportTotal}}" wx:key="index" wx:for-index="key" data-item="item">
+        <view class="quantity"> {{key}}</view>
+        <view class="num">{{item}}</view>
+      </view>
+    </view>
+    <view class="sales">
+      <view class="sales_list" wx:for="{{cumulativeSales}}" wx:key="index" wx:for-index="key" data-item="item">
+        <view class="quantity"> {{key}}</view>
+        <view class="num">{{item}}</view>
+      </view>
     </view>
   </view>
-
   <block wx:if="{{isShowGraph}}">
     <view class="container" wx:for="{{graphGenres[chartsTitleGenre].title}}" wx:key='index'>
       <view class="tit">{{item}}</view>
@@ -30,12 +37,12 @@
 
   <view class="detail">
     <view class="explain">
-      点位销售明细(<text>{{pointDetaillyDate}}</text>)
+      点位销售统计(<text>{{pointDetaillyDate}}</text>)
     </view>
-    <view class="point_name">
+    <!-- <view class="point_name">
       <input confirm-type="search" bindconfirm="bindPointSerch" placeholder="点位名称" />
       <image src="../../assets/img/fangdajing.png"></image>
-    </view>
+    </view> -->
   </view>
 
   <view class="tabTit box">

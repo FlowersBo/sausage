@@ -1,29 +1,26 @@
 <!--pages/report_details/report_details.wxml-->
 <view class="">
-  <h5>{{pointName}}</h5>
   <view class="con">
-    <view class="anniu-box">
-      <view class="anniu-shang" bindtap="lowerJump">
-        <image class="" src="../../assets/img/lt.png" mode="aspectFill"></image>
-        前一天
-      </view>
-      <view class="anniu-xia" bindtap="upJump">
-        后一天
-        <image class="" src="../../assets/img/gt.png" mode="aspectFill"></image>
-      </view>
-    </view>
+    <h5>{{pointName}}</h5>
     <view class="cellWrap">
       <mp-cell class="cell" prop="date" title="日期">
         <picker data-field="date" mode="date" value="{{date}}" bindchange="bindDateChange">
           <view class="weui-input">{{date}}</view>
-        </picker>   
+        </picker>
         <image src="../../assets/img/timg.png" alt="" mode="aspectFit" />
       </mp-cell>
     </view>
   </view>
-  <!-- <view class="container">
-        <ec-canvas id="hour-chart" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
-    </view> -->
+  <view class="anniu-box">
+    <view class="anniu-shang" bindtap="lowerJump">
+      <image class="" src="../../assets/img/lt.png" mode="aspectFill"></image>
+      上一日
+    </view>
+    <view class="anniu-xia" bindtap="upJump">
+      下一日
+      <image class="" src="../../assets/img/gt.png" mode="aspectFill"></image>
+    </view>
+  </view>
   <view class="container">
     <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
   </view>

@@ -2,6 +2,7 @@ import * as echarts from '../../ec-canvas/echarts';
 import * as mClient from '../../utils/customClient';
 import * as api from '../../config/api';
 import * as util from '../../utils/util';
+let that;
 import {
 	OrderList
 } from '../../config/api';
@@ -61,8 +62,8 @@ Page({
 		info: {
 			reportGenres: ['销售日报', '销售月报'],
 			dateRange: [
-				['今日', '昨日', '近7天', '近30天'],
-				['近3个月', '近6个月', '近12个月'],
+				['今日', '昨日', '近7天', '自定义'],
+				['近3个月', '近6个月', '自定义'],
 			],
 		},
 
@@ -71,6 +72,12 @@ Page({
 			'订单量': 0,
 			'销售量': 0
 		},
+
+		cumulativeSales: {
+			'累计销售额': `0元`,
+			'累计销售量': `0根`,
+		},
+
 		graphGenres: [{
 				title: ['近七天销售额', '近七天订单量', '近七天销售量'],
 			},
@@ -131,13 +138,9 @@ Page({
 		pointTotal: 0,
 	},
 
-	async OrderList() {
-		let result = await (mClient.get(api.order));
-		let url = `/pages/index/index`;
-	},
 
 	onLoad: function () {
-		let that = this;
+		that = this;
 		// console.log(that.data.info.dateRange[reportGenre])
 		let dateRange = that.data.dateRange;
 		this.renderTransactionSummation(dateRange);
@@ -212,7 +215,7 @@ Page({
 		});
 	},
 
-	//查询当前时间段销售额/订单量/销售量
+	//查询今日/昨日的销售额/订单量/销售量/累计销量
 	renderReportTotal: function (startDate, endDate) {
 		let that = this;
 		let reportTotal = that.data.reportTotal;
@@ -221,9 +224,9 @@ Page({
 			enddate: endDate,
 		};
 
-		mClient.get(api.PointSummarybydate, data)
+		mClient.get(api.OneDaySummation, data)
 			.then(resp => {
-				console.log('销量', resp);
+				console.log('今日销量', resp);
 				if (!resp.data.data.summary) {
 					that.setData({
 						reportTotal: {
@@ -234,18 +237,36 @@ Page({
 					})
 					return
 				}
-				reportTotal['销售额'] = resp.data.data.summary.amount;
-				reportTotal['订单量'] = resp.data.data.summary.count;
-				reportTotal['销售量'] = resp.data.data.summary.productcount;
-				console.log(reportTotal)
+				reportTotal['销售额'] = `${resp.data.data.summary.amount}元`;
+				reportTotal['订单量'] = `${resp.data.data.summary.count}单`;
+				reportTotal['销售量'] = `${resp.data.data.summary.productcount}根`;
+
+				// reportTotal['销售额'] = `${resp.data.data.summary.amount}元`;
+				// if (resp.data.data.summary.COUNT) {
+				// 	reportTotal['订单量'] = `${resp.data.data.summary.COUNT.toLowerCase()}单`;
+				// } else {
+				// 	reportTotal['订单量'] = `${resp.data.data.summary.count}单`;
+				// }
+				// reportTotal['销售量'] = `${resp.data.data.summary.productcount}根`;
 				this.setData({
-					reportTotal: reportTotal,
+					reportTotal: reportTotal
 				});
 			})
 			.catch(rej => {
 				console.log('销量错误', rej);
 			})
 	},
+
+	async rangeDateSummationTotal(startDate, endDate){
+		let reportTotal = that.data.reportTotal;
+		let data = {
+			begindate: startDate,
+			enddate: endDate,
+		};
+		let result = await(mClient.get(api.RangeDateSummation, data));
+		console.log('自定义返回',result);
+	},
+
 
 	// 计算切换时间段
 	renderTransactionSummation: function (dateRange = 0, pointName = '', pageIndex = 1, pointsData = []) {
@@ -262,7 +283,7 @@ Page({
 				pointReportDate.setDate(pointReportDate.getDate());
 				let startDate = util.customFormatTime(pointReportDate);
 				let endDate = util.customFormatTime(pointReportDate);
-				let pointDetaillyDate = util.customFormatOnlyMonthDay(pointReportDate);
+				let pointDetaillyDate = util.customFormatTime(pointReportDate);
 				console.log(pointDetaillyDate); //当前时间
 				this.setData({
 					pointDetaillyDate: pointDetaillyDate
@@ -274,28 +295,28 @@ Page({
 			if (dateRange === 3) {
 				pointReportDate.setDate(pointReportDate.getDate() - 1);
 				let endDate = util.customFormatTime(pointReportDate);
-				let pointDetaillyEndDate = util.customFormatOnlyMonthDay(pointReportDate);
+				let pointDetaillyEndDate = util.customFormatTime(pointReportDate);
 
 				pointReportDate.setDate(pointReportDate.getDate() - 30);
 				let startDate = util.customFormatTime(pointReportDate);
-				let pointDetaillyStartDate = util.customFormatOnlyMonthDay(pointReportDate);
+				let pointDetaillyStartDate = util.customFormatTime(pointReportDate);
 
 				let pointDetaillyDate = pointDetaillyStartDate + '~' + pointDetaillyEndDate;
 				this.setData({
 					pointDetaillyDate: pointDetaillyDate
 				});
 				console.log(pointDetaillyDate);
-				this.renderReportTotal(startDate, endDate);
+				that.rangeDateSummationTotal(startDate, endDate);
 			}
 		} else {
 			if (dateRange === 1) {
 				pointReportDate.setDate(pointReportDate.getDate() - 1);
 				let endDate = util.customFormatTime(pointReportDate);
-				let pointDetaillyEndDate = util.customFormatOnlyMonthDay(pointReportDate);
+				let pointDetaillyEndDate = util.customFormatTime(pointReportDate);
 
 				// pointReportDate.setDate(pointReportDate.getDate() - 1);
 				let startDate = util.customFormatTime(pointReportDate);
-				let pointDetaillyStartDate = util.customFormatOnlyMonthDay(pointReportDate);
+				let pointDetaillyStartDate = util.customFormatTime(pointReportDate);
 
 				console.log('昨日', startDate, endDate);
 				let pointDetaillyDate = pointDetaillyStartDate;
@@ -309,11 +330,11 @@ Page({
 			if (dateRange === 2) {
 				pointReportDate.setDate(pointReportDate.getDate() - 1);
 				let endDate = util.customFormatTime(pointReportDate);
-				let pointDetaillyEndDate = util.customFormatOnlyMonthDay(pointReportDate);
+				let pointDetaillyEndDate = util.customFormatTime(pointReportDate);
 
 				pointReportDate.setDate(pointReportDate.getDate() - 7);
 				let startDate = util.customFormatTime(pointReportDate);
-				let pointDetaillyStartDate = util.customFormatOnlyMonthDay(pointReportDate);
+				let pointDetaillyStartDate = util.customFormatTime(pointReportDate);
 
 				let pointDetaillyDate = pointDetaillyStartDate + '~' + pointDetaillyEndDate;
 				this.setData({
@@ -459,10 +480,8 @@ Page({
 			if (dateRange === 1) {
 				pointReportDate.setDate(pointReportDate.getDate() - 1);
 				let endDate = util.customFormatTime(pointReportDate);
-
-				pointReportDate.setDate(pointReportDate.getDate() - 1);
+				// pointReportDate.setDate(pointReportDate.getDate() - 1);
 				let startDate = util.customFormatTime(pointReportDate);
-
 				let data = {
 					start: startDate,
 					end: endDate,

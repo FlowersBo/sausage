@@ -1,7 +1,6 @@
-const ApiRootUrl = 'https://api.morninggo.cn/';
-// const ApiRootUrl = 'http://192.168.126.247:8080/morninggo_app_http_war/';
-// const ApiRootUrl = 'https://w3.morninggo.cn/';
-// const ApiRootUrl = 'http://localhost:8080/mg/';13322265957
+// const ApiRootUrl = 'https://api.morninggo.cn/';
+const ApiRootUrl = 'https://w3.morninggo.cn/';
+// const ApiRootUrl = 'http://localhost:8080/app-http/';//13322265957
 module.exports = {
     Login: ApiRootUrl + 'app/user/auth', //登录授权
     VerificationCode: ApiRootUrl + 'app/user/smscode', //验证码
@@ -16,6 +15,12 @@ module.exports = {
 
     Info: ApiRootUrl + 'app/user/info', //用户信息
 
+    // 新增(修改)接口
+    OneDaySummation: ApiRootUrl + 'app/report/oneDaySummation', //一天的销量汇总/附带累计额
+    RangeDateSummation: ApiRootUrl + 'app/report/rangeDateSummation', //近7天/自定义销量汇总
+    PointSaleList: ApiRootUrl + 'app/report/pointSaleList', //点位销售统计/列表
+
+
     NearlySevendaysEchart: ApiRootUrl + 'app/report/7daysdata',
     NearlyMonthsEchart: ApiRootUrl + 'app/report/monthdata',
     NearlyThreeMonthsEchart: ApiRootUrl + 'app/user/info',
@@ -26,7 +31,7 @@ module.exports = {
     PointDataByHour: ApiRootUrl + 'app/report/pointdatahours',
     PointToday: ApiRootUrl + 'app/report/pointdatatoday',
 
-    PointSummarybydate: ApiRootUrl + 'app/report/summarybydate',
+    // PointSummarybydate: ApiRootUrl + 'app/report/summarybydate',
     PointTransactionSummation: ApiRootUrl + 'app/report/pointdatasummary',
 
     GoodsCategroy: ApiRootUrl + '/app/goods/gettype',

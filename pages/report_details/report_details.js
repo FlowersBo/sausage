@@ -250,33 +250,67 @@ Page({
   // 双折线图
   initGraph: function (lastSevenDaysDataAgency) {
     console.log('折线图数据', lastSevenDaysDataAgency);
-    let pointsTimeFrame = that.data.pointsTimeFrame; //X轴
-    // if (lastSevenDaysDataAgency.length > 0) {
-    //   that.setData({
-    //     isShow: true
-    //   })
-    // } else {
-    //   that.setData({
-    //     isShow: false
-    //   })
-    //   return
-    // }
+    function gainKey(list) { //第一个0的key
+      for (const key in list) {
+        if (Object.hasOwnProperty.call(list, key)) {
+          const element = list[key];
+          let saleamount = element.saleamount;
+          if (saleamount != 0) {
+            return key;
+            break;
+          }
+        }
+      }
+    };
+
+    function segmentation(list, item) {//截取
+      const obj = {
+        before: [],
+        after: []
+      }
+      // const itemIdx = list.indexOf(item);
+      obj.before = list.slice(0, item);
+      obj.after = list.slice(item - 2);
+      return obj
+    };
+    
+    console.log(gainKey(lastSevenDaysDataAgency));
+    let afterArry = segmentation(lastSevenDaysDataAgency, parseFloat(gainKey(lastSevenDaysDataAgency))).after;
+    console.log('初截取首个0后的',afterArry);
+    let neWafterArry = afterArry.reverse();
+    let neWgainKey = gainKey(neWafterArry);
+    let neWArry = segmentation(neWafterArry,neWgainKey).after;
+    console.log('反序', neWafterArry);
+    console.log('反序首个0的key', neWgainKey);
+    console.log('反序截取', neWArry);
+    neWArry = neWArry.reverse();
+
+    // let gainKeyArry = lastSevenDaysDataAgency.split(gainKey());
+    // console.log(pathPart)
+    //   var pathPart = path.substring(0, path.lastIndexOf('='));
+
+
+
+
+
     let finishDatesWrap = [],
       sumPriceWrap = [],
-      orderCountWrap = [];
-    for (const key in lastSevenDaysDataAgency) {
+      orderCountWrap = [],
+      pointsTimeFrame = [];
+    for (const key in neWArry) {
       //   lastSevenDaysDataAgency[key].finishDates = util.customFormatOnlyMonthDay(lastSevenDaysDataAgency[key].finishDates);
       //   finishDatesWrap.push(lastSevenDaysDataAgency[key].finishDates);
-      sumPriceWrap.push(lastSevenDaysDataAgency[key].saleamount);
-      orderCountWrap.push(lastSevenDaysDataAgency[key].saleSum);
+      sumPriceWrap.push(neWArry[key].saleamount);
+      orderCountWrap.push(neWArry[key].saleSum);
+      pointsTimeFrame.push(neWArry[key].hour);
     }
     let leftData = [],
       rightData = [];
     leftData.push(finishDatesWrap, sumPriceWrap);
     rightData.push(finishDatesWrap, orderCountWrap);
-    console.log('销售额', leftData);
-    console.log('订单量', rightData);
-    if (lastSevenDaysDataAgency) {
+    // console.log('销售额', leftData);
+    // console.log('订单量', rightData);
+    if (neWArry) {
       this.oneComponent = this.selectComponent('#mychart-dom-bar');
     }
     this.oneComponent.init((canvas, width, height, dpr) => {

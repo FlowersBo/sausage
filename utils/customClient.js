@@ -15,8 +15,7 @@ function request(url, data = {}, method = "GET") {
 				'app-access-token': wx.getStorageSync('accessToken')
 			},
 			success: function (resp) {
-				console.log("success");
-				console.log(resp);
+				console.log('success',resp);
 				if (resp.data.code === 200) {
 					resolve(resp);
 				} else {
