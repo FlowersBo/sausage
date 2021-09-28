@@ -93,6 +93,12 @@
           "pathName": "pages/index/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "日历",
+          "pathName": "pages/dateDemo/index",
+          "query": "",
+          "scene": null
         }
       ]
     }

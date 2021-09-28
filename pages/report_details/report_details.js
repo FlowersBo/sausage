@@ -64,7 +64,7 @@ function getLineOption(chart, leftData, rightData, dateTitle, pointsTimeFrame) {
           fontSize: '10',
           verticalAlign: 'middle',
         },
-        minInterval: 1, //设置成1保证坐标轴分割刻度显示成整数
+        // minInterval: 1, //设置成1保证坐标轴分割刻度显示成整数
         type: 'value',
         data: rightData[0],
         splitLine: {

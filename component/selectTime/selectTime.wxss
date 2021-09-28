@@ -1,0 +1,123 @@
+/* component/selectTime/selectTime.wxss */
+.picker-item{
+  line-height: 100rpx;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 自定义时间 */
+.picker-container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: -640rpx;
+  left: 0;
+  /* height: 0; */
+  transition: height 0.5s;
+  z-index: 2000;
+  background: white;
+  border-top: 1px solid #EFEFF4;
+}
+.time-part{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10rpx;
+}
+.sensorType-screen{
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #000;
+  opacity: 0;
+  overflow: hidden;
+  z-index: 1999;
+  color: #fff;
+}
+.left{
+  width:40%;
+  /* border: 1px solid red; */
+}
+.right{
+  width: 40%;
+  /* border: 1px solid red; */
+}
+.sensorTypePicker{
+  height: 250rpx;
+  margin: 0 auto;
+}
+.picker-item{
+  line-height: 100rpx;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32rpx;
+  /* overflow: hidden; */
+}
+.box{
+   padding: 0 20rpx; 
+}
+
+/* 至 */
+.to{
+  width:10%;
+  display: flex;
+  justify-content: center;align-items: center;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #282828;
+  /* border: 1px solid #000; */
+}
+
+
+.btn-box{
+  width: 100%;
+  display: flex;
+  /* justify-content: flex-end; */
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2rpx solid #eee;
+}
+.pick_btn{
+  padding: 14rpx 30rpx;
+  color: #ccc;
+  font-size: 28rpx; 
+  /* background-color: #159; */
+}
+
+.show_picker{
+  box-sizing: border-box;
+  padding-bottom: 20rpx;
+  border-radius: 20rpx 20rpx 0 0;
+}
+.hide_picker{
+  height: 0;
+}
+.img-32{
+  width: 32rpx;
+  height: 32rpx;
+}
+.bottom-btn{
+  width: 710rpx;
+  height: 90rpx;
+  background: #9c211d;
+  border-radius: 54px;
+  line-height:90rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+.btn-bottom{
+  margin: auto 20rpx 40rpx;
+}

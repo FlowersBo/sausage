@@ -38,7 +38,7 @@
     "showES6CompileOption": false
   },
   "compileType": "miniprogram",
-  "libVersion": "2.9.4",
+  "libVersion": "2.12.3",
   "appid": "wx1c3ea71352b56399",
   "projectname": "morninggo_sapp",
   "debugOptions": {

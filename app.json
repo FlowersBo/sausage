@@ -27,7 +27,8 @@
     "pages/user/wallet/forgetPassword/forgetPassword",
     "pages/user/wallet/modificationPasswrod/modificationPasswrod",
     "pages/user/wallet/modificationPhone/modificationPhone",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/tableDetail/tableDetail"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -71,6 +72,12 @@
         "selectedIconPath": "assets/tabbar/menu-mine-h.png"
       }
     ]
+  },
+  "plugins": {
+    "myPlugin": {
+      "version": "2.2.1",
+      "provider": "wx6b6cb15df2836ebe"
+    }
   },
   "sitemapLocation": "sitemap.json"
 }

@@ -19,6 +19,12 @@ module.exports = {
     OneDaySummation: ApiRootUrl + 'app/report/oneDaySummation', //一天的销量汇总/附带累计额
     RangeDateSummation: ApiRootUrl + 'app/report/rangeDateSummation', //近7天/自定义销量汇总
     PointSaleList: ApiRootUrl + 'app/report/pointSaleList', //点位销售统计/列表
+    PointDataByHour: ApiRootUrl + 'app/report/pointdatahours', //日销量折线图
+    RangeMonthSaleList: ApiRootUrl + 'app/report/rangeMonthSaleList',//月报销售统计
+    PointMonthSaleList: ApiRootUrl + 'app/report/pointMonthSaleList',//月报点位销售明细
+    RangeMonthSummation: ApiRootUrl + 'app/report/rangeMonthSummation',//月报销售额/订单量
+    PointDefineSaleLis: ApiRootUrl + 'app/report/pointDefineSaleLis',//点位累计销售明细
+
 
 
     NearlySevendaysEchart: ApiRootUrl + 'app/report/7daysdata',
@@ -28,7 +34,6 @@ module.exports = {
 
     PointDataByDay: ApiRootUrl + 'app/report/pointdatabydate',
     PointDataByMonth: ApiRootUrl + 'app/report/pointdatabymonth',
-    PointDataByHour: ApiRootUrl + 'app/report/pointdatahours',
     PointToday: ApiRootUrl + 'app/report/pointdatatoday',
 
     // PointSummarybydate: ApiRootUrl + 'app/report/summarybydate',

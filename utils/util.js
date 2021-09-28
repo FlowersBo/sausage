@@ -24,7 +24,7 @@ const customFormatMonth = date => {
   const month = converedDate.getMonth() + 1;
   const day = converedDate.getDate();
 
-  return [year, month].map(formatNumber).join('');
+  return [year, month].map(formatNumber).join('-');
 }
 
 const customFormatOnlyMonthDay = date => {
