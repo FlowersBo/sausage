@@ -24,7 +24,7 @@ module.exports = {
     PointMonthSaleList: ApiRootUrl + 'app/report/pointMonthSaleList',//月报点位销售明细
     RangeMonthSummation: ApiRootUrl + 'app/report/rangeMonthSummation',//月报销售额/订单量
     PointDefineSaleLis: ApiRootUrl + 'app/report/pointDefineSaleLis',//点位累计销售明细
-
+    SinglePointSaleDetail: ApiRootUrl + 'app/report/singlePointSaleDetail',// 点位明细统计表
 
 
     NearlySevendaysEchart: ApiRootUrl + 'app/report/7daysdata',

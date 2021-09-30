@@ -1,2 +1,27 @@
 <!--pages/tableDetail/tableDetail.wxml-->
-<text>pages/tableDetail/tableDetail.wxml</text>
+<view class="tableWrap">
+  <view class="title">{{pointName}}</view>
+  <view class="address">详细地址：{{address}}</view>
+  <!-- 统计表格 -->
+  <view class='history-table-wrap'>
+    <view class="detail">
+      <view class="explain">
+        点位销售统计(<text>{{pointDetaillyDate}}</text>)
+      </view>
+    </view>
+    <view class="table">
+      <view class="tr">
+        <view class="th th1">日期</view>
+        <view class="th th2">销售额(元)</view>
+        <view class="th th3">订单数(单)</view>
+        <view class="th th4">销售量(根)</view>
+      </view>
+      <view class="tr trs" wx:for="{{statistics}}" wx:key="index">
+        <view class="td td1">{{item.date}}</view>
+        <view class="td td2">{{item.saleAmount}}</view>
+        <view class="td td3">{{item.orderSum}}</view>
+        <view class="td td4">{{item.productCount}}</view>
+      </view>
+    </view>
+  </view>
+</view>

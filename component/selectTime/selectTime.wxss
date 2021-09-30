@@ -90,9 +90,10 @@
   border-bottom: 2rpx solid #eee;
 }
 .pick_btn{
-  padding: 14rpx 30rpx;
+  padding: 24rpx 30rpx;
   color: #ccc;
-  font-size: 28rpx; 
+  font-size: 32rpx; 
+  font-weight: bold;
   /* background-color: #159; */
 }
 

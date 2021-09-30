@@ -43,7 +43,7 @@ Component({
           });
           setTimeout(() => {
             animation.bottom(0).step();
-            animationOpacity.opacity(0.7).step();
+            animationOpacity.opacity(0.6).step();
             this.setData({
               animationOpacity: animationOpacity.export(),
               animationData: animation.export()
@@ -110,8 +110,8 @@ Component({
     // pickerShow:true
     // limitStartTime: new Date().getTime()-1000*60*60*24*30,
     // limitEndTime: new Date().getTime(),
-    // yearStart:2000,
-    // yearEnd:2100
+    yearStart:2021,
+    yearEnd:2100
   },
   detached: function () {
     console.log("dele");
@@ -158,7 +158,7 @@ Component({
         }
 
         this.setData({
-          yearStart: conf.yearStart || 2000,
+          yearStart: conf.yearStart || 2021,
           yearEnd: conf.yearEnd || 2100,
           endDate: conf.endDate || false,
           dateLimit: conf.dateLimit || false,
@@ -395,7 +395,7 @@ Component({
       let MinuteList = [];
       let SecondList = [];
 
-      //设置年份列表
+      //设置年份列表//this.data.yearStartyearStart
       for (let i = this.data.yearStart; i <= this.data.yearEnd; i++) {
         YearList.push(i);
       }
@@ -423,7 +423,6 @@ Component({
         MinuteList.push(i);
         SecondList.push(i);
       }
-
       this.setData({
         YearList,
         MonthList,
@@ -519,7 +518,6 @@ Component({
         minute,
         second
       );
-      console.log('起始年份',this.data.YearList);
       this.setData({
         startYearList: this.data.YearList,
         startMonthList: this.data.MonthList,

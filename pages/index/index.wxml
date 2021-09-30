@@ -47,13 +47,6 @@
       </view>
     </view>
   </view>
-  <!-- <block wx:if="{{isShowGraph}}">
-    <view class="container" wx:for="{{graphGenres[chartsTitleGenre].title}}" wx:key='index'>
-      <view class="tit">{{item}}</view>
-      <ec-canvas canvas-id="mychart-line" xsign="{{ecxsign[chartsTitleGenre]}}" xdata="{{ecDatas[index]}}"
-        ec="{{ ec }}"></ec-canvas>
-    </view>
-  </block> -->
 
   <!-- 统计表格 -->
   <view class='history-table-wrap' wx:if="{{dateRange==2||dateRange==3||dateRange==12}}">
@@ -78,6 +71,15 @@
     </view>
   </view>
 
+  <!-- 自定义月份统计图 -->
+  <block wx:if="{{isShowGraph}}">
+    <view class="container" wx:for="{{graphGenres}}" wx:index="{{index}}" wx:key='index'>
+      <view class="tit">{{item.title}}</view>
+      <ec-canvas canvas-id="mychart-line" xsign="{{ecxsign}}" xdata="{{ecDatas[index]}}" ec="{{ ec }}"></ec-canvas>
+    </view>
+  </block>
+
+  <!-- 点位统计 -->
   <view wx:if="{{dateRange!=3&&dateRange!=12}}">
     <view class="detail">
       <view class="explain">
