@@ -15,7 +15,7 @@ function initChart(canvas, width, height, xsign, xdata, graphGenres) {
 	});
 	canvas.setChart(chart);
 	var option = {
-		color: ["#3398DB","#d9a8f2","#b31fff","#5c1cff"],
+		color: ["#3398DB", "#d9a8f2", "#b31fff", "#5c1cff"],
 		tooltip: {
 			trigger: "axis",
 			axisPointer: {
@@ -132,7 +132,7 @@ Page({
 		}, ],
 
 		pointDetaillyDate: '', //计算的时间段
-
+		isDateRangeindex: true, //判断是否为0，1
 		// 排序
 		isSaleAmountSort: false,
 		isSaleCountSort: false,
@@ -255,7 +255,7 @@ Page({
 			that.setData({ //设置第四个变第三个
 				dateRangeindex
 			})
-		} 
+		}
 		// else if (that.data.dateRangeindex_off === 3) {//设置当下边为3切换日月报任为3的逻辑
 		// 	console.log('原来的', that.data.dateRangeindex_off);
 		// 	dateRange = 3;
@@ -377,6 +377,17 @@ Page({
 				isShowGraph: false
 			})
 		}
+		if (dateRange == 0 || dateRange == 1) {
+			that.setData({
+				isDateRangeindex: false
+			})
+		} else if(dateRange != 3) {
+			that.setData({
+				isDateRangeindex: true
+			})
+		}
+
+		console.log('不为0，1', that.data.isDateRangeindex);
 		this.setData({
 			dateRange: dateRange,
 			dateRangeindex: index,
