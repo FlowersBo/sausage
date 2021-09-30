@@ -195,7 +195,8 @@ Page({
     converedDate.setDate(converedDate.getDate() - 1);
     let currentDate = util.customFormatTime(converedDate);
     let data = {
-      date: currentDate
+      date: currentDate,
+      pointid: pointid
     };
 
     mClient.get(api.PointDataByHour, data)

@@ -15,7 +15,7 @@ function initChart(canvas, width, height, xsign, xdata, graphGenres) {
 	});
 	canvas.setChart(chart);
 	var option = {
-		color: ["#3398DB"],
+		color: ["#3398DB","#d9a8f2","#b31fff","#5c1cff"],
 		tooltip: {
 			trigger: "axis",
 			axisPointer: {
@@ -24,7 +24,7 @@ function initChart(canvas, width, height, xsign, xdata, graphGenres) {
 		},
 		xAxis: {
 			// name: isReportGenre,
-			// nameLocation: 'end',
+			// nameLocation: 'end',	
 			// nameTextStyle: {
 			// 	color: '#BB0012',
 			// 	fontStyle: 'italic',
@@ -246,7 +246,6 @@ Page({
 		let that = this;
 		let index = e.currentTarget.dataset.index;
 		let dateRangeindex = that.data.dateRangeindex;
-		let dateRangeindex_off = that.data.dateRangeindex_off;
 		console.log(index, dateRangeindex);
 		let dateRange = parseInt('' + index + dateRangeindex);
 		console.log('上边', dateRange);
@@ -256,14 +255,15 @@ Page({
 			that.setData({ //设置第四个变第三个
 				dateRangeindex
 			})
-		} else if (dateRangeindex_off === 3) {
-			console.log('原来的', dateRangeindex_off);
-			dateRange = 3;
-			that.setData({
-				dateRange,
-				dateRangeindex: dateRangeindex_off
-			})
-		};
+		} 
+		// else if (that.data.dateRangeindex_off === 3) {//设置当下边为3切换日月报任为3的逻辑
+		// 	console.log('原来的', that.data.dateRangeindex_off);
+		// 	dateRange = 3;
+		// 	that.setData({
+		// 		dateRange,
+		// 		dateRangeindex: that.data.dateRangeindex_off
+		// 	})
+		// };
 		let reportDetail = that.data.reportDetail;
 		if (index === 1) {
 			reportDetail.titles = ['点位', '销售额', '销售量'];
@@ -1007,7 +1007,7 @@ Page({
 	bindReportDetaill: function (e) {
 		let point = e.currentTarget.dataset.point;
 		wx.navigateTo({
-			url: '../report_details/report_details?pointid=' + point.PointID + "&pointName=" + point.PointName
+			url: '../report_details/report_details?pointid=' + point.pointId + "&pointName=" + point.pointName
 		})
 	},
 
