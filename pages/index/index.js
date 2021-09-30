@@ -292,6 +292,11 @@ Page({
 			dateRange: dateRange,
 			reportDetail: reportDetail,
 		});
+		if(dateRange != 3) {
+			that.setData({
+				isDateRangeindex: true
+			})
+		}
 		if (dateRange == 12) {
 			let {
 				monthStartTime,
