@@ -84,5 +84,5 @@
 	border-right: 1px solid #dadada;
 	text-align: center;
 	font-size: 20rpx;
-	color: #ec9480;
+	color: #333;
 }

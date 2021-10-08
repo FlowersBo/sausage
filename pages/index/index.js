@@ -32,7 +32,7 @@ function initChart(canvas, width, height, xsign, xdata, graphGenres) {
 			// 	verticalAlign: 'middle',
 			// 	align: 'left'
 			// },
-			boundaryGap: false,
+			// boundaryGap: false,
 			type: 'category',
 			data: xsign
 		},
@@ -54,10 +54,21 @@ function initChart(canvas, width, height, xsign, xdata, graphGenres) {
 		},
 		series: [{
 			// name: '金额',
-			barWidth: "20%",
+			barWidth: "50%",
 			data: xdata,
-			type: 'bar'
-		}]
+			type: 'bar',
+			itemStyle: {
+				normal: {
+					// 随机显示
+					//color:function(d){return "#"+Math.floor(Math.random()*(256*256*256-1)).toString(16);}
+					// 定制显示（按顺序）
+					color: function (params) {
+						var colorList = ['#C33531', '#EFE42A', '#64BD3D', '#EE9201', '#29AAE3', '#B74AE5', '#0AAF9F', '#E89589', '#16A085', '#4A235A', '#C39BD3 ', '#F9E79F', '#BA4A00', '#ECF0F1', '#616A6B', '#EAF2F8', '#4A235A', '#3498DB'];
+						return colorList[params.dataIndex]
+					}
+				}
+			}
+		}, ]
 	};
 	chart.setOption(option);
 	return chart;
@@ -292,7 +303,7 @@ Page({
 			dateRange: dateRange,
 			reportDetail: reportDetail,
 		});
-		if(dateRange != 3) {
+		if (dateRange != 3) {
 			that.setData({
 				isDateRangeindex: true
 			})
@@ -386,7 +397,7 @@ Page({
 			that.setData({
 				isDateRangeindex: false
 			})
-		} else if(dateRange != 3) {
+		} else if (dateRange != 3) {
 			that.setData({
 				isDateRangeindex: true
 			})

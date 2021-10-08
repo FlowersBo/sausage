@@ -72,7 +72,7 @@
   </view>
 
   <!-- 自定义月份统计图 -->
-  <block wx:if="{{isShowGraph}}">
+  <block wx:if="{{!isPickerShow && isShowGraph}}">
     <view class="container" wx:for="{{graphGenres}}" wx:index="{{index}}" wx:key='index'>
       <view class="tit">{{item.title}}</view>
       <ec-canvas canvas-id="mychart-line" xsign="{{ecxsign}}" xdata="{{ecDatas[index]}}" ec="{{ ec }}"></ec-canvas>
