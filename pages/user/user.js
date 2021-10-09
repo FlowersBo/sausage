@@ -110,13 +110,6 @@ Page({
     })
   },
 
-  bindUserOrder: function () {
-    wx.navigateTo({
-      url: "../my_order/my_order",
-    });
-
-  },
-
   // 跳转验证
   gotoauthenticationFn: () => {
     let result = that.data.result;

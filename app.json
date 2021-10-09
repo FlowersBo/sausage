@@ -49,13 +49,13 @@
       },
       {
         "pagePath": "pages/order/order",
-        "text": "订单",
+        "text": "点位",
         "iconPath": "assets/tabbar/dingdan.png",
         "selectedIconPath": "assets/tabbar/dingdan-h.png"
       },
       {
         "pagePath": "pages/equipment/equipment",
-        "text": "设备",
+        "text": "商品",
         "iconPath": "assets/tabbar/shebei.png",
         "selectedIconPath": "assets/tabbar/shebei-h.png"
       },
