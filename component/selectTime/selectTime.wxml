@@ -22,9 +22,10 @@
           <picker-view-column>
             <view class='picker-item' wx:for="{{startMonthList}}" wx:key='*this'>{{item}}月</view>
           </picker-view-column>
-          <!-- <picker-view-column>
+          <picker-view-column wx:if="{{isDate}}">
             <view class='picker-item' wx:for="{{startDayList}}" wx:key='*this'>{{item}}日</view>
-          </picker-view-column> -->
+          </picker-view-column>
+
           <!-- <picker-view-column hidden="{{!hourColumn}}">
             <view class='picker-item' wx:for="{{startHourList}}" wx:key='*this'>{{item}}时</view>
           </picker-view-column>
@@ -48,12 +49,11 @@
             <picker-view-column>
               <view class='picker-item' wx:for="{{endMonthList}}" wx:key='*this'>{{item}}月</view>
             </picker-view-column>
+            <picker-view-column wx:if="{{isDate}}">
+              <view class='picker-item' wx:for="{{endDayList}}" wx:key='*this'>{{item}}日</view>
+            </picker-view-column>
 
-
-            <!-- <picker-view-column>
-                <view class='picker-item' wx:for="{{endDayList}}" wx:key='*this'>{{item}}日</view>
-              </picker-view-column>
-              <picker-view-column hidden="{{!hourColumn}}" >
+            <!--  <picker-view-column hidden="{{!hourColumn}}" >
                 <view class='picker-item' wx:for="{{endHourList}}" wx:key='*this'>{{item}}时</view>
               </picker-view-column>
               <picker-view-column hidden="{{!minColumn}}">

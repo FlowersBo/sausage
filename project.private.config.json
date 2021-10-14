@@ -95,8 +95,14 @@
           "scene": null
         },
         {
-          "name": "日历",
-          "pathName": "pages/dateDemo/index",
+          "name": "点位",
+          "pathName": "pages/pointLocation/pointLocation",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "商品",
+          "pathName": "pages/commodity/commodity",
           "query": "",
           "scene": null
         }

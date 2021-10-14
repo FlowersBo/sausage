@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "点位",
+  "usingComponents": {
+    "selectTime": "../../component/selectTime/selectTime"
+  }
+}

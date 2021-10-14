@@ -28,7 +28,9 @@
     "pages/user/wallet/modificationPasswrod/modificationPasswrod",
     "pages/user/wallet/modificationPhone/modificationPhone",
     "pages/test/test",
-    "pages/tableDetail/tableDetail"
+    "pages/tableDetail/tableDetail",
+    "pages/pointLocation/pointLocation",
+    "pages/commodity/commodity"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -48,13 +50,13 @@
         "selectedIconPath": "assets/tabbar/baobiao-h.png"
       },
       {
-        "pagePath": "pages/order/order",
+        "pagePath": "pages/pointLocation/pointLocation",
         "text": "点位",
         "iconPath": "assets/tabbar/dingdan.png",
         "selectedIconPath": "assets/tabbar/dingdan-h.png"
       },
       {
-        "pagePath": "pages/equipment/equipment",
+        "pagePath": "pages/commodity/commodity",
         "text": "商品",
         "iconPath": "assets/tabbar/shebei.png",
         "selectedIconPath": "assets/tabbar/shebei-h.png"

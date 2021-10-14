@@ -1,5 +1,5 @@
-const ApiRootUrl = 'https://api.morninggo.cn/';
-// const ApiRootUrl = 'https://w3.morninggo.cn/';
+// const ApiRootUrl = 'https://api.morninggo.cn/';
+const ApiRootUrl = 'https://w3.morninggo.cn/';
 // const ApiRootUrl = 'http://localhost:8080/app-http/';//13322265957
 module.exports = {
     Login: ApiRootUrl + 'app/user/auth', //登录授权
@@ -23,8 +23,12 @@ module.exports = {
     RangeMonthSaleList: ApiRootUrl + 'app/report/rangeMonthSaleList',//月报销售统计
     PointMonthSaleList: ApiRootUrl + 'app/report/pointMonthSaleList',//月报点位销售明细
     RangeMonthSummation: ApiRootUrl + 'app/report/rangeMonthSummation',//月报销售额/订单量
-    PointDefineSaleLis: ApiRootUrl + 'app/report/pointDefineSaleLis',//点位累计销售明细
     SinglePointSaleDetail: ApiRootUrl + 'app/report/singlePointSaleDetail',// 点位明细统计表
+    PointDefineSaleLis: ApiRootUrl + 'app/report/pointDefineSaleList',//点位累计销售明细
+    PointList: ApiRootUrl + 'app/report/pointList', //点位下拉列表
+    ProductRanking: ApiRootUrl + 'app/product/productRanking', //商品销量排行
+    ProductRankingDetail: ApiRootUrl + 'app/product/productRankingDetail', //商品销售明细
+
 
 
     NearlySevendaysEchart: ApiRootUrl + 'app/report/7daysdata',

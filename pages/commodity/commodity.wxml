@@ -1,0 +1,108 @@
+<!--pages/commodity/commodity.wxml-->
+<view class="pointLocation">
+  <view class="nav_tab">
+    <view wx:for="{{pointGenres}}" wx:key="index" class="{{selected==index?'hidden':'show'}}" data-index="{{index}}"
+      bindtap="bindPointGenre">
+      {{item}}</view>
+  </view>
+  <view class="timeWrap" wx:if="{{selected==0}}">
+    <view class="anniu" data-item="0" bindtap="lowerJump">
+      <image class="lt" src="../../assets/img/lt.png" mode="aspectFit"></image>
+      上一日
+    </view>
+    <view class="cellWrap">
+      <mp-cell class="cell" prop="date" title="日期">
+        <picker data-field="date" mode="date" value="{{date}}" bindchange="bindDateChange">
+          <view class="weui-input">{{date}}</view>
+        </picker>
+        <image class="timg" src="../../assets/img/timg.png" alt="" mode="aspectFit" />
+      </mp-cell>
+    </view>
+    <view class="anniu" data-item="0" bindtap="upJump">
+      下一日
+      <image class="lt" src="../../assets/img/gt.png" mode="aspectFit"></image>
+    </view>
+  </view>
+  <view class="time_point" wx:else>
+    <view class="pickerWrap">
+      <view class="titles">日查询：</view>
+      <view class="page-date" data-dateid="0" bindtap="pickerShow">
+        <view>{{todayStartTime}}<text> 至 </text>{{todayEndTime}}</view>
+        <image class="page-date-img" src="../../assets/img/timg.png"></image>
+      </view>
+      <!-- <selectTime pickerShow="{{isPickerShow}}" isDate="{{isDate}}" id="picker" wx:if="{{isPickerRender}}"
+        bind:hidePicker="pickerHide" bind:setPickerTime="setMonthPickerTime" config="{{pickerConfig}}"></selectTime> -->
+    </view>
+
+    <view class="pickerWrap">
+      <view class="titles">月查询：</view>
+      <view class="page-date" data-dateid="1" bindtap="pickerShow">
+        <view>{{monthStartTime}}<text> 至 </text>{{monthEndTime}}</view>
+        <image class="page-date-img" src="../../assets/img/timg.png"></image>
+      </view>
+      <selectTime pickerShow="{{isPickerShow}}" isDate="{{isDate}}" id="picker" wx:if="{{isPickerRender}}"
+        bind:hidePicker="pickerHide" bind:setPickerTime="setMonthPickerTime" config="{{pickerConfig}}"></selectTime>
+    </view>
+  </view>
+
+
+  <view class="detail" wx:if="{{selected==1}}">
+    <view class="explain">
+      点位销售统计(<text>{{pointDetaillyDate}}</text>)
+    </view>
+  </view>
+  <view class="tabTit box">
+    <view class="flex1" wx:for="{{reportDetail.titles}}" wx:key="type" data-index="{{index}}" bindtap="bindPointSort">
+      <label>
+        <text>{{item}}</text>
+        <image src="{{reportDetail.titleUrls[index]}}" class="coding_flash_image"></image>
+      </label>
+    </view>
+  </view>
+  <view class="list">
+    <block wx:for="{{commodityList}}" wx:key="list" wx:for-item="item">
+      <view class="list_item">
+        <view class="info box">
+          <view class="title flex1 ">{{item.productName}}</view>
+          <view class="price flex1 ">￥{{item.saleAmount}}</view>
+          <view class="num flex1 ">{{item.saleSum}}</view>
+          <view wx:if="{{selected==1}}" class="report_details flex1" bindtap="bindDetail" data-point="{{item.pointId}}">
+            <view class="detail-btn">明细</view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view class="goodsDetail">
+    <view class="goodstabTit">
+      <view class="flex1" wx:for="{{goodsDetail.titles}}" wx:key="type" data-index="{{index}}" bindtap="bindPointSort">
+        <label>
+          <text>{{item}}</text>
+          <image src="{{goodsDetail.titleUrls[index]}}" class="coding_flash_image"></image>
+        </label>
+      </view>
+    </view>
+    <view class="goodslist">
+      <block wx:for="{{commodityDetailList}}" wx:key="list" wx:for-item="item">
+        <view class="list_item">
+          <view class="info">
+            <view class="title flex1">{{item.pointName}}</view>
+            <view wx:for="{{item.psbList}}" wx:key="index" wx:for-item="items">
+              <view class="price flex1">{{items.productName}}</view>
+              <view class="num flex1">￥{{items.saleAmount}}</view>
+              <view class="report_details flex1">{{items.saleSum}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+
+  <view class="button-wrapper">
+    <button type="default" size="default" loading="{{loading}}" disabled="{{disabled}}" bindtap="bindLoading">
+      {{loadText}}
+    </button>
+  </view>
+</view>

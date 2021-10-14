@@ -149,7 +149,7 @@ page {
 /* 我的 */
 .weui-cell.weui-cell_access {
 	padding: 40rpx 0;
-	margin: 0 40rpx;
+	margin: 0 14rpx;
 }
 
 .weui-cell_access {

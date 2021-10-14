@@ -100,6 +100,9 @@ Component({
 
       }
     },
+    isDate:{
+      type: Boolean,
+    },
     config: Object
   },
 
@@ -209,14 +212,28 @@ Component({
         let format0 = function (num) {
           return num < 10 ? '0' + num : num
         }
-
-        let startTimeBack =
+        let startTimeBack ='';
+        if(this.data.isDate){
+          startTimeBack =
           startArr[0] +
           "-" +
           format0(startArr[1]) 
-          // +
-          // "-" +
-          // format0(startArr[2])
+          +
+          "-" +
+          format0(startArr[2])
+        }else{
+          startTimeBack =
+          startArr[0] +
+          "-" +
+          format0(startArr[1]) 
+        }
+        // let startTimeBack =
+        //   startArr[0] +
+        //   "-" +
+        //   format0(startArr[1]) 
+        //   +
+        //   "-" +
+        //   format0(startArr[2])
         //  +
         // " " +
         // (this.data.hourColumn ? format0(startArr[3]) : "00") +
@@ -225,14 +242,28 @@ Component({
         // ":" +
         // (this.data.secColumn ? format0(startArr[5]) : "00")
         ;
-
-        let endTimeBack =
+        let endTimeBack ='';
+        if(this.data.isDate){
+          endTimeBack =
           endArr[0] +
           "-" +
           format0(endArr[1]) 
-          // +
-          // "-" +
-          // format0(endArr[2])
+          +
+          "-" +
+          format0(endArr[2])
+        }else{
+          endTimeBack =
+          endArr[0] +
+          "-" +
+          format0(endArr[1]) 
+        }
+        // let endTimeBack =
+        //   endArr[0] +
+        //   "-" +
+        //   format0(endArr[1]) 
+        //   +
+        //   "-" +
+        //   format0(endArr[2])
         // +
         // " " +
         // (this.data.hourColumn ? format0(endArr[3]) : "00") +

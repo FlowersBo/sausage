@@ -1,0 +1,258 @@
+/* pages/pointLocation/pointLocation.wxss */
+.pointLocation {
+  width: 97%;
+  margin: 0 auto;
+}
+
+/* tab切换 */
+.nav_tab {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100rpx;
+  color: #333;
+  border-radius: 10rpx;
+  overflow: hidden;
+  margin: 20rpx 0;
+}
+
+
+.nav_tab {
+  line-height: 100rpx;
+}
+
+.show {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333333;
+  text-align: center;
+  background: #f8f8f8;
+}
+
+.hidden {
+  flex: 1;
+  font-size: 28rpx;
+  text-align: center;
+  color: #fff;
+  background: #f75910;
+}
+
+.nav_underline {
+  width: 54rpx;
+  height: 6rpx;
+  margin-top: -10rpx;
+  margin-left: 70rpx;
+  border-radius: 8rpx;
+  background: #ef9ba8;
+}
+
+/* 日期 */
+.timeWrap {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #c9c9c9;
+}
+
+.cellWrap {
+  width: 260rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  border: 1px solid #c9c9c9;
+  background: #fff;
+  border-radius: 30rpx;
+  box-sizing: border-box;
+  padding: 0 15rpx;
+  position: relative;
+}
+
+.cellWrap .cell {
+  width: 100%;
+}
+
+.cell picker {
+  width: 100%;
+  font-size: 28rpx;
+}
+
+.timg {
+  position: absolute;
+  right: 10rpx;
+  top: 50%;
+  margin-top: -25rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.anniu {
+  width: 200rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lt {
+  width: 26rpx;
+  height: 26rpx;
+  margin-top: 4rpx;
+  margin-right: 6rpx;
+}
+
+.lt:last-child {
+  margin-left: 6rpx;
+}
+
+/* 排行列表 */
+.tabTit {
+  width: 100%;
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 28rpx;
+  z-index: 1;
+  text-align: center;
+  border-bottom: solid 1px #c9c9c9;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0 10rpx;
+}
+
+.tabTit .coding_flash_image {
+  width: 14rpx;
+  height: 24rpx;
+  margin-left: .066667rem;
+}
+
+.list>.list_item>.info {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 20rpx 10rpx;
+  text-align: center;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.flex1 {
+  font-size: 30rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flex1:first-child,
+.list .list_item .info .title {
+  width: 250rpx;
+}
+
+.flex1:nth-child(2),
+.list .list_item .info .price {
+  width: 170rpx;
+}
+
+.flex1:nth-child(3),
+.list .list_item .info .num {
+  width: 150rpx;
+}
+
+.flex1:last-child,
+.list .list_item .info .report_details {
+  width: 120rpx;
+}
+
+.detail-btn{
+	width: 80rpx;
+	height: 40rpx;
+	line-height: 40rpx;
+	text-align: center;
+	font-size: 20rpx;
+	border-radius: 6rpx;
+	border: 1rpx solid #dadada;
+	background-color: #eee;
+	color: #333;
+	margin-left: 10rpx;
+}
+
+/* 点位选择 */
+.time_point{
+  width: 97%;
+  margin: 0 auto;
+}
+.titles{
+  font-size: 30rpx;
+}
+.pointWrap {
+  display: flex;
+  align-items: center;
+  margin: 20rpx 0;
+}
+.point{
+  height: 60rpx;
+  border-radius: 30rpx;
+  border: 1rpx solid #ccc;
+  font-size: 24rpx;
+  position: relative;
+}
+
+.picker{
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 70rpx 0 16rpx;
+  line-height: 60rpx;
+}
+
+.point_timg{
+  position:absolute;
+  top: 6rpx;
+  right: 4rpx;
+  width: 50rpx;
+  height: 48rpx;
+  z-index: -1;
+  /* margin-left: 6rpx;
+  margin-top: 4rpx; */
+}
+
+
+/* 月区间 */
+.pickerWrap{
+  width: 100%;
+  display: flex;
+  align-items: center;
+	margin-bottom: 20rpx;
+}
+.page-date{
+	width: 400rpx;
+	height: 60rpx;
+	border: 1rpx solid #ddd;
+	border-radius: 30rpx;
+	text-align: center;
+	line-height: 60rpx;
+	background: #fff;
+	color: #333;
+	font-size: 24rpx;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-sizing: border-box;
+	padding: 0 16rpx;
+}
+.page-date-img{
+	width: 50rpx;
+	height: 48rpx;
+	margin-top: 4rpx;
+}
+/* 点位明细 */
+.detail {
+	margin: 20rpx 0 0;
+	padding: 15rpx;
+	border-radius: 10rpx;
+	background: #f8f8f8;
+	text-align: center;
+}
+
+.explain {
+	display: inline-block;
+	font-size: 30rpx;
+	font-weight: bold;
+}
