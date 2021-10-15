@@ -1,5 +1,5 @@
-// const ApiRootUrl = 'https://api.morninggo.cn/';
-const ApiRootUrl = 'https://w3.morninggo.cn/';
+const ApiRootUrl = 'https://api.morninggo.cn/';
+// const ApiRootUrl = 'https://w3.morninggo.cn/';
 // const ApiRootUrl = 'http://localhost:8080/app-http/';//13322265957
 module.exports = {
     Login: ApiRootUrl + 'app/user/auth', //登录授权

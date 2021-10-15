@@ -9,23 +9,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // 月份
-    isDate: true,
-    isPickerShow: false,
-    isPickerRender: false,
-    todayStartTime: "起始日期",
-    todayEndTime: "结束日期",
-    monthStartTime: "起始月份",
-    monthEndTime: "结束月份",
-    pickerConfig: {
-      endDate: true,
-      column: "second",
-      dateLimit: true,
-      initStartTime: "2021-01-01",
-      // initEndTime: "2021-12",
-      limitStartTime: "2021-01-01",
-      // limitEndTime: "2021-12"
-    },
     pointGenres: ["商品排行榜", "自定义查询"],
     selected: 0,
     date: util.customFormatTime(new Date()),
@@ -34,9 +17,12 @@ Page({
       titleUrls: ['', '../../assets/img/arrow.png', '../../assets/img/arrow.png'],
     },
     goodsDetail: {
-      titles: ['点位', '商品名称', '销售额', '废弃量'],
+      titles: ['点位', '商品名称', '销售量', '废弃量'],
       titleUrls: ['', '', '../../assets/img/arrow.png', '../../assets/img/arrow.png'],
     },
+    isGoodsSaleSum: false,
+    isGoodsWasteSum: false,
+    goodsSort: 1, //默认商品表排序按销售额升序
     isSaleAmountSort: false,
     isSaleCountSort: false,
     pointSort: 1, //默认点位表排序按销售额升序
@@ -44,153 +30,93 @@ Page({
     pageSize: 10,
     startDate: '',
     endDate: '',
-    startMonth: '',
-    endMonth: '',
-    pointDetaillyDate: '截止到昨日'
+    pointDetaillyDate: '截止到昨日',
+    // 日历
+    isShow: false,
+    themeColor: '#ffd00a',
+    calendarType: 'yydates',
+    startMonthCount: -12,
+    monthCount: 1,
+    pastDateChoice: true,
+    dateTitle: '',
+    dateSubTitle: '开始',
+    endDateSubTitle: '结束',
+    endDateTitle: '',
   },
-
-  // 日期区间选择
-  pickerShow: function (e) {
-    let dateid = e.currentTarget.dataset.dateid;
-    if (dateid == 0) {
-      that.setData({
-        isDate: true
-      })
-    } else {
-      that.setData({
-        isDate: false
-      })
-    }
+  // 点击显示插件
+  btnClick: function () {
+    console.log('显示');
     this.setData({
-      isPickerShow: true,
-      isPickerRender: true,
-      chartHide: true
-    });
+      isShow: true,
+    })
   },
 
-  pickerHide: function () {
-    this.setData({
-      isPickerShow: false,
-      chartHide: false
-    });
-  },
-
-  // setTodayPickerTime: function (val) {
-  //   console.log('日期时间段', val);
-  //   let monthlyDate = val.detail;
-  //   that.setData({
-  //     todayStartTime: monthlyDate.startTime,
-  //     todayEndTime: monthlyDate.endTime,
-  //     pointDetaillyDate: `${monthlyDate.startTime}~${monthlyDate.endTime}`
-  //   });
-  // },
-
-  setMonthPickerTime: function (val) {
-    let isDate = that.data.isDate;
-    console.log('时间段', val);
-    let monthlyDate = val.detail;
-    if (isDate) {
-      that.setData({
-        todayStartTime: monthlyDate.startTime,
-        todayEndTime: monthlyDate.endTime,
-        monthStartTime: '起始月份',
-        monthEndTime: '结束月份',
-        pointDetaillyDate: `${monthlyDate.startTime}~${monthlyDate.endTime}`
-      });
-    } else {
-      that.setData({
-        monthStartTime: monthlyDate.startTime,
-        monthEndTime: monthlyDate.endTime,
-        todayStartTime: '起始日期',
-        todayEndTime: '结束日期',
-        pointDetaillyDate: `${monthlyDate.startTime}~${monthlyDate.endTime}`
-      });
-    }
+  _yybindchange: function (e) {
     that.setData({
-      pageNum: 1
+      loadText: '',
+    })
+    let dateWrap = e.detail;
+    console.log('选择范围', dateWrap);
+    let startDate = dateWrap.startTime,
+      endDate = dateWrap.endTime;
+    that.setData({
+      pointDetaillyDate: `${startDate}~${endDate}`,
+      startDate,
+      endDate
     })
     that.goodsList();
+    that.goodsDetailList();
   },
+
+  _yybindhide: function () {
+    console.log('隐藏')
+  },
+
+  _yybinddaychange: function (e) {
+    console.log('日期发生变化', e);
+  },
+
 
   // 切换tab
   bindPointGenre: function (e) {
     let index = e.currentTarget.dataset.index;
     let reportDetail = that.data.reportDetail;
+    let pointReportDate = new Date();
+    pointReportDate.setDate(pointReportDate.getDate() - 1);
+    pointReportDate = util.customFormatTime(pointReportDate);
     that.setData({
-      point: ''
+      point: '',
+      startDate: '',
+      endDate: '',
+      date: pointReportDate,
+      pointDetaillyDate: '截止到昨日',
     })
     if (index == 0) {
-      reportDetail = {
-        titles: ['点位', '销售额', '销售量'],
-        titleUrls: ['', '../../assets/img/arrow.png', '../../assets/img/arrow.png'],
-      };
-
-      let pointReportDate = new Date();
-      pointReportDate.setDate(pointReportDate.getDate() - 1);
-      pointReportDate = util.customFormatTime(pointReportDate);
+      reportDetail.titles = ['商品', '销售额', '销售量'];
       that.setData({
         selected: 0,
-        reportDetail,
-        pointList: [],
-        pointDetaillyDate: '截止到昨日',
-        pageNum: 1,
-        date: pointReportDate,
-        startDate: '',
-        endDate: '',
-
+        // date: pointReportDate,
+        reportDetail
       })
-      that.goodsList();
     } else if (index == 1) {
-      reportDetail.titles.push('明细');
-      reportDetail.titleUrls.push('');
+      reportDetail.titles = ['商品', '销售量', '废弃量'];
       that.setData({
         selected: 1,
-        reportDetail,
-        pointList: [],
-        monthStartTime: '起始月份',
-        monthEndTime: '结束月份',
-        todayStartTime: '起始日期',
-        todayEndTime: '结束日期',
         pageNum: 1,
-        startDate: '',
-        endDate: ''
+        reportDetail
       })
-      that.goodsList();
+      that.btnClick();
     }
+    that.goodsList();
+    that.goodsDetailList();
   },
 
-  // 明细跳转
-  bindDetail: function (e) {
+  // 废弃跳转
+  bindWaste: function (e) {
     let point = e.currentTarget.dataset.point;
-    let pointStartDate, pointEndDate;
-    let startTime;
-    let {
-      monthStartTime,
-      monthEndTime,
-      todayStartTime,
-      todayEndTime
-    } = that.data;
-    if (that.data.selected == 1) {
-      if (todayStartTime != '起始日期') {
-        pointStartDate = todayStartTime;
-        pointEndDate = todayEndTime;
-        startTime = 0;
-      } else if (monthStartTime != '起始月份') {
-        pointStartDate = monthStartTime;
-        pointEndDate = monthEndTime;
-        startTime = 1;
-      } else {
-        pointStartDate = '';
-        pointEndDate = '';
-      }
-    }
-    //  else if (that.data.selected == 0) {
-    //   pointStartDate = that.data.startDate;
-    //   pointEndDate = that.data.endDate;
-    // };
     console.log('点位id', point);
     wx.navigateTo({
-      url: '../tableDetail/tableDetail?pointId=' + point + "&pointStartDate=" + pointStartDate + "&pointEndDate=" + pointEndDate + '&startTime=' + startTime
+      url: '../tableDetail/tableDetail?pointId=' + point + "&pointStartDate=" + pointStartDate + "&pointEndDate=" + pointEndDate
     })
   },
 
@@ -206,6 +132,7 @@ Page({
       pageNum: 1
     })
     that.goodsList();
+    that.goodsDetailList();
   },
 
   // 下一日
@@ -227,6 +154,7 @@ Page({
       pageNum: 1
     })
     that.goodsList();
+    that.goodsDetailList();
   },
 
   ///上一日
@@ -243,10 +171,58 @@ Page({
       pageNum: 1
     })
     that.goodsList();
+    that.goodsDetailList();
   },
 
-  // 销售额/销售量排序列表
+  // 点位排序
   bindPointSort: function (e) {
+    let isGoodsSaleSum = that.data.isGoodsSaleSum;
+    let isGoodsWasteSum = that.data.isGoodsWasteSum;
+    let index = e.currentTarget.dataset.index;
+    let goodsDetail = that.data.goodsDetail;
+    console.info('当前销售量id', index);
+    if (index === 2) {
+      goodsDetail.titleUrls[3] = '../../assets/img/arrow.png';
+      if (isGoodsSaleSum === false) {
+        goodsDetail.titleUrls[index] = '../../assets/img/arrow-h.png';
+        this.setData({
+          isGoodsSaleSum: true,
+          pointSort: 2,
+          goodsDetail
+        })
+      } else {
+        goodsDetail.titleUrls[index] = '../../assets/img/arrow-l.png';
+        this.setData({
+          isGoodsSaleSum: false,
+          pointSort: 1,
+          goodsDetail
+        })
+      }
+    } else if (index === 3) {
+      goodsDetail.titleUrls[2] = '../../assets/img/arrow.png';
+      if (isGoodsWasteSum === false) {
+        goodsDetail.titleUrls[index] = '../../assets/img/arrow-h.png';
+        this.setData({
+          isGoodsWasteSum: true,
+          pointSort: 4,
+          goodsDetail
+        })
+      } else {
+        goodsDetail.titleUrls[index] = '../../assets/img/arrow-l.png';
+        this.setData({
+          isGoodsWasteSum: false,
+          pointSort: 3,
+          goodsDetail
+        })
+      }
+    } else {
+      return;
+    };
+    that.goodsDetailList();
+  },
+
+  // 商品排序
+  bindGoodsSort: function (e) {
     let isSaleAmountSort = that.data.isSaleAmountSort;
     let isSaleCountSort = that.data.isSaleCountSort;
     let index = e.currentTarget.dataset.index;
@@ -258,14 +234,14 @@ Page({
         reportDetail.titleUrls[index] = '../../assets/img/arrow-h.png';
         this.setData({
           isSaleAmountSort: true,
-          pointSort: 2,
+          goodsPointSort: 2,
           reportDetail: reportDetail
         })
       } else {
         reportDetail.titleUrls[index] = '../../assets/img/arrow-l.png';
         this.setData({
           isSaleAmountSort: false,
-          pointSort: 1,
+          goodsPointSort: 1,
           reportDetail: reportDetail
         })
       }
@@ -275,14 +251,14 @@ Page({
         reportDetail.titleUrls[index] = '../../assets/img/arrow-h.png';
         this.setData({
           isSaleCountSort: true,
-          pointSort: 4,
+          goodsPointSort: 4,
           reportDetail: reportDetail
         })
       } else {
         reportDetail.titleUrls[index] = '../../assets/img/arrow-l.png';
         this.setData({
           isSaleCountSort: false,
-          pointSort: 3,
+          goodsPointSort: 3,
           reportDetail: reportDetail
         })
       }
@@ -320,7 +296,7 @@ Page({
     let data = {
       startDate,
       endDate,
-      sortType: that.data.pointSort
+      sortType: that.data.goodsPointSort
     };
     let result = await (mClient.get(api.ProductRanking, data));
     console.log('商品排行榜', result);
@@ -373,7 +349,7 @@ Page({
   },
 
   bindLoading: function () {
-    let pointList = that.data.pointList;
+    let commodityDetailList = that.data.commodityDetailList;
     let pageNum = that.data.pageNum;
     let pageSize = that.data.pageSize;
     let total = that.data.total;
@@ -387,7 +363,7 @@ Page({
     that.setData({
       pageNum,
     })
-    that.goodsList(pointList);
+    that.goodsDetailList(commodityDetailList);
   },
 
   /**

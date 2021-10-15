@@ -1,6 +1,6 @@
 /* pages/commodity/commodity.wxss */
 .pointLocation {
-  width: 97%;
+  width: 98%;
   margin: 0 auto;
 }
 
@@ -135,7 +135,7 @@
 }
 
 .flex1 {
-  font-size: 30rpx;
+  font-size: 28rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -143,23 +143,19 @@
 
 .flex1:first-child,
 .list .list_item .info .title {
-  width: 250rpx;
+  width: 320rpx;
 }
 
 .flex1:nth-child(2),
 .list .list_item .info .price {
-  width: 170rpx;
+  width: 230rpx;
 }
 
 .flex1:nth-child(3),
 .list .list_item .info .num {
-  width: 150rpx;
+  width: 170rpx;
 }
 
-.flex1:last-child,
-.list .list_item .info .report_details {
-  width: 120rpx;
-}
 
 .detail-btn {
   width: 80rpx;
@@ -174,80 +170,6 @@
   margin-left: 10rpx;
 }
 
-/* 点位选择 */
-.time_point {
-  width: 97%;
-  margin: 0 auto;
-}
-
-.titles {
-  font-size: 30rpx;
-}
-
-.pointWrap {
-  display: flex;
-  align-items: center;
-  margin: 20rpx 0;
-}
-
-.point {
-  height: 60rpx;
-  border-radius: 30rpx;
-  border: 1rpx solid #ccc;
-  font-size: 24rpx;
-  position: relative;
-}
-
-.picker {
-  height: 100%;
-  box-sizing: border-box;
-  padding: 0 70rpx 0 16rpx;
-  line-height: 60rpx;
-}
-
-.point_timg {
-  position: absolute;
-  top: 6rpx;
-  right: 4rpx;
-  width: 50rpx;
-  height: 48rpx;
-  z-index: -1;
-  /* margin-left: 6rpx;
-  margin-top: 4rpx; */
-}
-
-
-/* 月区间 */
-.pickerWrap {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  margin-bottom: 20rpx;
-}
-
-.page-date {
-  width: 400rpx;
-  height: 60rpx;
-  border: 1rpx solid #ddd;
-  border-radius: 30rpx;
-  text-align: center;
-  line-height: 60rpx;
-  background: #fff;
-  color: #333;
-  font-size: 24rpx;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-sizing: border-box;
-  padding: 0 16rpx;
-}
-
-.page-date-img {
-  width: 50rpx;
-  height: 48rpx;
-  margin-top: 4rpx;
-}
-
 /* 点位明细 */
 .detail {
   margin: 20rpx 0 0;
@@ -259,14 +181,14 @@
 
 .explain {
   display: inline-block;
-  font-size: 30rpx;
+  font-size: 28rpx;
   font-weight: bold;
 }
 
 
-
 /* 排行列表 */
 .goodstabTit {
+  /*734rpx*/
   width: 100%;
   height: 90rpx;
   line-height: 90rpx;
@@ -278,47 +200,101 @@
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
-  padding: 0 10rpx;
+  padding: 0 6rpx;
 }
 
-.goodstabTit .coding_flash_image {
-  width: 14rpx;
-  height: 24rpx;
-  margin-left: .066667rem;
-}
-
-.goodslist>.list_item>.info {
-  display: flex;
-  justify-content: space-between;
-  box-sizing: border-box;
-  padding: 20rpx 10rpx;
-  text-align: center;
-  border-bottom: 1px solid #E8E8E8;
-}
-
-.flex1 {
+.goods {
   font-size: 30rpx;
+  text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.flex1:first-child,
-.list .list_item .info .title {
-  width: 250rpx;
+.goods:nth-child(1) {
+  width: 200rpx;
 }
-
-.flex1:nth-child(2),
-.list .list_item .info .price {
-  width: 170rpx;
+.goods:nth-child(2) {
+  width: 294rpx;
 }
-
-.flex1:nth-child(3),
-.list .list_item .info .num {
-  width: 150rpx;
-}
-
-.flex1:last-child,
-.list .list_item .info .report_details {
+.goods:nth-child(3) {
   width: 120rpx;
+}
+.goods:nth-child(4) {
+  width: 120rpx;
+}
+
+.goodstabTit .goods_image {
+  width: 14rpx;
+  height: 24rpx;
+  margin-left: .066667rem;
+}
+
+.goodslist {
+  width: 100%;
+}
+
+.goodslistItem {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.goods-title {
+  width: 200rpx;
+  /* transform: translateY(50%); */
+  box-sizing: border-box;
+  padding: 20rpx 6rpx;
+  margin: auto 0;
+  font-size: 28rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.goods-item {
+  width: 534rpx;
+}
+
+.goods-info {
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  display: flex;
+  border-bottom: 1rpx solid #E8E8E8;
+  border-left: 1rpx solid #E8E8E8;
+  font-size: 24rpx;
+}
+
+.goods-info:last-child {
+  border-bottom: none;
+}
+
+.goods-productName {
+  width: 294rpx;
+  box-sizing: border-box;
+  padding: 0 6rpx;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.goods-amout,
+.goods-saleSum {
+  width: 120rpx;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.noDetail{
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  color: #f75910;
+  font-size: 30rpx;
+  text-align: center;
 }

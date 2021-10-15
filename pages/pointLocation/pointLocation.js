@@ -363,7 +363,7 @@ Page({
       startMonth,
       endMonth,
       sortType: that.data.pointSort,
-      point: that.data.pointId,
+      pointId: that.data.pointId,
     };
     let result = await (mClient.get(api.PointDefineSaleLis, data));
     console.log('点位排行榜', result);

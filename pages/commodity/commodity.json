@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "商品",
-  "usingComponents": {}
+  "usingComponents": {
+    "yycalendar": "plugin://myPlugin/yycalendar"
+  }
 }
