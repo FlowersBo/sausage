@@ -275,6 +275,30 @@ function objectToJsonParams(data = {}) {
 	}
 }
 
+let allSettled = (funcArr) => {
+  return new Promise((resolve) => {
+    let sttled = 0
+    let result = []
+    for(let index = 0;index<funcArr.length;index++){
+      const element = funcArr[index]
+      element
+      .then(res => { 
+        result[index] = {
+          status: 'fulfilled',
+          value: res
+        }
+      })
+      .catch(err => { 
+        result[index] = {
+          status: 'rejected',
+          reason: err
+        }
+      })
+      .finally(() => { ++sttled === funcArr.length && resolve(result) })
+    }
+  })
+};
+
 module.exports = {
 	PostIncludeData,
 	request,
@@ -288,5 +312,6 @@ module.exports = {
 	getUserInfo,
 	refreshToken,
 	getVerificationCode,
-	getInfo
+	getInfo,
+	allSettled
 }

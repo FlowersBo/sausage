@@ -80,7 +80,11 @@
     <view class="goodslist">
       <block wx:for="{{commodityDetailList}}" wx:key="list" wx:for-item="item">
         <view class="goodslistItem">
-          <view class="goods-title">{{item.pointName}}</view>
+          <view class="title-waste">
+            <view class="goods-title">{{item.pointName}}</view>
+            <view wx:if="{{selected==1&&item.isWasteSum}}" data-point="{{item.pointId}}" class="wasteBtn"
+              bindtap="bindWaste">废弃分析</view>
+          </view>
           <view class="goods-item">
             <view class="goods-info" wx:for="{{item.psbList}}" wx:key="index" wx:for-item="items">
               <view class="goods-productName">{{items.productName}}</view>

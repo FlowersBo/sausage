@@ -30,12 +30,12 @@ Page({
     pageSize: 10,
     startDate: '',
     endDate: '',
-    pointDetaillyDate: '截止到昨日',
+    pointDetaillyDate: '',
     // 日历
     isShow: false,
     themeColor: '#ffd00a',
     calendarType: 'yydates',
-    startMonthCount: -12,
+    startMonthCount: -11,
     monthCount: 1,
     pastDateChoice: true,
     dateTitle: '',
@@ -81,29 +81,25 @@ Page({
   bindPointGenre: function (e) {
     let index = e.currentTarget.dataset.index;
     let reportDetail = that.data.reportDetail;
-    let pointReportDate = new Date();
-    pointReportDate.setDate(pointReportDate.getDate() - 1);
-    pointReportDate = util.customFormatTime(pointReportDate);
     that.setData({
       point: '',
-      startDate: '',
-      endDate: '',
-      date: pointReportDate,
-      pointDetaillyDate: '截止到昨日',
+      startDate: that.data.oldStartDate,
+      endDate: that.data.oldEndDate,
     })
     if (index == 0) {
       reportDetail.titles = ['商品', '销售额', '销售量'];
       that.setData({
         selected: 0,
-        // date: pointReportDate,
-        reportDetail
+        date: that.data.oldStartDate,
+        reportDetail,
       })
     } else if (index == 1) {
       reportDetail.titles = ['商品', '销售量', '废弃量'];
       that.setData({
         selected: 1,
         pageNum: 1,
-        reportDetail
+        reportDetail,
+        pointDetaillyDate: that.data.oldStartDate
       })
       that.btnClick();
     }
@@ -116,58 +112,47 @@ Page({
     let point = e.currentTarget.dataset.point;
     console.log('点位id', point);
     wx.navigateTo({
-      url: '../tableDetail/tableDetail?pointId=' + point + "&pointStartDate=" + pointStartDate + "&pointEndDate=" + pointEndDate
+      url: '../pointWaste/pointWaste?pointId=' + point + "&pointStartDate=" + that.data.startDate + "&pointEndDate=" + that.data.endDate
     })
   },
 
   // 日期选择
   bindDateChange: function (e) {
-    let date = e.detail.value;
-    let currentDate = util.customFormatTime(date);
-    that.setData({
-      date,
-      startDate: date,
-      endDate: date,
-      pointDetaillyDate: date,
-      pageNum: 1
-    })
-    that.goodsList();
-    that.goodsDetailList();
+    let currentDate = util.customFormatTime(e.detail.value);
+    console.log(e.detail.value);
+    that.timeFn(e.detail.value);
   },
 
   // 下一日
   upJump: function (event) {
     // let myDate = new Date().getTime();
     // console.log('13位时间戳', myDate);
-    let date = that.data.date;
-    console.log(date);
-    let pointid = that.data.pointid;
-    let converedDate = new Date(Date.parse(date));
-    console.log('修改时间', converedDate);
-    converedDate.setDate(converedDate.getDate() + 1);
-    let currentDate = util.customFormatTime(converedDate);
-    that.setData({
-      date: currentDate,
-      startDate: currentDate,
-      endDate: currentDate,
-      pointDetaillyDate: currentDate,
-      pageNum: 1
-    })
-    that.goodsList();
-    that.goodsDetailList();
+    that.timeFn(that.data.date, 1);
   },
 
   ///上一日
   lowerJump: function (event) {
-    let date = that.data.date;
+    that.timeFn(that.data.date, 0);
+  },
+
+  // 时间
+  timeFn: function (date, up_next) {
+    console.log(date);
     let converedDate = new Date(Date.parse(date));
-    converedDate.setDate(converedDate.getDate() - 1);
-    let currentDate = util.customFormatTime(converedDate);
+    if (up_next == 1) {
+      converedDate.setDate(converedDate.getDate() + 1);
+      date = util.customFormatTime(converedDate);
+    } else if (up_next == 0) {
+      converedDate.setDate(converedDate.getDate() - 1);
+      date = util.customFormatTime(converedDate);
+    }
     that.setData({
-      date: currentDate,
-      startDate: currentDate,
-      endDate: currentDate,
-      pointDetaillyDate: currentDate,
+      date,
+      startDate: date,
+      endDate: date,
+      pointDetaillyDate: date,
+      oldStartDate: date,
+      oldEndDate: date,
       pageNum: 1
     })
     that.goodsList();
@@ -274,13 +259,18 @@ Page({
   onLoad: function (options) {
     that = this;
     let pointReportDate = new Date();
-    pointReportDate.setDate(pointReportDate.getDate() - 1);
+    pointReportDate.setDate(pointReportDate.getDate());
     pointReportDate = util.customFormatTime(pointReportDate);
     that.setData({
-      date: pointReportDate
+      date: pointReportDate,
+      startDate: pointReportDate,
+      endDate: pointReportDate,
+      oldStartDate: pointReportDate,
+      oldEndDate: pointReportDate,
     })
-    that.goodsList();
-    that.goodsDetailList();
+    // const promise2 = new Promise((resolve, reject) => setTimeout(resolve, reject, 100, 'foo'));
+    // console.log(promise2);
+    that.promiseAll();
   },
 
   async goodsList(commodityList = []) {
@@ -326,10 +316,17 @@ Page({
     };
     let result = await (mClient.get(api.ProductRankingDetail, data));
     console.log('点位销售明细', result);
-    //内容
     if (result.data.code == 200) {
       let total = result.data.data.total;
       commodityDetailList = commodityDetailList.concat(result.data.data.list);
+      commodityDetailList.forEach(element => {
+        element.psbList.filter((item, index, arr) => {
+          if (item.wasteSum > 0) {
+            element.isWasteSum = true;
+          }
+        });
+      });
+      console.log(commodityDetailList);
       that.setData({
         commodityDetailList,
         total,
@@ -364,6 +361,18 @@ Page({
       pageNum,
     })
     that.goodsDetailList(commodityDetailList);
+  },
+
+
+  //Promise.allSettled
+  promiseAll() {
+    const promises = [
+      that.goodsList(),
+      that.goodsDetailList()
+    ];
+    mClient.allSettled(promises).then(res => {
+      console.log(res)
+    });
   },
 
   /**

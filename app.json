@@ -30,7 +30,8 @@
     "pages/test/test",
     "pages/tableDetail/tableDetail",
     "pages/pointLocation/pointLocation",
-    "pages/commodity/commodity"
+    "pages/commodity/commodity",
+    "pages/pointWaste/pointWaste"
   ],
   "window": {
     "backgroundTextStyle": "dark",

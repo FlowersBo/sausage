@@ -43,7 +43,7 @@ Page({
     endDate: '',
     startMonth: '',
     endMonth: '',
-    pointDetaillyDate: '截止到昨日'
+    pointDetaillyDate: ''
   },
 
   // 日期区间选择
@@ -104,6 +104,8 @@ Page({
       });
     }
     that.setData({
+      startDate: '',
+      endDate: '',
       pageNum: 1
     })
     that.rankingList();
@@ -121,25 +123,27 @@ Page({
         titles: ['点位', '销售额', '销售量'],
         titleUrls: ['', '../../assets/img/arrow.png', '../../assets/img/arrow.png'],
       };
-      let pointReportDate = new Date();
-      pointReportDate.setDate(pointReportDate.getDate() - 1);
-      pointReportDate = util.customFormatTime(pointReportDate);
       that.setData({
         selected: 0,
         reportDetail,
         pointList: [],
-        pointDetaillyDate: '截止到昨日',
         pageNum: 1,
-        date: pointReportDate,
-        startDate: '',
-        endDate: '',
-
+        date: that.data.oldStartDate,
+        startDate: that.data.oldStartDate,
+        endDate: that.data.oldEndDate
       })
       that.rankingList();
     } else if (index == 1) {
-      reportDetail.titles.push('明细');
-      reportDetail.titleUrls.push('');
+      if (reportDetail.titles.length < 4) {
+        reportDetail.titles.push('明细');
+        reportDetail.titleUrls.push('');
+      }
+      let {
+        startDate,
+        endDate
+      } = that.data;
       that.setData({
+        point: '',
         selected: 1,
         reportDetail,
         pointList: [],
@@ -148,8 +152,9 @@ Page({
         todayStartTime: '起始日期',
         todayEndTime: '结束日期',
         pageNum: 1,
-        startDate: '',
-        endDate: ''
+        startDate: that.data.oldStartDate,
+        endDate: that.data.oldEndDate,
+        pointDetaillyDate: that.data.oldStartDate,
       })
       that.rankingList();
     }
@@ -199,6 +204,8 @@ Page({
       startDate: date,
       endDate: date,
       pointDetaillyDate: date,
+      oldStartDate: date,
+      oldEndDate: date,
       pageNum: 1
     })
     that.rankingList();
@@ -219,6 +226,8 @@ Page({
       date: currentDate,
       startDate: currentDate,
       endDate: currentDate,
+      oldStartDate: currentDate,
+      oldEndDate: currentDate,
       pointDetaillyDate: currentDate,
       pageNum: 1
     })
@@ -235,6 +244,8 @@ Page({
       date: currentDate,
       startDate: currentDate,
       endDate: currentDate,
+      oldStartDate: currentDate,
+      oldEndDate: currentDate,
       pointDetaillyDate: currentDate,
       pageNum: 1
     })
@@ -315,10 +326,15 @@ Page({
   onLoad: function (options) {
     that = this;
     let pointReportDate = new Date();
-    pointReportDate.setDate(pointReportDate.getDate() - 1);
+    // pointReportDate.setDate(pointReportDate.getDate() - 1); //昨日
+    pointReportDate.setDate(pointReportDate.getDate()); //昨日
     pointReportDate = util.customFormatTime(pointReportDate);
     that.setData({
-      date: pointReportDate
+      startDate: pointReportDate,
+      endDate: pointReportDate,
+      oldStartDate: pointReportDate,
+      oldEndDate: pointReportDate,
+      pointDetaillyDate: pointReportDate
     })
     that.pointListItem();
     that.rankingList();

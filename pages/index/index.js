@@ -154,7 +154,7 @@ Page({
 		isShow: false,
 		themeColor: '#ffd00a',
 		calendarType: 'yydates',
-		startMonthCount: -12,
+		startMonthCount: -11,
 		monthCount: 1,
 		pastDateChoice: true,
 		dateTitle: '',

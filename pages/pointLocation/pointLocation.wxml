@@ -61,7 +61,7 @@
 
   <view class="detail" wx:if="{{selected==1}}">
     <view class="explain">
-      点位销售统计(<text>{{pointDetaillyDate}}</text>)
+      点位累计销售明细(<text>{{pointDetaillyDate}}</text>)
     </view>
   </view>
   <view class="tabTit box">
