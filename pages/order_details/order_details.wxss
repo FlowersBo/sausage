@@ -1,14 +1,12 @@
 /* pages/order_details/order_details.wxss */
-page,
-.content {
-	padding: 20rpx;
-	box-sizing: border-box;
+.orderDetail {
+	width: 97%;
+	margin: 10rpx auto;
 }
 
 .order {
 	margin-bottom: 20rpx;
 	border-radius: 10rpx;
-	background: #f8f8f8;
 	overflow: hidden;
 }
 
@@ -22,11 +20,26 @@ page,
 	background: #f75910;
 }
 
+.content {
+	margin: 0;
+	box-shadow: 2px 2px 6px #ddd;
+	border-radius: 10rpx;
+}
+
+.demoWrap {
+	width: 100%;
+	background: #f8f8f8;
+	margin-bottom: 10rpx;
+	box-sizing: border-box;
+	padding: 10rpx;
+}
+
 .demo-item {
 	height: 50rpx;
 	line-height: 50rpx;
 	font-size: 26rpx;
-	border-bottom: 1rpx solid #c9c9c9;
+	margin-bottom: 10rpx;
+	/* border-bottom: 1rpx solid #c9c9c9; */
 }
 
 .demo-item:last-child {
@@ -47,6 +60,7 @@ page,
 	text-align: justify;
 	text-align-last: justify;
 }
+
 .demo-item view:last-child {
 	width: 500rpx;
 }

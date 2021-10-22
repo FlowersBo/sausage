@@ -39,6 +39,7 @@ Page({
 					let orderTotal = resp.data.data.total;
 					let orderList = resp.data.data.list;
 					for (const key in orderList) {
+						orderList[key].OrderDate = util.timestampToTimeLong(orderList[key].OrderDate);
 						let orderStatus = orderList[key].OrderStatus;
 						if (orderStatus === '完成') {
 							orderList[key].isSuccessfulTransaction = 1;
@@ -86,6 +87,7 @@ Page({
 				let orderList = resp.data.data.list;
 				for (const key in orderList) {
 					let orderStatus = orderList[key].OrderStatus;
+					orderList[key].OrderDate = util.timestampToTimeLong(orderList[key].OrderDate);
 					if (orderStatus === '完成') {
 						orderList[key].isSuccessfulTransaction = 1;
 					} else {
@@ -156,6 +158,7 @@ Page({
 				let orderList = resp.data.data.list;
 				for (const key in orderList) {
 					let orderStatus = orderList[key].OrderStatus;
+					orderList[key].OrderDate = util.timestampToTimeLong(orderList[key].OrderDate);
 					if (orderStatus === '完成') {
 						orderList[key].isSuccessfulTransaction = 1;
 					} else {
@@ -200,16 +203,16 @@ Page({
 	},
 
 
-  // 刷新
-  onPullDownRefresh: function () {
-    console.log("下拉刷新")
-    // 显示顶部刷新图标  
+	// 刷新
+	onPullDownRefresh: function () {
+		console.log("下拉刷新")
+		// 显示顶部刷新图标  
 		wx.showNavigationBarLoading();
-		
-		
-    wx.hideNavigationBarLoading();
-    wx.stopPullDownRefresh();
-  },
+
+
+		wx.hideNavigationBarLoading();
+		wx.stopPullDownRefresh();
+	},
 
 
 

@@ -7,7 +7,7 @@ module.exports = {
 
     RefreshAuth: ApiRootUrl + 'app/user/refresh_auth', //刷新授权
 
-    DeviceList: ApiRootUrl + 'app/device/devicelist', //设备列表
+    // DeviceList: ApiRootUrl + 'app/device/devicelist', //设备列表
     AlarmList: ApiRootUrl + 'app/device/alarmlist', //设备报警
 
     OrderList: ApiRootUrl + 'app/order/orderlist', //订单列表
@@ -29,6 +29,7 @@ module.exports = {
     ProductRanking: ApiRootUrl + 'app/product/productRanking', //商品销量排行
     ProductRankingDetail: ApiRootUrl + 'app/product/productRankingDetail', //商品销售明细
     WasteAnalyse: ApiRootUrl + 'app/product/wasteAnalyse', //废弃分析
+    DeviceList: ApiRootUrl + 'app/device/list', //设备
 
 
     NearlySevendaysEchart: ApiRootUrl + 'app/report/7daysdata',

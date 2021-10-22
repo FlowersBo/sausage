@@ -1,83 +1,87 @@
 <!--pages/order_details/order_details.wxml-->
-<view>
-    <!-- 订单详情 -->
-    <view class="order">
-        <view class="title">订单详情</view>
-        <view class="content">
-            <view class="demo-item">
-                <view>订单编号：</view>
-                <view>{{orderDetail.ID}}</view>
-            </view>
-            <view class="demo-item">
-                <view>交易编号：</view>
-                <view>{{orderDetail.TradeID}}</view>
-            </view>
-            <view class="demo-item">
-                <view>交易时间：</view>
-                <view>{{orderDetail.OrderDate}}</view>
-            </view>
-            <view class="demo-item">
-                <view>订单状态：</view>
-                <view>{{orderDetail.OrderStatus}}</view>
-            </view>
-            <view class="demo-item">
-                <view>商品金额：</view>
-                <view>{{orderDetail.PriceA}}</view>
-            </view>
-            <view class="demo-item">
-                <view>优惠金额：</view>
-                <view>{{orderDetail.PriceB}}</view>
-            </view>
-            <view class="demo-item">
-                <view>实收金额：</view>
-                <view>{{orderDetail.RealPay}}</view>
-            </view>
-            <!-- <view class="demo-item">
-                <view>支付渠道：</view>
-                <view>{{orderDetail.PayPlatform}}</view>
-            </view> -->
-            <view class="demo-item">
-                <view>点位名称：</view>
-                <view>{{orderDetail.PointName}}</view>
-            </view>
-            <view class="demo-item">
-                <view>产品A：</view>
-                <view>{{orderDetail.PriceA}}</view>
-            </view>
-            <view class="demo-item">
-                <view>产品B：</view>
-                <view>{{orderDetail.PriceB}}</view>
-            </view>
-        </view>
-    </view>
-    <!-- 退款详情 -->
-    <view wx:if="{{orderDetail.RefundID}}" class="order refund">
-        <view class="title">退款详情</view>
-        <view class="content">
-            <view class="demo-item">
-                <view>退款编号：</view>
-                <view>{{orderDetail.RefundID}}</view>
-            </view>
-            <view class="demo-item">
-                <view>退款金额：</view>
-                <view>{{orderDetail.RefundAmount}}</view>
-            </view>
-            <view class="demo-item">
-                <view>退款时间：</view>
-                <view>{{orderDetail.RefundDate}}</view>
-            </view>
-            <view class="demo-item">
-                <view>退款原因：</view>
-                <view>{{orderDetail.RefundReason}}</view>
-            </view>
-            <view class="demo-item">
-                <view>退款备注：</view>
-                <view>{{orderDetail.RefundMemo}}</view>
-            </view>
-            <view class="demo-item">
-                <view>操作人：</view>
-                <view>{{orderDetail.Operator}}</view>
-            </view>
-        </view>
-    </view>
+<view class="orderDetail">
+	<!-- 订单详情 -->
+	<view class="order">
+		<view class="title">订单详情</view>
+		<view class="content">
+			<view class="demoWrap">
+				<view class="demo-item">
+					<view>订单编号：</view>
+					<view>{{orderDetail.ID}}</view>
+				</view>
+				<view class="demo-item">
+					<view>交易单号：</view>
+					<view>{{orderDetail.TradeID}}</view>
+				</view>
+				<view class="demo-item">
+					<view>交易时间：</view>
+					<view>{{orderDetail.OrderDate}}</view>
+				</view>
+				<view class="demo-item">
+					<view>订单状态：</view>
+					<view>{{orderDetail.OrderStatus}}</view>
+				</view>
+			</view>
+			<view class="demoWrap">
+				<view class="demo-item">
+					<view>商品金额：</view>
+					<view>{{orderDetail.PriceA}}</view>
+				</view>
+				<view class="demo-item">
+					<view>优惠金额：</view>
+					<view>{{orderDetail.PriceB}}</view>
+				</view>
+				<view class="demo-item">
+					<view>实收金额：</view>
+					<view>{{orderDetail.RealPay}}</view>
+				</view>
+				<view class="demo-item">
+					<view>支付方式：</view>
+					<view>{{orderDetail.PayPlatform}}</view>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="demo-item">
+		<view>点位名称：</view>
+		<view>{{orderDetail.PointName}}</view>
+	</view>
+	<view class="demo-item">
+		<view>产品A：</view>
+		<view>{{orderDetail.PriceA}}</view>
+	</view>
+	<view class="demo-item">
+		<view>产品B：</view>
+		<view>{{orderDetail.PriceB}}</view>
+	</view>
+	<!-- 退款详情 -->
+	<view wx:if="{{orderDetail.RefundID}}" class="order refund">
+		<view class="title">退款详情</view>
+		<view class="content">
+			<view class="demo-item">
+				<view>退款编号：</view>
+				<view>{{orderDetail.RefundID}}</view>
+			</view>
+			<view class="demo-item">
+				<view>退款金额：</view>
+				<view>{{orderDetail.RefundAmount}}</view>
+			</view>
+			<view class="demo-item">
+				<view>退款时间：</view>
+				<view>{{orderDetail.RefundDate}}</view>
+			</view>
+			<view class="demo-item">
+				<view>退款原因：</view>
+				<view>{{orderDetail.RefundReason}}</view>
+			</view>
+			<view class="demo-item">
+				<view>退款备注：</view>
+				<view>{{orderDetail.RefundMemo}}</view>
+			</view>
+			<view class="demo-item">
+				<view>操作人：</view>
+				<view>{{orderDetail.Operator}}</view>
+			</view>
+		</view>
+	</view>
 </view>

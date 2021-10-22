@@ -124,16 +124,16 @@ view .name {
   flex: 4;
   text-align: left;
 }
-.TradeID{
+/* .TradeID{
   flex: 2;
-}
+} */
 
 .volume {
   flex: 2;
 }
 
 .money {
-  flex: 1;
+  flex: 2;
 }
 
 .mode {
