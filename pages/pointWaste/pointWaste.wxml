@@ -4,9 +4,19 @@
   <view class="address">详细地址：{{address}}</view>
 </view>
 <!-- 自定义月份统计图 -->
-<block wx:if="{{isShowGraph}}">
-  <view class="container" wx:for="{{graphGenres}}" wx:index="{{index}}" wx:key='index'>
-    <view class="tit">{{item.title}}</view>
-    <ec-canvas id="mychart-dom-bar" canvas-id="mychart-line" xsign="{{ecxsign}}" xdata="{{ecDatas[index]}}" ec="{{ ec }}"></ec-canvas>
+<view class="wasteStatement">
+  <view class="statement">
+    <view>废弃量</view>
+    <view>{{waste.wasteSum}}</view>
+  </view>
+  <view class="statement">
+    <view>废弃率</view>
+    <view>{{waste.wasteRate}}%</view>
+  </view>
+</view>
+<block>
+  <view class="container">
+    <ec-canvas id="mychart-dom-bar" canvas-id="mychart-line" xsign="{{ecxsign}}" xdata="{{ecDatas}}" ec="{{ ec }}">
+    </ec-canvas>
   </view>
 </block>

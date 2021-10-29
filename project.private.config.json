@@ -105,6 +105,18 @@
           "pathName": "pages/commodity/commodity",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "订单详情",
+          "pathName": "pages/order_details/order_details",
+          "query": "id=110121010003211018172551&orderDate=2021-10-18%2017%3A25%3A51&isSuccessfulTransaction=0",
+          "scene": null
+        },
+        {
+          "name": "废弃分析",
+          "pathName": "pages/pointWaste/pointWaste",
+          "query": "pointId=1433700746515185664&pointStartDate=2021-10-19&pointEndDate=2021-10-19",
+          "scene": null
         }
       ]
     }

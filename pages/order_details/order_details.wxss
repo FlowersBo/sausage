@@ -8,6 +8,7 @@
 	margin-bottom: 20rpx;
 	border-radius: 10rpx;
 	overflow: hidden;
+	box-shadow: 6px 4px 6px #ccc;
 }
 
 .title {
@@ -21,19 +22,19 @@
 }
 
 .content {
-	margin: 0;
-	box-shadow: 2px 2px 6px #ddd;
-	border-radius: 10rpx;
+	border-radius: 10rpx 10rpx 0 0;
 }
 
 .demoWrap {
 	width: 100%;
-	background: #f8f8f8;
-	margin-bottom: 10rpx;
+	background: #F7F7F7;
+	/* margin-bottom: 4rpx; */
 	box-sizing: border-box;
 	padding: 10rpx;
 }
-
+.demoWrap1{
+	margin-bottom: 4rpx;
+}
 .demo-item {
 	height: 50rpx;
 	line-height: 50rpx;
@@ -63,4 +64,46 @@
 
 .demo-item view:last-child {
 	width: 500rpx;
+}
+
+/* 商品列表 */
+.goodsList {
+	width: 100%;
+	background: #F7F7F7;
+	margin: 30rpx 0;
+	box-shadow: 6px 4px 6px #ccc;
+}
+
+.goodsNav {
+	display: flex;
+	font-size: 28rpx;
+	height: 70rpx;
+	line-height: 70rpx;
+	border: 1rpx solid #ddd;
+}
+
+.navList{
+	background: #f75910;
+	color: #fff;
+	border: 1rpx solid #f75910;
+}
+
+.nav {
+	flex: 1;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-align: center;
+	border-right: 1rpx solid #ddd;
+}
+
+.nav:last-child {
+	flex: 1.5;
+	border-right: none;
+}
+.nav:first-child{
+	flex: 3;
+}
+.goodsItem{
+	border-top: none;
 }

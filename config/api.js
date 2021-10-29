@@ -1,5 +1,5 @@
 // const ApiRootUrl = 'https://api.morninggo.cn/';
-const ApiRootUrl = 'https://w3.morninggo.cn/';
+const ApiRootUrl = 'https://w3.morninggo.cn/'; //测试
 // const ApiRootUrl = 'http://localhost:8080/app-http/';//13322265957
 module.exports = {
     Login: ApiRootUrl + 'app/user/auth', //登录授权
@@ -13,7 +13,7 @@ module.exports = {
     OrderList: ApiRootUrl + 'app/order/orderlist', //订单列表
     OrderDetail: ApiRootUrl + 'app/order/orderdetail', //订单详情
 
-    Info: ApiRootUrl + 'app/user/info', //用户信息
+    Info: ApiRootUrl + 'app/user/info', //用户信息  
 
     // 新增(修改)接口
     OneDaySummation: ApiRootUrl + 'app/report/oneDaySummation', //一天的销量汇总/附带累计额

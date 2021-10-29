@@ -12,6 +12,7 @@ Page({
     orderDate: '',
     orderDetail: {},
     isSuccessfulTransaction: 0,
+    goodeNav:['商品名称','数量','金额','出货状态']
   },
 
   /**

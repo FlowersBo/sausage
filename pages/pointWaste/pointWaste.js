@@ -4,71 +4,76 @@ import * as api from '../../config/api';
 import * as echarts from '../../ec-canvas/echarts';
 let that;
 
-function initChart(canvas, width, height, xsign, xdata, graphGenres) {
-  const chart = echarts.init(canvas, null, {
-    width: width,
-    height: height
-  });
-  canvas.setChart(chart);
+function initChart(chart, dataItem) {
+  console.log(dataItem);
   var option = {
-    color: ["#3398DB", "#d9a8f2", "#b31fff", "#5c1cff"],
-    tooltip: {
-      trigger: "axis",
-      axisPointer: {
-        type: "shadow"
+    backgroundColor: "#fff",
+    color: ['#C33531', '#EFE42A', '#64BD3D', '#EE9201', '#29AAE3', '#B74AE5', '#0AAF9F', '#E89589', '#16A085'],
+    title: {
+      text: '废弃原因分布',
+      left: 'center',
+      top: '2%',
+      color: '#333',
+      textStyle: {
+        fontSize: '16'
       }
     },
-    xAxis: {
-      // name: isReportGenre,
-      // nameLocation: 'end',	
-      // nameTextStyle: {
-      // 	color: '#BB0012',
-      // 	fontStyle: 'italic',
-      // 	fontSize: '8',
-      // 	verticalAlign: 'middle',
-      // 	align: 'left'
+    legend: { //图例
+      data: dataItem.name,
+      left: 'center',
+      bottom: '0',
+      z: 100,
+      selectedMode: false, //是否可选显示
+      orient: 'horizontal',
+      textStyle: {
+        fontStyle: 'oblique'
+      }
+    },
+    tooltip: {
+      show: true,
+      trigger: 'item',
+      formatter: "废弃量(根) \n{b} : {c} ({d}%)",
+      // formatter: "{b} : {c} ({d}%)", //{a} <br/>
+      // formatter: function (params) {
+      //   console.log(params)
+      //   var result = '';
+      //   params.forEach(function (item) {
+      //     result += item.marker + " " + item.seriesName + " : " + item.value + "</br>";
+      //   });
+      //   return result;
       // },
-      // boundaryGap: false,
-      type: 'category',
-      data: xsign
     },
-    yAxis: {
-      // name: '销售额(元)',
-      type: 'value'
-    },
-    nameTextStyle: {
-      color: '#BB0012',
-      fontStyle: 'italic',
-      fontSize: '8',
-      verticalAlign: 'middle',
-      align: 'left'
-    },
-    grid: {
-      top: 30,
-      left: 50,
-      height: 100
-    },
-    series: [{
-      // name: '金额',
-      barWidth: "50%",
-      data: xdata,
-      type: 'bar',
-      itemStyle: {
-        normal: {
-          // 随机显示
-          //color:function(d){return "#"+Math.floor(Math.random()*(256*256*256-1)).toString(16);}
-          // 定制显示（按顺序）
-          color: function (params) {
-            var colorList = ['#C33531', '#EFE42A', '#64BD3D', '#EE9201', '#29AAE3', '#B74AE5', '#0AAF9F', '#E89589', '#16A085', '#4A235A', '#C39BD3 ', '#F9E79F', '#BA4A00', '#ECF0F1', '#616A6B', '#EAF2F8', '#4A235A', '#3498DB'];
-            return colorList[params.dataIndex]
-          }
+    toolbox: {
+      show: true,
+      feature: {
+        mark: {
+          show: true
         }
       }
-    }, ]
+    },
+    calculable: true,
+    series: [{
+      label: {
+        normal: {
+          fontSize: 12 //图显示字体大小
+        }
+      },
+      type: 'pie',
+      minShowLabelAngle: '0',
+      // roseType: 'area',//南丁格尔图
+      // selectedMode: 'single',
+      // selectedOffset: 5, //扇形偏移量
+      data: dataItem,
+      radius: '60%',
+      // radius: ['40%', '60%'],//设置环状图
+      center: ['50%', '44%'],
+    }]
   };
   chart.setOption(option);
   return chart;
 };
+
+
 Page({
 
   /**
@@ -77,11 +82,9 @@ Page({
   data: {
     pointStartDate: '',
     pointEndDate: '',
-    ec: { //ec
-      onInit: initChart
+    ec: {
+      lazyLoad: true //初始化加载
     },
-    ecDatas: [],
-    ecxsign: [],
   },
 
   /**
@@ -107,10 +110,49 @@ Page({
     let result = await (mClient.get(api.WasteAnalyse, data));
     console.log('点位饼图', result);
     if (result.data.code == 200) {
+      this.oneComponent = this.selectComponent('#mychart-dom-bar');
+      this.oneComponent.init((canvas, width, height, dpr) => {
+        const chart = echarts.init(canvas, null, {
+          width: width,
+          height: height,
+          devicePixelRatio: dpr // new
+        });
+        canvas.setChart(chart);
+        let dayDateWrap = [{
+          name: '烤制超时废弃',
+          value: result.data.data.waste1
+        }, {
+          name: '烤制过程废弃',
+          value: result.data.data.waste2
+        }, {
+          name: '营业时间结束废弃',
+          value: result.data.data.waste3
+        }, {
+          name: '退货废弃',
+          value: result.data.data.waste4
+        }, {
+          name: '人工报损',
+          value: result.data.data.waste5
+        }];
+        let dataItem = [];
+        for (const key in dayDateWrap) {
+          if (Object.hasOwnProperty.call(dayDateWrap, key)) {
+            const element = dayDateWrap[key];
+            if (String(element.value) != 0) {
+              // dayDateWrap.splice(key, 1);
+              dataItem.push(dayDateWrap[key]);
+            }
+          }
+        }
+        console.log(dataItem);
+        initChart(chart, dataItem);
+        return chart;
+      });
+
       that.setData({
         waste: result.data.data,
         address: result.data.data.address,
-        pointName:  result.data.data.pointName,
+        pointName: result.data.data.pointName,
       })
     } else {
       wx.showToast({

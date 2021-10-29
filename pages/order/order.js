@@ -11,6 +11,7 @@ Page({
 		date: '',
 		orderGenre: '',
 		orderGenres: ['全部', '已完成', '异常订单'],
+    navAfter: [],
 		pageIndex: 1,
 		pageSize: 10,
 		orderList: [],
@@ -113,7 +114,6 @@ Page({
 						isLoad: 1,
 					});
 				}
-
 			} else {
 				console.log('fail');
 			}

@@ -10,6 +10,12 @@
 		</mp-cell>
 	</view>
 
+	<view class="nav_after">
+		<view class="afterItem" wx:for="{{navAfter}}" wx:key="index">
+			<view class="nav_item">{{item}}</view>
+		</view>
+	</view>
+	
 	<view class="nav_tab">
 		<view wx:for="{{orderGenres}}" wx:key="index" class="{{selected==index?'hidden':'show'}}" data-index="{{index}}"
 			bindtap="bindOrderGenre">
