@@ -1,5 +1,4 @@
 @import '../../iconCss/icon.wxss';
-
 /* /index.wxss */
 page {
 	padding: 20rpx 20rpx 0;
@@ -214,7 +213,7 @@ canvas {
 	width: 120rpx;
 }
 
-.detail-btn{
+.detail-btn {
 	width: 80rpx;
 	height: 40rpx;
 	line-height: 40rpx;
@@ -290,7 +289,7 @@ canvas {
 	margin-left: 2rpx; */
 }
 
-.th{
+.th {
 	background-color: #f75910;
 	font-size: 28rpx;
 	color: #fff;
@@ -300,7 +299,7 @@ canvas {
 	border-right: 1px solid #dadada;
 }
 
-.th:last-child{
+.th:last-child {
 	border-right: none;
 }
 
@@ -315,11 +314,12 @@ canvas {
 }
 
 /* 月区间 */
-.pickerWrap{
+.pickerWrap {
 	width: 100%;
 	margin-bottom: 20rpx;
 }
-.page-date{
+
+.page-date {
 	margin-left: auto;
 	width: 360rpx;
 	height: 60rpx;
@@ -336,8 +336,48 @@ canvas {
 	box-sizing: border-box;
 	padding: 0 30rpx;
 }
-.page-date-img{
+
+.page-date-img {
 	width: 50rpx;
 	height: 48rpx;
 	margin-top: 4rpx;
+}
+
+/* 小历日历 */
+.xlCalendarWrap{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	background: rgba(0, 0, 0, .6);
+}
+.ballWindow{
+	width: 100%;
+	height: 740rpx;
+	position:fixed;
+	bottom: 0;
+	left: 0;
+	background: #fff;
+	border-radius: 30rpx 30rpx 0 0;
+}
+.ballWindow-btn{
+	width: 100%;
+	height: 90rpx;
+	text-align: right;
+	line-height: 90rpx;
+	box-sizing: border-box;
+	padding-right: 20rpx;
+	color: rgb(216, 179, 12);
+}
+.xlCalendar {
+	width: 100%;
+	height: 640rpx;
+	background: #fff;
+	overflow: hidden;
+	position: absolute;
+	bottom: 6rpx;
+	left: 0;
+	z-index: 1000;
 }

@@ -2,6 +2,23 @@ import * as echarts from '../../ec-canvas/echarts';
 import * as mClient from '../../utils/customClient';
 import * as api from '../../config/api';
 import * as util from '../../utils/util';
+
+import todo from '../../component/v2/plugins/todo'
+import selectable from '../../component/v2/plugins/selectable'
+import solarLunar from '../../component/v2/plugins/solarLunar/index'
+import timeRange from '../../component/v2/plugins/time-range'
+import week from '../../component/v2/plugins/week'
+import holidays from '../../component/v2/plugins/holidays/index'
+import plugin from '../../component/v2/plugins/index'
+
+plugin
+	.use(todo)
+	.use(solarLunar)
+	.use(selectable)
+	.use(week)
+	.use(timeRange)
+	.use(holidays)
+
 let that;
 import {
 	OrderList
@@ -152,15 +169,16 @@ Page({
 
 		// 日历
 		isShow: false,
-		themeColor: '#ffd00a',
-		calendarType: 'yydates',
-		startMonthCount: -11,
-		monthCount: 1,
-		pastDateChoice: true,
-		dateTitle: '',
-		dateSubTitle: '开始',
-		endDateSubTitle: '结束',
-		endDateTitle: '',
+		// themeColor: '#ffd00a',
+		// calendarType: 'yydates',
+		// startMonthCount: -11,
+		// monthCount: 1,
+		// pastDateChoice: true,
+		// dateTitle: '',
+		// dateSubTitle: '开始',
+		// endDateSubTitle: '结束',
+		// endDateTitle: '',
+
 		// 月份
 		isPickerShow: false,
 		isPickerRender: false,
@@ -175,7 +193,73 @@ Page({
 			limitStartTime: "2021-01",
 			limitEndTime: "2021-12"
 		},
+		calendarConfig: {
+			theme: 'elegant',
+			// highlightToday: true,
+			// markToday: '今日',
+			// showHolidays: true,
+			// emphasisWeek: true,
+			chooseAreaMode: true,
+			// defaultDate: '2020-9-8',
+			// autoChoosedWhenJump: true
+		},
+		frequency: 0
 	},
+
+
+	// 日历、
+	afterTapDate(e) {
+		let frequency = that.data.frequency;
+		if (frequency == 0) {
+			that.setData({
+				frequency: 1,
+				startTimer: `${e.detail.year}-${e.detail.month}-${e.detail.date}`
+			})
+		} else {
+			that.setData({
+				frequency: 0,
+				endTimer: `${e.detail.year}-${e.detail.month}-${e.detail.date}`
+			})
+			let startTimer = (new Date(that.data.startTimer.replace(/-/g, '/'))).getTime();
+			let endTimer = (new Date(that.data.endTimer.replace(/-/g, '/'))).getTime();
+			if (startTimer < endTimer) {
+				startTimer = that.data.startTimer;
+				endTimer = that.data.endTimer;
+			} else {
+				startTimer = that.data.endTimer;
+				endTimer = that.data.startTimer;
+			}
+			this.setData({
+				pointDetaillyDate: startTimer + '~' + endTimer,
+				startTime: startTimer,
+				endTime: endTimer,
+				isShow: false
+			});
+		}
+		// switch (e) {
+		// 	case frequency: {
+		// const calendar = this.selectComponent('#calendar').calendar;
+		// const {
+		// 	year,
+		// 	month
+		// } = calendar.getCurrentYM();
+		// const selected = calendar['getSelectedDates']();
+		// if (!selected || !selected.length)
+		// 	return this.showToast('当前未选择任何日期')
+		// console.log('当前选择时间', selected)
+		// const rst = selected.map(item => JSON.stringify(item));
+		// console.log(rst)
+		//   break
+		//  }
+		// }
+		// console.log('afterTapDate', e.detail);
+	},
+
+	// cancelWindowFn(){
+	// 	that.setData({
+	// 		isShow: false
+	// 	})	
+	// },
 
 	onLoad: function () {
 		that = this;
@@ -186,44 +270,35 @@ Page({
 		// that.createChart();
 	},
 
-	// 点击显示插件
-	btnClick: function () {
-		console.log('显示');
-		this.setData({
-			isShow: true,
-		})
-	},
+	// _yybindchange: function (e) {
+	// 	that.setData({
+	// 		loadText: '',
+	// 	})
+	// 	let dateWrap = e.detail;
+	// 	console.log('选择范围', dateWrap);
+	// 	let startTime = dateWrap.startTime,
+	// 		endTime = dateWrap.endTime;
+	// 	that.rangeDateSummationTotal(startTime, endTime);
+	// 	if (startTime) {
+	// 		let pointDetaillyDate = startTime + '~' + endTime;
+	// 		this.setData({
+	// 			pointDetaillyDate: pointDetaillyDate
+	// 		});
+	// 		console.log(pointDetaillyDate);
+	// 	}
+	// 	that.setData({
+	// 		startTime,
+	// 		endTime
+	// 	})
+	// },
 
-	_yybindchange: function (e) {
-		that.setData({
-			loadText: '',
-		})
-		let dateWrap = e.detail;
-		console.log('选择范围', dateWrap);
-		let startTime = dateWrap.startTime,
-			endTime = dateWrap.endTime;
-		that.rangeDateSummationTotal(startTime, endTime);
-		if (startTime) {
-			let pointDetaillyDate = startTime + '~' + endTime;
-			this.setData({
-				pointDetaillyDate: pointDetaillyDate
-			});
-			console.log(pointDetaillyDate);
-		}
-		that.setData({
-			startTime,
-			endTime
-		})
-	},
+	// _yybindhide: function () {
+	// 	console.log('隐藏')
+	// },
 
-	_yybindhide: function () {
-		console.log('隐藏')
-	},
-
-	_yybinddaychange: function (e) {
-		console.log('日期发生变化', e);
-	},
-
+	// _yybinddaychange: function (e) {
+	// 	console.log('日期发生变化', e);
+	// },
 
 	// 月份区间选择
 	pickerShow: function () {
@@ -709,11 +784,11 @@ Page({
 						});
 					});
 			}
-
 			if (dateRange === 3) {
-				that.btnClick();
+				that.setData({
+					isShow: true
+				})
 			}
-
 		} else {
 			if (dateRange === 1) {
 				pointReportDate.setDate(pointReportDate.getDate() - 1);

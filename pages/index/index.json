@@ -4,6 +4,7 @@
   "usingComponents": {
     "ec-canvas": "../../ec-canvas/ec-canvas",
     "yycalendar": "plugin://myPlugin/yycalendar",
-    "selectTime": "../../component/selectTime/selectTime"
+    "selectTime": "../../component/selectTime/selectTime",
+    "calendar": "../../component/v2/index"
   }
 }
