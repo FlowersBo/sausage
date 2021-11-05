@@ -33,14 +33,14 @@
   </view> -->
 
   <!-- 小历同学文档 -->
-  <view wx:if="{{isShow}}" class="xlCalendarWrap" bindtap="cancelWindowFn">
-    <view class="ballWindow">
-      <view class="ballWindow-btn" bindtap="cancelWindowFn">取消</view>
-      <view class="xlCalendar">
-        <calendar id="calendar" config="{{calendarConfig}}" bind:onSwipe="onSwipe" bind:whenChangeWeek="whenChangeWeek"
-          bind:whenChangeMonth="whenChangeMonth" bind:takeoverTap="takeoverTap" bind:afterTapDate="afterTapDate"
-          bind:afterCalendarRender="afterCalendarRender"></calendar>
-      </view>
+  <view wx:if="{{isShow}}" class="xlCalendarWrap" catchtap="cancelWindowFn">
+  </view>
+  <view class="ballWindow" animation="{{animationData}}">
+    <view class="ballWindow-btn" bindtap="cancelWindowFn">取消</view>
+    <view class="xlCalendar">
+      <calendar id="calendar" config="{{calendarConfig}}" bind:onSwipe="onSwipe" bind:whenChangeWeek="whenChangeWeek"
+        bind:whenChangeMonth="whenChangeMonth" bind:takeoverTap="takeoverTap" bind:afterTapDate="afterTapDate"
+        bind:afterCalendarRender="afterCalendarRender"></calendar>
     </view>
   </view>
 

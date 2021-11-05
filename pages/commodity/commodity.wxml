@@ -6,12 +6,23 @@
       {{item}}</view>
   </view>
 
-  <view wx:if="{{isShow}}">
+  <!-- <view wx:if="{{isShow}}">
     <yycalendar title="日期选择" show='{{isShow}}' startMonthCount='{{startMonthCount}}' pastDateChoice='{{pastDateChoice}}'
       dateSubTitle='{{dateSubTitle}}' endDateSubTitle='{{endDateSubTitle}}' dateTitle='{{dateTitle}}'
       endDateTitle='{{endDateTitle}}' monthCount='{{monthCount}}' themeColor="{{themeColor}}"
       calendarType="{{calendarType}}" bind:yybindchange="_yybindchange" bind:yybindhide="_yybindhide"
       bind:yybinddaychange="_yybinddaychange" bind:yystrat="_yystrat" />
+  </view> -->
+
+  <view wx:if="{{isShow}}" class="xlCalendarWrap" catchtap="cancelWindowFn">
+  </view>
+  <view class="ballWindow" animation="{{animationData}}">
+    <view class="ballWindow-btn" bindtap="cancelWindowFn">取消</view>
+    <view class="xlCalendar">
+      <calendar id="calendar" config="{{calendarConfig}}" bind:onSwipe="onSwipe" bind:whenChangeWeek="whenChangeWeek"
+        bind:whenChangeMonth="whenChangeMonth" bind:takeoverTap="takeoverTap" bind:afterTapDate="afterTapDate"
+        bind:afterCalendarRender="afterCalendarRender"></calendar>
+    </view>
   </view>
 
 

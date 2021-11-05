@@ -214,12 +214,15 @@
 .goods:nth-child(1) {
   width: 200rpx;
 }
+
 .goods:nth-child(2) {
   width: 294rpx;
 }
+
 .goods:nth-child(3) {
   width: 120rpx;
 }
+
 .goods:nth-child(4) {
   width: 120rpx;
 }
@@ -241,7 +244,7 @@
   border-bottom: 1px solid #E8E8E8;
 }
 
-.title-waste{
+.title-waste {
   width: 200rpx;
   box-sizing: border-box;
   padding: 20rpx 6rpx;
@@ -259,7 +262,7 @@
   white-space: nowrap;
 }
 
-.wasteBtn{
+.wasteBtn {
   width: 130rpx;
   padding: 6rpx 0;
   text-align: center;
@@ -309,11 +312,57 @@
   white-space: nowrap;
 }
 
-.noDetail{
+.noDetail {
   width: 100%;
   height: 100rpx;
   line-height: 100rpx;
   color: #f75910;
   font-size: 30rpx;
   text-align: center;
+}
+
+/* 小历日历 */
+.xlCalendarWrap {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, .6);
+}
+
+.ballWindow {
+  width: 100%;
+  height: 720rpx;
+  position: fixed;
+  bottom: -720rpx;
+  left: 0;
+  background: #fff;
+  border-radius: 30rpx 30rpx 0 0;
+  z-index: 1000;
+}
+
+
+.ballWindow-btn {
+  width: 100%;
+  height: 70rpx;
+  text-align: right;
+  line-height: 70rpx;
+  box-sizing: border-box;
+  padding-right: 30rpx;
+  color: rgb(216, 179, 12);
+}
+
+.xlCalendar {
+  width: 100%;
+  height: 640rpx;
+  box-sizing: border-box;
+  padding: 0 40rpx;
+  background: #fff;
+  overflow: hidden;
+  position: absolute;
+  bottom: 6rpx;
+  left: 0;
+  z-index: 1000;
 }

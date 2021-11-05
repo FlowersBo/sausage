@@ -33,48 +33,121 @@ Page({
     pointDetaillyDate: '',
     // 日历
     isShow: false,
-    themeColor: '#ffd00a',
-    calendarType: 'yydates',
-    startMonthCount: -11,
-    monthCount: 1,
-    pastDateChoice: true,
-    dateTitle: '',
-    dateSubTitle: '开始',
-    endDateSubTitle: '结束',
-    endDateTitle: '',
+    // themeColor: '#ffd00a',
+    // calendarType: 'yydates',
+    // startMonthCount: -11,
+    // monthCount: 1,
+    // pastDateChoice: true,
+    // dateTitle: '',
+    // dateSubTitle: '开始',
+    // endDateSubTitle: '结束',
+    // endDateTitle: '',
+    calendarConfig: {
+      theme: 'elegant',
+      // highlightToday: true,
+      // markToday: '今日',
+      // showHolidays: true,
+      // emphasisWeek: true,
+      chooseAreaMode: true,
+      // defaultDate: '2020-9-8',
+      // autoChoosedWhenJump: true
+    },
+    frequency: 0
   },
-  // 点击显示插件
-  btnClick: function () {
-    console.log('显示');
+  // 日历、
+  afterTapDate(e) {
+    let frequency = that.data.frequency;
+    if (e.detail.month <= 9) {
+      e.detail.month = `0${e.detail.month}`
+    }
+    if (e.detail.date <= 9) {
+      e.detail.date = `0${e.detail.date}`
+    }
+    if (frequency == 0) {
+      that.setData({
+        frequency: 1,
+        startTimer: `${e.detail.year}-${e.detail.month}-${e.detail.date}`
+      })
+    } else {
+      that.setData({
+        frequency: 0,
+        endTimer: `${e.detail.year}-${e.detail.month}-${e.detail.date}`
+      })
+      let startTimer = (new Date(that.data.startTimer.replace(/-/g, '/'))).getTime();
+      let endTimer = (new Date(that.data.endTimer.replace(/-/g, '/'))).getTime();
+      if (startTimer < endTimer) {
+        startTimer = that.data.startTimer;
+        endTimer = that.data.endTimer;
+      } else {
+        startTimer = that.data.endTimer;
+        endTimer = that.data.startTimer;
+      }
+      this.setData({
+        pointDetaillyDate: startTimer + '~' + endTimer,
+        startDate: startTimer,
+        endDate: endTimer,
+        isShow: false
+      });
+      that.fadeDown();
+      that.goodsList();
+      that.goodsDetailList();
+    }
+  },
+
+  cancelWindowFn() {
+    that.setData({
+      isShow: false
+    })
+    that.fadeDown();
+  },
+
+
+  fadeIn: function () {
+    var animation = wx.createAnimation({
+      duration: 300,
+      timingFunction: 'linear'
+    })
+    animation.bottom(0).step()
     this.setData({
-      isShow: true,
+      animationData: animation.export()
     })
   },
 
-  _yybindchange: function (e) {
-    that.setData({
-      loadText: '',
+  fadeDown: function () {
+    var animation = wx.createAnimation({
+      duration: 300,
+      timingFunction: 'linear', //动画的效果 默认值是linear
     })
-    let dateWrap = e.detail;
-    console.log('选择范围', dateWrap);
-    let startDate = dateWrap.startTime,
-      endDate = dateWrap.endTime;
-    that.setData({
-      pointDetaillyDate: `${startDate}~${endDate}`,
-      startDate,
-      endDate
+    animation.bottom(-720).step()
+    this.setData({
+      animationData: animation.export()
     })
-    that.goodsList();
-    that.goodsDetailList();
   },
 
-  _yybindhide: function () {
-    console.log('隐藏')
-  },
+  // _yybindchange: function (e) {
+  //   that.setData({
+  //     loadText: '',
+  //   })
+  //   let dateWrap = e.detail;
+  //   console.log('选择范围', dateWrap);
+  //   let startDate = dateWrap.startTime,
+  //     endDate = dateWrap.endTime;
+  //   that.setData({
+  //     pointDetaillyDate: `${startDate}~${endDate}`,
+  //     startDate,
+  //     endDate
+  //   })
+  //   that.goodsList();
+  //   that.goodsDetailList();
+  // },
 
-  _yybinddaychange: function (e) {
-    console.log('日期发生变化', e);
-  },
+  // _yybindhide: function () {
+  //   console.log('隐藏')
+  // },
+
+  // _yybinddaychange: function (e) {
+  //   console.log('日期发生变化', e);
+  // },
 
 
   // 切换tab
@@ -99,9 +172,10 @@ Page({
         selected: 1,
         pageNum: 1,
         reportDetail,
-        pointDetaillyDate: that.data.oldStartDate
+        pointDetaillyDate: that.data.oldStartDate,
+        isShow: true
       })
-      that.btnClick();
+      that.fadeIn();
     }
     that.goodsList();
     that.goodsDetailList();

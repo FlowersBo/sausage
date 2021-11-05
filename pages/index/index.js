@@ -210,6 +210,12 @@ Page({
 	// 日历、
 	afterTapDate(e) {
 		let frequency = that.data.frequency;
+		if (e.detail.month <= 9) {
+      e.detail.month = `0${e.detail.month}`
+    }
+		if (e.detail.date <= 9) {
+			e.detail.date = `0${e.detail.date}`
+		}
 		if (frequency == 0) {
 			that.setData({
 				frequency: 1,
@@ -229,12 +235,14 @@ Page({
 				startTimer = that.data.endTimer;
 				endTimer = that.data.startTimer;
 			}
+			that.rangeDateSummationTotal(startTimer, endTimer);
 			this.setData({
 				pointDetaillyDate: startTimer + '~' + endTimer,
 				startTime: startTimer,
 				endTime: endTimer,
 				isShow: false
 			});
+			that.fadeDown();
 		}
 		// switch (e) {
 		// 	case frequency: {
@@ -255,11 +263,39 @@ Page({
 		// console.log('afterTapDate', e.detail);
 	},
 
-	// cancelWindowFn(){
-	// 	that.setData({
-	// 		isShow: false
-	// 	})	
-	// },
+	afterCalendarRender(e) {
+
+	},
+
+	cancelWindowFn() {
+		that.setData({
+			isShow: false
+		})
+		that.fadeDown();
+	},
+
+
+	fadeIn: function () {
+		var animation = wx.createAnimation({
+			duration: 300,
+			timingFunction: 'linear'
+		})
+		animation.bottom(0).step()
+		this.setData({
+			animationData: animation.export()
+		})
+	},
+
+	fadeDown: function () {
+		var animation = wx.createAnimation({
+			duration: 300,
+			timingFunction: 'linear', //动画的效果 默认值是linear
+		})
+		animation.bottom(-720).step()
+		this.setData({
+			animationData: animation.export()
+		})
+	},
 
 	onLoad: function () {
 		that = this;
@@ -788,6 +824,7 @@ Page({
 				that.setData({
 					isShow: true
 				})
+				that.fadeIn();
 			}
 		} else {
 			if (dateRange === 1) {

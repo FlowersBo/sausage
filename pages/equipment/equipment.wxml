@@ -29,7 +29,7 @@
 							<image class="" src="{{item.signalIconSrc}}"></image>
 						</view>
 						<view>
-							<image class="" src="{{item.deviceStatusIconSrc}}"></image>
+							<image class="img" src="{{item.deviceStatusIconSrc}}"></image>
 						</view>
 					</view>
 				</view>
