@@ -11,9 +11,9 @@ Page({
 		date: '',
 		orderGenre: '',
 		orderGenres: ['全部', '已完成', '异常订单'],
-    navAfter: [],
+		navAfter: [],
 		pageIndex: 1,
-		pageSize: 10,
+		pageSize: 20,
 		orderList: [],
 		loadText: '点击加载',
 		isLoad: 1,
@@ -40,6 +40,15 @@ Page({
 					let orderTotal = resp.data.data.total;
 					let orderList = resp.data.data.list;
 					for (const key in orderList) {
+						let navAfter = that.data.navAfter;
+						// if (navAfter.length <= 0) {
+						// 	navAfter.push(resp.data.data.all, resp.data.data.on, resp.data.data.off);
+						// }
+						console.log(navAfter);
+						that.setData({
+							navAfter
+						});
+
 						orderList[key].OrderDate = util.timestampToTimeLong(orderList[key].OrderDate);
 						let orderStatus = orderList[key].OrderStatus;
 						if (orderStatus === '完成') {

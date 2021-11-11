@@ -11,7 +11,7 @@
   </view>
   <view class="statement">
     <view>废弃率</view>
-    <view>{{waste.wasteRate}}%</view>
+    <view class="statement-waste">{{waste.wasteRate}}%</view>
   </view>
 </view>
 <block>

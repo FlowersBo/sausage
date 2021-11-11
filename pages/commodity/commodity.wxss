@@ -267,9 +267,9 @@
   padding: 6rpx 0;
   text-align: center;
   border-radius: 10rpx;
-  border: 1rpx solid #dadada;
-  background-color: #eee;
-  color: #333;
+  /* border: 1rpx solid #dadada; */
+  background-color: #f75910;
+  color: #fff;
   margin-top: 20rpx;
 }
 

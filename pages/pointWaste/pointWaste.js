@@ -5,15 +5,14 @@ import * as echarts from '../../ec-canvas/echarts';
 let that;
 
 function initChart(chart, dataItem) {
-  console.log(dataItem);
   var option = {
     backgroundColor: "#fff",
-    color: ['#C33531', '#EFE42A', '#64BD3D', '#EE9201', '#29AAE3', '#B74AE5', '#0AAF9F', '#E89589', '#16A085'],
+    color: ['#29AAE3','#C33531', '#EFE42A', '#64BD3D', '#B74AE5', '#EE9201', '#0AAF9F', '#E89589', '#16A085'],
     title: {
       text: '废弃原因分布',
       left: 'center',
       top: '2%',
-      color: '#333',
+      color: '#F75910',
       textStyle: {
         fontSize: '16'
       }
@@ -23,7 +22,7 @@ function initChart(chart, dataItem) {
       left: 'center',
       bottom: '0',
       z: 100,
-      selectedMode: false, //是否可选显示
+      selectedMode: true, //是否可选显示
       orient: 'horizontal',
       textStyle: {
         fontStyle: 'oblique'
@@ -95,10 +94,10 @@ Page({
     console.log(options);
     let {
       pointId,
-      startDate,
-      endDate
+      pointStartDate,
+      pointEndDate
     } = options;
-    that.wasteAnalyseFn(pointId, startDate, endDate);
+    that.wasteAnalyseFn(pointId, pointStartDate, pointEndDate);
   },
 
   async wasteAnalyseFn(pointId, startDate, endDate) {

@@ -49,7 +49,7 @@ page {
 	position: absolute;
 	right: -8rpx;
 	bottom: -14rpx;
-	width: 30rpx;
+	min-width: 30rpx;
 	height: 30rpx;
 	border-radius: 50%;
 	line-height: 30rpx;
@@ -57,7 +57,7 @@ page {
 	font-size: 16rpx;
 	background: #fff;
 	color: #333;
-	border: 1rpx solid #bbb;
+  border: 1rpx solid #bbb;
 }
 
 .nav_tab {
@@ -113,11 +113,12 @@ page {
   margin-bottom: 20rpx;
   border-radius: 10rpx;
   background: #f8f8f8;
+  color: #333;
 }
 
 .list_tit {
   font-size: 24rpx;
-  margin-bottom: 15rpx;
+  margin-bottom: 40rpx;
 }
 
 .list_tit view {

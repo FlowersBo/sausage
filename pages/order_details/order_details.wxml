@@ -46,6 +46,7 @@
 		<view>点位名称：</view>
 		<view>{{orderDetail.PointName}}</view>
 	</view> -->
+
 	<view class="goodsList">
 		<view class="goodsNav navList">
 			<view class="nav" wx:for="{{goodeNav}}" wx:key="index">

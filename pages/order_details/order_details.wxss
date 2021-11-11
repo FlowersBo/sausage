@@ -86,6 +86,7 @@
 	background: #f75910;
 	color: #fff;
 	border: 1rpx solid #f75910;
+	border-radius: 10rpx 10rpx 0 0;
 }
 
 .nav {
@@ -106,4 +107,7 @@
 }
 .goodsItem{
 	border-top: none;
+}
+.goodsItem:last-child{
+	border-radius: 0 0 10rpx 10rpx;
 }
