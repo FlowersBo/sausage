@@ -7,7 +7,7 @@
 <view class="wasteStatement">
   <view class="statement">
     <view>废弃量</view>
-    <view>{{waste.wasteSum}}</view>
+    <view>{{waste.wasteSum}}根</view>
   </view>
   <view class="statement">
     <view>废弃率</view>

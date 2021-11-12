@@ -20,6 +20,8 @@ Page({
    */
   onLoad: function (options) {
     let orderID = options.id;
+    console.log(options);
+    console.log('当前id',orderID);
     let data = {
       orderid: orderID
     };
@@ -46,5 +48,12 @@ Page({
       }
     });
   },
+
+  // async orderDetailFn(){
+  //   let result = await(mClient.get(api.OrderDetail, data));
+  //   if(result.data.code==200){
+      
+  //   }
+  // },
 
 })

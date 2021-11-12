@@ -72,6 +72,7 @@
 	background: #F7F7F7;
 	margin: 30rpx 0;
 	box-shadow: 6px 4px 6px #ccc;
+	border-radius: 10rpx;
 }
 
 .goodsNav {

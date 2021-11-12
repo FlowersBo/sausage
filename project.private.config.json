@@ -31,12 +31,6 @@
           "scene": null
         },
         {
-          "name": "总收入",
-          "pathName": "pages/user/totalMoney/totalMoney",
-          "query": "",
-          "scene": null
-        },
-        {
           "name": "钱包",
           "pathName": "pages/user/wallet/wallet",
           "query": "",
