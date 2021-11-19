@@ -3,8 +3,8 @@
 	<!-- 日期选择 -->
 	<view class="con">
 		<mp-cell prop="date" title="日期">
-			<picker data-field="date" mode="date" value="{{date}}" bindchange="bindDateChange">
-				<view class="weui-input">{{date}}</view>
+			<picker data-field="date" mode="date" value="{{searchDate}}" bindchange="bindDateChange">
+				<view class="weui-input">{{searchDate}}</view>
 			</picker>
 			<image src="../../assets/img/timg.png" alt="" mode="aspectFit" />
 		</mp-cell>
@@ -26,15 +26,15 @@
 		<view class="list" wx:for="{{orderList}}" wx:key="list" wx:for-item="item" data-index="{{index}}"
 			bindtap="bindOrderDetail">
 			<view class="list_tit">
-				<view>{{item.OrderDate}}</view>
-				<view class="right {{item.isSuccessfulTransaction===1?'':'nosuc'}}">{{item.OrderStatus}}</view>
+				<view>{{item.orderDate}}</view>
+				<view class="right {{item.isSuccessfulTransaction===1?'':'nosuc'}}">{{item.orderStatus}}</view>
 			</view>
 			<view class="list_con">
-				<view class="name">{{item.PointName}}</view>
+				<view class="name">{{item.pointName}}</view>
 				<!-- <view class="TradeID">{{item.TradeID}}</view> -->
-				<view class="volume">{{item.ProductCount}} 根</view>
-				<view class="money">￥{{item.RealPay}}</view>
-				<view class="mode">{{item.PayPlatform}}</view>
+				<view class="volume">{{item.productCount}} 根</view>
+				<view class="money">￥{{item.orderPrice}}</view>
+				<view class="mode">{{item.payType=='VSP501'?'微信支付':'支付宝支付'}}</view>
 			</view>
 		</view>
 	</view>

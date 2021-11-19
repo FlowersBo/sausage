@@ -2,72 +2,85 @@
 import * as mClient from '../../utils/customClient';
 import * as api from '../../config/api';
 import * as util from '../../utils/util';
+let that;
 Page({
 
 	/**
 	 * 页面的初始数据
 	 */
 	data: {
-		date: '',
-		orderGenre: '',
+		searchType: '',
 		orderGenres: ['全部', '已完成', '异常订单'],
 		navAfter: [],
-		pageIndex: 1,
-		pageSize: 20,
+		pageNum: 1,
+		pageSize: 30,
 		orderList: [],
 		loadText: '点击加载',
-		isLoad: 1,
 		selected: 0,
-		isSuccessfulTransaction: 0,
+	},
+	
+	onLoad: function (options) {
+		that = this;
+		let searchDate = util.customFormatTime(new Date());
+		that.setData({
+			searchDate
+		})
+		that.orderListFn(that.data.pageNum);
 	},
 
-	onLoad: function (options) {
-		var that = this;
-		let orderDate = that.data.date;
-		let pageIndex = that.data.pageIndex;
+
+	orderListFn(pageNum) {
 		let pageSize = that.data.pageSize;
-		let orederStatus = '';
-		let date = util.customFormatTime(new Date());
+		let searchType = that.data.searchType;
+		let searchDate = that.data.searchDate;
 		let data = {
-			orderdate: date,
-			status: orederStatus,
-			pagesize: pageSize
+			pageNum,
+			pageSize,
+			searchDate,
+			searchType
 		};
 		//内容
 		mClient.get(api.OrderList, data)
 			.then((resp) => {
 				if (resp.data.code == 200) {
-					let orderTotal = resp.data.data.total;
-					let orderList = resp.data.data.list;
+					console.log('订单返回', resp);
+					let orderTotal = '';
+					if (searchType == '') {
+						orderTotal = resp.data.data.allCount;
+					} else if (searchType == '1') {
+						orderTotal = resp.data.data.overCount;
+					} else if (searchType == '2') {
+						orderTotal = resp.data.data.exceptionCount;
+					}
+					let orderList = resp.data.data.list.list;
+					let navAfter = [];
+					navAfter.push(resp.data.data.allCount, resp.data.data.overCount, resp.data.data.exceptionCount);
+					that.setData({
+						navAfter
+					});
 					for (const key in orderList) {
-						let navAfter = that.data.navAfter;
-						// if (navAfter.length <= 0) {
-						// 	navAfter.push(resp.data.data.all, resp.data.data.on, resp.data.data.off);
-						// }
-						console.log(navAfter);
-						that.setData({
-							navAfter
-						});
-
-						orderList[key].OrderDate = util.timestampToTimeLong(orderList[key].OrderDate);
-						let orderStatus = orderList[key].OrderStatus;
-						if (orderStatus === '完成') {
-							orderList[key].isSuccessfulTransaction = 1;
-						} else {
-							orderList[key].isSuccessfulTransaction = 0;
+						let orderStatus = orderList[key].orderStatus;
+						if (orderStatus === 'S') {
+							orderList[key].orderStatus = '支付成功'
+						} else if (orderStatus === 'E') {
+							orderList[key].orderStatus = '支付异常'
+						} else if (orderStatus = 'SE') {
+							orderList[key].orderStatus = '已退款'
 						}
 					}
 					console.log(orderList)
 					this.setData({
-						orderList: orderList,
-						date: date,
-						orderTotal: orderTotal
+						orderList,
+						orderTotal
 					});
 
-					if ((pageIndex * pageSize) > orderTotal) {
-						this.setData({
+					if ((pageNum * pageSize) >= orderTotal) {
+						that.setData({
 							loadText: '已经到底了',
-							isLoad: 0,
+						});
+					}else{
+						that.setData({
+							loadText: '点击加载',
 						});
 					};
 
@@ -77,140 +90,51 @@ Page({
 			});
 	},
 
-	bindDateChange: function (e) {
-		let that = this;
-		let date = e.detail.value;
-		let orderGenre = that.data.orderGenre;
-		let pageIndex = 1;
-		let pageSize = that.data.pageSize;
-		let data = {
-			orderdate: date,
-			status: orderGenre,
-			pageindex: pageIndex,
-			pagesize: pageSize
-		};
 
-		mClient.get(api.OrderList, data).then((resp) => {
-			console.log(resp);
-			if (resp.data.code == 200) {
-				let orderTotal = resp.data.data.total;
-				let orderList = resp.data.data.list;
-				for (const key in orderList) {
-					let orderStatus = orderList[key].OrderStatus;
-					orderList[key].OrderDate = util.timestampToTimeLong(orderList[key].OrderDate);
-					if (orderStatus === '完成') {
-						orderList[key].isSuccessfulTransaction = 1;
-					} else {
-						orderList[key].isSuccessfulTransaction = 0;
-					}
-				}
-				this.setData({
-					orderList: orderList,
-					date: date,
-					orderTotal: orderTotal,
-					pageIndex: pageIndex
-				});
-				console.log('当前页数', pageIndex);
-				console.log('当前页数', (pageIndex * pageSize) > orderTotal);
-				if ((pageIndex * pageSize) > orderTotal) {
-					this.setData({
-						loadText: '已经到底了',
-						isLoad: 0,
-					});
-				} else {
-					this.setData({
-						loadText: '点击加载',
-						isLoad: 1,
-					});
-				}
-			} else {
-				console.log('fail');
-			}
-		});
+	bindDateChange: function (e) {
+		let searchDate = e.detail.value;
+		let pageNum = 1;
+		that.setData({
+			searchDate,
+			pageNum
+		})
+		that.orderListFn(pageNum);
 	},
 
 	bindOrderGenre: function (e) {
-		let that = this;
 		let index = e.currentTarget.dataset.index;
-		let orderDate = that.data.date;
-		let pageSize = that.data.pageSize;
-		let pageIndex = 1;
-		let status = '';
-
+		let pageNum = 1;
+		that.setData({
+			pageNum
+		})
 		if (index == 0) {
-			status = '';
 			this.setData({
-				selected: 0
+				selected: 0,
+				searchType: ''
 			})
 		} else if (index == 1) {
-			status = 'S';
 			this.setData({
-				selected: 1
+				selected: 1,
+				searchType: '1'
 			})
 		} else if (index == 2) {
 			this.setData({
-				selected: 2
+				selected: 2,
+				searchType: '2'
 			});
-			status = 'E';
 		}
-
-		let data = {
-			orderdate: orderDate,
-			status: status,
-			pageindex: pageIndex,
-			pagesize: pageSize
-		};
-		//内容
-		mClient.get(api.OrderList, data).then((resp) => {
-			if (resp.data.code == 200) {
-				let orderTotal = resp.data.data.total;
-				let orderList = resp.data.data.list;
-				for (const key in orderList) {
-					let orderStatus = orderList[key].OrderStatus;
-					orderList[key].OrderDate = util.timestampToTimeLong(orderList[key].OrderDate);
-					if (orderStatus === '完成') {
-						orderList[key].isSuccessfulTransaction = 1;
-					} else {
-						orderList[key].isSuccessfulTransaction = 0;
-					}
-				}
-
-				console.log(orderList)
-				this.setData({
-					orderList: orderList,
-					orderGenre: status,
-					orderTotal: orderTotal,
-					pageIndex: pageIndex
-				});
-
-				if ((pageIndex * pageSize) > orderTotal) {
-					this.setData({
-						loadText: '已经到底了',
-						isLoad: 0,
-					});
-				} else {
-					this.setData({
-						loadText: '点击加载',
-						isLoad: 1,
-					});
-				}
-			} else {
-				console.log('fail');
-			}
-		});
+		that.orderListFn(pageNum);
 	},
 
 	bindOrderDetail: function (e) {
-		let that = this;
-		let orders = that.data.orderList;
+		let orderList = that.data.orderList;
 		let index = e.currentTarget.dataset.index;
-		let order = orders[index];
-
+		let order = orderList[index];
+		console.log(order)
 		wx.navigateTo({
-			url: '../order_details/order_details?id=' + order.ID + "&orderDate=" + order.OrderDate + "&isSuccessfulTransaction=" + order.isSuccessfulTransaction
+			url: '../order_details/order_details?id=' + order.id + "&orderDate=" + order.orderDate
 		})
 	},
-
 
 	// 刷新
 	onPullDownRefresh: function () {
@@ -223,51 +147,64 @@ Page({
 		wx.stopPullDownRefresh();
 	},
 
-
-
 	//加载
 	setLoading: function (e) {
-		var that = this;
 		let pageSize = that.data.pageSize;
-		let orderDate = that.data.date;
-		let orders = that.data.orderList;
-		let pageIndex = that.data.pageIndex + 1;
-		let orderGenre = that.data.orderGenre;
-		let isLoad = that.data.isLoad;
+		let searchDate = that.data.searchDate;
+		let pageNum = that.data.pageNum;
+		let searchType = that.data.searchType;
 		let orderTotal = that.data.orderTotal;
-		console.log(orderDate, orders, pageIndex, orderGenre, isLoad);
-		let data = {
-			orderdate: orderDate,
-			status: orderGenre,
-			pageindex: pageIndex,
-			pagesize: pageSize
-		};
+		let orderList = that.data.orderList;
+		console.log(pageNum, searchType);
+
 		wx.showToast({
 			title: '加载中',
 			icon: 'loading',
 			duration: 200
 		})
-
+		console.log((pageNum * pageSize) >= orderTotal);
+		console.log(orderTotal);
+		if ((pageNum * pageSize) >= orderTotal) {
+			wx.showToast({
+				title: '已加载完成',
+				icon: 'none',
+				duration: 1000
+			});
+			this.setData({
+				loadText: '已经到底了',
+			});
+			return;
+		}
+		let data = {
+			searchDate,
+			searchType,
+			pageNum: pageNum + 1,
+			pageSize
+		};
 		mClient.get(api.OrderList, data).then((resp) => {
 			console.log(resp);
 			if (resp.data.code == 200) {
-				this.setData({
-					orderList: orders.concat(resp.data.data.list),
-					pageIndex: pageIndex
-				});
-				if (((pageIndex + 1) * pageSize) > orderTotal) {
-					wx.showToast({
-						title: '已加载完成',
-						icon: 'none',
-						duration: 1000
-					});
-
-					this.setData({
-						loadText: '已经到底了',
-						isLoad: 0,
-					});
-					return;
+				let navAfter = that.data.navAfter;
+				if (navAfter.length <= 0) {
+					navAfter.push(resp.data.data.allCount, resp.data.data.overCount, resp.data.data.exceptionCount);
 				}
+				that.setData({
+					navAfter
+				});
+				for (const key in resp.data.data.list.list) {
+					let orderStatus = resp.data.data.list.list[key].orderStatus;
+					if (orderStatus === 'S') {
+						resp.data.data.list.list[key].orderStatus = '支付成功'
+					} else if (orderStatus === 'E') {
+						resp.data.data.list.list[key].orderStatus = '支付异常'
+					} else if (orderStatus = 'SE') {
+						resp.data.data.list.list[key].orderStatus = '已退款'
+					}
+				}
+				this.setData({
+					orderList: orderList.concat(resp.data.data.list.list),
+					pageNum: pageNum + 1
+				});
 			} else {
 				console.log('fail');
 			}

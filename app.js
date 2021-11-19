@@ -22,7 +22,7 @@ App({
         console.log(err);
       }
     })
-    // this.autoUpdate();
+    this.autoUpdate();
   },
 
   // 版本更新

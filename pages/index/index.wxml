@@ -10,7 +10,7 @@
     <view class="{{dateRangeindex==index?'hidden':'show'}}" wx:for="{{info.dateRange[reportGenre]}}" wx:key="index"
       data-index="{{index}}" bindtap="selectedDateRange">
       {{item}}
-    </view>
+    </view> 
   </view>
 
   <!-- 月份选择 -->

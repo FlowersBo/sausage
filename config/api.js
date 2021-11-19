@@ -10,8 +10,10 @@ module.exports = {
     // DeviceList: ApiRootUrl + 'app/device/devicelist', //设备列表
     AlarmList: ApiRootUrl + 'app/device/alarmlist', //设备报警
 
-    OrderList: ApiRootUrl + 'app/order/orderlist', //订单列表
-    OrderDetail: ApiRootUrl + 'app/order/orderdetail', //订单详情
+    // OrderList: ApiRootUrl + 'app/order/orderlist', //订单列表
+    // OrderDetail: ApiRootUrl + 'app/order/orderdetail', //订单详情
+    OrderList: ApiRootUrl + 'app/order/orderList', //订单列表
+    OrderDetail: ApiRootUrl + 'app/order/orderDetail', //订单详情
 
     Info: ApiRootUrl + 'app/user/info', //用户信息  
 

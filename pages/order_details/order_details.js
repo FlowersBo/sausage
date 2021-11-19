@@ -11,8 +11,7 @@ Page({
     orderId: 0,
     orderDate: '',
     orderDetail: {},
-    isSuccessfulTransaction: 0,
-    goodeNav:['商品名称','数量','金额','出货状态']
+    goodeNav:['商品名称','金额','出货状态']
   },
 
   /**
@@ -25,22 +24,17 @@ Page({
     let data = {
       orderid: orderID
     };
-    let isSuccessfulTransaction = options.isSuccessfulTransaction;
     let orderDate = options.orderDate;
-    console.log(isSuccessfulTransaction);
     this.setData({
       orderDate: orderDate,
-      isSuccessfulTransaction: isSuccessfulTransaction,
     });
 
     mClient.get(api.OrderDetail, data).then((resp) => {
       console.log(resp);
       if (resp.data.code == 200) {
-        let OrderDate = resp.data.data.detail.OrderDate;
-        OrderDate = util.timestampToTimeLong(OrderDate);
-        resp.data.data.detail.OrderDate = OrderDate;
         this.setData({
-          orderDetail: resp.data.data.detail,
+          orderDetail: resp.data.data,
+          orderDetails: resp.data.data.orderDetails,
           orderId: orderID,
         });
       } else {

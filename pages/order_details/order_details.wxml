@@ -19,18 +19,22 @@
 				</view>
 				<view class="demo-item">
 					<view>订单状态：</view>
-					<view>{{orderDetail.OrderStatus}}（异常原因）</view>
+					<view>{{orderDetail.OrderStatus}}</view>
+				</view>
+				<view class="demo-item">
+					<view>点位名称：</view>
+					<view>{{orderDetail.PointName}}</view>
 				</view>
 			</view>
 			<view class="demoWrap">
 				<view class="demo-item">
 					<view>商品金额：</view>
-					<view>{{orderDetail.PriceA}}</view>
+					<view>{{orderDetail.OrderPrice}}</view>
 				</view>
-				<view class="demo-item">
+				<!-- <view class="demo-item">
 					<view>优惠金额：</view>
 					<view>{{orderDetail.PriceB}}</view>
-				</view>
+				</view> -->
 				<view class="demo-item">
 					<view>实收金额：</view>
 					<view>{{orderDetail.RealPay}}</view>
@@ -42,10 +46,7 @@
 			</view>
 		</view>
 	</view>
-	<!-- <view class="demo-item">
-		<view>点位名称：</view>
-		<view>{{orderDetail.PointName}}</view>
-	</view> -->
+	
 
 	<view class="goodsList">
 		<view class="goodsNav navList">
@@ -53,18 +54,17 @@
 				{{item}}
 			</view>
 		</view>
-		<block wx:for="{{3}}" wx:key="index">
+		<block wx:for="{{orderDetails}}" wx:key="index">
 			<view class="goodsNav goodsItem">
-				<view class="nav">{{orderDetail.ProductNameA}}</view>
-				<view class="nav">{{orderDetail.PriceA}}</view>
-				<view class="nav">{{orderDetail.PriceA}}</view>
-				<view class="nav">{{orderDetail.PriceA}}</view>
+				<view class="nav">{{item.productName}}</view>
+				<view class="nav">{{item.price}}</view>
+				<view class="nav">{{item.shipStatus==0?'未出货 ':'已出货'}} / {{item.takeStatus==0?'未取货 ':'已取货'}}</view>
 			</view>
 		</block>
 	</view>
 
 	<!-- 退款详情 -->
-	<view wx:if="{{orderDetail.RefundAmount}}" class="order refund">
+	<view wx:if="{{orderDetail.refundAmount}}" class="order refund">
 		<view class="title">退款详情</view>
 		<view class="content">
 			<!-- <view class="demo-item">
@@ -78,7 +78,7 @@
 				</view>
 				<view class="demo-item">
 					<view>退款金额：</view>
-					<view>{{orderDetail.RefundAmount}}</view>
+					<view>{{orderDetail.refundAmount}}</view>
 				</view>
 				<view class="demo-item">
 					<view>退款原因：</view>
