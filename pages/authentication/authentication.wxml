@@ -20,5 +20,6 @@
         </view>
       </form>
     </view>
+    <view style="font-size: 24rpx;margin-top: 30rpx;box-sizing: border-box;padding-left: 30rpx;color: #6C83FE;">《用户服务协议》及《隐私政策》</view>
   </view>
 </view>
