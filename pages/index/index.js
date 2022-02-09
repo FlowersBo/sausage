@@ -146,11 +146,6 @@ Page({
 			// [1, 2, 3, 4, 5, 6],
 			// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 		],
-
-
-
-
-
 		graphGenres: [{
 			title: '销售额'
 		}, {
@@ -203,9 +198,32 @@ Page({
 			// defaultDate: '2020-9-8',
 			// autoChoosedWhenJump: true
 		},
-		frequency: 0
+		frequency: 0,
+		ballList:[],
+		agencyId:''
 	},
-
+	//组件监听选项
+	bindBallFn(e) {
+		wx.showToast({
+			title: '当前选择：'+e.detail.agencyName,
+			icon: 'none',
+			duration: 2000
+		});
+		let dateRange = that.data.dateRange;
+		wx.setStorageSync('agencySelect', e.detail.agencyId)
+		that.setData({
+			agencyId: e.detail.agencyId
+		})
+		let startTime = that.data.monthStartTime;
+		let endTime = that.data.monthEndTime
+		if(dateRange==12 && startTime && endTime){
+			that.monthlySalesVolume(startTime,endTime);
+			that.monthlyStatistics(startTime,endTime);
+		}else{
+			that.renderTransactionSummation(dateRange);
+			that.renderReport(dateRange);
+		}
+	},
 
 	// 日历、
 	afterTapDate(e) {
@@ -303,6 +321,10 @@ Page({
 		let dateRange = that.data.dateRange;
 		this.renderTransactionSummation(dateRange);
 		this.renderReport(dateRange);
+		this.setData({
+			ballList:wx.getStorageSync('agencyList'),
+			agencyId:wx.getStorageSync('agencySelect')
+		})
 		// that.createChart();
 	},
 
@@ -375,7 +397,8 @@ Page({
 			dateRange = 12;
 			dateRangeindex = 2;
 			that.setData({ //设置第四个变第三个
-				dateRangeindex
+				dateRangeindex,
+				selectIndex:index
 			})
 		}
 		// else if (that.data.dateRangeindex_off === 3) {//设置当下边为3切换日月报任为3的逻辑
@@ -530,6 +553,7 @@ Page({
 		let cumulativeSales = that.data.cumulativeSales;
 		let data = {
 			searchDate: startDate,
+			agencyId:that.data.agencyId
 			// enddate: endDate,
 		};
 		mClient.get(api.OneDaySummation, data)
@@ -577,7 +601,8 @@ Page({
 		let reportTotal = that.data.reportTotal;
 		let data = {
 			startDate,
-			endDate
+			endDate,
+			agencyId:that.data.agencyId
 		};
 		let result = await (mClient.get(api.RangeDateSummation, data));
 		let statistics = result.data.data.statistics;
@@ -606,7 +631,8 @@ Page({
 		let reportTotal = that.data.reportTotal;
 		let data = {
 			startMonth,
-			endMonth
+			endMonth,
+			agencyId:that.data.agencyId
 		};
 		let result = await (mClient.get(api.RangeMonthSummation, data));
 		console.log('月报的销售额', result);
@@ -632,7 +658,8 @@ Page({
 	async monthlyStatistics(startMonth, endMonth) {
 		let data = {
 			startMonth,
-			endMonth
+			endMonth,
+			agencyId:that.data.agencyId
 		};
 		let result = await (mClient.get(api.RangeMonthSaleList, data));
 		console.log('自定义月报的统计', result);
@@ -800,6 +827,7 @@ Page({
 					pageNum: pageIndex,
 					pageSize: pageSize,
 					sortType: pointSort,
+					agencyId:that.data.agencyId
 					// name: pointName
 				};
 
@@ -838,6 +866,7 @@ Page({
 					pageNum: pageIndex,
 					pageSize: pageSize,
 					sortType: pointSort,
+					agencyId:that.data.agencyId
 					// name: pointName
 				};
 				mClient.get(api.PointSaleList, data)
@@ -871,6 +900,7 @@ Page({
 					pageNum: pageIndex,
 					pageSize: pageSize,
 					sortType: pointSort,
+					agencyId:that.data.agencyId
 					// name: pointName
 				};
 				mClient.get(api.PointSaleList, data)
@@ -903,7 +933,8 @@ Page({
 					endMonth: endDate,
 					pageNum: pageIndex,
 					pageSize: pageSize,
-					sortType: pointSort
+					sortType: pointSort,
+					agencyId:that.data.agencyId
 				};
 
 				mClient.get(api.PointMonthSaleList, data)
@@ -935,7 +966,8 @@ Page({
 					endMonth: endDate,
 					pageNum: pageIndex,
 					pageSize: pageSize,
-					sortType: pointSort
+					sortType: pointSort,
+					agencyId:that.data.agencyId
 				};
 
 				mClient.get(api.PointMonthSaleList, data)

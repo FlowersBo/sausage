@@ -16,8 +16,22 @@ Page({
     devicesData: [],
     deviceTotal: 0,
     navAfter: [],
+    ballList:[],
+		agencyId:''
   },
-
+  //组件监听选项
+  bindBallFn(e) {
+    wx.showToast({
+      title: '当前选择：'+e.detail.agencyName,
+      icon: 'none',
+      duration: 2000
+    });
+    wx.setStorageSync('agencySelect', e.detail.agencyId)
+    that.setData({
+      agencyId: e.detail.agencyId
+    })
+    that.deviceList();
+  },
   bindDeviceGenre: function (e) {
     let index = e.currentTarget.dataset.index;
     that.setData({
@@ -45,7 +59,8 @@ Page({
   async deviceList() {
     let data = {
       searchStr: that.data.searchStr,
-      online: that.data.online
+      online: that.data.online,
+      agencyId:that.data.agencyId
     };
     let result = await (mClient.get(api.DeviceList, data));
     console.log('设备列表', result);
@@ -66,6 +81,10 @@ Page({
 
   onLoad: function () {
     that = this;
+    that.setData({
+      ballList:wx.getStorageSync('agencyList'),
+			agencyId:wx.getStorageSync('agencySelect')
+    })
     that.deviceList();
   },
 

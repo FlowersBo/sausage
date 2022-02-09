@@ -39,6 +39,11 @@ Page({
 			})
 		}
 	},
+	bindInputPassword(e){
+		this.setData({
+			password:e.detail.value
+		})
+	},
 
 	// get verification code
 	getVerificationCode: function () {
@@ -149,8 +154,8 @@ Page({
 	startLogin: function () {
 		let that = this;
 		let phoneNumber = that.data.phoneNumber;
-		let verificationCode = that.data.verificationCode;
-
+		//let verificationCode = that.data.verificationCode;
+		let password = that.data.password;
 		if (phoneNumber.length == 0) {
 			wx.showToast({
 				title: '请填写手机号码',
@@ -159,18 +164,27 @@ Page({
 			});
 			return;
 		}
-
-		if (verificationCode.length == 0) {
+		if(!password){
 			wx.showToast({
-				title: '请填写验证码',
+				title: '请输入密码',
 				icon: 'none',
 				duration: 1000
 			});
 			return;
 		}
+
+		// if (verificationCode.length == 0) {
+		// 	wx.showToast({
+		// 		title: '请填写验证码',
+		// 		icon: 'none',
+		// 		duration: 1000
+		// 	});
+		// 	return;
+		// }
 		let loginInfo = {
 			username: parseInt(phoneNumber),
-			smscode: verificationCode
+			//smscode: verificationCode
+			password:password
 		};
 		mClient.loginPhone(loginInfo)
 			.then((resp) => {

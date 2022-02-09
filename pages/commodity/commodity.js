@@ -52,8 +52,24 @@ Page({
       // defaultDate: '2020-9-8',
       // autoChoosedWhenJump: true
     },
-    frequency: 0
+    frequency: 0,
+    ballList:[],
+		agencyId:''
   },
+  //组件监听选项
+  bindBallFn(e) {
+    wx.showToast({
+      title: '当前选择：'+e.detail.agencyName,
+      icon: 'none',
+      duration: 2000
+    });
+    wx.setStorageSync('agencySelect', e.detail.agencyId)
+    that.setData({
+      agencyId: e.detail.agencyId
+    })
+    that.promiseAll();
+  },
+
   // 日历、
   afterTapDate(e) {
     let frequency = that.data.frequency;
@@ -341,6 +357,8 @@ Page({
       endDate: pointReportDate,
       oldStartDate: pointReportDate,
       oldEndDate: pointReportDate,
+      ballList:wx.getStorageSync('agencyList'),
+			agencyId:wx.getStorageSync('agencySelect')
     })
     // const promise2 = new Promise((resolve, reject) => setTimeout(resolve, reject, 100, 'foo'));
     // console.log(promise2);
@@ -360,6 +378,7 @@ Page({
     let data = {
       startDate,
       endDate,
+      agencyId:that.data.agencyId,
       sortType: that.data.goodsPointSort
     };
     let result = await (mClient.get(api.ProductRanking, data));
@@ -386,6 +405,7 @@ Page({
       pageSize: that.data.pageSize,
       startDate,
       endDate,
+      agencyId:that.data.agencyId,
       sortType: that.data.pointSort,
     };
     let result = await (mClient.get(api.ProductRankingDetail, data));

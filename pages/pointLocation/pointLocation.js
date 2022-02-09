@@ -43,9 +43,25 @@ Page({
     endDate: '',
     startMonth: '',
     endMonth: '',
-    pointDetaillyDate: ''
+    pointDetaillyDate: '',
+    ballList:[],
+		agencyId:''
   },
-
+  //组件监听选项
+	bindBallFn(e) {
+		wx.showToast({
+			title: '当前选择：'+e.detail.agencyName,
+			icon: 'none',
+			duration: 2000
+		});
+		wx.setStorageSync('agencySelect', e.detail.agencyId)
+		that.setData({
+			agencyId: e.detail.agencyId
+		})
+    that.rankingList();
+    that.pointListItem();
+  },
+  
   // 日期区间选择
   pickerShow: function (e) {
     let dateid = e.currentTarget.dataset.dateid;
@@ -300,7 +316,7 @@ Page({
   },
 
   async pointListItem() {
-    let data = {};
+    let data = {agencyId:that.data.agencyId};
     let result = await (mClient.get(api.PointList, data));
     console.log('点位列表', result);
     if (result.data.code == 200) {
@@ -334,7 +350,9 @@ Page({
       endDate: pointReportDate,
       oldStartDate: pointReportDate,
       oldEndDate: pointReportDate,
-      pointDetaillyDate: pointReportDate
+      pointDetaillyDate: pointReportDate,
+      ballList:wx.getStorageSync('agencyList'),
+			agencyId:wx.getStorageSync('agencySelect')
     })
     that.pointListItem();
     that.rankingList();
@@ -380,6 +398,7 @@ Page({
       endMonth,
       sortType: that.data.pointSort,
       pointId: that.data.pointId,
+      agencyId:that.data.agencyId
     };
     let result = await (mClient.get(api.PointDefineSaleLis, data));
     console.log('点位排行榜', result);

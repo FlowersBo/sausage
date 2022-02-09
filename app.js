@@ -21,7 +21,7 @@ App({
       fail(err) {
         console.log(err);
       }
-    })
+    })     
     this.autoUpdate();
   },
 

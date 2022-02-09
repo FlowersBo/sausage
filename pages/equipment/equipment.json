@@ -1,5 +1,7 @@
 {
   "component": true,
   "navigationBarTitleText": "设备",
-  "usingComponents": {}
+  "usingComponents": {
+    "ball":"../../component/ball/index"
+  }
 }

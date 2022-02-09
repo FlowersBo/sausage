@@ -24,15 +24,16 @@ function request(url, data = {}, method = "GET") {
 
 				//Unauthorized
 				if (resp.data.code === 401) {
-					refreshToken().then((resp) => {
-						if (resp.data.code === 200) {
-							request(url, data, method).then((resp) => {
-								resolve(resp);
-							});
-						} else {
-							reject(resp);
-						}
-					});
+					//TODO 调到登录
+					// refreshToken().then((resp) => {
+					// 	if (resp.data.code === 200) {
+					// 		request(url, data, method).then((resp) => {
+					// 			resolve(resp);
+					// 		});
+					// 	} else {
+					// 		reject(resp);
+					// 	}
+					// });
 				} else {
 					resolve(resp.data);
 				}
@@ -129,7 +130,7 @@ function loginPhone(loginInfo = {}) {
 	let param = objectToJsonParams(loginInfo);
 	return new Promise(function (resolve, reject) {
 		wx.request({
-			url: api.Login + param,
+			url: api.LoginNew + param,
 			method: 'Post',
 			header: {
 				'Content-Type': 'application/json',
@@ -138,6 +139,10 @@ function loginPhone(loginInfo = {}) {
 				if (resp.data.code == 200) {
 					wx.setStorageSync('accessToken', resp.data.data.access_token);
 					wx.setStorageSync('refreshToken', resp.data.data.refresh_token);
+					wx.setStorageSync('agencyList', resp.data.data.agencyIds);
+					if(resp.data.data.agencyIds.length>0){
+						wx.setStorageSync('agencySelect', resp.data.data.agencyIds[0].agencyId)
+					}
 				}
 				resolve(resp);
 			},

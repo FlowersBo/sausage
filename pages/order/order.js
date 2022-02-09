@@ -17,17 +17,35 @@ Page({
 		orderList: [],
 		loadText: '点击加载',
 		selected: 0,
+		ballList:[],
+		agencyId:''
 	},
-	
+	 //组件监听选项
+	 bindBallFn(e) {
+		wx.showToast({
+		  title: '当前选择：'+e.detail.agencyName,
+		  icon: 'none',
+		  duration: 2000
+		});
+		wx.setStorageSync('agencySelect', e.detail.agencyId)
+		let page = 1
+		that.setData({
+		  pageNum:page,
+		  agencyId: e.detail.agencyId
+		})
+		that.orderListFn(page);
+	  },
+
 	onLoad: function (options) {
 		that = this;
 		let searchDate = util.customFormatTime(new Date());
 		that.setData({
-			searchDate
+			searchDate,
+			ballList:wx.getStorageSync('agencyList'),
+			agencyId:wx.getStorageSync('agencySelect')
 		})
 		that.orderListFn(that.data.pageNum);
 	},
-
 
 	orderListFn(pageNum) {
 		let pageSize = that.data.pageSize;
@@ -37,7 +55,8 @@ Page({
 			pageNum,
 			pageSize,
 			searchDate,
-			searchType
+			searchType,
+			agencyId:that.data.agencyId
 		};
 		//内容
 		mClient.get(api.OrderList, data)
@@ -156,7 +175,7 @@ Page({
 		let orderTotal = that.data.orderTotal;
 		let orderList = that.data.orderList;
 		console.log(pageNum, searchType);
-
+		
 		wx.showToast({
 			title: '加载中',
 			icon: 'loading',
@@ -179,7 +198,8 @@ Page({
 			searchDate,
 			searchType,
 			pageNum: pageNum + 1,
-			pageSize
+			pageSize,
+			agencyId:that.data.agencyId
 		};
 		mClient.get(api.OrderList, data).then((resp) => {
 			console.log(resp);

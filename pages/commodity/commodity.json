@@ -2,6 +2,7 @@
   "navigationBarTitleText": "商品",
   "usingComponents": {
     "yycalendar": "plugin://myPlugin/yycalendar",
-    "calendar": "../../component/v2/index"
+    "calendar": "../../component/v2/index",
+    "ball":"../../component/ball/index"
   }
 }
