@@ -1,4 +1,3 @@
-<!--component/selectTime/selectTime.wxml-->
 <!--components/timePicker/timePicker.wxml-->
 <!-- 自定义时间筛选器 -->
 <view hidden="{{!pickerShow}}">

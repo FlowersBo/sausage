@@ -1,6 +1,6 @@
 import * as mClient from '../../utils/customClient';
 
-Page({
+Page({//13322265957
 	data: {
 		phoneNumber: '',
 		verificationCode: '',
@@ -13,35 +13,38 @@ Page({
 
 	// Input phone number even
 	bindInputPhoneNumber: function (e) {
-		let phoneNumber = e.detail.value;
-		let isPhoneNumber = false;
-		//is out of rang phone number  
-		if (phoneNumber.length > 11) {
-			wx.showToast({
-				title: '手机号有误',
-				icon: 'none',
-				duration: 1000
-			})
-			return;
-		}
-		//is qualified phone number
-		if ((/^1[3456789]\d{9}$/.test(phoneNumber))) {
-			isPhoneNumber = true;
-		} else {
-			isPhoneNumber = false;
-			return;
-		}
-
-		if (isPhoneNumber == true) {
-			this.setData({
-				phoneNumber: phoneNumber,
-				isPhoneNumber: isPhoneNumber
-			})
-		}
-	},
-	bindInputPassword(e){
+		console.log(e.detail.value)
 		this.setData({
-			password:e.detail.value
+			phoneNumber: e.detail.value
+		})
+		// let isPhoneNumber = false;
+		//is out of rang phone number  
+		// if (phoneNumber.length > 11) {
+		// 	wx.showToast({
+		// 		title: '手机号有误',
+		// 		icon: 'none',
+		// 		duration: 1000
+		// 	})
+		// 	return;
+		// }
+		// //is qualified phone number
+		// if ((/^1[3456789]\d{9}$/.test(phoneNumber))) {
+		// 	isPhoneNumber = true;
+		// } else {
+		// 	isPhoneNumber = false;
+		// 	return;
+		// }
+
+		// if (isPhoneNumber == true) {
+		// this.setData({
+		// 	phoneNumber: phoneNumber,
+		// 	isPhoneNumber: isPhoneNumber
+		// })
+		// }
+	},
+	bindInputPassword(e) {
+		this.setData({
+			password: e.detail.value
 		})
 	},
 
@@ -59,22 +62,22 @@ Page({
 			return
 		}
 
-		if (phoneNumber.length != 11) {
-			wx.showToast({
-				title: '手机号有误',
-				icon: 'none',
-				duration: 1000
-			})
-			return;
-		}
+		// if (phoneNumber.length != 11) {
+		// 	wx.showToast({
+		// 		title: '手机号有误',
+		// 		icon: 'none',
+		// 		duration: 1000
+		// 	})
+		// 	return;
+		// }
 
-		if (!(/^1[3456789]\d{9}$/.test(phoneNumber))) {
-			wx.showToast({
-				title: '手机号格式有误',
-				icon: 'none',
-				duration: 1000
-			})
-		}
+		// if (!(/^1[3456789]\d{9}$/.test(phoneNumber))) {
+		// 	wx.showToast({
+		// 		title: '手机号格式有误',
+		// 		icon: 'none',
+		// 		duration: 1000
+		// 	})
+		// }
 
 		let data = {
 			username: parseInt(phoneNumber)
@@ -129,7 +132,7 @@ Page({
 			verificationCode: verificationCode
 		});
 	},
-	
+
 	// 运营商15001081726
 	startVerificationCountDown: function (count) {
 		if (count == 0) {
@@ -164,7 +167,7 @@ Page({
 			});
 			return;
 		}
-		if(!password){
+		if (!password) {
 			wx.showToast({
 				title: '请输入密码',
 				icon: 'none',
@@ -182,13 +185,13 @@ Page({
 		// 	return;
 		// }
 		let loginInfo = {
-			username: parseInt(phoneNumber),
+			username: phoneNumber,
 			//smscode: verificationCode
-			password:password
+			password: password
 		};
 		mClient.loginPhone(loginInfo)
 			.then((resp) => {
-				console.log('登录返回',resp);
+				console.log('登录返回', resp);
 				if (resp.data.code == 200) {
 					wx.switchTab({
 						url: '../index/index'

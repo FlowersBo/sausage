@@ -1,8 +1,10 @@
 <!--component/ball/index.wxml-->
-<view class='refresh' wx:if="{{ballList.length > 1}}" catchtouchmove="buttonMove" bindtouchstart="buttonStart" bindtouchend="buttonEnd"
-  catchtap="bindBall" style="top:{{ btnTop }}px;left:{{ btnLeft }}px">
+<view class='refresh' wx:if="{{ballList.length > 1}}" 
+  catchtouchmove="buttonMove" bindtouchstart="buttonStart" 
+  bindtouchend="buttonEnd" catchtap="bindBall" 
+  style="top:{{btnTop}}px;left:{{btnLeft}}px;">
   <view class="imgWrap" animation="{{animationData}}">
-  <!-- <view class="animationWrap" animation="{{animationData}}"></view> -->
+    <!-- <view class="animationWrap" animation="{{animationData}}"></view> -->
     <!-- <image class="bindImg" src='../../assets/img/fangdajing.png'></image> -->
   </view>
   <block wx:for="{{ballList}}" wx:key="item">

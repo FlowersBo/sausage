@@ -42,6 +42,7 @@
     "backgroundColor": "#fff"
   },
   "tabBar": {
+    "custom": true,
     "selectedColor": "#f75910",
     "list": [
       {
@@ -75,6 +76,9 @@
         "selectedIconPath": "assets/tabbar/menu-mine-h.png"
       }
     ]
+  },
+  "usingComponents": {
+    
   },
   "plugins": {
     "myPlugin": {

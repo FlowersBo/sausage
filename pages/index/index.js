@@ -183,10 +183,10 @@ Page({
 			endDate: true,
 			column: "second",
 			dateLimit: true,
-			initStartTime: "2021-01",
-			initEndTime: "2021-12",
-			limitStartTime: "2021-01",
-			limitEndTime: "2021-12"
+			initStartTime: "2022-01",
+			initEndTime: util.customFormatMonth(new Date),
+			// limitStartTime: "2021-01",
+			limitEndTime: util.customFormatMonth(new Date)
 		},
 		calendarConfig: {
 			theme: 'elegant',
@@ -199,13 +199,13 @@ Page({
 			// autoChoosedWhenJump: true
 		},
 		frequency: 0,
-		ballList:[],
-		agencyId:''
+		ballList: [],
+		agencyId: ''
 	},
 	//组件监听选项
 	bindBallFn(e) {
 		wx.showToast({
-			title: '当前选择：'+e.detail.agencyName,
+			title: '当前选择：' + e.detail.agencyName,
 			icon: 'none',
 			duration: 2000
 		});
@@ -216,10 +216,10 @@ Page({
 		})
 		let startTime = that.data.monthStartTime;
 		let endTime = that.data.monthEndTime
-		if(dateRange==12 && startTime && endTime){
-			that.monthlySalesVolume(startTime,endTime);
-			that.monthlyStatistics(startTime,endTime);
-		}else{
+		if (dateRange == 12 && startTime && endTime) {
+			that.monthlySalesVolume(startTime, endTime);
+			that.monthlyStatistics(startTime, endTime);
+		} else {
 			that.renderTransactionSummation(dateRange);
 			that.renderReport(dateRange);
 		}
@@ -229,8 +229,8 @@ Page({
 	afterTapDate(e) {
 		let frequency = that.data.frequency;
 		if (e.detail.month <= 9) {
-      e.detail.month = `0${e.detail.month}`
-    }
+			e.detail.month = `0${e.detail.month}`
+		}
 		if (e.detail.date <= 9) {
 			e.detail.date = `0${e.detail.date}`
 		}
@@ -298,7 +298,7 @@ Page({
 			duration: 300,
 			timingFunction: 'linear'
 		})
-		animation.bottom(0).step()
+		animation.bottom(60).step()
 		this.setData({
 			animationData: animation.export()
 		})
@@ -319,12 +319,12 @@ Page({
 		that = this;
 		// console.log(that.data.info.dateRange[reportGenre])
 		let dateRange = that.data.dateRange;
+		this.setData({
+			ballList: wx.getStorageSync('agencyList'),
+			agencyId: wx.getStorageSync('agencySelect')
+		})
 		this.renderTransactionSummation(dateRange);
 		this.renderReport(dateRange);
-		this.setData({
-			ballList:wx.getStorageSync('agencyList'),
-			agencyId:wx.getStorageSync('agencySelect')
-		})
 		// that.createChart();
 	},
 
@@ -398,7 +398,7 @@ Page({
 			dateRangeindex = 2;
 			that.setData({ //设置第四个变第三个
 				dateRangeindex,
-				selectIndex:index
+				selectIndex: index
 			})
 		}
 		// else if (that.data.dateRangeindex_off === 3) {//设置当下边为3切换日月报任为3的逻辑
@@ -553,7 +553,7 @@ Page({
 		let cumulativeSales = that.data.cumulativeSales;
 		let data = {
 			searchDate: startDate,
-			agencyId:that.data.agencyId
+			agencyId: that.data.agencyId
 			// enddate: endDate,
 		};
 		mClient.get(api.OneDaySummation, data)
@@ -602,7 +602,7 @@ Page({
 		let data = {
 			startDate,
 			endDate,
-			agencyId:that.data.agencyId
+			agencyId: that.data.agencyId
 		};
 		let result = await (mClient.get(api.RangeDateSummation, data));
 		let statistics = result.data.data.statistics;
@@ -632,7 +632,7 @@ Page({
 		let data = {
 			startMonth,
 			endMonth,
-			agencyId:that.data.agencyId
+			agencyId: that.data.agencyId
 		};
 		let result = await (mClient.get(api.RangeMonthSummation, data));
 		console.log('月报的销售额', result);
@@ -659,7 +659,7 @@ Page({
 		let data = {
 			startMonth,
 			endMonth,
-			agencyId:that.data.agencyId
+			agencyId: that.data.agencyId
 		};
 		let result = await (mClient.get(api.RangeMonthSaleList, data));
 		console.log('自定义月报的统计', result);
@@ -827,7 +827,7 @@ Page({
 					pageNum: pageIndex,
 					pageSize: pageSize,
 					sortType: pointSort,
-					agencyId:that.data.agencyId
+					agencyId: that.data.agencyId
 					// name: pointName
 				};
 
@@ -866,7 +866,7 @@ Page({
 					pageNum: pageIndex,
 					pageSize: pageSize,
 					sortType: pointSort,
-					agencyId:that.data.agencyId
+					agencyId: that.data.agencyId
 					// name: pointName
 				};
 				mClient.get(api.PointSaleList, data)
@@ -900,7 +900,7 @@ Page({
 					pageNum: pageIndex,
 					pageSize: pageSize,
 					sortType: pointSort,
-					agencyId:that.data.agencyId
+					agencyId: that.data.agencyId
 					// name: pointName
 				};
 				mClient.get(api.PointSaleList, data)
@@ -934,7 +934,7 @@ Page({
 					pageNum: pageIndex,
 					pageSize: pageSize,
 					sortType: pointSort,
-					agencyId:that.data.agencyId
+					agencyId: that.data.agencyId
 				};
 
 				mClient.get(api.PointMonthSaleList, data)
@@ -967,7 +967,7 @@ Page({
 					pageNum: pageIndex,
 					pageSize: pageSize,
 					sortType: pointSort,
-					agencyId:that.data.agencyId
+					agencyId: that.data.agencyId
 				};
 
 				mClient.get(api.PointMonthSaleList, data)
@@ -1257,6 +1257,14 @@ Page({
 		}
 
 		this.renderReport(dateRange);
+	},
+
+	onShow: function () {
+		if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+			this.getTabBar().setData({
+				selected: 0
+			})
+		}
 	},
 
 	bindLoading: function () {

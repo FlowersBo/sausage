@@ -42,7 +42,7 @@ Component({
             timingFunction: "ease"
           });
           setTimeout(() => {
-            animation.bottom(0).step();
+            animation.bottom(70).step();
             animationOpacity.opacity(0.6).step();
             this.setData({
               animationOpacity: animationOpacity.export(),
@@ -58,7 +58,7 @@ Component({
             duration: 500,
             timingFunction: "ease"
           });
-          animation.bottom(-320).step();
+          animation.bottom(-390).step();
           animationOpacity.opacity(0).step();
           this.setData({
             animationOpacity: animationOpacity.export(),
@@ -158,6 +158,8 @@ Component({
 
         if (conf.limitEndTime) {
           limitEndTime = new Date(conf.limitEndTime.replace(/-/g, '/')).getTime();
+          console.log('限定尾时间',conf.limitEndTime)
+          console.log('限定尾时间',limitEndTime)
         }
 
         this.setData({
@@ -325,7 +327,7 @@ Component({
       let timeNum = new Date(time.replace(/-/g, '/')).getTime();
       let year, month, day, hour, min, sec, limitDate;
       let tempArr = []
-
+      console.log('时间', this.data.YearList[val[0]], this.data.MonthList[val[1]]);
       // if (!this.data.dateLimit){
       //   limitDate = [
       //     this.data.YearList[val[0]],

@@ -140,4 +140,4 @@
     </button>
   </view>
 </view>
-<ball ballList="{{ballList}}" bind:bindBallFn="bindBallFn"/>  
+<!-- <ball ballList="{{ballList}}" bind:bindBallFn="bindBallFn"/>   -->
