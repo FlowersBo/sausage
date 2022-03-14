@@ -1,5 +1,47 @@
 import * as api from '../config/api.js';
 
+function wxRequest(url, data = {}, method = 'POST'){
+  wx.showLoading({
+    // mask: true,
+    title: '加载中...',
+  })
+  // let param = objectToJsonParams(data);
+  console.log(data);
+  return new Promise(function (resolve, reject) {
+    wx.request({
+      url: url,
+      method: method,
+      data: data,
+      header: {
+        'charset': 'utf-8',
+        'Content-Type': 'application/json',
+        'grant-type': 'refresh-token',
+      },
+      success: function (res) {
+        // wx.hideLoading();
+        if (res.statusCode != 200) {
+          reject({
+            error: '服务器忙，请稍后重试',
+            code: 500
+          });
+          return;
+        }
+        resolve(res.data);
+      },
+      fail: function (res) {
+        // fail调用接口失败
+        reject({
+          error: '网络错误',
+          code: 0
+        });
+      },
+      complete: function (res) {
+				wx.hideLoading()
+      }
+    })
+  })
+}
+
 function request(url, data = {}, method = "GET") {
 
 	let param = objectToJsonParams(data);
@@ -318,5 +360,6 @@ module.exports = {
 	refreshToken,
 	getVerificationCode,
 	getInfo,
-	allSettled
+	allSettled,
+	wxRequest
 }

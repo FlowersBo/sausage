@@ -107,6 +107,7 @@ page {
   position: relative;
   width: 100%;
   height: 180rpx;
+  padding: 10rpx 0;
 }
 
 /*商品主图*/
@@ -117,6 +118,7 @@ page {
   top: 10rpx;
   left: 10rpx;
   right: 10rpx;
+  border-radius: 10rpx;
 }
 
 /*商品名称*/
@@ -212,7 +214,7 @@ page {
 /* 购物车 */
 .buycar {
   position: fixed;
-  bottom: 30rpx;
+  bottom: 170rpx;
   left: 50rpx;
   width: 80rpx;
   height: 80rpx;

@@ -20,6 +20,7 @@ plugin
 	.use(holidays)
 
 let that;
+let app = getApp();
 import {
 	OrderList
 } from '../../config/api';

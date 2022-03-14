@@ -193,6 +193,7 @@ Page({//13322265957
 			.then((resp) => {
 				console.log('登录返回', resp);
 				if (resp.data.code == 200) {
+					wx.setStorageSync('userID', resp.data.data.info.id);
 					wx.switchTab({
 						url: '../index/index'
 					});

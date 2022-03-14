@@ -111,6 +111,18 @@
           "pathName": "pages/pointWaste/pointWaste",
           "query": "pointId=1433700746515185664&pointStartDate=2021-10-19&pointEndDate=2021-10-19",
           "scene": null
+        },
+        {
+          "name": "订货",
+          "pathName": "pages/order_goods/order_goods",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "购物车",
+          "pathName": "pages/shopping_cart/shopping_cart",
+          "query": "",
+          "scene": null
         }
       ]
     }

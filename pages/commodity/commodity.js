@@ -3,6 +3,8 @@ import * as mClient from '../../utils/customClient';
 import * as api from '../../config/api';
 import * as util from '../../utils/util';
 let that;
+let app = getApp();
+
 Page({
 
   /**
@@ -480,8 +482,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
-  },
+		if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+			this.getTabBar().setData({
+				selected: app.data.selected
+			})
+		}
+	},
 
   /**
    * 生命周期函数--监听页面隐藏

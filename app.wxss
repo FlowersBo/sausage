@@ -1,5 +1,7 @@
 /* 点击加载更多 */
-
+page{
+  margin-bottom: 160rpx;
+}
 .button-wrapper button {
   width: 100%;
   height: 50rpx;

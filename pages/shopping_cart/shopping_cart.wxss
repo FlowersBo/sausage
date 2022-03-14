@@ -1,259 +1,276 @@
 /* pages/shopping_cart/shopping_cart.wxss */
 
 page {
-    height: 100%;
-    background: #fff;
-    font-family: -apple-system-font, Arial, Helvetica, sans-serif;
-    color: #333;
-    font-size: 32rpx;
-    line-height: 1.42857;
+	height: 100%;
+	background: #fff;
+	font-family: -apple-system-font, Arial, Helvetica, sans-serif;
+	color: #333;
+	font-size: 32rpx;
+	line-height: 1.42857;
 }
+
 /* 地址 */
-.contion .con_top{
-    display: flex;
-    padding: 40rpx;
-    font-size: 36rpx;
-    border: 1px solid #c9c9c9;
+.contion .con_top {
+	display: flex;
+	padding: 40rpx;
+	font-size: 36rpx;
+	border: 1px solid #c9c9c9;
 }
-.contion image{
-    width: 30rpx;
-    height: 30rpx;
+
+.contion image {
+	width: 30rpx;
+	height: 30rpx;
 }
-.left{
-    flex: 11;
+
+.left {
+	flex: 11;
 }
-.left view{
-   margin-bottom: 10rpx;
+
+.left view {
+	margin-bottom: 10rpx;
 }
-.left text{
-    margin-right: 10rpx;
+
+.left text {
+	margin-right: 10rpx;
 }
-.left view:last-child{
-    font-size: 28rpx;
-    color: #999;
+
+.left view:last-child {
+	font-size: 28rpx;
+	color: #999;
 }
-.left image{
-    margin-right:20rpx;
+
+.left image {
+	margin-right: 20rpx;
 }
-.right{
-    flex: 1;
+
+.right {
+	flex: 1;
 }
-.right image{
-    position: relative;
-    top: 36%;
-    left: 50%;
+
+.right image {
+	position: relative;
+	top: 36%;
+	left: 50%;
 
 }
+
 /* 物品展示 */
 .container {
-    width: 100%;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
+	width: 100%;
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
 }
 
 .section {
-    display: flex;
-    flex-direction: column;
-    padding-left: 30rpx;
-    padding-right: 30rpx;
-    margin-bottom: 30rpx;
+	display: flex;
+	flex-direction: column;
+	padding-left: 30rpx;
+	padding-right: 30rpx;
+	margin-bottom: 30rpx;
 }
 
 .section-good {
-    margin-bottom: 100rpx;
+	margin-bottom: 100rpx;
 }
 
 .good {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    position: relative;
-    height: 215rpx;
-    border-bottom: 1px solid #ccc;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	position: relative;
+	height: 215rpx;
+	border-bottom: 1px solid #ccc;
 }
 
 .good:last-child {
-    border-bottom: none;
+	border-bottom: none;
 }
 
 .checkbox {
-    width: 48rpx;
-    height: 48rpx;
+	width: 48rpx;
+	height: 48rpx;
 }
 
 .cover {
-    width: 150rpx;
-    height: 150rpx;
-    margin-left: 20rpx;
+	width: 150rpx;
+	height: 150rpx;
+	margin-left: 20rpx;
+	border-radius: 10rpx;
 }
 
 .content {
-    flex: 1;
-    margin-left: 20rpx;
+	flex: 1;
+	margin-left: 20rpx;
 }
 
 .content .text {
-    color: #363636;
-    width: 450rpx;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+	color: #363636;
+	width: 450rpx;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
+
 .content .specifications {
-    width: 245rpx;
-    font-size: 24rpx;
-    color: #999;
+	width: 245rpx;
+	font-size: 24rpx;
+	color: #999;
 }
+
 .content .name {
-    color: #333;
-    font-size: 36rpx;
+	color: #333;
+	font-size: 36rpx;
 }
 
 
 
 .content .press {
-    font-size: 28rpx;
-    color: #363636;
-    margin-top: 10rpx;
+	font-size: 28rpx;
+	color: #363636;
+	margin-top: 10rpx;
 }
 
 .content .price {
-    font-size: 36rpx;
-    color: #e4452a;
-    margin-top: 10rpx;
+	font-size: 36rpx;
+	color: #e4452a;
+	margin-top: 10rpx;
 }
 
 .good .stepper {
-    display: flex;
-    position: absolute;
-    right: 0;
-    bottom: 50rpx;
-    flex-direction: row;
-    text-align: center;
+	display: flex;
+	position: absolute;
+	right: 0;
+	bottom: 50rpx;
+	flex-direction: row;
+	text-align: center;
 }
 
 .stepper .add,
 .stepper .subtract {
-    width: 50rpx;
-    height: 50rpx;
-    line-height: 44rpx;
-    font-size: 28rpx;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+	width: 50rpx;
+	height: 50rpx;
+	line-height: 44rpx;
+	font-size: 28rpx;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
 }
 
 .stepper .disabled {
-    color: #eee;
+	color: #eee;
 }
 
 .stepper .count {
-    width: 90rpx;
-    height: 50rpx;
-    line-height: 50rpx;
-    border: 1px solid #ccc;
-    text-align: center;
-    box-sizing: border-box;
-    min-height: 1rem;
-    font-size: 28rpx;
+	width: 90rpx;
+	height: 50rpx;
+	line-height: 50rpx;
+	border: 1px solid #ccc;
+	text-align: center;
+	box-sizing: border-box;
+	min-height: 1rem;
+	font-size: 28rpx;
 }
 
 .section-bottom {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    height: 120rpx;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    margin-bottom: 0;
-    border-top: 1px solid #c9c9c9;
-    background-color: #fff;
-    box-sizing: border-box;
-    z-index: 99;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 100%;
+	height: 120rpx;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	margin-bottom: 0;
+	border-top: 1px solid #c9c9c9;
+	background-color: #fff;
+	box-sizing: border-box;
+	z-index: 99;
 }
 
 .section-bottom .btn {
-    width: 260rpx;
-    height: 120rpx;
-    line-height: 120rpx;
-    text-align: center;
-    color: #fdfffd;
-    background-color: #f75910;
+	width: 260rpx;
+	height: 120rpx;
+	line-height: 120rpx;
+	text-align: center;
+	color: #fdfffd;
+	background-color: #f75910;
 }
 
 .section-bottom .btn-default {
-    color: #363636;
-    background-color: #eee;
+	color: #363636;
+	background-color: #eee;
 }
 
 .section-bottom .btn-primary {
-    color: #fdfffd;
-    background-color: #f75910;
+	color: #fdfffd;
+	background-color: #f75910;
 }
 
 .section-bottom .checkbox-allcheck {
-    display: inline-block;
-    margin-left: 30rpx;
-    vertical-align: top;
-    font-size: 0px;
+	display: inline-block;
+	margin-left: 30rpx;
+	vertical-align: top;
+	font-size: 0px;
 }
 
 .section-bottom .check-all-text {
-    display: inline-block;
-    vertical-align: top;
-    margin-left: 10rpx;
-    height: 23px;
-    line-height: 23px;
-    font-size: 28rpx;
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 10rpx;
+	height: 23px;
+	line-height: 23px;
+	font-size: 28rpx;
 }
 
 .section-bottom .total {
-    flex: 1;
-    text-align: center;
-    font-size: 26rpx;
+	flex: 1;
+	text-align: center;
+	font-size: 26rpx;
 }
 
 
 
 .total .totalPrice {
-    font-size: 26rpx;
-    margin-left: 20rpx;
-    vertical-align: middle;
+	font-size: 26rpx;
+	margin-left: 20rpx;
+	vertical-align: middle;
 }
 
 
 
 .total .totalPrice text {
-    color: #e4452a;
-    font-size: 30rpx;
+	color: #e4452a;
+	font-size: 30rpx;
 }
+
 /* 滑动删除 */
-.inner{
-    position: absolute;
-    top:0;
+.inner {
+	position: absolute;
+	top: 0;
 }
-.inner.txt{
-    width: 100%;
-    z-index: 5;
-    padding: 0 10rpx;
-    transition: left 0.2s ease-in-out;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+
+.inner.txt {
+	width: 100%;
+	z-index: 5;
+	padding: 0 10rpx;
+	transition: left 0.2s ease-in-out;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
-.inner.del{
-    width: 180rpx;
-    text-align: center;
-    z-index: 4;
-    right: 0;
-    color: #fff
+
+.inner.del {
+	width: 180rpx;
+	text-align: center;
+	z-index: 4;
+	right: 0;
+	color: #fff
 }
+
 .content .price text:nth-child(2) {
-    font-size: 24rpx;
-    color: #999;
-    text-decoration:line-through;
-    margin-left: 20rpx;
+	font-size: 24rpx;
+	color: #999;
+	text-decoration: line-through;
+	margin-left: 20rpx;
 }

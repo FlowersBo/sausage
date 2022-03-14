@@ -1,5 +1,5 @@
-const ApiRootUrl = 'https://api.morninggo.cn/';
- //const ApiRootUrl = 'http://w3.morninggo.cn/'; //测试
+// const ApiRootUrl = 'https://api.morninggo.cn/';
+ const ApiRootUrl = 'http://w3.morninggo.cn/'; //测试
 // const ApiRootUrl = 'http://localhost:8080/app-http/';//13322265957
 module.exports = {
     Login: ApiRootUrl + 'app/user/auth', //登录授权
@@ -89,4 +89,13 @@ module.exports = {
     DepositApply: ApiRootUrl + "allinpay/order/depositApply", //充值
     PayByBackSMS: ApiRootUrl + "allinpay/order/payByBackSMS", //确认充值
     WithdrawApply: ApiRootUrl + "allinpay/order/withdrawApply", //提现
+
+    // 订货
+    GoodsCategory: ApiRootUrl + "app/transfer/goodsCategory", //分类
+    GoodsList: ApiRootUrl + "app/transfer/goodsList", //商品列表
+    AddCart: ApiRootUrl + "app/transfer/addCart", //购物车增减
+    CartCount: ApiRootUrl + "app/transfer/cartCount", //购物车数量
+    CartList: ApiRootUrl + "app/transfer/cartList", //购物车列表
+    DeleteCart: ApiRootUrl + "app/transfer/deleteCart", //购物车为零删除
+    
 }

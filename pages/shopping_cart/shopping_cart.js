@@ -1,13 +1,15 @@
 import * as mClient from '../../utils/customClient';
 import * as api from '../../config/api';
 import * as util from '../../utils/util';
-
+let that;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    page: 1,
+    pageSize: 10,
     cartGoodsList: [],
     cartSettlement: {
       goodsSettlement: 0,
@@ -26,21 +28,46 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    that = this;
   },
 
   onShow: function () {
-    this.renderCartList();
+    Promise.allSettled([
+        that.renderCartList(),
+        that.renderCartNumber()
+      ]).then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   },
 
-  renderCartList: function () {
+  renderCartNumber() {
+    mClient.get(api.CartCount, {
+        userId: wx.getStorageSync('userID')
+      })
+      .then(res => {
+        that.setData({
+          cartGoodsPriceTotal: res.data.data.totalPrice,
+          cartGoodsEconomizeTotal: res.data.data.totalDiscountPrice
+        })
+      })
+  },
+
+  renderCartList: function (page = 1) {
     let that = this;
-    let cartInfo = that.data.cartGoodsList;
-    mClient.get(api.ShoppingCart)
+    // let cartInfo = that.data.cartGoodsList;
+    mClient.wxRequest(api.CartList, {
+        userId: wx.getStorageSync('userID'),
+        page,
+        pageSize: that.data.pageSize
+      })
       .then(resp => {
-        let cartGoodsPriceTotal = resp.data.data.realamount;
-        let cartGoodsEconomizeTotal = resp.data.data.discount;
-        let cartGoodsList = resp.data.data.list;
+        console.log('购物车列表', resp)
+        // let cartGoodsPriceTotal = resp.data.data.realamount;
+        // let cartGoodsEconomizeTotal = resp.data.data.discount;
+        let cartGoodsList = resp.data.list;
         let cartGoodsNumberTotal = 0;
 
         for (const key in cartGoodsList) {
@@ -50,23 +77,23 @@ Page({
           }
         }
 
-        if (cartInfo != {}) {
-          for (const key in cartInfo) {
-            if (cartInfo.hasOwnProperty(key)) {
-              for (let index = 0; index < cartGoodsList.length; index++) {
-                if (cartGoodsList[index].goodsid === cartInfo[key].goodsid) {
-                  cartGoodsList[index].isChecked = cartInfo[key].isChecked;
-                }
-              }
-            }
-          }
-        }
+        // if (cartInfo != {}) {
+        //   for (const key in cartInfo) {
+        //     if (cartInfo.hasOwnProperty(key)) {
+        //       for (let index = 0; index < cartGoodsList.length; index++) {
+        //         if (cartGoodsList[index].goodsid === cartInfo[key].goodsid) {
+        //           cartGoodsList[index].isChecked = cartInfo[key].isChecked;
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
 
         this.setData({
-          cartGoodsEconomizeTotal: cartGoodsEconomizeTotal,
-          cartGoodsPriceTotal: cartGoodsPriceTotal,
+          // cartGoodsEconomizeTotal: cartGoodsEconomizeTotal,
+          // cartGoodsPriceTotal: cartGoodsPriceTotal,
           cartGoodsList: cartGoodsList,
-          cartGoodsNumberTotal: cartGoodsNumberTotal,
+          // cartGoodsNumberTotal: cartGoodsNumberTotal,
         });
 
         this.renderCartGoodsTotal();
@@ -141,16 +168,14 @@ Page({
     let that = this;
     let cartGoodsList = that.data.cartGoodsList;
     let index = e.currentTarget.dataset.index;
-    let cartid = cartGoodsList[index].id;
-    let goodsCount = cartGoodsList[index].count - 1;
-
+    let cartid = cartGoodsList[index].goodsId;
+    console.log(cartid);
+    let goodsCount = cartGoodsList[index].quantity - 1;
     //如果商品数量为0时将商品移出购物车
     if (goodsCount === 0) {
-      let data = {
-        cartid: cartid,
-      };
-
-      mClient.post(api.RemoveShoppingCart, data)
+      mClient.get(api.DeleteCart, {
+          id: cartid
+        })
         .then(resp => {
           let result = resp.data.data.result;
           if (result === true) {
@@ -171,14 +196,14 @@ Page({
       return;
     }
     let data = {
-      cartid: cartid,
-      count: goodsCount,
+      userId: wx.getStorageSync('userID'),
+      goodsId: cartid,
+      quantity: goodsCount
     };
-
-    mClient.post(api.ModificationShoppingCart, data)
+    mClient.wxRequest(api.AddCart, data)
       .then(resp => {
-        let result = resp.data.data.result;
-        if (result === true) {
+        let result = resp.data;
+        if (result === "添加成功") {
           that.renderCartList();
         } else {
           wx.showToast({
@@ -228,9 +253,9 @@ Page({
     for (const key in cartList) {
       if (cartList.hasOwnProperty(key)) {
         const element = cartList[key];
-        const price = element.price;
-        const realprice = element.realprice;
-        const count = element.count;
+        const price = element.tradePrice;
+        const realprice = element.retailPrice;
+        const count = element.quantity;
         const isChecked = element.isChecked;
         if (count != 0) {
           let goodsPriceTotal = realprice * count;
@@ -257,7 +282,6 @@ Page({
     cartSettlement.goodsSettlement = goodsSettlement;
     cartSettlement.goodsOutOfPocketExpenses = SettlementTotal;
     cartSettlement.economize = economizeTotal;
-
     if (cartSettlement.goodsSettlement === 0) {
       cartSettlement.moneyPaid = 0;
     } else {
@@ -285,13 +309,13 @@ Page({
     } else {
       goods.isChecked = true;
     };
+    // every检测所有的是否符合 返回true和false
     if (cartList.every(f => f.isChecked)) {
       that.setData({
         isSelectAllGoods: true
       })
     }
 
-    console.log(cartList);
     that.setData({
       cartGoodsList: cartList,
     });

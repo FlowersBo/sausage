@@ -9,18 +9,18 @@
 					<icon type="circle" size="23" wx:if="{{!goods.isChecked}}"></icon>
 					<icon type="success" size="23" wx:if="{{goods.isChecked}}"></icon>
 				</label>
-				<image class="cover" src="{{goods.cover}}"></image>
+				<image class="cover" src="{{goods.goodsPic}}"></image>
 				<view class="content">
-					<view class="text name">{{goods.goodsname}}</view>
-					<view class="text specifications">{{goods.norm}}</view>
+					<view class="text name">{{goods.goodsName}}</view>
+					<view class="text specifications">{{goods.quantity}}箱</view>
 					<view class="text price">
-						<text>¥{{goods.realprice}}</text>
-						<text>¥{{goods.price}}</text>
+						<text>¥{{goods.retailPrice}}</text>
+						<text>¥{{goods.tradePrice}}</text>
 					</view>
 				</view>
 				<view class="stepper">
 					<view class="subtract" data-index="{{index}}" catchtap="bindReduceGoods">-</view>
-					<input class="count" value="{{goods.count}}" disabled type="number" confirm-type="done"
+					<input class="count" value="{{goods.quantity}}" disabled type="number" confirm-type="done"
 						bindconfirm="bindChangeGoodsNum" data-id="goods." />
 					<view class="add" data-index="{{index}}" catchtap="bindAddGoods">+</view>
 				</view>

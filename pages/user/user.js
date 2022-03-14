@@ -3,6 +3,8 @@ import * as api from '../../config/api';
 import * as util from '../../utils/util';
 import * as mClient from '../../utils/customClient';
 let that;
+let app = getApp();
+
 Page({
 
   /**
@@ -42,14 +44,22 @@ Page({
   },
 
   onShow: function () {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: app.data.selected
+      })
+    }
+
     mClient.getInfo()
       .then(resp => {
         if (resp.data.code == 200) {
           console.log('用户信息', resp);
-          that.setData({
-            userInfo: resp.data.data.info,
-            agencyId: resp.data.data.info.id
-          });
+          if (resp.data.data.info) {
+            that.setData({
+              userInfo: resp.data.data.info,
+              agencyId: resp.data.data.info.id
+            });
+          }
           that.EssentialFn();
         }
       })

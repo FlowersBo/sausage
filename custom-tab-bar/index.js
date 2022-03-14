@@ -1,10 +1,21 @@
 // custom-tab-bar/index.js
 const app = getApp();
 Component({
+
   data: {
     selected: null,
     list: []
   },
+
+  observers: {
+    // selected(data=1) {
+    //   this.setData({
+    //     selected: data
+    //   })
+    // }
+  },
+
+
   // 生命周期
   attached() {
 
@@ -49,24 +60,20 @@ Component({
       list.splice(1, 1);
       list.splice(2, 1);
     }
-
-    console.log('当前TabBar', list);
     this.setData({
       list
     })
   },
-  methods: {
-    //切换tabbar
+  methods: { //切换tabbar
     switchTab(e) {
       const data = e.currentTarget.dataset;
       app.data.selected = data.index;
-      // this.setData({
-      //   selected: data.index
-      // })
-      const url = data.path
       wx.switchTab({
-        url
+        url: data.path
       })
+      // that.setData({
+      //   selected: data.index,
+      // })
     }
   }
 })
