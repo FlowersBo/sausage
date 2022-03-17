@@ -22,7 +22,7 @@ Component({
   },
 
   ready() {
-    let role = '';
+    let roles = wx.getStorageSync('roles');
     let list = [{
         pagePath: "/pages/index/index",
         text: "报表",
@@ -54,12 +54,18 @@ Component({
         selectedIconPath: "/assets/tabbar/menu-mine-h.png"
       }
     ];
-    if (role === 'A')
-      list.splice(3, 1);
-    else if (role === 'B') {
-      list.splice(1, 1);
-      list.splice(2, 1);
-    }
+    roles.forEach(element => {
+      if (element === 'operate' || element === 'agency' || element === 'areaManager')
+        return
+      else if (element === 'cooperate' || element === 'companyOperate' || element === 'vp' || element === 'ceo')
+        list.splice(3, 1);
+      else if (element === 'mediate') {
+        list.splice(1, 1);
+        list.splice(1, 1);
+        list.splice(1, 1);
+      }
+    });
+
     this.setData({
       list
     })

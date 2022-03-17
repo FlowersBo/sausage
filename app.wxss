@@ -12,7 +12,7 @@ page{
 }
 .button-wrapper .button-hover{
   color: #fff;
-  background-color: #999;
+  background-color: #f1f1f1;
   
   }
   

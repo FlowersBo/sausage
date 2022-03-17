@@ -90,6 +90,13 @@ module.exports = {
     PayByBackSMS: ApiRootUrl + "allinpay/order/payByBackSMS", //确认充值
     WithdrawApply: ApiRootUrl + "allinpay/order/withdrawApply", //提现
 
+
+// 新增&&修改接口
+    
+    //报表 
+    AgencyList: ApiRootUrl + "app/report/agencyList", //统计列表
+    AgencySingle: ApiRootUrl + "app/report/agencySingle", //一个合作商
+
     // 订货
     GoodsCategory: ApiRootUrl + "app/transfer/goodsCategory", //分类
     GoodsList: ApiRootUrl + "app/transfer/goodsList", //商品列表

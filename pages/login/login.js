@@ -1,6 +1,6 @@
 import * as mClient from '../../utils/customClient';
 
-Page({//13322265957
+Page({ //13322265957
 	data: {
 		phoneNumber: '',
 		verificationCode: '',
@@ -13,9 +13,8 @@ Page({//13322265957
 
 	// Input phone number even
 	bindInputPhoneNumber: function (e) {
-		console.log(e.detail.value)
 		this.setData({
-			phoneNumber: e.detail.value
+			phoneNumber: (e.detail.value).trim()
 		})
 		// let isPhoneNumber = false;
 		//is out of rang phone number  
@@ -194,6 +193,7 @@ Page({//13322265957
 				console.log('登录返回', resp);
 				if (resp.data.code == 200) {
 					wx.setStorageSync('userID', resp.data.data.info.id);
+					wx.setStorageSync('roles', resp.data.data.roles);
 					wx.switchTab({
 						url: '../index/index'
 					});
@@ -214,8 +214,6 @@ Page({//13322265957
 		})
 	},
 
-	// 15001081725
-	// 15001081726
 	// 18911704040
 	//页面加载事件
 	onLoad: function () {

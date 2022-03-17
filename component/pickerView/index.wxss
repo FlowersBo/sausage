@@ -1,0 +1,89 @@
+/* component/pickerView/index.wxss */
+.baseList{
+  padding: 0 30rpx;
+}
+.baseList .list{
+  font-size: 32rpx;
+  color: #333;
+  line-height: 80rpx;
+}
+.baseList .list .listName{
+  text-align: right;
+  width: 200rpx;
+}
+.baseList .list .listMain{
+  position: relative;
+  width: 470rpx;
+  padding: 0 20rpx;
+  text-align: left;
+  border: 1rpx solid #ddd;
+  border-radius: 16rpx;
+  line-height: 80rpx;
+  height: 80rpx;
+}
+
+.propTimeBody{
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,.7);
+}
+
+.propTimeMain{
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  bottom: 0rpx;
+  width: 100%;
+  z-index: 111;
+  border-radius: 20rpx 20rpx 0 0;
+  box-sizing: border-box;
+  padding-bottom: 140rpx;
+}
+
+.up {
+	animation: up .2s linear 0s 1 forwards;
+}
+	/* animation-fill-mode: forwards; */
+
+/* .down {
+	animation: down 1s linear 0s 1 forwards;
+} */
+
+@keyframes up {
+	from {
+		transform: translateY(300rpx);
+	}
+
+	to {
+		transform: translateY(0rpx);
+	}
+}
+
+/* @keyframes down {
+	0% {
+		transform: translateY(550rpx);
+	}
+
+	100% {
+		transform: translateY(0);
+	}
+} */
+
+.propTimeBody .propTimeMain .propTop{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+.propTimeBody .propTimeMain .propTop .noBtn{
+  color: #aaa;
+}
+.propTimeBody .propTimeMain .propTop .okBtn{
+  color: #F75910;
+}

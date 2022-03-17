@@ -6,6 +6,7 @@
     "yycalendar": "plugin://myPlugin/yycalendar",
     "selectTime": "../../component/selectTime/selectTime",
     "calendar": "../../component/v2/index",
-    "ball":"../../component/ball/index"
+    "ball":"../../component/ball/index",
+    "pickerView": "../../component/pickerView/index"
   }
 }
