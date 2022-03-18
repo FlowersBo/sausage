@@ -95,7 +95,7 @@ module.exports = {
     
     //报表 
     AgencyList: ApiRootUrl + "app/report/agencyList", //统计列表
-    AgencySingle: ApiRootUrl + "app/report/agencySingle", //一个合作商
+    AgencySingle: ApiRootUrl + "app/report/agencySingle", //一个合作商单日，单月报表
 
     // 订货
     GoodsCategory: ApiRootUrl + "app/transfer/goodsCategory", //分类

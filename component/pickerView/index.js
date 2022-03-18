@@ -32,18 +32,21 @@ Component({
     propDate: {
       type: Boolean,
     },
-    // attached: function () {
-    //   this.setData({
-    //     region: '',
-    //     pointName: '',
-    //   })
-    // },
+    isMonth: {
+      type: Boolean,
+    }
   },
   observers: {
     propDate(data) {
 
     },
   },
+  // attached: function () {
+  //   this.setData({
+  //     region: '',
+  //     pointName: '',
+  //   })
+  // },
   /**
    * 组件的初始数据
    */
@@ -59,7 +62,8 @@ Component({
     timeInput: '',
     propDate: false,
     isShow: false,
-    isFlag: true
+    isFlag: true,
+    isMonth: false
   },
 
   /**
@@ -79,15 +83,22 @@ Component({
         dateTimeBody
       })
     },
+
     okBtnTime() {
       console.log(this.data.isShow)
       if (this.data.isFlag) {
         let dateTimeBody;
+        let format = function (num) {
+          return num < 10 ? '0' + num : num
+        }
         if (!this.data.isShow) {
           let setYear = this.data.year;
           let setMonth = this.data.month;
           let setDay = this.data.day
-          dateTimeBody = setYear + '-' + setMonth + '-' + setDay
+          if (this.data.isMonth)
+            dateTimeBody = setYear + '-' + format(setMonth);
+          else
+            dateTimeBody = setYear + '-' + format(setMonth) + '-' + format(setDay);
           console.log('不选日期', dateTimeBody)
         } else {
           dateTimeBody = this.data.dateTimeBody;
@@ -117,6 +128,7 @@ Component({
       }
       return false;
     },
+    
     setDays: function (day) {
       const temp = [];
       for (let i = 1; i <= day; i++) {
@@ -125,6 +137,7 @@ Component({
       this.setData({
         days: temp,
       })
+      
     },
 
     handlePickStart() {
@@ -145,13 +158,13 @@ Component({
       //判断月的天数
       const setYear = this.data.years[val[0]];
       const setMonth = this.data.months[val[1]];
-      const setDay = this.data.days[val[2]]
+      const setDay = this.data.days[val[2]];
       //闰年
       if (setMonth === 2) {
         if (setYear % 4 === 0 && setYear % 100 !== 0) {
           console.log('闰年')
           this.setDays(29);
-        }else {
+        } else {
           console.log('非闰年')
           this.setDays(28);
         }
@@ -163,7 +176,14 @@ Component({
           this.setDays(30)
         }
       }
-      let dateTimeBody = setYear + '-' + setMonth + '-' + setDay;
+      let dateTimeBody;
+      let format = function (num) {
+        return num < 10 ? '0' + num : num
+      }
+      if (this.data.isMonth)
+        dateTimeBody = setYear + '-' + format(setMonth);
+      else
+        dateTimeBody = setYear + '-' + format(setMonth) + '-' + format(setDay);
       let todays = !val[3] === true ? '上午' : '下午';
       console.log('滑动');
       this.setData({

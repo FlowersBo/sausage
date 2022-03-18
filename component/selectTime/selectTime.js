@@ -100,7 +100,7 @@ Component({
 
       }
     },
-    isDate:{
+    isDate: {
       type: Boolean,
     },
     config: Object
@@ -113,8 +113,8 @@ Component({
     // pickerShow:true
     // limitStartTime: new Date().getTime()-1000*60*60*24*30,
     // limitEndTime: new Date().getTime(),
-    yearStart:2021,
-    yearEnd:2100
+    yearStart: 2021,
+    yearEnd: 2100
   },
   detached: function () {
     console.log("dele");
@@ -158,8 +158,8 @@ Component({
 
         if (conf.limitEndTime) {
           limitEndTime = new Date(conf.limitEndTime.replace(/-/g, '/')).getTime();
-          console.log('限定尾时间',conf.limitEndTime)
-          console.log('限定尾时间',limitEndTime)
+          console.log('限定尾时间', conf.limitEndTime)
+          console.log('限定尾时间', limitEndTime)
         }
 
         this.setData({
@@ -214,20 +214,19 @@ Component({
         let format0 = function (num) {
           return num < 10 ? '0' + num : num
         }
-        let startTimeBack ='';
-        if(this.data.isDate){
+        let startTimeBack = '';
+        if (this.data.isDate) {
           startTimeBack =
-          startArr[0] +
-          "-" +
-          format0(startArr[1]) 
-          +
-          "-" +
-          format0(startArr[2])
-        }else{
+            startArr[0] +
+            "-" +
+            format0(startArr[1]) +
+            "-" +
+            format0(startArr[2])
+        } else {
           startTimeBack =
-          startArr[0] +
-          "-" +
-          format0(startArr[1]) 
+            startArr[0] +
+            "-" +
+            format0(startArr[1])
         }
         // let startTimeBack =
         //   startArr[0] +
@@ -244,20 +243,19 @@ Component({
         // ":" +
         // (this.data.secColumn ? format0(startArr[5]) : "00")
         ;
-        let endTimeBack ='';
-        if(this.data.isDate){
+        let endTimeBack = '';
+        if (this.data.isDate) {
           endTimeBack =
-          endArr[0] +
-          "-" +
-          format0(endArr[1]) 
-          +
-          "-" +
-          format0(endArr[2])
-        }else{
+            endArr[0] +
+            "-" +
+            format0(endArr[1]) +
+            "-" +
+            format0(endArr[2])
+        } else {
           endTimeBack =
-          endArr[0] +
-          "-" +
-          format0(endArr[1]) 
+            endArr[0] +
+            "-" +
+            format0(endArr[1])
         }
         // let endTimeBack =
         //   endArr[0] +
@@ -278,7 +276,6 @@ Component({
           startTime: startTimeBack,
           endTime: endTimeBack
         };
-
         //触发自定义事件
         this.triggerEvent("setPickerTime", time);
         this.triggerEvent("hidePicker", {});
@@ -311,8 +308,7 @@ Component({
       let time =
         this.data.YearList[val[0]] +
         "-" +
-        this.data.MonthList[val[1]]
-         +
+        this.data.MonthList[val[1]] +
         "-" +
         this.data.DayList[val[2]] +
         " " +
@@ -321,7 +317,6 @@ Component({
         m +
         ":" +
         s;
-
       let start = this.data.limitStartTime;
       let end = this.data.limitEndTime;
       let timeNum = new Date(time.replace(/-/g, '/')).getTime();

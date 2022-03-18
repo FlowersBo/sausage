@@ -23,8 +23,8 @@
       bind:setPickerTime="setPickerTime" config="{{pickerConfig}}"></selectTime>
   </view>
 
-  <!-- 单日期选择 -->
-  <pickerView class="list" propDate="{{propDate}}" bind:dateTimeBody="dateTimeBody" />
+  <!-- 单日/月选择 -->
+  <pickerView class="listss" propDate="{{propDate}}" isMonth="{{isMonth}}" bind:dateTimeBody="dateTimeBody" />
   
   <!-- 小历同学文档 -->
   <view wx:if="{{isShow}}" class="xlCalendarWrap" catchtap="cancelWindowFn">

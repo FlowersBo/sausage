@@ -22,7 +22,7 @@
           <picker-view-column>
             <view wx:for="{{months}}" wx:key="months" style="line-height: 50px; text-align: center;">{{item}}月</view>
           </picker-view-column>
-          <picker-view-column>
+          <picker-view-column wx:if="{{!isMonth}}">
             <view wx:for="{{days}}" wx:key="days" style="line-height: 50px; text-align: center;">{{item}}日</view>
           </picker-view-column>
           <!-- <picker-view-column>
