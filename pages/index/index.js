@@ -628,9 +628,7 @@ Page({
 					reportTotal['销售额'] = `${resp.data.data.summary.amount}元`;
 					reportTotal['订单数'] = `${resp.data.data.summary.orderSum}单`;
 					reportTotal['销售量'] = `${resp.data.data.summary.productCount}根`;
-					pointsData = pointsData.concat(resp.data.data.saleList.list);
 					let pointTotal = resp.data.data.saleList.total;
-					console.log('列表', pointsData);
 					that.setData({
 						reportTotal: reportTotal,
 						statistics: statistics,
@@ -642,6 +640,8 @@ Page({
 						})
 						return
 					}
+					pointsData = pointsData.concat(resp.data.data.saleList.list);
+					console.log('列表', pointsData);
 					that.setData({
 						pointsData: pointsData
 					})
@@ -680,7 +680,6 @@ Page({
 					reportTotal['销售量'] = `${resp.data.data.summary.productCount}根`;
 					cumulativeSales['累计销售额'] = `${resp.data.data.total.totalAmount}元`;
 					cumulativeSales['累计销售量'] = `${resp.data.data.total.totalCount}根`;
-					pointsData = pointsData.concat(resp.data.data.pointList.list);
 					let pointTotal = resp.data.data.pointList.total;
 					if ((that.data.pageSize * (pageIndex - 1)) >= pointTotal) {
 						this.setData({
@@ -688,6 +687,7 @@ Page({
 						})
 						return
 					}
+					pointsData = pointsData.concat(resp.data.data.pointList.list);
 					this.setData({
 						reportTotal: reportTotal,
 						cumulativeSales: cumulativeSales,
