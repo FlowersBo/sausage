@@ -102,22 +102,23 @@ Page({
       pointEndDate,
       startTime
     } = options;
-    let startDate = '',
-      endDate = '',
-      startMonth = '',
-      endMonth = '';
-    if (startTime == 0 && pointStartDate) {
-      startDate = pointStartDate;
-      endDate = pointEndDate;
-    } else if (startTime == 1 && pointStartDate) {
-      startMonth = pointStartDate;
-      endMonth = pointEndDate;
-    }
+    // let startDate = '',
+    //   endDate = '',
+    //   startMonth = '',
+    //   endMonth = '';
+    // if (startTime == 0 && pointStartDate) {
+    //   startDate = pointStartDate;
+    //   endDate = pointEndDate;
+    // } else if (startTime == 1 && pointStartDate) {
+    //   startMonth = pointStartDate;
+    //   endMonth = pointEndDate;
+    // }
     that.setData({
       pointDetaillyDate: pointStartDate ? `${pointStartDate}~${pointEndDate}` : '截止到昨日',
       startTime
     })
-    that.PTdetail(pointId, startDate, endDate, startMonth, endMonth);
+    that.PTdetail(pointId, pointStartDate, pointEndDate);
+    // that.PTdetail(pointId, startDate, endDate, startMonth, endMonth);
   },
 
   async PTdetail(pointId, startDate, endDate, startMonth, endMonth) {

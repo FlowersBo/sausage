@@ -25,7 +25,7 @@
 
   <!-- 单日/月选择 -->
   <pickerView class="listss" propDate="{{propDate}}" isMonth="{{isMonth}}" bind:dateTimeBody="dateTimeBody" />
-  
+
   <!-- 小历同学文档 -->
   <view wx:if="{{isShow}}" class="xlCalendarWrap" catchtap="cancelWindowFn">
   </view>
@@ -86,7 +86,7 @@
   </block>
 
   <!-- 点位统计 -->
-  <view wx:if="{{dateRange===0||dateRange===10}}">
+  <view wx:if="{{dateRange===0||(dateRange===1&&isFlag)||dateRange===10}}">
     <view class="detail">
       <view class="explain">
         点位销售统计(<text>{{pointDetaillyDate}}</text>)
@@ -128,7 +128,7 @@
     </view>
   </view>
 
-  <view class="button-wrapper" wx:if="{{dateRange!=1&&dateRange!=11}}">
+  <view class="button-wrapper" wx:if="{{dateRange!=11}}">
     <button type="default" size="default" loading="{{loading}}" disabled="{{disabled}}" bindtap="bindLoading">
       {{loadText}}
     </button>
