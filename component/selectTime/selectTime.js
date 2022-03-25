@@ -28,6 +28,9 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    distance:{
+      type: Number
+    },
     pickerShow: {
       type: Boolean,
       observer: function (val, old) { //监听参数变化
@@ -41,8 +44,9 @@ Component({
             duration: 500,
             timingFunction: "ease"
           });
+          let distance = this.data.distance;
           setTimeout(() => {
-            animation.bottom(70).step();
+            animation.bottom(distance).step();
             animationOpacity.opacity(0.6).step();
             this.setData({
               animationOpacity: animationOpacity.export(),
@@ -114,7 +118,8 @@ Component({
     // limitStartTime: new Date().getTime()-1000*60*60*24*30,
     // limitEndTime: new Date().getTime(),
     yearStart: 2021,
-    yearEnd: 2100
+    yearEnd: 2100,
+    distance: 0
   },
   detached: function () {
     console.log("dele");

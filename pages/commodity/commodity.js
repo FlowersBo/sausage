@@ -125,7 +125,7 @@ Page({
       duration: 300,
       timingFunction: 'linear'
     })
-    animation.bottom(0).step()
+    animation.bottom(60).step()
     this.setData({
       animationData: animation.export()
     })

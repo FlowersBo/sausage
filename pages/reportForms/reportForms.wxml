@@ -1,11 +1,12 @@
 <!--index.wxml-->
 <view class="homePage">
-  <view class="nav_tab">
+  <!-- <view class="nav_tab">
     <view wx:for="{{info.reportGenres}}" wx:key="index" class="{{reportGenre==index?'hidden':'show'}}"
       data-index="{{index}}" bindtap="selectedReportGenres">
       {{item}}
     </view>
-  </view>
+  </view> -->
+  <view class="agencyName">{{agencyName}}</view>
   <view class="nav_tab nav_tabchild">
     <view class="{{dateRangeindex==index?'hidden':'show'}}" wx:for="{{info.dateRange[reportGenre]}}" wx:key="index"
       data-index="{{index}}" bindtap="selectedDateRange">
@@ -19,8 +20,8 @@
       <view>{{monthStartTime}}<text> 至 </text>{{monthEndTime}}</view>
       <image class="page-date-img" src="../../assets/img/timg.png"></image>
     </view> -->
-    <selectTime pickerShow="{{isPickerShow}}" distance="70" id="picker" wx:if="{{isPickerRender}}"
-      bind:hidePicker="pickerHide" bind:setPickerTime="setPickerTime" config="{{pickerConfig}}"></selectTime>
+    <selectTime pickerShow="{{isPickerShow}}" distance="0" id="picker" wx:if="{{isPickerRender}}" bind:hidePicker="pickerHide"
+      bind:setPickerTime="setPickerTime" config="{{pickerConfig}}"></selectTime>
   </view>
 
   <!-- 单日/月选择 -->
@@ -55,7 +56,7 @@
   </view>
 
   <!-- 统计表格 -->
-  <view class='history-table-wrap' wx:if="{{!isIds&&isDateRangeindex&&(dateRange==1||dateRange==11)&&statistics}}">
+  <view class='history-table-wrap' wx:if="{{isDateRangeindex&&(dateRange==1||dateRange==11)&&statistics}}">
     <view class="detail">
       <view class="explain">
         销售统计(<text>{{pointDetaillyDate}}</text>)
@@ -86,7 +87,7 @@
   </block>
 
   <!-- 点位统计 -->
-  <view wx:if="{{isIds||(dateRange===0||(dateRange===1&&isFlag)||dateRange===10)}}">
+  <view wx:if="{{dateRange===0||(dateRange===1&&isFlag)||dateRange===10}}">
     <view class="detail">
       <view class="explain">
         点位销售统计(<text>{{pointDetaillyDate}}</text>)
@@ -96,6 +97,7 @@
         <image src="../../assets/img/fangdajing.png"></image>
       </view> -->
     </view>
+
     <view class="tabTit box">
       <view class="flex1" wx:for="{{reportDetail.titles}}" wx:key="type" data-index="{{index}}" bindtap="bindPointSort">
         <label>
@@ -108,15 +110,14 @@
       <block wx:for="{{pointsData}}" wx:key="list" wx:for-item="item">
         <view class="list_item">
           <view class="info box">
-            <view class="title flex1 ">{{item.pointName?item.pointName:item.agencyName}}</view>
+            <view class="title flex1 ">{{item.pointName}}</view>
             <view class="price flex1 ">￥{{item.saleAmount}}</view>
             <view class="num flex1 ">{{item.productCount}}</view>
-            <view wx:if="{{!isIds&&dateRange==0}}" class="report_details flex1" bindtap="bindReportDetaill"
+            <view wx:if="{{dateRange==0}}" class="report_details flex1" bindtap="bindReportDetaill"
               data-point="{{item}}">
               <image src="../../assets/img/baobiao.png" mode="scaleToFill"></image>
             </view>
-            <view wx:elif="{{isIds||dateRange==1}}" class="report_details flex1" bindtap="bindDetail"
-              data-point="{{item}}">
+            <view wx:elif="{{dateRange==1}}" class="report_details flex1" bindtap="bindDetail" data-point="{{item}}">
               <view class="detail-btn">明细</view>
             </view>
           </view>
@@ -126,10 +127,11 @@
     <view wx:else>
       <icon style="font-size: 100rpx;" class="iconfont icon-zanwushuju"></icon>
     </view>
-    <view class="button-wrapper">
+    <view class="button-wrapper" wx:if="{{dateRange!=11}}">
       <button type="default" size="default" loading="{{loading}}" disabled="{{disabled}}" bindtap="bindLoading">
         {{loadText}}
       </button>
     </view>
   </view>
 </view>
+<!-- <view wx:if="{{isShow||isPickerRender}}" style="width:100%;height:140rpx;background:#fff;position:fixed;left:0;bottom:0;z-index:10000;"></view> -->

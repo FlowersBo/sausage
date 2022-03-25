@@ -183,28 +183,39 @@ Page({ //13322265957
 		// 	});
 		// 	return;
 		// }
-		let loginInfo = {
-			username: phoneNumber,
-			//smscode: verificationCode
-			password: password
-		};
-		mClient.loginPhone(loginInfo)
-			.then((resp) => {
-				console.log('登录返回', resp);
-				if (resp.data.code == 200) {
-					wx.setStorageSync('userID', resp.data.data.info.id);
-					wx.setStorageSync('roles', resp.data.data.roles);
-					wx.switchTab({
-						url: '../index/index'
+		mClient.login()
+			.then(res => {
+				let loginInfo = {
+					username: phoneNumber,
+					//smscode: verificationCode
+					password: password,
+					code: res
+				};
+				mClient.loginPhone(loginInfo)
+					.then((resp) => {
+						console.log('登录返回', resp);
+						if (resp.data.code == 200) {
+							wx.setStorageSync('userID', resp.data.data.info.id);
+							wx.setStorageSync('roles', resp.data.data.roles);
+							wx.switchTab({
+								url: '../index/index'
+							});
+						} else {
+							wx.showToast({
+								title: resp.data.message,
+								icon: 'none',
+								duration: 1000
+							});
+						}
 					});
-				} else {
-					wx.showToast({
-						title: resp.data.message,
-						icon: 'none',
-						duration: 1000
-					});
-				}
-			});
+			})
+			.catch(err => {
+				wx.showToast({
+					title: '请稍后重试',
+					icon: 'none',
+					duration: 2000
+				})
+			})
 	},
 
 	// 跳转页面测试用

@@ -215,7 +215,7 @@ button.out {
 	font-size: 32rpx;
 	color: #fff;
 	margin-top: 80rpx;
-	border-radius: 8rpx;
+	border-radius: 20rpx;
 	background: rgba(248, 112, 57, 1);
 }
 

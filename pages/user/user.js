@@ -70,7 +70,7 @@ Page({
 
   EssentialFn: () => {
     let data = {
-      agencyId: that.data.agencyId
+      userId: wx.getStorageSync('userID')
     };
     mClient.PostIncludeData(api.Essential, data)
       .then(resp => {

@@ -52,7 +52,7 @@
         <view>{{monthStartTime}}<text> 至 </text>{{monthEndTime}}</view>
         <image class="page-date-img" src="../../assets/img/timg.png"></image>
       </view>
-      <selectTime pickerShow="{{isPickerShow}}" isDate="{{isDate}}" id="picker" wx:if="{{isPickerRender}}"
+      <selectTime pickerShow="{{isPickerShow}}" distance="70" isDate="{{isDate}}" id="picker" wx:if="{{isPickerRender}}"
         bind:hidePicker="pickerHide" bind:setPickerTime="setMonthPickerTime" config="{{pickerConfig}}"></selectTime>
     </view>
   </view>

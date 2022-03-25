@@ -123,6 +123,12 @@
           "pathName": "pages/shopping_cart/shopping_cart",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "二级报表",
+          "pathName": "pages/reportForms/reportForms",
+          "query": "agencyId=1433698235209220097&reportGenre=0",
+          "scene": null
         }
       ]
     }

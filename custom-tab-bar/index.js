@@ -23,6 +23,7 @@ Component({
 
   ready() {
     let roles = wx.getStorageSync('roles');
+    console.log('角色',roles);
     let list = [{
         pagePath: "/pages/index/index",
         text: "报表",
@@ -54,21 +55,22 @@ Component({
         selectedIconPath: "/assets/tabbar/menu-mine-h.png"
       }
     ];
-    roles.forEach(element => {
-      if (element === 'operate' || element === 'agency' || element === 'areaManager')
-        return
-      else if (element === 'cooperate' || element === 'companyOperate' || element === 'vp' || element === 'ceo')
-        list.splice(3, 1);
-      else if (element === 'mediate') {
-        list.splice(1, 1);
-        list.splice(1, 1);
-        list.splice(1, 1);
-      }
-    });
-
-    this.setData({
-      list
-    })
+    if (roles) {
+      roles.forEach(element => {
+        if (element === 'operate' || element === 'agency' || element === 'areaManager')
+          return
+        else if (element === 'cooperate' || element === 'companyOperate' || element === 'vp' || element === 'ceo')
+          list.splice(3, 1);
+        else if (element === 'mediate') {
+          list.splice(1, 1);
+          list.splice(1, 1);
+          list.splice(1, 1);
+        }
+      });
+      this.setData({
+        list
+      })
+    }
   },
   methods: { //切换tabbar
     switchTab(e) {

@@ -45,7 +45,6 @@ function wxRequest(url, data = {}, method = 'POST'){
 function request(url, data = {}, method = "GET") {
 
 	let param = objectToJsonParams(data);
-	console.log(param);
 	return new Promise(function (resolve, reject) {
 		console.log(url + param)
 		wx.request({
@@ -181,10 +180,10 @@ function loginPhone(loginInfo = {}) {
 				if (resp.data.code == 200) {
 					wx.setStorageSync('accessToken', resp.data.data.access_token);
 					wx.setStorageSync('refreshToken', resp.data.data.refresh_token);
-					wx.setStorageSync('agencyList', resp.data.data.agencyIds);
-					if(resp.data.data.agencyIds.length>0){
-						wx.setStorageSync('agencySelect', resp.data.data.agencyIds[0].agencyId)
-					}
+					// wx.setStorageSync('agencyList', resp.data.data.agencyIds);
+					// if(resp.data.data.agencyIds.length>0){
+					// 	wx.setStorageSync('agencySelect', resp.data.data.agencyIds[0].agencyId)
+					// }
 				}
 				resolve(resp);
 			},

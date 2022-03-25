@@ -26,6 +26,11 @@ page {
 	margin: 20rpx auto;
 }
 
+.agencyName {
+	text-align: center;
+	font-weight: bold;
+}
+
 .show {
 	flex: 1;
 	font-size: 28rpx;
@@ -394,6 +399,6 @@ canvas {
 	left: 0;
 	z-index: 1000;
 }
-.homePage{
-	padding-bottom: 150rpx;
+.button-wrapper{
+	margin-bottom: 20rpx;
 }

@@ -21,8 +21,25 @@ App({
       fail(err) {
         console.log(err);
       }
-    })     
-    this.autoUpdate();
+    })
+    // 分享
+  !function(){
+  var PageTmp = Page;
+  Page = function (pageConfig) {
+    // 设置全局默认分享
+    pageConfig = Object.assign({
+      onShareAppMessage:function () {
+        return {
+          title: 'Page自定义全局分享',
+          // imageUrl: '/public/img/cat.jpg',
+          path: '/pages/login/login'
+        };
+      }
+    },pageConfig);
+    PageTmp(pageConfig);
+  };
+}();
+  this.autoUpdate();
   },
 
   // 版本更新

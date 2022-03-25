@@ -92,8 +92,8 @@ module.exports = {
 
 
 // 新增&&修改接口
-    
     //报表 
+    Init: ApiRootUrl + "app/user/init", //查询用户授权信息
     AgencyList: ApiRootUrl + "app/report/agencyList", //统计列表
     AgencySingle: ApiRootUrl + "app/report/agencySingle", //一个合作商单日，单月报表
     AgencyRangeDate: ApiRootUrl + "app/report/agencyRangeDate", //自定义日报

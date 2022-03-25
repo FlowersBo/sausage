@@ -31,7 +31,8 @@ text.tit{
 }
 
 .number {
-  width: 310rpx;
+  width: 82%;
+  height: 89rpx;
   color: #333;
   font-size: 28rpx;
 }

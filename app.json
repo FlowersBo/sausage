@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/login/login",
+    "pages/reportForms/reportForms",
     "pages/order_goods/order_goods",
     "pages/my_money/my_money",
     "pages/status_details/status_details",
