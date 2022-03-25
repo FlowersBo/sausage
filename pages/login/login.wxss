@@ -37,6 +37,10 @@ text.tit{
   font-size: 28rpx;
 }
 
+button::after{
+  border: none;
+}
+
 .getNum {
   width: 150rpx;
   height: 48rpx;

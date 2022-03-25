@@ -20,8 +20,8 @@
       <view>{{monthStartTime}}<text> 至 </text>{{monthEndTime}}</view>
       <image class="page-date-img" src="../../assets/img/timg.png"></image>
     </view> -->
-    <selectTime pickerShow="{{isPickerShow}}" distance="0" id="picker" wx:if="{{isPickerRender}}" bind:hidePicker="pickerHide"
-      bind:setPickerTime="setPickerTime" config="{{pickerConfig}}"></selectTime>
+    <selectTime pickerShow="{{isPickerShow}}" distance="0" id="picker" wx:if="{{isPickerRender}}"
+      bind:hidePicker="pickerHide" bind:setPickerTime="setPickerTime" config="{{pickerConfig}}"></selectTime>
   </view>
 
   <!-- 单日/月选择 -->
@@ -108,7 +108,7 @@
     </view>
     <view class="list" wx:if="{{pointsData}}">
       <block wx:for="{{pointsData}}" wx:key="list" wx:for-item="item">
-        <view class="list_item">
+        <view class="list_item {{index%2?'':'listStyle'}}">
           <view class="info box">
             <view class="title flex1 ">{{item.pointName}}</view>
             <view class="price flex1 ">￥{{item.saleAmount}}</view>

@@ -694,8 +694,15 @@ Page({
 					pointsData = pointsData.concat(resp.data.data.agencyList.list);
 					console.log('列表', pointsData);
 					that.setData({
-						pointsData: pointsData
+						pointsData: pointsData,
+						pageIndex
 					})
+					if (that.data.pageSize * pageIndex >= pointTotal) {
+						this.setData({
+							loadText: '已经到底了',
+						})
+						return
+					}
 				})
 				.catch(err => {
 
@@ -743,8 +750,15 @@ Page({
 					pointsData = pointsData.concat(resp.data.data.saleList.list);
 					console.log('列表', pointsData);
 					that.setData({
-						pointsData: pointsData
+						pointsData: pointsData,
+						pageIndex
 					})
+					if (that.data.pageSize * pageIndex >= pointTotal) {
+						this.setData({
+							loadText: '已经到底了',
+						})
+						return
+					}
 				})
 				.catch(rej => {
 					console.log('销量错误', rej);
@@ -793,7 +807,14 @@ Page({
 						cumulativeSales: cumulativeSales,
 						pointsData: pointsData,
 						pointTotal: pointTotal,
+						pageIndex
 					});
+					if (that.data.pageSize * pageIndex >= pointTotal) {
+						this.setData({
+							loadText: '已经到底了',
+						})
+						return
+					}
 				})
 				.catch(rej => {
 					console.log('销量错误', rej);
@@ -968,7 +989,7 @@ Page({
 		} else if (dateRange === 1) {
 			that.renderReport(that.data.dateRange, that.data.startTime, that.data.endTime);
 		} else {
-			that.renderReport(that.data.dateRange, that.data.monthStartTime, that.data.monthEndTime, pageIndex, pointsData);
+			that.renderReport(that.data.dateRange, that.data.monthStartTime, that.data.monthEndTime);
 		}
 	},
 
@@ -1006,9 +1027,6 @@ Page({
 		} else {
 			that.renderReport(that.data.dateRange, that.data.monthStartTime, that.data.monthEndTime, pageIndex, pointsData);
 		}
-		this.setData({
-			pageIndex
-		})
 	},
 
 	onShow: function () {

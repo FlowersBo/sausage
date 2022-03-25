@@ -291,7 +291,7 @@ Page({
 			animationData: animation.export()
 		})
 	},
- 
+
 	// 单日月
 	dateTimeBody(e) {
 		this.setData({
@@ -328,8 +328,8 @@ Page({
 	onLoad: function (options) {
 		that = this;
 		let agencyId = options.agencyId,
-		reportGenre = options.reportGenre,
-		agencyName = options.agencyName;
+			reportGenre = options.reportGenre,
+			agencyName = options.agencyName;
 		this.setData({
 			agencyId,
 			reportGenre,
@@ -357,7 +357,8 @@ Page({
 			reportDetail.titleUrls = ['', '../../assets/img/arrow.png', '../../assets/img/arrow.png']
 		};
 		this.setData({
-			reportGenre: index,dateRange: dateRange,
+			reportGenre: index,
+			dateRange: dateRange,
 			reportDetail: reportDetail,
 		});
 		if (dateRange === 0 || dateRange === 10) {
@@ -625,8 +626,15 @@ Page({
 					pointsData = pointsData.concat(resp.data.data.saleList.list);
 					console.log('列表', pointsData);
 					that.setData({
-						pointsData: pointsData
+						pointsData: pointsData,
+						pageIndex
 					})
+					if (that.data.pageSize * pageIndex >= pointTotal) {
+						this.setData({
+							loadText: '已经到底了',
+						})
+						return
+					}
 				})
 				.catch(rej => {
 					console.log('销量错误', rej);
@@ -675,7 +683,14 @@ Page({
 						cumulativeSales: cumulativeSales,
 						pointsData: pointsData,
 						pointTotal: pointTotal,
+						pageIndex
 					});
+					if (that.data.pageSize * pageIndex >= pointTotal) {
+						this.setData({
+							loadText: '已经到底了',
+						})
+						return
+					}
 				})
 				.catch(rej => {
 					console.log('销量错误', rej);
@@ -784,8 +799,8 @@ Page({
 	// 跳转明细
 	bindDetail: function (e) {
 		let point = e.currentTarget.dataset.point,
-		startTime = that.data.startTime, 
-		endTime = that.data.endTime
+			startTime = that.data.startTime,
+			endTime = that.data.endTime
 		console.log('点位id', point);
 		wx.navigateTo({
 			url: '../tableDetail/tableDetail?pointId=' + point.pointId + "&pointName=" + point.pointName + "&pointStartDate=" + startTime + "&pointEndDate=" + endTime
@@ -840,7 +855,7 @@ Page({
 		if (dateRange === 0) {
 			that.renderReport(that.data.dateRange, that.data.pointDetaillyDate, '', );
 		} else if (dateRange === 10) {
-			that.renderReport(that.data.dateRange, '', that.data.pointDetaillyDate,);
+			that.renderReport(that.data.dateRange, '', that.data.pointDetaillyDate, );
 		} else {
 			that.renderReport(that.data.dateRange, that.data.startTime, that.data.endTime);
 		}
@@ -878,9 +893,6 @@ Page({
 		} else {
 			that.renderReport(that.data.dateRange, that.data.startTime, that.data.endTime, pageIndex, pointsData);
 		}
-		this.setData({
-			pageIndex
-		})
 	},
 
 	onShow: function () {

@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "点位",
+  "enablePullDownRefresh": false,
   "usingComponents": {
     "selectTime": "../../component/selectTime/selectTime",
     "ball":"../../component/ball/index"

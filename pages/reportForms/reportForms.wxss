@@ -402,3 +402,6 @@ canvas {
 .button-wrapper{
 	margin-bottom: 20rpx;
 }
+.listStyle{
+	background: #f8f8f8;
+}

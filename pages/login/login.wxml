@@ -13,5 +13,5 @@
         <input name="phoneCode" placeholder="请输入验证码" class="number" placeholder-style="color:#bbb" bindinput="bindInputVerificationCode" />
         <view bindtap="getVerificationCode" class="getNum" hover-class="getNum_hover" hover-stay-time="100">{{verificationControlText}}</view>
     </view> -->
-    <button bindtap="startLogin">登录</button>
+    <button bindtap="startLogin" style="margin-top: 100rpx;border-radius: 20rpx;">登录</button>
 </view>
