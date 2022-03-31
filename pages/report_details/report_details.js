@@ -109,9 +109,11 @@ Page({
     that = this;
     let pointid = options.pointid;
     let pointName = options.pointName;
+    let agencyId = options.agencyId;
     that.setData({
       pointid,
-      pointName
+      pointName,
+      agencyId
     })
     that.PointDataByHourList();
   },
@@ -119,11 +121,13 @@ Page({
   PointDataByHourList() {
     let {
       date,
-      pointid
+      pointid,
+      agencyId
     } = that.data;
     let data = {
       date,
-      pointid
+      pointid,
+      agencyId
     };
     mClient.get(api.PointDataByHour, data)
       .then(resp => {

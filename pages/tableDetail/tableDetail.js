@@ -100,8 +100,10 @@ Page({
       pointId,
       pointStartDate,
       pointEndDate,
-      startTime
+      startTime,
+      agencyId
     } = options;
+    console.log(agencyId);
     // let startDate = '',
     //   endDate = '',
     //   startMonth = '',
@@ -115,19 +117,21 @@ Page({
     // }
     that.setData({
       pointDetaillyDate: pointStartDate ? `${pointStartDate}~${pointEndDate}` : '截止到昨日',
-      startTime
+      startTime,
+      agencyId
     })
     that.PTdetail(pointId, pointStartDate, pointEndDate);
     // that.PTdetail(pointId, startDate, endDate, startMonth, endMonth);
   },
 
-  async PTdetail(pointId, startDate, endDate, startMonth, endMonth) {
+  async PTdetail(pointId, startDate, endDate, startMonth, endMonth, agencyId) {
     let data = {
       pointId,
       startDate,
       endDate,
       startMonth,
-      endMonth
+      endMonth,
+      agencyId: that.data.agencyId
     }
     let result = await (mClient.get(api.SinglePointSaleDetail, data));
     console.log('点位统计表', result);
@@ -153,8 +157,8 @@ Page({
   renderChart: function (statistics) {
     console.log('自定义月份统计', statistics);
     that.setData({
-			isShowGraph: true
-		});
+      isShowGraph: true
+    });
     let monthList = [];
     for (const key in statistics) {
       if (Object.hasOwnProperty.call(statistics, key)) {
@@ -233,7 +237,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  // onShareAppMessage: function () {
 
-  }
+  // }
 })

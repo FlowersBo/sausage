@@ -6,8 +6,8 @@
 			<image src="{{userInfo.logourl}}" />
 		</view>
 		<view class="weui-cell__bd">
-			<view>{{userInfo.name}}</view>
-			<view class="phone">{{userInfo.mobile}}</view>
+			<view>{{userInfo.NAME}}</view>
+			<view class="phone">{{userInfo.username}}</view>
 		</view>
 	</view>
 	<!-- 累计金额 -->

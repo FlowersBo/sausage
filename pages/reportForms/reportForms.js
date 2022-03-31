@@ -621,7 +621,6 @@ Page({
 						this.setData({
 							loadText: '已经到底了',
 						})
-						return
 					}
 					pointsData = pointsData.concat(resp.data.data.saleList.list);
 					console.log('列表', pointsData);
@@ -675,7 +674,6 @@ Page({
 						this.setData({
 							loadText: '已经到底了',
 						})
-						return
 					}
 					pointsData = pointsData.concat(resp.data.data.pointList.list);
 					this.setData({
@@ -792,7 +790,7 @@ Page({
 	bindReportDetaill: function (e) {
 		let point = e.currentTarget.dataset.point;
 		wx.navigateTo({
-			url: '../report_details/report_details?pointid=' + point.pointId + "&pointName=" + point.pointName
+			url: '../report_details/report_details?pointid=' + point.pointId + "&pointName=" + point.pointName + '&agencyId=' + that.data.agencyId
 		})
 	},
 
@@ -803,7 +801,7 @@ Page({
 			endTime = that.data.endTime
 		console.log('点位id', point);
 		wx.navigateTo({
-			url: '../tableDetail/tableDetail?pointId=' + point.pointId + "&pointName=" + point.pointName + "&pointStartDate=" + startTime + "&pointEndDate=" + endTime
+			url: '../tableDetail/tableDetail?pointId=' + point.pointId + "&pointName=" + point.pointName + "&pointStartDate=" + startTime + "&pointEndDate=" + endTime + '&agencyId=' + that.data.agencyId
 		})
 	},
 

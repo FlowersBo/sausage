@@ -611,6 +611,10 @@ Page({
 			this.setData({
 				pointDetaillyDate
 			});
+			if (that.data.isIds) {
+				that.renderReport(that.data.dateRange, pointDetaillyDate, pointDetaillyDate);
+				return
+			}
 			this.renderReport(that.data.dateRange, pointDetaillyDate, '');
 		} else if (dateRange === 10) {
 			pointSummationReportDate.setMonth(pointSummationReportDate.getMonth());
@@ -627,6 +631,10 @@ Page({
 				pointDetaillyDate
 			});
 			console.log('时间：', pointDetaillyDate);
+			if (that.data.isIds) {
+				that.renderReport(that.data.dateRange, pointDetaillyDate, pointDetaillyDate);
+				return
+			}
 			this.renderReport(that.data.dateRange, '', pointDetaillyDate);
 		}
 	},
@@ -799,7 +807,6 @@ Page({
 						this.setData({
 							loadText: '已经到底了',
 						})
-						return
 					}
 					pointsData = pointsData.concat(resp.data.data.pointList.list);
 					this.setData({
@@ -916,7 +923,7 @@ Page({
 	bindReportDetaill: function (e) {
 		let point = e.currentTarget.dataset.point;
 		wx.navigateTo({
-			url: '../report_details/report_details?pointid=' + point.pointId + "&pointName=" + point.pointName
+			url: '../report_details/report_details?pointid=' + point.pointId + "&pointName=" + point.pointName+ '&agencyId=' + that.data.agencyId
 		})
 	},
 
@@ -932,7 +939,7 @@ Page({
 			})
 		} else {
 			wx.navigateTo({
-				url: '../tableDetail/tableDetail?pointId=' + point.pointId + "&pointName=" + point.pointName + "&pointStartDate=" + startTime + "&pointEndDate=" + endTime
+				url: '../tableDetail/tableDetail?pointId=' + point.pointId + "&pointName=" + point.pointName + "&pointStartDate=" + startTime + "&pointEndDate=" + endTime + '&agencyId=' + that.data.agencyId
 			})
 		}
 	},

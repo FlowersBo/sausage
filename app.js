@@ -30,7 +30,7 @@ App({
     pageConfig = Object.assign({
       onShareAppMessage:function () {
         return {
-          title: 'Page自定义全局分享',
+          title: '合作商小程序',
           // imageUrl: '/public/img/cat.jpg',
           path: '/pages/login/login'
         };
