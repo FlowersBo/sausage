@@ -106,7 +106,7 @@
     </view>
     <view class="list" wx:if="{{pointsData}}">
       <block wx:for="{{pointsData}}" wx:key="list" wx:for-item="item">
-        <view class="list_item">
+        <view class="list_item {{index%2?'':'listStyle'}}">
           <view class="info box">
             <view class="title flex1 ">{{item.pointName?item.pointName:item.agencyName}}</view>
             <view class="price flex1 ">￥{{item.saleAmount}}</view>

@@ -130,7 +130,7 @@ Page({
 		charts: [],
 
 		pageIndex: 1,
-		pageSize: 4,
+		pageSize: 20,
 
 		pointsData: [],
 
@@ -461,12 +461,13 @@ Page({
 			} else {
 				that.setData({
 					statistics: '',
-					pointDetaillyDate: '请选择起始时间',
+					pointDetaillyDate: '请选择起始月份',
 					reportTotal: {
 						'销售额': `0元`,
 						'订单数': `0单`,
 						'销售量': `0根`
 					},
+					pointsData: []
 				})
 			}
 			that.pickerShow();
@@ -570,12 +571,13 @@ Page({
 			} else {
 				that.setData({
 					statistics: '',
-					pointDetaillyDate: '请选择起始时间',
+					pointDetaillyDate: '请选择起始月份',
 					reportTotal: {
 						'销售额': `0元`,
 						'订单数': `0单`,
 						'销售量': `0根`
 					},
+					pointsData: []
 				})
 			}
 			that.pickerShow();
@@ -803,17 +805,20 @@ Page({
 					cumulativeSales['累计销售额'] = `${resp.data.data.total.totalAmount}元`;
 					cumulativeSales['累计销售量'] = `${resp.data.data.total.totalCount}根`;
 					let pointTotal = resp.data.data.pointList.total;
+					this.setData({
+						reportTotal: reportTotal,
+						cumulativeSales: cumulativeSales,
+						pointTotal: pointTotal,
+					});
 					if ((that.data.pageSize * (pageIndex - 1)) >= pointTotal && pointTotal > 0) {
 						this.setData({
 							loadText: '已经到底了',
 						})
+						return
 					}
 					pointsData = pointsData.concat(resp.data.data.pointList.list);
 					this.setData({
-						reportTotal: reportTotal,
-						cumulativeSales: cumulativeSales,
 						pointsData: pointsData,
-						pointTotal: pointTotal,
 						pageIndex
 					});
 					if (that.data.pageSize * pageIndex >= pointTotal) {
@@ -923,7 +928,7 @@ Page({
 	bindReportDetaill: function (e) {
 		let point = e.currentTarget.dataset.point;
 		wx.navigateTo({
-			url: '../report_details/report_details?pointid=' + point.pointId + "&pointName=" + point.pointName+ '&agencyId=' + that.data.agencyId
+			url: '../report_details/report_details?pointid=' + point.pointId + "&pointName=" + point.pointName + '&agencyId=' + that.data.agencyId
 		})
 	},
 

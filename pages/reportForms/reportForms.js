@@ -130,7 +130,7 @@ Page({
 		charts: [],
 
 		pageIndex: 1,
-		pageSize: 4,
+		pageSize: 20,
 
 		pointsData: [],
 
@@ -330,12 +330,14 @@ Page({
 		let agencyId = options.agencyId,
 			reportGenre = options.reportGenre,
 			agencyName = options.agencyName;
+		let dateRange = parseInt('' + reportGenre + 0);
+		this.renderTransactionSummation(dateRange);
 		this.setData({
 			agencyId,
 			reportGenre,
-			agencyName
+			agencyName,
+			dateRange
 		})
-		this.renderTransactionSummation(that.data.dateRange);
 	},
 
 	// 切换销售日月报
@@ -413,12 +415,13 @@ Page({
 			} else {
 				that.setData({
 					statistics: '',
-					pointDetaillyDate: '请选择起始时间',
+					pointDetaillyDate: '请选择起始月份',
 					reportTotal: {
 						'销售额': `0元`,
 						'订单数': `0单`,
 						'销售量': `0根`
 					},
+					pointsData: []
 				})
 			}
 			that.pickerShow();
@@ -515,12 +518,13 @@ Page({
 			} else {
 				that.setData({
 					statistics: '',
-					pointDetaillyDate: '请选择起始时间',
+					pointDetaillyDate: '请选择起始月份',
 					reportTotal: {
 						'销售额': `0元`,
 						'订单数': `0单`,
 						'销售量': `0根`
 					},
+					pointsData: []
 				})
 			}
 			that.pickerShow();
@@ -621,6 +625,7 @@ Page({
 						this.setData({
 							loadText: '已经到底了',
 						})
+						return
 					}
 					pointsData = pointsData.concat(resp.data.data.saleList.list);
 					console.log('列表', pointsData);
@@ -670,17 +675,20 @@ Page({
 					cumulativeSales['累计销售额'] = `${resp.data.data.total.totalAmount}元`;
 					cumulativeSales['累计销售量'] = `${resp.data.data.total.totalCount}根`;
 					let pointTotal = resp.data.data.pointList.total;
+					this.setData({
+						reportTotal: reportTotal,
+						cumulativeSales: cumulativeSales,
+						pointTotal: pointTotal,
+					});
 					if ((that.data.pageSize * (pageIndex - 1)) >= pointTotal) {
 						this.setData({
 							loadText: '已经到底了',
 						})
+						return
 					}
 					pointsData = pointsData.concat(resp.data.data.pointList.list);
 					this.setData({
-						reportTotal: reportTotal,
-						cumulativeSales: cumulativeSales,
 						pointsData: pointsData,
-						pointTotal: pointTotal,
 						pageIndex
 					});
 					if (that.data.pageSize * pageIndex >= pointTotal) {
