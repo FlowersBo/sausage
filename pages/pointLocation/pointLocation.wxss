@@ -11,31 +11,33 @@
   flex-direction: row;
   width: 100%;
   height: 100rpx;
+  line-height: 100rpx;
   color: #333;
   border-radius: 10rpx;
   overflow: hidden;
   margin: 20rpx 0;
 }
 
-
-.nav_tab {
-  line-height: 100rpx;
-}
-
-.show {
-  flex: 1;
-  font-size: 28rpx;
-  color: #333333;
-  text-align: center;
-  background: #f8f8f8;
-}
-
-.hidden {
-  flex: 1;
+.nav_tab view{
   font-size: 28rpx;
   text-align: center;
-  color: #fff;
-  background: #f75910;
+  flex: 1;
+}
+.nav_tabchild{
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+.tabchild {
+  width: 180rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  border-radius: 10rpx;
+	font-size: 28rpx;
+	background: #f8f8f8;
 }
 
 .nav_underline {
@@ -45,6 +47,17 @@
   margin-left: 70rpx;
   border-radius: 8rpx;
   background: #ef9ba8;
+}
+
+.hidden {
+	color: #fff;
+	background: #f75910;
+}
+
+
+.show {
+  color: #333333;
+  background: #f8f8f8;
 }
 
 /* 日期 */

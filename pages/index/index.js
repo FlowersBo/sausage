@@ -184,10 +184,10 @@ Page({
 			endDate: true,
 			column: "second",
 			dateLimit: true,
-			initStartTime: "2022-01",
-			initEndTime: util.customFormatMonth(new Date),
-			// limitStartTime: "2021-01",
-			limitEndTime: util.customFormatMonth(new Date)
+			initStartTime: "2022-01-01",
+      // initEndTime: "2021-12",
+      limitStartTime: "2022-01-01",
+      // limitEndTime: "2021-12"
 		},
 		calendarConfig: {
 			theme: 'elegant',

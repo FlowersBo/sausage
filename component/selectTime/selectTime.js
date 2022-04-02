@@ -117,7 +117,7 @@ Component({
     // pickerShow:true
     // limitStartTime: new Date().getTime()-1000*60*60*24*30,
     // limitEndTime: new Date().getTime(),
-    yearStart: 2021,
+    yearStart: 2022,
     yearEnd: 2100,
     distance: 0
   },
@@ -168,7 +168,7 @@ Component({
         }
 
         this.setData({
-          yearStart: conf.yearStart || 2021,
+          yearStart: conf.yearStart || 2022,
           yearEnd: conf.yearEnd || 2100,
           endDate: conf.endDate || false,
           dateLimit: conf.dateLimit || false,
@@ -182,7 +182,11 @@ Component({
 
       let limitStartTimeArr = formatTime(limitStartTime);
       let limitEndTimeArr = formatTime(limitEndTime);
-
+      console.log(
+        limitStartTime,
+        limitStartTimeArr,
+        limitEndTime,
+        limitEndTimeArr);
       this.setData({
         limitStartTime,
         limitStartTimeArr,
@@ -578,6 +582,8 @@ Component({
           ":" +
           this.data.SecondList[pickerDateArr.secondIdx]
       });
+      console.log(this.data.startValue)
+
     },
     setEndDate: function (year, month, day, hour, minute, second) {
       let pickerDateArr = this.setPickerDateArr(

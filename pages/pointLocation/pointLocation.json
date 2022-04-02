@@ -3,6 +3,7 @@
   "enablePullDownRefresh": false,
   "usingComponents": {
     "selectTime": "../../component/selectTime/selectTime",
-    "ball":"../../component/ball/index"
+    "ball":"../../component/ball/index",
+    "pickerView": "../../component/pickerView/index"
   }
 }

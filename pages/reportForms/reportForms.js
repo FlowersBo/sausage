@@ -331,13 +331,14 @@ Page({
 			reportGenre = options.reportGenre,
 			agencyName = options.agencyName;
 		let dateRange = parseInt('' + reportGenre + 0);
-		this.renderTransactionSummation(dateRange);
+		console.log('当前agencyId',agencyId);
 		this.setData({
 			agencyId,
 			reportGenre,
 			agencyName,
 			dateRange
 		})
+		this.renderTransactionSummation(dateRange);
 	},
 
 	// 切换销售日月报

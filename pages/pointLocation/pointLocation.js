@@ -23,13 +23,15 @@ Page({
       endDate: true,
       column: "second",
       dateLimit: true,
-      initStartTime: "2021-01-01",
+      initStartTime: "2022-01-01",
       // initEndTime: "2021-12",
-      limitStartTime: "2021-01-01",
+      limitStartTime: "2022-01-01",
       // limitEndTime: "2021-12"
     },
-    pointGenres: ["点位排行榜", "自定义查询"],
+    pointGenres: ["城市排行榜", "点位排行榜", "自定义查询"],
+    tabchild: ['日期', '月份'],
     selected: 0,
+    selectedChild: 0,
     pointListItem: '', //点位列表
     date: util.customFormatTime(new Date()),
     reportDetail: {
@@ -46,24 +48,41 @@ Page({
     startMonth: '',
     endMonth: '',
     pointDetaillyDate: '',
-    ballList:[],
-		agencyId:''
+    ballList: [],
+    agencyId: ''
   },
+
+  // 单日月
+  dateTimeBody(e) {
+    this.setData({
+      date: e.detail,
+      startDate: e.detail,
+      endDate: e.detail,
+      pointDetaillyDate: e.detail,
+      oldStartDate: e.detail,
+      oldEndDate: e.detail,
+      pageNum: 1
+    })
+    that.rankingList();
+  },
+
+
+
   //组件监听选项
-	bindBallFn(e) {
-		wx.showToast({
-			title: '当前选择：'+e.detail.agencyName,
-			icon: 'none',
-			duration: 2000
-		});
-		wx.setStorageSync('agencySelect', e.detail.agencyId)
-		that.setData({
-			agencyId: e.detail.agencyId
-		})
+  bindBallFn(e) {
+    wx.showToast({
+      title: '当前选择：' + e.detail.agencyName,
+      icon: 'none',
+      duration: 2000
+    });
+    wx.setStorageSync('agencySelect', e.detail.agencyId)
+    that.setData({
+      agencyId: e.detail.agencyId
+    })
     that.rankingList();
     that.pointListItem();
   },
-  
+
   // 日期区间选择
   pickerShow: function (e) {
     let dateid = e.currentTarget.dataset.dateid;
@@ -129,7 +148,7 @@ Page({
     that.rankingList();
   },
 
-  // 切换tab
+  // 切换上边tab
   bindPointGenre: function (e) {
     let index = e.currentTarget.dataset.index;
     let reportDetail = that.data.reportDetail;
@@ -152,6 +171,13 @@ Page({
       })
       that.rankingList();
     } else if (index == 1) {
+      that.setData({
+        point: '',
+        selected: 1,
+        reportDetail,
+        pointList: [],
+      })
+    } else {
       if (reportDetail.titles.length < 4) {
         reportDetail.titles.push('明细');
         reportDetail.titleUrls.push('');
@@ -162,7 +188,7 @@ Page({
       } = that.data;
       that.setData({
         point: '',
-        selected: 1,
+        selected: 2,
         reportDetail,
         pointList: [],
         monthStartTime: '起始月份',
@@ -175,6 +201,24 @@ Page({
         pointDetaillyDate: that.data.oldStartDate,
       })
       that.rankingList();
+    }
+  },
+
+  selectedDateRange(e) {
+    that.setData({
+      propDate: true,
+    })
+    let index = e.currentTarget.dataset.index;
+    if (index === 0) {
+      that.setData({
+        isMonth: false,
+        selectedChild: 0
+      })
+    } else {
+      that.setData({
+        isMonth: true,
+        selectedChild: 1
+      })
     }
   },
 
@@ -213,62 +257,62 @@ Page({
     })
   },
 
-  // 日期选择
-  bindDateChange: function (e) {
-    let date = e.detail.value;
-    let currentDate = util.customFormatTime(date);
-    that.setData({
-      date,
-      startDate: date,
-      endDate: date,
-      pointDetaillyDate: date,
-      oldStartDate: date,
-      oldEndDate: date,
-      pageNum: 1
-    })
-    that.rankingList();
-  },
+  // // 日期选择
+  // bindDateChange: function (e) {
+  //   let date = e.detail.value;
+  //   let currentDate = util.customFormatTime(date);
+  //   that.setData({
+  //     date,
+  //     startDate: date,
+  //     endDate: date,
+  //     pointDetaillyDate: date,
+  //     oldStartDate: date,
+  //     oldEndDate: date,
+  //     pageNum: 1
+  //   })
+  //   that.rankingList();
+  // },
 
-  // 下一日
-  upJump: function (event) {
-    // let myDate = new Date().getTime();
-    // console.log('13位时间戳', myDate);
-    let date = that.data.date;
-    console.log(date);
-    let pointid = that.data.pointid;
-    let converedDate = new Date(Date.parse(date));
-    console.log('修改时间', converedDate);
-    converedDate.setDate(converedDate.getDate() + 1);
-    let currentDate = util.customFormatTime(converedDate);
-    that.setData({
-      date: currentDate,
-      startDate: currentDate,
-      endDate: currentDate,
-      oldStartDate: currentDate,
-      oldEndDate: currentDate,
-      pointDetaillyDate: currentDate,
-      pageNum: 1
-    })
-    that.rankingList();
-  },
+  // // 下一日
+  // upJump: function (event) {
+  //   // let myDate = new Date().getTime();
+  //   // console.log('13位时间戳', myDate);
+  //   let date = that.data.date;
+  //   console.log(date);
+  //   let pointid = that.data.pointid;
+  //   let converedDate = new Date(Date.parse(date));
+  //   console.log('修改时间', converedDate);
+  //   converedDate.setDate(converedDate.getDate() + 1);
+  //   let currentDate = util.customFormatTime(converedDate);
+  //   that.setData({
+  //     date: currentDate,
+  //     startDate: currentDate,
+  //     endDate: currentDate,
+  //     oldStartDate: currentDate,
+  //     oldEndDate: currentDate,
+  //     pointDetaillyDate: currentDate,
+  //     pageNum: 1
+  //   })
+  //   that.rankingList();
+  // },
 
-  ///上一日
-  lowerJump: function (event) {
-    let date = that.data.date;
-    let converedDate = new Date(Date.parse(date));
-    converedDate.setDate(converedDate.getDate() - 1);
-    let currentDate = util.customFormatTime(converedDate);
-    that.setData({
-      date: currentDate,
-      startDate: currentDate,
-      endDate: currentDate,
-      oldStartDate: currentDate,
-      oldEndDate: currentDate,
-      pointDetaillyDate: currentDate,
-      pageNum: 1
-    })
-    that.rankingList();
-  },
+  // ///上一日
+  // lowerJump: function (event) {
+  //   let date = that.data.date;
+  //   let converedDate = new Date(Date.parse(date));
+  //   converedDate.setDate(converedDate.getDate() - 1);
+  //   let currentDate = util.customFormatTime(converedDate);
+  //   that.setData({
+  //     date: currentDate,
+  //     startDate: currentDate,
+  //     endDate: currentDate,
+  //     oldStartDate: currentDate,
+  //     oldEndDate: currentDate,
+  //     pointDetaillyDate: currentDate,
+  //     pageNum: 1
+  //   })
+  //   that.rankingList();
+  // },
 
   // 销售额/销售量排序列表
   bindPointSort: function (e) {
@@ -318,7 +362,9 @@ Page({
   },
 
   async pointListItem() {
-    let data = {agencyId:that.data.agencyId};
+    let data = {
+      agencyId: that.data.agencyId
+    };
     let result = await (mClient.get(api.PointList, data));
     console.log('点位列表', result);
     if (result.data.code == 200) {
@@ -347,20 +393,21 @@ Page({
     // pointReportDate.setDate(pointReportDate.getDate() - 1); //昨日
     pointReportDate.setDate(pointReportDate.getDate()); //昨日
     pointReportDate = util.customFormatTime(pointReportDate);
+    console.log('初始时间',pointReportDate);
     that.setData({
       startDate: pointReportDate,
       endDate: pointReportDate,
       oldStartDate: pointReportDate,
       oldEndDate: pointReportDate,
       pointDetaillyDate: pointReportDate,
-      ballList:wx.getStorageSync('agencyList'),
-			agencyId:wx.getStorageSync('agencySelect')
+      // ballList: wx.getStorageSync('agencyList'),
+      // agencyId: wx.getStorageSync('agencySelect')
     })
     that.pointListItem();
-    that.rankingList();
+    // that.rankingList();
   },
 
-  async rankingList(pointList = []) {
+  async rankingList(pointList = [], pageNum = 1) {
     let {
       monthStartTime,
       monthEndTime,
@@ -371,7 +418,7 @@ Page({
       startMonth,
       endMonth
     } = that.data;
-    if (that.data.selected == 1) {
+    if (that.data.selected == 2) {
       if (todayStartTime != '起始日期') {
         monthStartTime = '';
         monthEndTime = '';
@@ -390,20 +437,24 @@ Page({
       todayEndTime = '';
       startDate = that.data.startDate;
       endDate = that.data.endDate;
+    } else if (that.data.selected == 1) {
+      monthStartTime = '';
+      monthEndTime = '';
+      todayStartTime = '';
+      todayEndTime = '';
+      startDate = that.data.startDate;
+      endDate = that.data.endDate;
     }
     let data = {
       pageNum: that.data.pageNum,
       pageSize: that.data.pageSize,
-      startDate,
-      endDate,
-      startMonth,
-      endMonth,
+      searchMonth,
+      searchDate,
       sortType: that.data.pointSort,
       pointId: that.data.pointId,
-      agencyId:that.data.agencyId
     };
-    let result = await (mClient.get(api.PointDefineSaleLis, data));
-    console.log('点位排行榜', result);
+    let result = await (mClient.get(api.CityBillboard, data));
+    console.log('城市/点位排行榜', result);
     //内容
     if (result.data.code == 200) {
       let reportTotal = result.data.data;
@@ -457,12 +508,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-		if (typeof this.getTabBar === 'function' && this.getTabBar()) {
-			this.getTabBar().setData({
-				selected: app.data.selected
-			})
-		}
-	},
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: app.data.selected
+      })
+    }
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

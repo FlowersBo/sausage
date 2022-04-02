@@ -106,5 +106,9 @@ module.exports = {
     CartCount: ApiRootUrl + "app/transfer/cartCount", //购物车数量
     CartList: ApiRootUrl + "app/transfer/cartList", //购物车列表
     DeleteCart: ApiRootUrl + "app/transfer/deleteCart", //购物车为零删除
-    
+
+    // 点位
+    CityBillboard: ApiRootUrl + "app/point/cityBillboard", //城市合作商排行
+    PointBillboard: ApiRootUrl + "app/point/pointBillboard", //点位排行/自定义查询
+    SelectPointItem: ApiRootUrl + "app/point/selectPointItem", //点位下拉数据
 }
