@@ -26,10 +26,11 @@ Page({
       initStartTime: "2022-01-01",
       // initEndTime: "2021-12",
       limitStartTime: "2022-01-01",
-      // limitEndTime: "2021-12"
+      // limitEndTime: "2021-12",
+      yearStart: "2021",
     },
     pointGenres: ["城市排行榜", "点位排行榜", "自定义查询"],
-    tabchild: ['日期', '月份'],
+    tabchild: ['日排行', '月排行'],
     selected: 0,
     selectedChild: 0,
     pointListItem: '', //点位列表
@@ -257,62 +258,62 @@ Page({
     })
   },
 
-  // // 日期选择
-  // bindDateChange: function (e) {
-  //   let date = e.detail.value;
-  //   let currentDate = util.customFormatTime(date);
-  //   that.setData({
-  //     date,
-  //     startDate: date,
-  //     endDate: date,
-  //     pointDetaillyDate: date,
-  //     oldStartDate: date,
-  //     oldEndDate: date,
-  //     pageNum: 1
-  //   })
-  //   that.rankingList();
-  // },
+  // 日期选择
+  bindDateChange: function (e) {
+    let date = e.detail.value;
+    let currentDate = util.customFormatTime(date);
+    that.setData({
+      date,
+      startDate: date,
+      endDate: date,
+      pointDetaillyDate: date,
+      oldStartDate: date,
+      oldEndDate: date,
+      pageNum: 1
+    })
+    that.rankingList();
+  },
 
-  // // 下一日
-  // upJump: function (event) {
-  //   // let myDate = new Date().getTime();
-  //   // console.log('13位时间戳', myDate);
-  //   let date = that.data.date;
-  //   console.log(date);
-  //   let pointid = that.data.pointid;
-  //   let converedDate = new Date(Date.parse(date));
-  //   console.log('修改时间', converedDate);
-  //   converedDate.setDate(converedDate.getDate() + 1);
-  //   let currentDate = util.customFormatTime(converedDate);
-  //   that.setData({
-  //     date: currentDate,
-  //     startDate: currentDate,
-  //     endDate: currentDate,
-  //     oldStartDate: currentDate,
-  //     oldEndDate: currentDate,
-  //     pointDetaillyDate: currentDate,
-  //     pageNum: 1
-  //   })
-  //   that.rankingList();
-  // },
+  // 下一日
+  upJump: function (event) {
+    // let myDate = new Date().getTime();
+    // console.log('13位时间戳', myDate);
+    let date = that.data.date;
+    console.log(date);
+    let pointid = that.data.pointid;
+    let converedDate = new Date(Date.parse(date));
+    console.log('修改时间', converedDate);
+    converedDate.setDate(converedDate.getDate() + 1);
+    let currentDate = util.customFormatTime(converedDate);
+    that.setData({
+      date: currentDate,
+      startDate: currentDate,
+      endDate: currentDate,
+      oldStartDate: currentDate,
+      oldEndDate: currentDate,
+      pointDetaillyDate: currentDate,
+      pageNum: 1
+    })
+    that.rankingList();
+  },
 
-  // ///上一日
-  // lowerJump: function (event) {
-  //   let date = that.data.date;
-  //   let converedDate = new Date(Date.parse(date));
-  //   converedDate.setDate(converedDate.getDate() - 1);
-  //   let currentDate = util.customFormatTime(converedDate);
-  //   that.setData({
-  //     date: currentDate,
-  //     startDate: currentDate,
-  //     endDate: currentDate,
-  //     oldStartDate: currentDate,
-  //     oldEndDate: currentDate,
-  //     pointDetaillyDate: currentDate,
-  //     pageNum: 1
-  //   })
-  //   that.rankingList();
-  // },
+  ///上一日
+  lowerJump: function (event) {
+    let date = that.data.date;
+    let converedDate = new Date(Date.parse(date));
+    converedDate.setDate(converedDate.getDate() - 1);
+    let currentDate = util.customFormatTime(converedDate);
+    that.setData({
+      date: currentDate,
+      startDate: currentDate,
+      endDate: currentDate,
+      oldStartDate: currentDate,
+      oldEndDate: currentDate,
+      pointDetaillyDate: currentDate,
+      pageNum: 1
+    })
+    that.rankingList();
+  },
 
   // 销售额/销售量排序列表
   bindPointSort: function (e) {
@@ -393,7 +394,7 @@ Page({
     // pointReportDate.setDate(pointReportDate.getDate() - 1); //昨日
     pointReportDate.setDate(pointReportDate.getDate()); //昨日
     pointReportDate = util.customFormatTime(pointReportDate);
-    console.log('初始时间',pointReportDate);
+    console.log('初始时间', pointReportDate);
     that.setData({
       startDate: pointReportDate,
       endDate: pointReportDate,

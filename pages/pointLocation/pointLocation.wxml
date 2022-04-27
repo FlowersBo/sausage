@@ -11,26 +11,27 @@
       {{item}}
     </view>
   </view>
-  <pickerView class="listss" propDate="{{propDate}}" isMonth="{{isMonth}}"
-    bind:dateTimeBody="dateTimeBody" />
-  <!-- <view class="timeWrap" wx:if="{{selected==0}}"> -->
-  <!-- <view class="anniu" data-item="0" bindtap="lowerJump">
+  <pickerView class="listss" propDate="{{propDate}}" isMonth="{{isMonth}}" bind:dateTimeBody="dateTimeBody" />
+  <view class="timeWrap" wx:if="{{selected==0}}">
+    <icon class="iconfont icon-backwardcyclyo" bindtap="lowerJump"></icon>
+    <!-- <view class="anniu" data-item="0" bindtap="lowerJump">
       <image class="lt" src="../../assets/img/lt.png" mode="aspectFit"></image>
       上一日
     </view> -->
-  <!-- <view class="cellWrap">
+    <view class="cellWrap">
       <mp-cell class="cell" prop="date" title="日期">
         <picker data-field="date" mode="date" value="{{date}}" bindchange="bindDateChange">
           <view class="weui-input">{{date}}</view>
         </picker>
         <image class="timg" src="../../assets/img/timg.png" alt="" mode="aspectFit" />
       </mp-cell>
-    </view> -->
-  <!-- <view class="anniu" data-item="0" bindtap="upJump">
+    </view>
+    <!-- <view class="anniu" data-item="0" bindtap="upJump">
       下一日
       <image class="lt" src="../../assets/img/gt.png" mode="aspectFit"></image>
     </view> -->
-  <!-- </view> -->
+    <icon class="iconfont icons icon-backwardcyclyo" bindtap="upJump"></icon>
+  </view>
   <view class="time_point" wx:if="{{selected===2}}">
     <view class="pointWrap">
       <view class="titles">点位：</view>

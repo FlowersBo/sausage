@@ -1,4 +1,5 @@
 /* pages/pointLocation/pointLocation.wxss */
+@import '/iconCss/icon.wxss';
 .pointLocation {
   width: 97%;
   margin: 0 auto;
@@ -16,6 +17,7 @@
   border-radius: 10rpx;
   overflow: hidden;
   margin: 20rpx 0;
+  font-weight: bold;
 }
 
 .nav_tab view{
@@ -27,19 +29,25 @@
   width: 60%;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin-bottom: 20rpx;
 }
 .tabchild {
-  width: 180rpx;
-  height: 60rpx;
-  line-height: 60rpx;
+  width: 200rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   text-align: center;
-  border-radius: 10rpx;
+  /* border-radius: 10rpx; */
 	font-size: 28rpx;
-	background: #f8f8f8;
+  background: #f8f8f8;
+  font-weight: bold;
 }
-
+.tabchild:first-child{
+  border-radius: 10rpx 0 0 10rpx;
+}
+.tabchild:last-child{
+  border-radius: 0 10rpx 10rpx 0;
+}
 .nav_underline {
   width: 54rpx;
   height: 6rpx;
@@ -54,7 +62,6 @@
 	background: #f75910;
 }
 
-
 .show {
   color: #333333;
   background: #f8f8f8;
@@ -62,10 +69,13 @@
 
 /* 日期 */
 .timeWrap {
+  width: 60%;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-bottom: 20rpx;
-  border-bottom: 1rpx solid #c9c9c9;
+  /* border-bottom: 1rpx solid #c9c9c9; */
 }
 
 .cellWrap {
@@ -82,6 +92,14 @@
 
 .cellWrap .cell {
   width: 100%;
+}
+.icon-backwardcyclyo{
+  font-size: 60rpx;
+  color: rgb(110, 110, 110);
+}
+
+.icons{
+  transform: rotate(180deg);
 }
 
 .cell picker {

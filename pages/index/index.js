@@ -185,6 +185,7 @@ Page({
 			column: "second",
 			dateLimit: true,
 			initStartTime: "2022-01-01",
+			yearStart:"2021",
       // initEndTime: "2021-12",
       limitStartTime: "2022-01-01",
       // limitEndTime: "2021-12"
