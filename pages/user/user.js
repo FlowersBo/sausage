@@ -75,7 +75,7 @@ Page({
     mClient.PostIncludeData(api.Essential, data)
       .then(resp => {
         console.log('余额收入', resp);
-        if (resp.data.code == 0) {
+        if (resp.data.code == 200) {
           wx.setStorageSync('bizUserId', resp.data.data.bizUserId);
           that.setData({
             result: resp.data.data

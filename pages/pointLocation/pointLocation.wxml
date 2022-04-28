@@ -11,8 +11,8 @@
       {{item}}
     </view>
   </view>
-  <pickerView class="listss" propDate="{{propDate}}" isMonth="{{isMonth}}" bind:dateTimeBody="dateTimeBody" />
-  <view class="timeWrap" wx:if="{{selected==0}}">
+  <!-- <pickerView class="listss" propDate="{{propDate}}" isMonth="{{isMonth}}" bind:dateTimeBody="dateTimeBody" /> -->
+  <view class="timeWrap" wx:if="{{selected!==2}}">
     <icon class="iconfont icon-backwardcyclyo" bindtap="lowerJump"></icon>
     <!-- <view class="anniu" data-item="0" bindtap="lowerJump">
       <image class="lt" src="../../assets/img/lt.png" mode="aspectFit"></image>
@@ -20,7 +20,7 @@
     </view> -->
     <view class="cellWrap">
       <mp-cell class="cell" prop="date" title="日期">
-        <picker data-field="date" mode="date" value="{{date}}" bindchange="bindDateChange">
+        <picker data-field="date" fields="{{fields}}" mode="date" value="{{date}}" bindchange="bindDateChange">
           <view class="weui-input">{{date}}</view>
         </picker>
         <image class="timg" src="../../assets/img/timg.png" alt="" mode="aspectFit" />
@@ -85,10 +85,10 @@
     <block wx:for="{{pointList}}" wx:key="list" wx:for-item="item">
       <view class="list_item">
         <view class="info box">
-          <view class="title flex1 ">{{item.pointName}}</view>
+          <view class="title flex1 ">{{selected==0?item.cityName:item.pointName}}</view>
           <view class="price flex1 ">￥{{item.saleAmount}}</view>
           <view class="num flex1 ">{{item.productCount}}</view>
-          <view wx:if="{{selected==1}}" class="report_details flex1" bindtap="bindDetail" data-point="{{item.pointId}}">
+          <view wx:if="{{selected==2}}" class="report_details flex1" bindtap="bindDetail" data-point="{{item.pointId}}">
             <view class="detail-btn">明细</view>
           </view>
         </view>

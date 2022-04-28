@@ -18,6 +18,37 @@ const customFormatTime = date => {
   return [year, month, day].map(formatNumber).join('-');
 }
 
+const addMonth = (currentDate, date) => {
+  currentDate = new Date(currentDate); // 将日期格式转换为 Mon Apr 01 2019 08:00:00 GMT+0800 (中国标准时间)
+  if (date != 'add') { // 月份加
+    // 月份加一
+    let lastDate = currentDate.setMonth(currentDate.getMonth() - 1); // 输出日期格式为毫秒形式1551398400000
+
+    lastDate = new Date(lastDate);
+    let lastYear = lastDate.getFullYear();
+    let lastMonth = checkMonth(lastDate.getMonth() + 1); // 因日期中的月份表示为0-11，所以要显示正确的月份，需要 + 1
+
+    lastDate = lastYear + '-' + lastMonth; // "2019-03"
+    return lastDate
+  } else { // 月份减一
+    let nextDate = currentDate.setMonth(currentDate.getMonth() + 1); // 输出日期格式为毫秒形式1556668800000
+
+    nextDate = new Date(nextDate);
+    let nextYear = nextDate.getFullYear();
+    let nextMonth = checkMonth(nextDate.getMonth() + 1); // 因日期中的月份表示为0-11，所以要显示正确的月份，需要 + 1
+
+    nextDate = nextYear + '-' + nextMonth; // "2019-05"
+    return nextDate
+  }
+}
+
+function checkMonth(i) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  return i;
+};
+
 const customFormatMonth = date => {
   let converedDate = new Date(Date.parse(date));
   const year = converedDate.getFullYear();
@@ -112,5 +143,6 @@ module.exports = {
   customFormatOnlyMonthDay: customFormatOnlyMonthDay,
   customFormatOnlyMonth: customFormatOnlyMonth,
   timestampToTimeLong: timestampToTimeLong,
-  setWatcher: setWatcher
+  setWatcher: setWatcher,
+  addMonth
 }
