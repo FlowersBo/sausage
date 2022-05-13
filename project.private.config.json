@@ -1,136 +1,21 @@
 {
-  "setting": {},
+  "setting": {
+    "compileHotReLoad": true,
+    "urlCheck": false
+  },
   "condition": {
-    "plugin": {
-      "list": []
-    },
-    "game": {
-      "list": []
-    },
-    "gamePlugin": {
-      "list": []
-    },
     "miniprogram": {
       "list": [
-        {
-          "name": "我的",
-          "pathName": "pages/user/user",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "认证第一步",
-          "pathName": "pages/authentication/authentication",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "认证第三步",
-          "pathName": "pages/bankCard/bankCard",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "钱包",
-          "pathName": "pages/user/wallet/wallet",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "收支明细",
-          "pathName": "pages/user/wallet/myMoney/myMoney",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "绑定手机号",
-          "pathName": "pages/user/wallet/bindingPhone/bindingPhone",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "绑定银行卡",
-          "pathName": "pages/user/wallet/bindingBank/bindingBank",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "设置密码",
-          "pathName": "pages/user/wallet/paymentPassword/paymentPassword",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "跳转小程序",
-          "pathName": "pages/authentication/authentication",
-          "query": "",
-          "scene": 1037,
-          "referrerInfo": {
-            "appId": "wxc46c6d2eed27ca0a",
-            "extraData": "{\"targetUrl\":\"https://test.allinpay.com/op/gateway?charset=utf-8&method=allinpay.yunst.memberService.signContract&appAuthToken=&appId=1581648210684&bizContent=%7B%22bizUserId%22%3A%221376417542351880192%22%2C%22jumpPageType%22%3A%222%22%2C%22jumpUrl%22%3A%22%22%2C%22backUrl%22%3A%22https%3A%2F%2Fw3.morninggo.cn%2Fallinpay%2Fback%2FsignContract%22%2C%22noContractUrl%22%3A%22%22%2C%22source%22%3A%221%22%7D&format=JSON&sign=MFxVMtOnAhGEpaKIwr6FW8uI0Y%2FS6qjxXIoW0eMD2FRJxgl32KsyZA0sZ4uLS92RU%2B3xcEsHAaK90sMesGZBYftM7xgHGeJPFOhBeCkCGUif6eFOgpIHfiL2%2BFMns1fmcl8HLt2BARP7GcwvyGD5Ccnvmstlf4YxiOouwCJ5Grk%3D&notifyUrl=&signType=SHA256WithRSA&version=1.0&timestamp=2021-03-29+15%3A18%3A55\"}"
-          }
-        },
-        {
-          "name": "修改手机号",
-          "pathName": "pages/user/wallet/modificationPhone/modificationPhone",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "测试",
-          "pathName": "pages/test/test",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "报表",
-          "pathName": "pages/index/index",
-          "query": "",
-          "scene": null
-        },
         {
           "name": "点位",
           "pathName": "pages/pointLocation/pointLocation",
           "query": "",
-          "scene": null
-        },
-        {
-          "name": "商品",
-          "pathName": "pages/commodity/commodity",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "订单详情",
-          "pathName": "pages/order_details/order_details",
-          "query": "id=110121010003211018172551&orderDate=2021-10-18%2017%3A25%3A51&isSuccessfulTransaction=0",
-          "scene": null
-        },
-        {
-          "name": "废弃分析",
-          "pathName": "pages/pointWaste/pointWaste",
-          "query": "pointId=1433700746515185664&pointStartDate=2021-10-19&pointEndDate=2021-10-19",
-          "scene": null
-        },
-        {
-          "name": "订货",
-          "pathName": "pages/order_goods/order_goods",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "购物车",
-          "pathName": "pages/shopping_cart/shopping_cart",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "二级报表",
-          "pathName": "pages/reportForms/reportForms",
-          "query": "agencyId=1433698235209220097&reportGenre=0",
+          "launchMode": "default",
           "scene": null
         }
       ]
     }
-  }
+  },
+  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+  "projectname": "sausage"
 }

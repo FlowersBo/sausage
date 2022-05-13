@@ -1,14 +1,12 @@
 <!--index.wxml-->
 <view class="homePage">
   <view class="nav_tab">
-    <view wx:for="{{info.reportGenres}}" wx:key="index" class="{{reportGenre==index?'hidden':'show'}}"
-      data-index="{{index}}" bindtap="selectedReportGenres">
+    <view wx:for="{{info.reportGenres}}" wx:key="index" class="{{reportGenre==index?'hidden':'show'}}" data-index="{{index}}" bindtap="selectedReportGenres">
       {{item}}
     </view>
   </view>
   <view class="nav_tab nav_tabchild">
-    <view class="{{dateRangeindex==index?'hidden':'show'}}" wx:for="{{info.dateRange[reportGenre]}}" wx:key="index"
-      data-index="{{index}}" bindtap="selectedDateRange">
+    <view class="{{dateRangeindex==index?'hidden':'show'}}" wx:for="{{info.dateRange[reportGenre]}}" wx:key="index" data-index="{{index}}" bindtap="selectedDateRange">
       {{item}}
     </view>
   </view>
@@ -19,8 +17,7 @@
       <view>{{monthStartTime}}<text> 至 </text>{{monthEndTime}}</view>
       <image class="page-date-img" src="../../assets/img/timg.png"></image>
     </view> -->
-    <selectTime pickerShow="{{isPickerShow}}" distance="70" id="picker" wx:if="{{isPickerRender}}"
-      bind:hidePicker="pickerHide" bind:setPickerTime="setPickerTime" config="{{pickerConfig}}"></selectTime>
+    <selectTime pickerShow="{{isPickerShow}}" distance="70" id="picker" wx:if="{{isPickerRender}}" bind:hidePicker="pickerHide" bind:setPickerTime="setPickerTime" config="{{pickerConfig}}"></selectTime>
   </view>
 
   <!-- 单日/月选择 -->
@@ -32,9 +29,7 @@
   <view class="ballWindow" animation="{{animationData}}">
     <view class="ballWindow-btn" bindtap="cancelWindowFn">取消</view>
     <view class="xlCalendar">
-      <calendar id="calendar" config="{{calendarConfig}}" bind:onSwipe="onSwipe" bind:whenChangeWeek="whenChangeWeek"
-        bind:whenChangeMonth="whenChangeMonth" bind:takeoverTap="takeoverTap" bind:afterTapDate="afterTapDate"
-        bind:afterCalendarRender="afterCalendarRender"></calendar>
+      <calendar id="calendar" config="{{calendarConfig}}" bind:onSwipe="onSwipe" bind:whenChangeWeek="whenChangeWeek" bind:whenChangeMonth="whenChangeMonth" bind:takeoverTap="takeoverTap" bind:afterTapDate="afterTapDate" bind:afterCalendarRender="afterCalendarRender"></calendar>
     </view>
   </view>
 
@@ -111,12 +106,10 @@
             <view class="title flex1 ">{{item.pointName?item.pointName:item.agencyName}}</view>
             <view class="price flex1 ">￥{{item.saleAmount}}</view>
             <view class="num flex1 ">{{item.productCount}}</view>
-            <view wx:if="{{!isIds&&dateRange==0}}" class="report_details flex1" bindtap="bindReportDetaill"
-              data-point="{{item}}">
+            <view wx:if="{{!isIds&&dateRange==0}}" class="report_details flex1" bindtap="bindReportDetaill" data-point="{{item}}">
               <image src="../../assets/img/baobiao.png" mode="scaleToFill"></image>
             </view>
-            <view wx:elif="{{isIds||dateRange==1}}" class="report_details flex1" bindtap="bindDetail"
-              data-point="{{item}}">
+            <view wx:elif="{{isIds||dateRange==1}}" class="report_details flex1" bindtap="bindDetail" data-point="{{item}}">
               <view class="detail-btn">明细</view>
             </view>
           </view>

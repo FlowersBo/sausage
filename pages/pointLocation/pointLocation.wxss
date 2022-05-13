@@ -1,5 +1,6 @@
 /* pages/pointLocation/pointLocation.wxss */
 @import '/iconCss/icon.wxss';
+
 .pointLocation {
   width: 97%;
   margin: 0 auto;
@@ -20,34 +21,39 @@
   font-weight: bold;
 }
 
-.nav_tab view{
+.nav_tab view {
   font-size: 28rpx;
   text-align: center;
   flex: 1;
 }
-.nav_tabchild{
+
+.nav_tabchild {
   width: 60%;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   margin-bottom: 20rpx;
 }
+
 .tabchild {
   width: 200rpx;
   height: 80rpx;
   line-height: 80rpx;
   text-align: center;
   /* border-radius: 10rpx; */
-	font-size: 28rpx;
+  font-size: 28rpx;
   background: #f8f8f8;
   font-weight: bold;
 }
-.tabchild:first-child{
+
+.tabchild:first-child {
   border-radius: 10rpx 0 0 10rpx;
 }
-.tabchild:last-child{
+
+.tabchild:last-child {
   border-radius: 0 10rpx 10rpx 0;
 }
+
 .nav_underline {
   width: 54rpx;
   height: 6rpx;
@@ -58,8 +64,8 @@
 }
 
 .hidden {
-	color: #fff;
-	background: #f75910;
+  color: #fff;
+  background: #f75910;
 }
 
 .show {
@@ -93,12 +99,13 @@
 .cellWrap .cell {
   width: 100%;
 }
-.icon-backwardcyclyo{
+
+.icon-backwardcyclyo {
   font-size: 60rpx;
   color: rgb(110, 110, 110);
 }
 
-.icons{
+.icons {
   transform: rotate(180deg);
 }
 
@@ -193,50 +200,54 @@
   width: 120rpx;
 }
 
-.detail-btn{
-	width: 80rpx;
-	height: 40rpx;
-	line-height: 40rpx;
-	text-align: center;
-	font-size: 20rpx;
-	border-radius: 6rpx;
-	border: 1rpx solid #dadada;
-	background-color: #eee;
-	color: #333;
-	margin-left: 10rpx;
+.detail-btn {
+  width: 80rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: center;
+  font-size: 20rpx;
+  border-radius: 6rpx;
+  border: 1rpx solid #dadada;
+  background-color: #eee;
+  color: #333;
+  margin-left: 10rpx;
 }
 
 /* 点位选择 */
-.time_point{
+.time_point {
   width: 97%;
   margin: 0 auto;
 }
-.titles{
+
+.titles {
   font-size: 30rpx;
 }
+
 .pointWrap {
   display: flex;
   align-items: center;
   margin: 20rpx 0;
 }
-.point{
+
+.point {
   height: 60rpx;
-  border-radius: 30rpx;
+  border-radius: 10rpx;
   border: 1rpx solid #ccc;
   font-size: 24rpx;
   position: relative;
+  margin-right: 80rpx;
 }
 
-.picker{
+.picker {
   height: 100%;
   box-sizing: border-box;
   padding: 0 70rpx 0 16rpx;
   line-height: 60rpx;
 }
 
-.point_timg{
-  position:absolute;
-  top: 6rpx;
+.point_timg {
+  position: absolute;
+  top: 8rpx;
   right: 4rpx;
   width: 50rpx;
   height: 48rpx;
@@ -247,44 +258,112 @@
 
 
 /* 月区间 */
-.pickerWrap{
+.pickerWrap {
   width: 100%;
   display: flex;
   align-items: center;
-	margin-bottom: 20rpx;
+  margin-bottom: 20rpx;
 }
-.page-date{
-	width: 400rpx;
-	height: 60rpx;
-	border: 1rpx solid #ddd;
-	border-radius: 30rpx;
-	text-align: center;
-	line-height: 60rpx;
-	background: #fff;
-	color: #333;
-	font-size: 24rpx;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	box-sizing: border-box;
-	padding: 0 16rpx;
+
+.page-date {
+  width: 400rpx;
+  height: 60rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 30rpx;
+  text-align: center;
+  line-height: 60rpx;
+  background: #fff;
+  color: #333;
+  font-size: 24rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 16rpx;
 }
-.page-date-img{
-	width: 50rpx;
-	height: 48rpx;
-	margin-top: 4rpx;
+
+.page-date-img {
+  width: 50rpx;
+  height: 48rpx;
+  margin-top: 4rpx;
 }
+
 /* 点位明细 */
 .detail {
-	margin: 20rpx 0 0;
-	padding: 15rpx;
-	border-radius: 10rpx;
-	background: #f8f8f8;
-	text-align: center;
+  margin: 20rpx 0 0;
+  padding: 15rpx;
+  border-radius: 10rpx;
+  background: #f8f8f8;
+  text-align: center;
 }
 
 .explain {
-	display: inline-block;
-	font-size: 30rpx;
-	font-weight: bold;
+  display: inline-block;
+  font-size: 30rpx;
+  font-weight: bold;
+}
+
+/* 小历日历 */
+.calendarWrap {
+  max-width: 360rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  border-radius: 10rpx;
+  position: relative;
+  border: 1rpx solid #ccc;
+  font-size: 24rpx;
+  box-sizing: border-box;
+  padding: 0 10rpx;
+}
+
+.xlCalendarWrap {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, .6);
+}
+
+.ballWindow {
+  width: 100%;
+  height: 720rpx;
+  position: fixed;
+  bottom: -720rpx;
+  left: 0;
+  background: #fff;
+  border-radius: 30rpx 30rpx 0 0;
+  z-index: 1000;
+}
+
+.ballWindow-btn {
+  width: 100%;
+  height: 70rpx;
+  text-align: right;
+  line-height: 70rpx;
+  box-sizing: border-box;
+  padding-right: 30rpx;
+  color: rgb(216, 179, 12);
+}
+
+.xlCalendar {
+  width: 100%;
+  height: 640rpx;
+  box-sizing: border-box;
+  padding: 0 40rpx;
+  background: #fff;
+  overflow: hidden;
+  position: absolute;
+  bottom: 6rpx;
+  left: 0;
+  z-index: 1000;
+}
+
+.homePage {
+  padding-bottom: 150rpx;
+}
+
+.listStyle {
+  background: #f8f8f8;
 }

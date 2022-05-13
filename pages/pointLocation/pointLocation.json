@@ -1,9 +1,9 @@
 {
   "navigationBarTitleText": "点位",
-  "enablePullDownRefresh": false,
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "selectTime": "../../component/selectTime/selectTime",
-    "ball":"../../component/ball/index",
-    "pickerView": "../../component/pickerView/index"
+    "pickerView": "../../component/pickerView/index",
+    "calendar": "../../component/v2/index"
   }
 }

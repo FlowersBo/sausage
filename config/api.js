@@ -111,4 +111,7 @@ module.exports = {
     CityBillboard: ApiRootUrl + "app/point/cityBillboard", //城市点位排行
     PointBillboard: ApiRootUrl + "app/point/pointBillboard", //点位排行/自定义查询
     SelectPointItem: ApiRootUrl + "app/point/selectPointItem", //点位下拉数据
+    SelectCityItem: ApiRootUrl + "app/point/selectCityItem", //用户城市下拉框数据
+    SelectAgencyItem: ApiRootUrl + "app/point/selectAgencyItem", //城市合作商下拉框数据
+    PointCustomize: ApiRootUrl + "app/point/pointCustomize", //自定义排行
 }

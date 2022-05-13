@@ -1,13 +1,11 @@
 <!--pages/pointLocation/pointLocation.wxml-->
 <view class="pointLocation">
   <view class="nav_tab">
-    <view wx:for="{{pointGenres}}" wx:key="index" class="{{selected==index?'hidden':'show'}}" data-index="{{index}}"
-      bindtap="bindPointGenre">
+    <view wx:for="{{pointGenres}}" wx:key="index" class="{{selected==index?'hidden':'show'}}" data-index="{{index}}" bindtap="bindPointGenre">
       {{item}}</view>
   </view>
   <view wx:if="{{selected==0||selected==1}}" class="nav_tabchild">
-    <view class="tabchild {{selectedChild==index?'hidden':'show'}}" wx:for="{{tabchild}}" data-index="{{index}}"
-      wx:key="index" bindtap="selectedDateRange">
+    <view class="tabchild {{selectedChild==index?'hidden':'show'}}" wx:for="{{tabchild}}" data-index="{{index}}" wx:key="index" bindtap="selectedDateRange">
       {{item}}
     </view>
   </view>
@@ -34,25 +32,44 @@
   </view>
   <view class="time_point" wx:if="{{selected===2}}">
     <view class="pointWrap">
-      <view class="titles">点位：</view>
       <view class="point">
-        <picker bindchange="bindPickerChange" value="{{index}}" range="{{pointListItem}}" range-key='PointName'>
+        <picker bindchange="bindPickerChange" data-index="0" value="{{index}}" range="{{cityItem}}" range-key='regionName'>
           <view class="picker">
-            {{pointListItem[index].PointName?pointListItem[index].PointName:'点位选择'}}
+            {{cityItem[cityIndex].regionName?cityItem[cityIndex].regionName:'城市'}}
+          </view>
+        </picker>
+        <image class="point_timg" src="../../assets/img/timg.png" alt="" mode="aspectFit" />
+      </view>
+
+      <view class="point">
+        <picker bindchange="bindPickerChange" data-index="1" value="{{index}}" range="{{agencyItem}}" range-key='agencyname'>
+          <view class="picker">
+            {{agencyItem[agencyIndex].agencyname?agencyItem[agencyIndex].agencyname:'合作商'}}
           </view>
         </picker>
         <image class="point_timg" src="../../assets/img/timg.png" alt="" mode="aspectFit" />
       </view>
     </view>
-
-    <view class="pickerWrap">
+    <view class="calendarWrap" bindtap="calendarFn">
+    {{startTime?startTime+'~'+endTime:'日期范围查询'}}
+      <image class="point_timg" src="../../assets/img/timg.png" alt="" mode="aspectFit" />
+    </view>
+    <view wx:if="{{isShow}}" class="xlCalendarWrap" catchtap="cancelWindowFn">
+    </view>
+    <view class="ballWindow" animation="{{animationData}}">
+      <view class="ballWindow-btn" bindtap="cancelWindowFn">取消</view>
+      <view class="xlCalendar">
+        <calendar id="calendar" config="{{calendarConfig}}" bind:onSwipe="onSwipe" bind:whenChangeWeek="whenChangeWeek" bind:whenChangeMonth="whenChangeMonth" bind:takeoverTap="takeoverTap" bind:afterTapDate="afterTapDate" bind:afterCalendarRender="afterCalendarRender"></calendar>
+      </view>
+    </view>
+    <!-- <view class="pickerWrap">
       <view class="titles">日查询：</view>
       <view class="page-date" data-dateid="0" bindtap="pickerShow">
         <view>{{todayStartTime}}<text> 至 </text>{{todayEndTime}}</view>
         <image class="page-date-img" src="../../assets/img/timg.png"></image>
       </view>
-      <!-- <selectTime pickerShow="{{isPickerShow}}" isDate="{{isDate}}" id="picker" wx:if="{{isPickerRender}}"
-        bind:hidePicker="pickerHide" bind:setPickerTime="setMonthPickerTime" config="{{pickerConfig}}"></selectTime> -->
+      <selectTime pickerShow="{{isPickerShow}}" isDate="{{isDate}}" id="picker" wx:if="{{isPickerRender}}"
+        bind:hidePicker="pickerHide" bind:setPickerTime="setMonthPickerTime" config="{{pickerConfig}}"></selectTime>
     </view>
 
     <view class="pickerWrap">
@@ -63,14 +80,14 @@
       </view>
       <selectTime pickerShow="{{isPickerShow}}" distance="70" isDate="{{isDate}}" id="picker" wx:if="{{isPickerRender}}"
         bind:hidePicker="pickerHide" bind:setPickerTime="setMonthPickerTime" config="{{pickerConfig}}"></selectTime>
-    </view>
+    </view> -->
   </view>
 
 
 
   <view class="detail" wx:if="{{selected==1}}">
     <view class="explain">
-      点位累计销售明细(<text>{{pointDetaillyDate}}</text>)
+      点位累计销售明细(<text>{{date}}</text>)
     </view>
   </view>
   <view class="tabTit box">
