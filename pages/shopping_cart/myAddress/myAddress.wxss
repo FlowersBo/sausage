@@ -1,0 +1,16 @@
+/* pages/shopping_cart/myAddress/myAddress.wxss */
+.myAddress{
+  width: 97%;
+  margin: 0 auto;
+}
+.addressChild{
+  width: 100%;
+  border-radius: 20rpx;
+  height: 150rpx;
+  margin: 30rpx 0;
+  background: #eee;
+  box-sizing: border-box;
+  padding: 20rpx;
+  display: flex;
+  align-items: center;
+}

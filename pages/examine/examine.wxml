@@ -1,0 +1,42 @@
+<!--pages/examine/examine.wxml-->
+<view>
+	<!-- 日期选择 -->
+	<!-- <view class="con">
+		<mp-cell prop="date" title="日期">
+			<picker data-field="date" mode="date" value="{{searchDate}}" bindchange="bindDateChange">
+				<view class="weui-input">{{searchDate}}</view>
+			</picker>
+			<image src="../../assets/img/timg.png" alt="" mode="aspectFit" />
+		</mp-cell>
+	</view> -->
+	<view class="nav_after">
+		<view class="afterItem" wx:for="{{navAfter}}" wx:key="index">
+			<view class="nav_item">{{item}}</view>
+		</view>
+	</view>
+	<view class="nav_tab">
+		<view wx:for="{{orderGenres}}" wx:key="index" class="{{selected==index?'hidden':'show'}}" data-index="{{index}}"
+			bindtap="bindOrderGenre">
+			{{item}}</view>
+	</view>
+	<!-- tab框显示内容 -->
+	<view class="tab_data">
+		<view class="list" wx:for="{{orderList}}" wx:key="list" wx:for-item="item" data-index="{{index}}"
+			bindtap="bindOrderDetail">
+			<view class="list_tit">
+				<view class="right {{item.isSuccessfulTransaction===1?'':'nosuc'}}">{{item.statusStr}}</view>
+			</view>
+			<view class="list_con">
+				<view class="name">订货人：{{item.createUsername}}</view>
+				<view>下单时间：{{item.createTime}}</view>
+				<view class="money">订单金额：￥{{item.orderPrice}}</view>
+			</view>
+		</view>
+	</view>
+	<!-- 点击加载更多 -->
+	<view class="button-wrapper">
+		<button type="default" size="default" loading="{{loading}}" disabled="{{disabled}}" bindtap="setLoading">
+			{{loadText}}
+		</button>
+	</view>
+</view>

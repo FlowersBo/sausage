@@ -1,4 +1,4 @@
-/* pages/commodity/commodity.wxss */
+@import '/iconCss/icon.wxss';
 .pointLocation {
   width: 98%;
   margin: 0 auto;
@@ -49,10 +49,12 @@
 
 /* 日期 */
 .timeWrap {
+  width: 60%;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding-bottom: 20rpx;
-  border-bottom: 1rpx solid #c9c9c9;
 }
 
 .cellWrap {
@@ -74,6 +76,15 @@
 .cell picker {
   width: 100%;
   font-size: 28rpx;
+}
+
+.icon-backwardcyclyo {
+  font-size: 60rpx;
+  color: rgb(110, 110, 110);
+}
+
+.icons {
+  transform: rotate(180deg);
 }
 
 .timg {
@@ -366,4 +377,52 @@
   bottom: 6rpx;
   left: 0;
   z-index: 1000;
+}
+
+/* 点位选择 */
+.time_point {
+  width: 97%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.titles {
+  font-size: 30rpx;
+}
+
+.pointWrap {
+  display: flex;
+  align-items: center;
+  margin: 20rpx 0;
+}
+
+.point {
+  height: 60rpx;
+  border-radius: 10rpx;
+  border: 1rpx solid #ccc;
+  font-size: 24rpx;
+  position: relative;
+  margin-right: 60rpx;
+}
+.point:last-child{
+  margin-right: 0;
+}
+
+.picker {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 70rpx 0 16rpx;
+  line-height: 60rpx;
+}
+
+.point_timg {
+  position: absolute;
+  top: 8rpx;
+  right: 4rpx;
+  width: 50rpx;
+  height: 48rpx;
+  z-index: -1;
+  /* margin-left: 6rpx;
+  margin-top: 4rpx; */
 }

@@ -7,7 +7,7 @@ page {
 /* 加盟头像 */
 
 .weui-cell {
-	padding: 16px;
+	padding: 16rpx;
 	position: relative;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -15,12 +15,13 @@ page {
 	-webkit-box-align: center;
 	-webkit-align-items: center;
 	align-items: center;
-	border-bottom: 1rpx solid #c9c9c9;
+  border-bottom: 1rpx solid #c9c9c9;
+  font-weight: bold;
 }
 
 
 .weui-cell.boder {
-	border-bottom: 0;
+	/* border-bottom: 6rpx solid; */
 }
 
 .weui-badge {
@@ -214,7 +215,7 @@ button.out {
 	height: 80rpx;
 	font-size: 32rpx;
 	color: #fff;
-	margin-top: 80rpx;
+	margin-top: 50rpx;
 	border-radius: 20rpx;
 	background: rgba(248, 112, 57, 1);
 }

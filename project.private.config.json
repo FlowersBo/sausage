@@ -12,6 +12,41 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "商品",
+          "pathName": "pages/commodity/commodity",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "购物车",
+          "pathName": "pages/shopping_cart/shopping_cart",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "仓库",
+          "pathName": "pages/shopping_cart/myAddress/myAddress",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "收银台",
+          "pathName": "pages/confirmation_order/cashierDesk/cashierDesk",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "审批",
+          "pathName": "pages/examine/examine",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

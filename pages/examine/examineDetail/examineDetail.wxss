@@ -1,0 +1,54 @@
+/* pages/examine/examineDetail/examineDetail.wxss */
+.examineDetail{
+  width: 97%;
+  margin: 0 auto;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+.orderGoods{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20rpx;
+  background: #eee;
+  border-radius: 10rpx;
+  margin: 20rpx 0;
+}
+.orderGoods view{
+  margin: 10rpx;
+}
+.tb_tl{
+  width: 100%;
+  background: #eee;
+  box-sizing: border-box;
+  padding: 30rpx 6rpx;
+  border-radius: 10rpx;
+  margin-top: 60rpx;
+}
+.tab{
+  display: flex;
+  border: 1rpx solid #aaa;
+  border-bottom: 0;
+}
+.tab:last-child{
+  border-bottom: 1rpx solid #aaa;
+}
+.flex{
+  height: 60rpx;
+  line-height: 60rpx;
+  flex: 1;
+  text-align: center;
+  border-right: 1rpx solid #aaa;
+  background: #fff;
+  overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.flex:last-child{
+  border-right: 0;
+}
+.flex:first-child{
+  flex: 2;
+}
+.flex:nth-child(2),.flex:nth-child(3){
+  flex: 0.5;
+}

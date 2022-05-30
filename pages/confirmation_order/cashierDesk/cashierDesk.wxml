@@ -1,0 +1,22 @@
+<!--pages/confirmation_order/cashierDesk/cashierDesk.wxml-->
+<view class="cashierDesk">
+  <view style="font-size: 52rpx; font-weight: bold;width: 100%;text-align: center;margin: 80rpx 0;">￥199.0</view>
+  <radio-group class="group" bindchange="radioChange">
+    <label class="labelWrap" wx:for="{{items}}" wx:key="{{item.value}}">
+      <icon class="iconfont icons {{item.icon}}" style="color:{{item.color}}"></icon>
+      <view class="">{{item.name}}</view>
+      <radio class="radio" value="{{item.value}}" />
+    </label>
+  </radio-group>
+  <view class="btn" bindtap="payFn">支付</view>
+
+  <view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"  bindtap="offMask"></view>
+  <view class="modalDlg" wx:if="{{showModal}}">
+    <view class="title">确认支付</view>
+    <text>您的订单在23小时50分钟内未支付将被取消，请尽快完成支付。~</text>
+    <view class="btnWrap">
+      <view class="mainBtn">继续支付</view>
+      <view class="mainBtn" bindtap="offMask">确认离开</view>
+    </view>
+  </view>
+</view>

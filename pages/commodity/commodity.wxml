@@ -14,7 +14,7 @@
       bind:yybinddaychange="_yybinddaychange" bind:yystrat="_yystrat" />
   </view> -->
 
-  <view wx:if="{{isShow}}" class="xlCalendarWrap" catchtap="cancelWindowFn">
+  <!-- <view wx:if="{{isShow}}" class="xlCalendarWrap" catchtap="cancelWindowFn">
   </view>
   <view class="ballWindow" animation="{{animationData}}">
     <view class="ballWindow-btn" bindtap="cancelWindowFn">取消</view>
@@ -23,35 +23,49 @@
         bind:whenChangeMonth="whenChangeMonth" bind:takeoverTap="takeoverTap" bind:afterTapDate="afterTapDate"
         bind:afterCalendarRender="afterCalendarRender"></calendar>
     </view>
-  </view>
+  </view> -->
 
-
-  <view class="timeWrap" wx:if="{{selected==0}}">
-    <view class="anniu" data-item="0" bindtap="lowerJump">
-      <image class="lt" src="../../assets/img/lt.png" mode="aspectFit"></image>
-      上一日
-    </view>
+  <view class="timeWrap" wx:if="{{selected!==2}}">
+    <icon class="iconfont icon-backwardcyclyo" bindtap="lowerJump"></icon>
     <view class="cellWrap">
       <mp-cell class="cell" prop="date" title="日期">
-        <picker data-field="date" mode="date" value="{{date}}" bindchange="bindDateChange">
+        <picker data-field="date" fields="{{fields}}" mode="date" value="{{date}}" bindchange="bindDateChange">
           <view class="weui-input">{{date}}</view>
         </picker>
         <image class="timg" src="../../assets/img/timg.png" alt="" mode="aspectFit" />
       </mp-cell>
     </view>
-    <view class="anniu" data-item="0" bindtap="upJump">
-      下一日
-      <image class="lt" src="../../assets/img/gt.png" mode="aspectFit"></image>
+    <icon class="iconfont icons icon-backwardcyclyo" bindtap="upJump"></icon>
+  </view>
+
+  <view class="time_point">
+    <view class="pointWrap">
+      <view class="point">
+        <picker bindchange="bindPickerChange" data-index="0" value="{{index}}" range="{{cityItem}}" range-key='regionName'>
+          <view class="picker">
+            {{cityItem[cityIndex].regionName?cityItem[cityIndex].regionName:'城市'}}
+          </view>
+        </picker>
+        <image class="point_timg" src="../../assets/img/timg.png" alt="" mode="aspectFit" />
+      </view>
+
+      <view class="point">
+        <picker bindchange="bindPickerChange" data-index="1" value="{{index}}" range="{{agencyItem}}" range-key='agencyname'>
+          <view class="picker">
+            {{agencyItem[agencyIndex].agencyname?agencyItem[agencyIndex].agencyname:'合作商'}}
+          </view>
+        </picker>
+        <image class="point_timg" src="../../assets/img/timg.png" alt="" mode="aspectFit" />
+      </view>
     </view>
   </view>
 
-
-  <view class="detail" wx:if="{{selected==1}}">
+  <!-- <view class="detail" wx:if="{{selected==1}}">
     <view class="explain">
       商品销售量汇总(<text>{{pointDetaillyDate}}</text>)
     </view>
-  </view>
-  <view wx:if="{{commodityList.length>0}}" class="reportDetail">
+  </view> -->
+  <!-- <view wx:if="{{commodityList.length>0}}" class="reportDetail">
     <view class="tabTit box">
       <view class="flex1" wx:for="{{reportDetail.titles}}" wx:key="type" data-index="{{index}}" bindtap="bindGoodsSort">
         <label>
@@ -72,13 +86,14 @@
       </block>
     </view>
   </view>
-  <view class="noDetail" wx:else>暂无数据</view>
+  <view class="noDetail" wx:else>暂无数据</view> -->
+ 
   <view class="goodsDetail">
-    <view class="detail" wx:if="{{selected==1}}">
+    <!-- <view class="detail" wx:if="{{selected==1}}">
       <view class="explain">
         商品销售明细(<text>{{pointDetaillyDate}}</text>)
       </view>
-    </view>
+    </view> -->
     <view class="goodstabTit">
       <view class="goods" wx:for="{{goodsDetail.titles}}" wx:key="type" data-index="{{index}}" bindtap="bindPointSort">
         <label>
@@ -93,7 +108,7 @@
         <view class="goodslistItem">
           <view class="title-waste">
             <view class="goods-title">{{item.pointName}}</view>
-            <view wx:if="{{selected==1&&item.isWasteSum}}" data-point="{{item.pointId}}" class="wasteBtn"
+            <view wx:if="{{item.isWasteSum}}" data-point="{{item.pointId}}" class="wasteBtn"
               bindtap="bindWaste">废弃分析</view>
           </view>
           <view class="goods-item">
@@ -115,4 +130,3 @@
     </button>
   </view>
 </view>
-<!-- <ball ballList="{{ballList}}" bind:bindBallFn="bindBallFn"/> -->

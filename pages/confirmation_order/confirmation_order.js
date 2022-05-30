@@ -205,6 +205,10 @@ Page({
 
 
 	bindPayOrder: function () {
+     wx.navigateTo({
+       url: './cashierDesk/cashierDesk',
+     })
+    return false
 		let that = this;
 		let dataInfo = [{
 			details: []

@@ -113,5 +113,7 @@ module.exports = {
     SelectPointItem: ApiRootUrl + "app/point/selectPointItem", //点位下拉数据
     SelectCityItem: ApiRootUrl + "app/point/selectCityItem", //用户城市下拉框数据
     SelectAgencyItem: ApiRootUrl + "app/point/selectAgencyItem", //城市合作商下拉框数据
-    PointCustomize: ApiRootUrl + "app/point/pointCustomize", //自定义排行
+    PointCustomize: ApiRootUrl + "app/point/pointCustomize", //点位自定义查询
+    ProductRanking: ApiRootUrl + "app/product/productRanking", //商品排行榜
+    Examine: ApiRootUrl + "app/transfer/orderList", //订货审批
 }

@@ -1,77 +1,85 @@
 <!--pages/user/user.wxml-->
 <view>
-	<!-- 加盟头像昵称 -->
-	<view class="weui-cell boder">
-		<view class="head">
-			<image src="{{userInfo.logourl}}" />
-		</view>
-		<view class="weui-cell__bd">
-			<view>{{userInfo.NAME}}</view>
-			<view class="phone">{{userInfo.username}}</view>
-		</view>
-	</view>
-	<!-- 累计金额 -->
-	<block wx:if="{{result.status==2}}">
-		<view class="sales">
-			<view class="sales_list" bindtap="bindUserSaleDetailly">
-				<view class="quantity">总收入</view>
-				<view class="num">{{result.totalAmount?result.totalAmount:'0'}}<text class="num_unit" space> 元</text></view>
-			</view>
-			<view class="sales_list" bindtap="bindUserWallet">
-				<view class="quantity">钱包余额</view>
-				<view class="num">{{result.balance?result.balance:'0'}}<text class="num_unit" space> 元</text>
-				</view>
-			</view>
-		</view>
-	</block>
-	<block wx:else>
-		<view class="sales_blank" bindtap="gotoauthenticationFn">
-			<view class="blankText">开通收款账户</view>
-			<view class="flowPath">
-				<view class="ynumber">1</view>实名认证 <view class="flowBlank"></view>
-				<view class="ynumber">2</view>签约协议<view class="flowBlank"></view>
-				<view class="ynumber">3</view>绑定卡号
-			</view>
-		</view>
-	</block>
-	
-	
-	<view>
-		<!-- <view class="weui-cell weui-cell_access">
+  <!-- 加盟头像昵称 -->
+  <view class="weui-cell boder">
+    <view class="head">
+      <image src="{{userInfo.logourl}}" />
+    </view>
+    <view class="weui-cell__bd">
+      <view>{{userInfo.NAME}}</view>
+      <view class="phone">{{userInfo.username}}</view>
+    </view>
+  </view>
+  <!-- 累计金额 -->
+  <block wx:if="{{result.status==2}}">
+    <view class="sales">
+      <view class="sales_list" bindtap="bindUserSaleDetailly">
+        <view class="quantity">总收入</view>
+        <view class="num">{{result.totalAmount?result.totalAmount:'0'}}<text class="num_unit" space> 元</text></view>
+      </view>
+      <view class="sales_list" bindtap="bindUserWallet">
+        <view class="quantity">钱包余额</view>
+        <view class="num">{{result.balance?result.balance:'0'}}<text class="num_unit" space> 元</text>
+        </view>
+      </view>
+    </view>
+  </block>
+  <block wx:else>
+    <view wx:if="{{ledgerStatus===1}}" class="sales_blank" bindtap="gotoauthenticationFn">
+      <view class="blankText">开通收款账户</view>
+      <view class="flowPath">
+        <view class="ynumber">1</view>实名认证 <view class="flowBlank"></view>
+        <view class="ynumber">2</view>签约协议<view class="flowBlank"></view>
+        <view class="ynumber">3</view>绑定卡号
+      </view>
+    </view>
+  </block>
+
+
+  <view>
+    <!-- <view class="weui-cell weui-cell_access">
 			<view class="commercialWrap">
 				<view class="alliance">
 					
 				</view> 
 			</view>
 		</view> -->
-		<navigator url="/pages/equipment/equipment" hover-class="none" class="weui-cell weui-cell_access">
-			<view class="weui-cell__bd">
-				<view style="display: inline-block; vertical-align: middle">我的设备</view>
-			</view>
-			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
-		</navigator>
-		<navigator url="/pages/order/order" hover-class="none" class="weui-cell weui-cell_access">
-			<view class="weui-cell__bd">
-				<view style="display: inline-block; vertical-align: middle">销售订单</view>
-			</view>
-			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
-		</navigator>
-		<navigator url="/pages/my_order/my_order" hover-class="none" class="weui-cell weui-cell_access">
-			<view class="weui-cell__bd">
-				<view style="display: inline-block; vertical-align: middle">进货详情</view>
-			</view>
-			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
-		</navigator>
-		<view class="weui-cell weui-cell_access" bindtap="openPhone" data-servicetel="{{userInfo.servicetel}}">
-			<view class="weui-cell__bd">
-				<view style="display: inline-block; vertical-align: middle">联系运营商：{{userInfo.servicetel}}</view>
-			</view>
-			<view class="weui-cell__ft weui-cell__ft_in-access">
-				<image src="../../assets/img/phone.png"></image>
-			</view>
-		</view>
-	</view>
-	<button formType="" class="out" size="default" hover-class="out_hover" hover-stay-time="100"
-		bindtap="bindLogOut">退出登录</button>
+    <navigator url="/pages/equipment/equipment" hover-class="none" class="weui-cell weui-cell_access">
+      <view class="weui-cell__bd">
+        <view style="display: inline-block; vertical-align: middle">我的设备</view>
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+    <navigator url="/pages/order/order" hover-class="none" class="weui-cell weui-cell_access">
+      <view class="weui-cell__bd">
+        <view style="display: inline-block; vertical-align: middle">销售订单</view>
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+
+    <navigator url="/pages/myOrder/myOrder" hover-class="none" class="weui-cell weui-cell_access">
+      <view class="weui-cell__bd">
+        <view style="display: inline-block; vertical-align: middle">进货详情</view>
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+
+    <navigator url="/pages/examine/examine" hover-class="none" class="weui-cell weui-cell_access">
+      <view class="weui-cell__bd">
+        <view style="display: inline-block; vertical-align: middle">订货审批</view>
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+
+    <view class="weui-cell weui-cell_access" bindtap="openPhone" data-servicetel="{{userInfo.servicetel}}">
+      <view class="weui-cell__bd">
+        <view style="display: inline-block; vertical-align: middle">联系运营商：{{userInfo.servicetel}}</view>
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">
+        <image src="../../assets/img/phone.png"></image>
+      </view>
+    </view>
+  </view>
+  <button formType="" class="out" size="default" hover-class="out_hover" hover-stay-time="100" bindtap="bindLogOut">退出登录</button>
 
 </view>

@@ -4,6 +4,7 @@
     "pages/reportForms/reportForms",
     "pages/order_goods/order_goods",
     "pages/my_money/my_money",
+    "pages/myOrder/myOrder",
     "pages/status_details/status_details",
     "pages/device_details/device_details",
     "pages/index/index",
@@ -32,7 +33,11 @@
     "pages/tableDetail/tableDetail",
     "pages/pointLocation/pointLocation",
     "pages/commodity/commodity",
-    "pages/pointWaste/pointWaste"
+    "pages/pointWaste/pointWaste",
+    "pages/shopping_cart/myAddress/myAddress",
+    "pages/confirmation_order/cashierDesk/cashierDesk",
+    "pages/examine/examine",
+    "pages/examine/examineDetail/examineDetail"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -78,9 +83,7 @@
       }
     ]
   },
-  "usingComponents": {
-    
-  },
+  "usingComponents": {},
   "plugins": {
     "myPlugin": {
       "version": "2.2.1",
@@ -88,4 +91,4 @@
     }
   },
   "sitemapLocation": "sitemap.json"
-} 
+}

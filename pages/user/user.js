@@ -78,7 +78,8 @@ Page({
         if (resp.data.code == 200) {
           wx.setStorageSync('bizUserId', resp.data.data.bizUserId);
           that.setData({
-            result: resp.data.data
+            result: resp.data.data,
+            ledgerStatus: resp.data.data.ledgerStatus
           });
         }
       })

@@ -24,6 +24,12 @@ Page({
     cartGoodsNumberTotal: 0,
   },
 
+  gotoAddress() {
+    wx.navigateTo({
+      url: '/pages/shopping_cart/myAddress/myAddress',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -33,20 +39,23 @@ Page({
 
   onShow: function () {
     Promise.allSettled([
-        that.renderCartList(),
-        that.renderCartNumber()
-      ]).then(res => {
-        console.log(res)
-      })
+      that.renderCartList(),
+      that.renderCartNumber()
+    ]).then(res => {
+      console.log(res)
+    })
       .catch(err => {
         console.log(err)
-      })
+      });
+    that.setData({
+      isSelectAllGoods: false
+    })
   },
 
   renderCartNumber() {
     mClient.get(api.CartCount, {
-        userId: wx.getStorageSync('userID')
-      })
+      userId: wx.getStorageSync('userID')
+    })
       .then(res => {
         that.setData({
           cartGoodsPriceTotal: res.data.data.totalPrice,
@@ -59,10 +68,10 @@ Page({
     let that = this;
     // let cartInfo = that.data.cartGoodsList;
     mClient.wxRequest(api.CartList, {
-        userId: wx.getStorageSync('userID'),
-        page,
-        pageSize: that.data.pageSize
-      })
+      userId: wx.getStorageSync('userID'),
+      page,
+      pageSize: that.data.pageSize
+    })
       .then(resp => {
         console.log('购物车列表', resp)
         // let cartGoodsPriceTotal = resp.data.data.realamount;
@@ -174,8 +183,8 @@ Page({
     //如果商品数量为0时将商品移出购物车
     if (goodsCount === 0) {
       mClient.get(api.DeleteCart, {
-          id: cartid
-        })
+        id: cartid
+      })
         .then(resp => {
           let result = resp.data.data.result;
           if (result === true) {

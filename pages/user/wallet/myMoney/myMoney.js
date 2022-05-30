@@ -53,6 +53,9 @@ Page({
           if (resp.data.data.totalNum != '0') {
             let incomeDetail = resp.data.data.inExpDetail;
             console.log(incomeDetail)
+            incomeDetail.forEach(element => {
+              element.chgAmount = ((element.chgAmount)/100).toFixed(2) 
+            });
             that.setData({
               incomeDetail: incomeDetail,
               totalNum: resp.data.data.totalNum,

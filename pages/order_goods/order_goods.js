@@ -166,7 +166,7 @@ Page({
     mClient.wxRequest(api.AddCart, data)
       .then(resp => {
         let result = resp.data;
-        if (result === "添加成功") {
+        if (resp.code == 200) {
           // that.renderBuyCar();
           shelvesGoodsInfos.forEach(element => {
             if (element.id === goodsId) {
