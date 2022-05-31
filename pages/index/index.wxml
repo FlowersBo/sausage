@@ -12,7 +12,7 @@
   </view>
 
   <!-- 月份选择 -->
-  <view class="pickerWrap" wx:if="{{dateRange==11}}">
+  <view class="pickerWrap" wx:if="{{dateRange==13}}">
     <!-- <view class="page-date" bindtap="pickerShow">
       <view>{{monthStartTime}}<text> 至 </text>{{monthEndTime}}</view>
       <image class="page-date-img" src="../../assets/img/timg.png"></image>
@@ -21,7 +21,7 @@
   </view>
 
   <!-- 单日/月选择 -->
-  <pickerView class="listss" propDate="{{propDate}}" isMonth="{{isMonth}}" bind:dateTimeBody="dateTimeBody" />
+  <!-- <pickerView class="listss" propDate="{{propDate}}" isMonth="{{isMonth}}" bind:dateTimeBody="dateTimeBody" /> -->
 
   <!-- 小历同学文档 -->
   <view wx:if="{{isShow}}" class="xlCalendarWrap" catchtap="cancelWindowFn">
