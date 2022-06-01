@@ -41,7 +41,7 @@
         <view class="num">{{item}}</view>
       </view>
     </view>
-    <view class="sales" wx:if="{{dateRange==0}}">
+    <view class="sales" wx:if="{{dateRange==0||dateRange==1}}">
       <view class="sales_list" wx:for="{{cumulativeSales}}" wx:key="index" wx:for-index="key" data-item="item">
         <view class="quantity"> {{key}}</view>
         <view class="num">{{item}}</view>
@@ -50,7 +50,7 @@
   </view>
 
   <!-- 统计表格 -->
-  <view class='history-table-wrap' wx:if="{{!isIds&&isDateRangeindex&&(dateRange==1||dateRange==11)&&statistics}}">
+  <view class='history-table-wrap' wx:if="{{!isIds&&isDateRangeindex&&(dateRange==12||dateRange==13)&&statistics}}">
     <view class="detail">
       <view class="explain">
         销售统计(<text>{{pointDetaillyDate}}</text>)
@@ -73,7 +73,7 @@
   </view>
 
   <!-- 自定义月份统计图 -->
-  <block wx:if="{{!isPickerShow && isShowGraph}}">
+  <block wx:if="{{isShowGraph&&(dateRange==12||dateRange==13)}}">
     <view class="container" wx:for="{{graphGenres}}" wx:index="{{index}}" wx:key='index'>
       <view class="tit">{{item.title}}</view>
       <ec-canvas canvas-id="mychart-line" xsign="{{ecxsign}}" xdata="{{ecDatas[index]}}" ec="{{ ec }}"></ec-canvas>
@@ -81,7 +81,7 @@
   </block>
 
   <!-- 点位统计 -->
-  <view wx:if="{{isIds||(dateRange===0||(dateRange===1&&isFlag)||dateRange===10)}}">
+  <view wx:if="{{isIds||(dateRange===0||dateRange===1||dateRange===2||dateRange===3||dateRange===10||dateRange===11)}}">
     <view class="detail">
       <view class="explain">
         点位销售统计(<text>{{pointDetaillyDate}}</text>)
@@ -106,10 +106,10 @@
             <view class="title flex1 ">{{item.pointName?item.pointName:item.agencyName}}</view>
             <view class="price flex1 ">￥{{item.saleAmount}}</view>
             <view class="num flex1 ">{{item.productCount}}</view>
-            <view wx:if="{{!isIds&&dateRange==0}}" class="report_details flex1" bindtap="bindReportDetaill" data-point="{{item}}">
+            <view wx:if="{{!isIds&&(dateRange==0||dateRange==1)}}" class="report_details flex1" bindtap="bindReportDetaill" data-point="{{item}}">
               <image src="../../assets/img/baobiao.png" mode="scaleToFill"></image>
             </view>
-            <view wx:elif="{{isIds||dateRange==1}}" class="report_details flex1" bindtap="bindDetail" data-point="{{item}}">
+            <view wx:elif="{{isIds||dateRange!==1||dateRange!==2}}" class="report_details flex1" bindtap="bindDetail" data-point="{{item}}">
               <view class="detail-btn">明细</view>
             </view>
           </view>

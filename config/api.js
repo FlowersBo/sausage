@@ -95,9 +95,12 @@ module.exports = {
     //报表 
     Init: ApiRootUrl + "app/user/init", //查询用户授权信息
     AgencyList: ApiRootUrl + "app/report/agencyList", //统计列表
-    AgencySingle: ApiRootUrl + "app/report/agencySingle", //一个合作商单日，单月报表
-    AgencyRangeDate: ApiRootUrl + "app/report/agencyRangeDate", //自定义日报
-    AgencyRangeMonth: ApiRootUrl + "app/report/agencyRangeMonth", //自定义月报
+    // AgencySingle: ApiRootUrl + "app/report/agencySingle", //一个合作商单日，单月报表
+    // AgencyRangeDate: ApiRootUrl + "app/report/agencyRangeDate", //自定义日报
+    // AgencyRangeMonth: ApiRootUrl + "app/report/agencyRangeMonth", //自定义月报
+
+    PointSaleList: ApiRootUrl + 'app/report/v3/pointSaleList', //点位销售统计
+    PointSaleMonth: ApiRootUrl + 'app/report/v3/pointSaleMonth', //点位销售统计半年
 
     // 订货
     GoodsCategory: ApiRootUrl + "app/transfer/goodsCategory", //分类

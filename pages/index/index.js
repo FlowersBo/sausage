@@ -406,89 +406,7 @@ Page({
       dateRange: dateRange,
       reportDetail: reportDetail,
     });
-    let pointReportDate = new Date();
-    let pointSummationReportDate = new Date();
-    let startTime, endTime;
-    if (dateRange === 0) {
-      startTime = util.customFormatTime(pointReportDate);
-      endTime = util.customFormatTime(pointReportDate);
-      console.log(startTime)
-      that.renderReport(that.data.dateRange, startTime, endTime);
-    } else if (dateRange === 1) {
-      pointReportDate.setDate(pointReportDate.getDate() - 1)
-      startTime = util.customFormatTime(pointReportDate);
-      endTime = util.customFormatTime(pointReportDate);
-      that.renderReport(that.data.dateRange, startTime, endTime);
-    } else if (dateRange === 2) {
-      pointReportDate.setDate(pointReportDate.getDate() - 6);
-      startTime = util.customFormatTime(pointReportDate);
-      endTime = util.customFormatTime(new Date());
-      that.renderReport(that.data.dateRange, startTime, endTime);
-    } else if (dateRange === 3) {
-      let {
-        startTime,
-        endTime
-      } = that.data;
-      if (startTime) {
-        that.renderReport(that.data.dateRange, startTime, endTime);
-      } else {
-        that.setData({
-          reportTotal: {
-            '销售额': `0元`,
-            '订单数': `0单`,
-            '销售量': `0根`
-          },
-          isFlag: false
-        })
-      }
-      that.setData({
-        pointDetaillyDate: `${startTime ? startTime + '~' + endTime : '请选择起始时间'}`,
-        isShow: true
-      })
-      that.fadeIn();
-    }else if(dateRange == 10){
-      pointReportDate.setMonth(pointReportDate.getMonth());
-      startTime = util.customFormatMonth(pointReportDate);
-      endTime = util.customFormatMonth(pointReportDate);
-      console.log(startTime);
-      that.renderReport(that.data.dateRange, startTime, endTime);
-    }else if(dateRange == 11){
-      pointReportDate.setMonth(pointReportDate.getMonth()-1);
-      startTime = util.customFormatMonth(pointReportDate);
-      endTime = util.customFormatMonth(pointReportDate);
-      console.log(startTime)
-      that.renderReport(that.data.dateRange, startTime, endTime);
-    }else if(dateRange == 12){
-
-    }else if (dateRange == 13) {
-      let {
-        monthStartTime,
-        monthEndTime
-      } = that.data;
-      if (monthStartTime != '起始月份') {
-        console.log('起始月份', monthStartTime);
-        that.setData({
-          pointDetaillyDate: `${monthStartTime}~${monthEndTime}`
-        })
-        if (that.data.isIds) {
-          that.renderReport(that.data.dateRange, that.data.monthStartTime, that.data.monthEndTime);
-        } else {
-          that.monthlySalesVolume(monthStartTime, monthEndTime);
-        }
-      } else {
-        that.setData({
-          statistics: '',
-          pointDetaillyDate: '请选择起始月份',
-          reportTotal: {
-            '销售额': `0元`,
-            '订单数': `0单`,
-            '销售量': `0根`
-          },
-          pointsData: []
-        })
-      }
-      that.pickerShow();
-    }
+    that.renderTransactionSummation();
 
 
     //  else {
@@ -528,29 +446,41 @@ Page({
       reportDetail.titles = ['点位', '销售额', '销售量'];
       reportDetail.titleUrls = ['', '../../assets/img/arrow.png', '../../assets/img/arrow.png']
     };
-    if (dateRange == 0 || dateRange === 10) {
-      // that.setData({
-      // 	propDate: true,
-      // })
-      if (dateRange == 10) {
-        that.setData({
-          isMonth: true,
-        })
-      } else {
-        that.setData({
-          isMonth: false,
-        })
-      }
-      that.setData({
-        isDateRangeindex: false
-      })
-      this.renderTransactionSummation(dateRange);
-    } else {
-      that.setData({
-        isDateRangeindex: true
-      })
-    }
-    if (dateRange === 1) {
+    this.setData({
+      dateRange: dateRange,
+      dateRangeindex: index,
+      dateRangeindex_off: index,
+      reportDetail: reportDetail,
+    });
+    this.renderTransactionSummation(dateRange);
+  },
+
+  // 计算切换时间段
+  renderTransactionSummation: function () {
+    this.setData({
+      loadText: '点击加载更多',
+    })
+    let dateRange = that.data.dateRange;
+    console.log('当前的dateRange', dateRange);
+    let pointReportDate = new Date();
+    let pointDetaillyDate;
+    let startDate, endDate;
+    if (dateRange === 0) {
+      startDate = util.customFormatTime(pointReportDate);
+      pointDetaillyDate = startDate;
+      that.renderReport(that.data.dateRange, startDate);
+    } else if (dateRange === 1) {
+      pointReportDate.setDate(pointReportDate.getDate() - 1)
+      startDate = util.customFormatTime(pointReportDate);
+      pointDetaillyDate = startDate;
+      that.renderReport(that.data.dateRange, startDate);
+    } else if (dateRange === 2) {
+      pointReportDate.setDate(pointReportDate.getDate() - 6);
+      startDate = util.customFormatTime(pointReportDate);
+      endDate = util.customFormatTime(new Date());
+      pointDetaillyDate = startDate + '~' + endDate;
+      that.renderReport(that.data.dateRange, startDate, endDate);
+    } else if (dateRange === 3) {
       let {
         startTime,
         endTime
@@ -564,7 +494,6 @@ Page({
             '订单数': `0单`,
             '销售量': `0根`
           },
-          isFlag: false
         })
       }
       that.setData({
@@ -572,8 +501,27 @@ Page({
         isShow: true
       })
       that.fadeIn();
-    }
-    if (dateRange == 11) {
+    } else if (dateRange == 10) {
+      pointReportDate.setMonth(pointReportDate.getMonth());
+      startDate = util.customFormatMonth(pointReportDate);
+      pointDetaillyDate = startDate;
+      that.renderReport(that.data.dateRange, '', startDate);
+    } else if (dateRange == 11) {
+      pointReportDate.setDate(1);
+      pointReportDate.setMonth(pointReportDate.getMonth() - 1);
+      startDate = util.customFormatMonth(pointReportDate);
+      pointDetaillyDate = startDate;
+      that.renderReport(that.data.dateRange, '', startDate);
+      console.log(startDate);
+    } else if (dateRange == 12) {
+      pointReportDate.setDate(1);
+      pointReportDate.setMonth(pointReportDate.getMonth() - 6);
+      startDate = util.customFormatMonth(pointReportDate);
+      endDate = util.customFormatMonth(new Date());
+      console.log(startDate);
+      pointDetaillyDate = startDate + '~' + endDate;
+      that.monthlySalesVolume(startDate, endDate);
+    } else if (dateRange == 13) {
       let {
         monthStartTime,
         monthEndTime
@@ -601,64 +549,18 @@ Page({
         })
       }
       that.pickerShow();
-    } else {
-      that.setData({
-        isShowGraph: false
-      })
     }
-    this.setData({
-      dateRange: dateRange,
-      dateRangeindex: index,
-      dateRangeindex_off: index,
-      reportDetail: reportDetail,
-    });
-  },
-
-  // 计算切换时间段
-  renderTransactionSummation: function (dateRange = 0, pointName = '', pageIndex = 1, pointsData = []) {
-    let isMonth = that.data.isMonth; //单月判断
-    let pointReportDate = new Date();
-    let pointSummationReportDate = new Date();
-    this.setData({
-      loadText: '点击加载更多',
+    that.setData({
+      pointDetaillyDate,
+      startDate,
+      endDate
     })
-    console.log('当前的dateRange', dateRange)
-    if (dateRange === 0) {
-      pointReportDate.setDate(pointReportDate.getDate());
-      let pointDetaillyDate = util.customFormatTime(pointReportDate);
-      console.log('选择日期：', `${that.data.dateTime ? that.data.dateTime : pointDetaillyDate}`);
-      if (that.data.dateTime && !isMonth) {
-        pointDetaillyDate = that.data.dateTime
-      }
-      this.setData({
-        pointDetaillyDate
-      });
-      if (that.data.isIds) {
-        that.renderReport(that.data.dateRange, pointDetaillyDate, pointDetaillyDate);
-        return
-      }
-      this.renderReport(that.data.dateRange, pointDetaillyDate, '');
-    } else if (dateRange === 10) {
-      pointSummationReportDate.setMonth(pointSummationReportDate.getMonth());
-      let endDateReportTotal = util.customFormatMonth(pointSummationReportDate);
-      let pointDetaillyEndDate = util.customFormatOnlyMonth(pointSummationReportDate);
-      pointSummationReportDate.setMonth(pointSummationReportDate.getMonth());
-      let startDateReportTotal = util.customFormatMonth(pointSummationReportDate);
-      let pointDetaillyStartDate = util.customFormatOnlyMonth;
-      let pointDetaillyDate = endDateReportTotal;
-      if (that.data.dateTime && isMonth) {
-        pointDetaillyDate = that.data.dateTime
-      }
-      this.setData({
-        pointDetaillyDate
-      });
-      console.log('时间：', pointDetaillyDate);
-      if (that.data.isIds) {
-        that.renderReport(that.data.dateRange, pointDetaillyDate, pointDetaillyDate);
-        return
-      }
-      this.renderReport(that.data.dateRange, '', pointDetaillyDate);
-    }
+
+
+    // if (that.data.isIds) {
+    //   that.renderReport(that.data.dateRange, pointDetaillyDate, pointDetaillyDate);
+    //   return
+    // }
   },
 
   // 查询列表数据
@@ -739,19 +641,22 @@ Page({
         })
       return;
     }
-    if (dateRange === 1) {
+
+    if (dateRange === 2 || dateRange === 3) {
       data = {
-        startDate: searchDate,
+        startDat: searchDate,
         endDate: searchMonth,
         sortType: that.data.pointSort,
         pageNum: pageIndex,
         pageSize: that.data.pageSize,
-        agencyId: that.data.agencyId
+        agencyId: that.data.agencyId,
+        showSaleSum: true,
+        showSaleTotal: true
       };
-      mClient.get(api.AgencyRangeDate, data)
+      mClient.get(api.PointSaleList, data)
         .then(resp => {
           let statistics = resp.data.data.statistics;
-          console.log('自定义日报', resp);
+          console.log('7天/自定义日报', resp);
           if (!resp.data.data) {
             that.setData({
               reportTotal: {
@@ -765,11 +670,10 @@ Page({
           reportTotal['销售额'] = `${resp.data.data.summary.amount}元`;
           reportTotal['订单数'] = `${resp.data.data.summary.orderSum}单`;
           reportTotal['销售量'] = `${resp.data.data.summary.productCount}根`;
-          let pointTotal = resp.data.data.saleList.total;
+          let pointTotal = resp.data.data.pointList.total;
           that.setData({
             reportTotal: reportTotal,
             statistics: statistics,
-            isFlag: true
           })
           if ((that.data.pageSize * (pageIndex - 1)) >= pointTotal && pointTotal > 0) {
             this.setData({
@@ -777,7 +681,7 @@ Page({
             })
             return
           }
-          pointsData = pointsData.concat(resp.data.data.saleList.list);
+          pointsData = pointsData.concat(resp.data.data.pointList.list);
           console.log('列表', pointsData);
           that.setData({
             pointsData: pointsData,
@@ -800,11 +704,13 @@ Page({
         sortType: that.data.pointSort,
         pageNum: pageIndex,
         pageSize: that.data.pageSize,
-        agencyId: that.data.agencyId
+        agencyId: that.data.agencyId,
+        showSaleSum: true,
+        showSaleTotal: true
       };
-      mClient.get(api.AgencySingle, data)
+      mClient.get(api.PointSaleList, data)
         .then(resp => {
-          console.log('单日/单月/自定义日', resp);
+          console.log('单日/单月', resp);
           if (!resp.data.data) {
             that.setData({
               reportTotal: {
@@ -860,9 +766,11 @@ Page({
     let data = {
       startMonth,
       endMonth,
-      agencyId: that.data.agencyId
+      agencyId: that.data.agencyId,
+      showSaleSum: true,
+      showSaleTotal: true
     };
-    let result = await (mClient.get(api.AgencyRangeMonth, data));
+    let result = await (mClient.get(api.PointSaleMonth, data));
     console.log('自定义月报', result);
     if (!result.data.data) {
       that.setData({
@@ -1014,15 +922,18 @@ Page({
     } else {
       return;
     }
-    if (dateRange === 0) {
-      that.renderReport(that.data.dateRange, that.data.pointDetaillyDate, '',);
-    } else if (dateRange === 10) {
-      that.renderReport(that.data.dateRange, '', that.data.pointDetaillyDate,);
-    } else if (dateRange === 1) {
-      that.renderReport(that.data.dateRange, that.data.startTime, that.data.endTime);
-    } else {
-      that.renderReport(that.data.dateRange, that.data.monthStartTime, that.data.monthEndTime);
-    }
+    let { startDate,endDate } = that.data;
+    pageIndex = pageIndex + 1;
+    if (dateRange === 0||dateRange === 1||dateRange === 10||dateRange === 11) {
+      that.renderReport(that.data.dateRange, startDate, '', pageIndex, pointsData);
+    }else if (dateRange === 2) {
+      that.renderReport(that.data.dateRange, startDate, endDate, pageIndex, pointsData);
+    } else if (dateRange === 3) {
+      that.renderReport(that.data.dateRange, that.data.startTime, that.data.endTime, pageIndex, pointsData);
+    } 
+    // else {
+    //   that.renderReport(that.data.dateRange, that.data.monthStartTime, that.data.monthEndTime, pageIndex, pointsData);
+    // }
   },
 
   bindLoading: function () {
@@ -1049,16 +960,18 @@ Page({
       })
       return;
     };
+    let { startDate,endDate } = that.data;
     pageIndex = pageIndex + 1;
-    if (dateRange === 0) {
-      that.renderReport(that.data.dateRange, that.data.pointDetaillyDate, '', pageIndex, pointsData);
-    } else if (dateRange === 10) {
-      that.renderReport(that.data.dateRange, '', that.data.pointDetaillyDate, pageIndex, pointsData);
-    } else if (dateRange === 1) {
+    if (dateRange === 0||dateRange === 1||dateRange === 10||dateRange === 11) {
+      that.renderReport(that.data.dateRange, startDate, '', pageIndex, pointsData);
+    }else if (dateRange === 2) {
+      that.renderReport(that.data.dateRange, startDate, endDate, pageIndex, pointsData);
+    } else if (dateRange === 3) {
       that.renderReport(that.data.dateRange, that.data.startTime, that.data.endTime, pageIndex, pointsData);
-    } else {
-      that.renderReport(that.data.dateRange, that.data.monthStartTime, that.data.monthEndTime, pageIndex, pointsData);
-    }
+    } 
+    // else {
+    //   that.renderReport(that.data.dateRange, that.data.monthStartTime, that.data.monthEndTime, pageIndex, pointsData);
+    // }
   },
 
   onShow: function () {

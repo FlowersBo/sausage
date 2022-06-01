@@ -51,7 +51,6 @@ function checkMonth(i) {
 
 const customFormatMonth = date => {
   let converedDate = new Date(Date.parse(date));
-  console.log(converedDate)
   const year = converedDate.getFullYear();
   const month = converedDate.getMonth() + 1;
   return [year, month].map(formatNumber).join('-');
