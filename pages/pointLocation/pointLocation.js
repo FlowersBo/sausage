@@ -338,6 +338,7 @@ Page({
 
   // 明细跳转
   bindDetail: function (e) {
+    console.log(e);
     let point = e.currentTarget.dataset.point;
     let pointStartDate, pointEndDate;
     let startTime;

@@ -2,6 +2,7 @@
 import * as mClient from '../../utils/customClient';
 import * as api from '../../config/api';
 import * as echarts from '../../ec-canvas/echarts';
+import * as util from '../../utils/util';
 let that;
 
 function initChart(canvas, width, height, xsign, xdata, graphGenres) {
@@ -100,31 +101,31 @@ Page({
       pointId,
       pointStartDate,
       pointEndDate,
-      startTime,
-      agencyId
+      agencyId,
+      monthStart //是否为月
     } = options;
-    console.log(agencyId);
-    // let startDate = '',
-    //   endDate = '',
-    //   startMonth = '',
-    //   endMonth = '';
-    // if (startTime == 0 && pointStartDate) {
-    //   startDate = pointStartDate;
-    //   endDate = pointEndDate;
-    // } else if (startTime == 1 && pointStartDate) {
-    //   startMonth = pointStartDate;
-    //   endMonth = pointEndDate;
-    // }
+    console.log(Boolean(!pointStartDate))
+    if (!pointStartDate) {
+      let pointReportDate = new Date();
+      pointReportDate.setDate(pointReportDate.getDate() - 30);
+      pointStartDate = util.customFormatTime(pointReportDate);
+      pointEndDate = util.customFormatTime(new Date());
+    }
     that.setData({
-      pointDetaillyDate: pointStartDate ? `${pointStartDate}~${pointEndDate}` : '截止到昨日',
-      startTime,
-      agencyId
+      pointDetaillyDate: monthStart != 1 ? `${pointStartDate}~${pointEndDate}` : pointStartDate,
+      agencyId,
+      monthStart
     })
-    that.PTdetail(pointId, pointStartDate, pointEndDate);
-    // that.PTdetail(pointId, startDate, endDate, startMonth, endMonth);
+    console.log(pointEndDate, monthStart)
+    if (monthStart == 1) {
+      console.log(pointStartDate, pointEndDate)
+      that.PTdetail(pointId, '', '', pointStartDate, pointStartDate);
+    } else {
+      that.PTdetail(pointId, pointStartDate, pointEndDate);
+    }
   },
 
-  async PTdetail(pointId, startDate, endDate, startMonth, endMonth, agencyId) {
+  async PTdetail(pointId, startDate, endDate, startMonth, endMonth) {
     let data = {
       pointId,
       startDate,
@@ -141,8 +142,8 @@ Page({
         address: result.data.data.address,
         pointName: result.data.data.pointName
       })
-      if (that.data.startTime == 1) {
-        that.renderChart(result.data.data.saleList);
+      if (that.data.monthStart == 1) {
+        // that.renderChart(result.data.data.saleList);
       }
     } else {
       wx.showToast({

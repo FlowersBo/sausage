@@ -1,37 +1,84 @@
 <!--index.wxml-->
 <view class="homePage">
+  <view class="point">
+    <picker bindchange="bindPickerChange" data-index="0" value="{{index}}" range="{{cityItem}}" range-key='regionName'>
+      <view class="picker">
+        {{cityItem[cityIndex].regionName?cityItem[cityIndex].regionName:'城市'}}
+      </view>
+    </picker>
+    <image class="point_timg" src="../../assets/img/timg.png" alt="" mode="aspectFit" />
+  </view>
+
   <view class="nav_tab">
-    <view wx:for="{{info.reportGenres}}" wx:key="index" class="{{reportGenre==index?'hidden':'show'}}" data-index="{{index}}" bindtap="selectedReportGenres">
+    <view wx:for="{{info.reportGenres}}" wx:key="index" class="{{reportGenre==index?'hidden':'show'}}"
+      data-index="{{index}}" bindtap="selectedReportGenres">
       {{item}}
     </view>
   </view>
   <view class="nav_tab nav_tabchild">
-    <view class="{{dateRangeindex==index?'hidden':'show'}}" wx:for="{{info.dateRange[reportGenre]}}" wx:key="index" data-index="{{index}}" bindtap="selectedDateRange">
+    <view class="{{dateRangeindex==index?'hidden':'show'}}" wx:for="{{info.dateRange[reportGenre]}}" wx:key="index"
+      data-index="{{index}}" bindtap="selectedDateRange">
       {{item}}
     </view>
   </view>
+<view class="timeWrap" wx:if="{{dateRange==0||dateRange==1||dateRange==10||dateRange==11}}">
+    <icon class="iconfont icon-backwardcyclyo" bindtap="lowerJump"></icon>
+    <view class="cellWrap">
+      <mp-cell class="cell" prop="date" title="日期">
+        <picker data-field="date" fields="{{fields}}" mode="date" value="{{startDate}}" bindchange="bindDateChange">
+          <view class="weui-input">{{startDate}}</view>
+        </picker>
+        <image class="timg" src="../../assets/img/timg.png" alt="" mode="aspectFit" />
+      </mp-cell>
+    </view>
+    <icon class="iconfont icons icon-backwardcyclyo" bindtap="upJump"></icon>
+  </view>
+
+  <view class="custom" wx:if="{{dateRange==3||dateRange==13}}">
+    <view class="cellWrap">
+      <mp-cell class="cell" prop="date" title="日期">
+        <picker data-field="date" fields="{{fields}}" mode="date" value="{{startCustomDate}}" data-customindex="0" bindchange="bindCustomDateChange">
+          <view class="weui-input">{{startCustomDate}}</view>
+        </picker>
+        <image class="timg" src="../../assets/img/timg.png" alt="" mode="aspectFit" />
+      </mp-cell>
+    </view>
+   <text style="padding: 0 20rpx;">至</text>
+    <view class="cellWrap">
+      <mp-cell class="cell" prop="date" title="日期">
+        <picker data-field="date" fields="{{fields}}" mode="date" value="{{endCustomDate}}" data-customindex="1" bindchange="bindCustomDateChange">
+          <view class="weui-input">{{endCustomDate}}</view>
+        </picker>
+        <image class="timg" src="../../assets/img/timg.png" alt="" mode="aspectFit" />
+      </mp-cell>
+    </view>
+    <view class="queryDate" bindtap="queryDateFn">查询</view>
+  </view>
 
   <!-- 月份选择 -->
-  <view class="pickerWrap" wx:if="{{dateRange==13}}">
-    <!-- <view class="page-date" bindtap="pickerShow">
+  <!-- <view class="pickerWrap" wx:if="{{dateRange==13}}"> -->
+  <!-- <view class="page-date" bindtap="pickerShow">
       <view>{{monthStartTime}}<text> 至 </text>{{monthEndTime}}</view>
       <image class="page-date-img" src="../../assets/img/timg.png"></image>
     </view> -->
-    <selectTime pickerShow="{{isPickerShow}}" distance="70" id="picker" wx:if="{{isPickerRender}}" bind:hidePicker="pickerHide" bind:setPickerTime="setPickerTime" config="{{pickerConfig}}"></selectTime>
-  </view>
+  <!-- <selectTime pickerShow="{{isPickerShow}}" distance="70" id="picker" wx:if="{{isPickerRender}}"
+      bind:hidePicker="pickerHide" bind:setPickerTime="setPickerTime" config="{{pickerConfig}}"></selectTime>
+  </view> -->
 
   <!-- 单日/月选择 -->
   <!-- <pickerView class="listss" propDate="{{propDate}}" isMonth="{{isMonth}}" bind:dateTimeBody="dateTimeBody" /> -->
 
   <!-- 小历同学文档 -->
-  <view wx:if="{{isShow}}" class="xlCalendarWrap" catchtap="cancelWindowFn">
+  <!-- <view wx:if="{{isShow}}" class="xlCalendarWrap" catchtap="cancelWindowFn">
   </view>
   <view class="ballWindow" animation="{{animationData}}">
     <view class="ballWindow-btn" bindtap="cancelWindowFn">取消</view>
     <view class="xlCalendar">
-      <calendar id="calendar" config="{{calendarConfig}}" bind:onSwipe="onSwipe" bind:whenChangeWeek="whenChangeWeek" bind:whenChangeMonth="whenChangeMonth" bind:takeoverTap="takeoverTap" bind:afterTapDate="afterTapDate" bind:afterCalendarRender="afterCalendarRender"></calendar>
+      <calendar id="calendar" config="{{calendarConfig}}" bind:onSwipe="onSwipe" bind:whenChangeWeek="whenChangeWeek"
+        bind:whenChangeMonth="whenChangeMonth" bind:takeoverTap="takeoverTap" bind:afterTapDate="afterTapDate"
+        bind:afterCalendarRender="afterCalendarRender"></calendar>
     </view>
-  </view>
+  </view> -->
 
 
   <view>
@@ -106,10 +153,12 @@
             <view class="title flex1 ">{{item.pointName?item.pointName:item.agencyName}}</view>
             <view class="price flex1 ">￥{{item.saleAmount}}</view>
             <view class="num flex1 ">{{item.productCount}}</view>
-            <view wx:if="{{!isIds&&(dateRange==0||dateRange==1)}}" class="report_details flex1" bindtap="bindReportDetaill" data-point="{{item}}">
+            <view wx:if="{{!isIds&&(dateRange==0||dateRange==1)}}" class="report_details flex1"
+              bindtap="bindReportDetaill" data-point="{{item}}">
               <image src="../../assets/img/baobiao.png" mode="scaleToFill"></image>
             </view>
-            <view wx:elif="{{isIds||dateRange!==1||dateRange!==2}}" class="report_details flex1" bindtap="bindDetail" data-point="{{item}}">
+            <view wx:elif="{{isIds||dateRange!==1||dateRange!==2}}" class="report_details flex1" bindtap="bindDetail"
+              data-point="{{item}}">
               <view class="detail-btn">明细</view>
             </view>
           </view>

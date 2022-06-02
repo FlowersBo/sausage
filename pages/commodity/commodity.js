@@ -482,29 +482,26 @@ Page({
       date
     } = that.data;
     let data = {
-      // pageNum: that.data.pageNum,
-      // pageSize: that.data.pageSize,
-      // startDate,
-      // endDate,
-      // agencyId:that.data.agencyId,
+      pageNum: that.data.pageNum,
+      pageSize: that.data.pageSize,
       searchDate: `${that.data.selectedChild==0?date:''}`,
       searchMonth: `${that.data.selectedChild==1?date:''}`,
       cityId,
       agencyId,
       sortType: that.data.pointSort,
     };
-    let result = await (mClient.get(api.ProductRanking, data));
+    let result = await (mClient.get(api.ProductRankingDetail, data));
     console.log('点位销售明细', result);
     if (result.data.code == 200) {
       let total = result.data.data.total;
       commodityDetailList = commodityDetailList.concat(result.data.data);
-      commodityDetailList.forEach(element => {
-        element.psbList.filter((item, index, arr) => {
-          if (item.wasteSum > 0) {
-            element.isWasteSum = true;
-          }
-        });
-      });
+      // commodityDetailList.forEach(element => {
+      //   element.psbList.filter((item, index, arr) => {
+      //     if (item.wasteSum > 0) {
+      //       element.isWasteSum = true;
+      //     }
+      //   });
+      // });
       console.log(commodityDetailList);
       that.setData({
         commodityDetailList,
