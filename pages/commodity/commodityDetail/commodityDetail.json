@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "商品明细",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "yycalendar": "plugin://myPlugin/yycalendar",
+    "calendar": "../../../component/v2/index"
+  }
+}

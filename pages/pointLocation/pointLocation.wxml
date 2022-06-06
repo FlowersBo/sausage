@@ -1,11 +1,13 @@
 <!--pages/pointLocation/pointLocation.wxml-->
 <view class="pointLocation">
   <view class="nav_tab">
-    <view wx:for="{{pointGenres}}" wx:key="index" class="{{selected==index?'hidden':'show'}}" data-index="{{index}}" bindtap="bindPointGenre">
+    <view wx:for="{{pointGenres}}" wx:key="index" class="{{selected==index?'hidden':'show'}}" data-index="{{index}}"
+      bindtap="bindPointGenre">
       {{item}}</view>
   </view>
   <view wx:if="{{selected==0||selected==1}}" class="nav_tabchild">
-    <view class="tabchild {{selectedChild==index?'hidden':'show'}}" wx:for="{{tabchild}}" data-index="{{index}}" wx:key="index" bindtap="selectedDateRange">
+    <view class="tabchild {{selectedChild==index?'hidden':'show'}}" wx:for="{{tabchild}}" data-index="{{index}}"
+      wx:key="index" bindtap="selectedDateRange">
       {{item}}
     </view>
   </view>
@@ -33,7 +35,8 @@
   <view class="time_point" wx:if="{{selected===2}}">
     <view class="pointWrap">
       <view class="point">
-        <picker bindchange="bindPickerChange" data-index="0" value="{{index}}" range="{{cityItem}}" range-key='regionName'>
+        <picker bindchange="bindPickerChange" data-index="0" value="{{index}}" range="{{cityItem}}"
+          range-key='regionName'>
           <view class="picker">
             {{cityItem[cityIndex].regionName?cityItem[cityIndex].regionName:'城市'}}
           </view>
@@ -42,7 +45,8 @@
       </view>
 
       <view class="point">
-        <picker bindchange="bindPickerChange" data-index="1" value="{{index}}" range="{{agencyItem}}" range-key='agencyname'>
+        <picker bindchange="bindPickerChange" data-index="1" value="{{index}}" range="{{agencyItem}}"
+          range-key='agencyname'>
           <view class="picker">
             {{agencyItem[agencyIndex].agencyname?agencyItem[agencyIndex].agencyname:'合作商'}}
           </view>
@@ -51,7 +55,7 @@
       </view>
     </view>
     <view class="calendarWrap" bindtap="calendarFn">
-    {{startTime?startTime+'~'+endTime:'日期范围查询'}}
+      {{startTime?startTime+'~'+endTime:'日期范围查询'}}
       <image class="point_timg" src="../../assets/img/timg.png" alt="" mode="aspectFit" />
     </view>
     <view wx:if="{{isShow}}" class="xlCalendarWrap" catchtap="cancelWindowFn">
@@ -59,7 +63,9 @@
     <view class="ballWindow" animation="{{animationData}}">
       <view class="ballWindow-btn" bindtap="cancelWindowFn">取消</view>
       <view class="xlCalendar">
-        <calendar id="calendar" config="{{calendarConfig}}" bind:onSwipe="onSwipe" bind:whenChangeWeek="whenChangeWeek" bind:whenChangeMonth="whenChangeMonth" bind:takeoverTap="takeoverTap" bind:afterTapDate="afterTapDate" bind:afterCalendarRender="afterCalendarRender"></calendar>
+        <calendar id="calendar" config="{{calendarConfig}}" bind:onSwipe="onSwipe" bind:whenChangeWeek="whenChangeWeek"
+          bind:whenChangeMonth="whenChangeMonth" bind:takeoverTap="takeoverTap" bind:afterTapDate="afterTapDate"
+          bind:afterCalendarRender="afterCalendarRender"></calendar>
       </view>
     </view>
     <!-- <view class="pickerWrap">
@@ -86,9 +92,9 @@
 
 
   <view class="detail" wx:if="{{selected==1}}">
-    <view class="explain">
+    <!-- <view class="explain">
       点位累计销售明细(<text>{{date}}</text>)
-    </view>
+    </view> -->
   </view>
   <view class="tabTit box">
     <view class="flex1" wx:for="{{reportDetail.titles}}" wx:key="type" data-index="{{index}}" bindtap="bindPointSort">
@@ -108,6 +114,15 @@
           <view wx:if="{{selected==2}}" class="report_details flex1" bindtap="bindDetail" data-point="{{item.pointId}}">
             <view class="detail-btn">明细</view>
           </view>
+          <block wx:elif="{{selected==1}}">
+            <view class="report_details flex1">
+              {{item.wasteSum}}
+            </view>
+            <view class="report_details flex1" style="display: flex; align-items: center;justify-content: center;" bindtap="bindWaste" data-point="{{item.pointId}}">
+              <image style="width: 40rpx;height: 40rpx;" src="../../assets/img/bt.png"></image>
+            </view>
+          </block>
+
         </view>
       </view>
     </block>

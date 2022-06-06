@@ -89,14 +89,22 @@ Page({
   },
 
   bindLogOut: function () {
-    try {
-      wx.clearStorageSync()
-      wx.reLaunch({
-        url: '../login/login'
-      })
-    } catch (e) {
-      // Do something when catch error
-    }
+    wx.showModal({
+      title: '退出登录',
+      content: '确定退出当前账号吗？',
+      success (res) {
+        if (res.confirm) {
+          try {
+            wx.clearStorageSync()
+            wx.reLaunch({
+              url: '../login/login'
+            })
+          } catch (e) {
+            // Do something when catch error
+          }
+        } 
+      }
+    })
   },
 
   bindUserSaleDetailly: function () {

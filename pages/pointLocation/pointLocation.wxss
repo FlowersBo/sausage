@@ -162,19 +162,19 @@
   width: 14rpx;
   height: 24rpx;
   margin-left: .066667rem;
+  margin-top: 20rpx;
 }
 
 .list>.list_item>.info {
   display: flex;
   justify-content: space-between;
-  box-sizing: border-box;
-  padding: 20rpx 10rpx;
+  line-height: 70rpx;
   text-align: center;
   border-bottom: 1px solid #E8E8E8;
 }
 
 .flex1 {
-  font-size: 30rpx;
+  font-size: 24rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -182,17 +182,21 @@
 
 .flex1:first-child,
 .list .list_item .info .title {
-  width: 250rpx;
+  width: 220rpx;
 }
 
 .flex1:nth-child(2),
 .list .list_item .info .price {
-  width: 170rpx;
+  width: 150rpx;
 }
 
 .flex1:nth-child(3),
 .list .list_item .info .num {
-  width: 150rpx;
+  width: 120rpx;
+}
+.flex1:nth-child(4),
+.list .list_item .info .num {
+  width: 120rpx;
 }
 
 .flex1:last-child,

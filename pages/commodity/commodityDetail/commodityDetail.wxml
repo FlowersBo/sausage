@@ -1,0 +1,88 @@
+<!--pages/commodity/commodityDetail/commodityDetail.wxml-->
+<view class="pointLocation">
+  <view class="nav_tab">
+    <view wx:for="{{pointGenres}}" wx:key="index" class="{{selected==index?'hidden':'show'}}" data-index="{{index}}"
+      bindtap="bindPointGenre">
+      {{item}}</view>
+  </view>
+
+  <view class="timeWrap">
+    <icon class="iconfont icon-backwardcyclyo" bindtap="lowerJump"></icon>
+    <view class="cellWrap">
+      <mp-cell class="cell" prop="date" title="日期">
+        <picker data-field="date" fields="{{fields}}" mode="date" value="{{date}}" bindchange="bindDateChange">
+          <view class="weui-input">{{date}}</view>
+        </picker>
+        <image class="timg" src="../../../assets/img/timg.png" alt="" mode="aspectFit" />
+      </mp-cell>
+    </view>
+    <icon class="iconfont icons icon-backwardcyclyo" bindtap="upJump"></icon>
+  </view>
+
+  <view class="time_point">
+    <view class="pointWrap">
+      <view class="point">
+        <picker bindchange="bindPickerChange" data-index="0" value="{{index}}" range="{{cityItem}}"
+          range-key='regionName'>
+          <view class="picker">
+            {{cityItem[cityIndex].regionName?cityItem[cityIndex].regionName:'城市'}}
+          </view>
+        </picker>
+        <image class="point_timg" src="../../../assets/img/timg.png" alt="" mode="aspectFit" />
+      </view>
+
+      <view class="point">
+        <picker bindchange="bindPickerChange" data-index="1" value="{{index}}" range="{{agencyItem}}"
+          range-key='agencyname'>
+          <view class="picker">
+            {{agencyItem[agencyIndex].agencyname?agencyItem[agencyIndex].agencyname:'合作商'}}
+          </view>
+        </picker>
+        <image class="point_timg" src="../../../assets/img/timg.png" alt="" mode="aspectFit" />
+      </view>
+    </view>
+  </view>
+
+  <view class="goodsDetail" wx:if="{{commodityDetailList}}">
+    <!-- <view class="detail">
+      <view class="explain">
+        商品销售明细(<text>{{pointDetaillyDate}}</text>)
+      </view>
+    </view> -->
+    <view class="goodstabTit">
+      <view class="goods" wx:for="{{goodsDetail.titles}}" wx:key="type" data-index="{{index}}" bindtap="bindPointSort">
+        <label>
+          <text>{{item}}</text>
+          <image src="{{goodsDetail.titleUrls[index]}}" class="goods_image"></image>
+        </label>
+      </view>
+    </view>
+
+    <view class="goodslist">
+      <block wx:for="{{commodityDetailList}}" wx:key="list" wx:for-item="item">
+        <view class="goodslistItem">
+          <!-- <view class="title-waste"> -->
+            <view class="title-waste goods">{{item.pointName}}</view>
+            <!-- <view wx:if="{{item.isWasteSum}}" data-point="{{item.pointId}}" class="wasteBtn" bindtap="bindWaste">废弃分析
+            </view> -->
+          <!-- </view> -->
+          <!-- <view class="goods-info"> -->
+          <!-- <view class="goods-info" wx:for="{{item.psbList}}" wx:key="index" wx:for-item="items"> -->
+          <view class="title-waste goods">{{item.productName}}</view>
+          <view class="title-waste goods">{{item.saleSum}}</view>
+          <view class="title-waste goods">{{item.saleAmount}}</view>
+          <!-- </view> -->
+          <!-- </view> -->
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class="noDetail" wx:else>暂无数据</view>
+
+
+  <view class="button-wrapper">
+    <button type="default" size="default" loading="{{loading}}" disabled="{{disabled}}" bindtap="bindLoading">
+      {{loadText}}
+    </button>
+  </view>
+</view>

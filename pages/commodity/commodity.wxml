@@ -25,7 +25,7 @@
     </view>
   </view> -->
 
-  <view class="timeWrap" wx:if="{{selected!==2}}">
+  <view class="timeWrap">
     <icon class="iconfont icon-backwardcyclyo" bindtap="lowerJump"></icon>
     <view class="cellWrap">
       <mp-cell class="cell" prop="date" title="日期">
@@ -41,7 +41,8 @@
   <view class="time_point">
     <view class="pointWrap">
       <view class="point">
-        <picker bindchange="bindPickerChange" data-index="0" value="{{index}}" range="{{cityItem}}" range-key='regionName'>
+        <picker bindchange="bindPickerChange" data-index="0" value="{{index}}" range="{{cityItem}}"
+          range-key='regionName'>
           <view class="picker">
             {{cityItem[cityIndex].regionName?cityItem[cityIndex].regionName:'城市'}}
           </view>
@@ -50,7 +51,8 @@
       </view>
 
       <view class="point">
-        <picker bindchange="bindPickerChange" data-index="1" value="{{index}}" range="{{agencyItem}}" range-key='agencyname'>
+        <picker bindchange="bindPickerChange" data-index="1" value="{{index}}" range="{{agencyItem}}"
+          range-key='agencyname'>
           <view class="picker">
             {{agencyItem[agencyIndex].agencyname?agencyItem[agencyIndex].agencyname:'合作商'}}
           </view>
@@ -60,12 +62,13 @@
     </view>
   </view>
 
-  <!-- <view class="detail" wx:if="{{selected==1}}">
+  <!-- <view class="detail">
     <view class="explain">
       商品销售量汇总(<text>{{pointDetaillyDate}}</text>)
     </view>
   </view> -->
-  <!-- <view wx:if="{{commodityList.length>0}}" class="reportDetail">
+
+  <view wx:if="{{commodityList.length>0}}" class="reportDetail">
     <view class="tabTit box">
       <view class="flex1" wx:for="{{reportDetail.titles}}" wx:key="type" data-index="{{index}}" bindtap="bindGoodsSort">
         <label>
@@ -79,54 +82,16 @@
         <view class="list_item">
           <view class="info box">
             <view class="title flex1 ">{{item.productName}}</view>
-            <view class="price flex1 ">{{selected==0?item.saleAmount:item.saleSum}}</view>
-            <view class="num flex1 ">{{selected==0?item.saleSum:item.wasteSum}}</view>
-          </view>
-        </view>
-      </block>
-    </view>
-  </view>
-  <view class="noDetail" wx:else>暂无数据</view> -->
- 
-  <view class="goodsDetail">
-    <!-- <view class="detail" wx:if="{{selected==1}}">
-      <view class="explain">
-        商品销售明细(<text>{{pointDetaillyDate}}</text>)
-      </view>
-    </view> -->
-    <view class="goodstabTit">
-      <view class="goods" wx:for="{{goodsDetail.titles}}" wx:key="type" data-index="{{index}}" bindtap="bindPointSort">
-        <label>
-          <text>{{item}}</text>
-          <image src="{{goodsDetail.titleUrls[index]}}" class="goods_image"></image>
-        </label>
-      </view>
-    </view>
-
-    <view class="goodslist">
-      <block wx:for="{{commodityDetailList}}" wx:key="list" wx:for-item="item">
-        <view class="goodslistItem">
-          <view class="title-waste">
-            <view class="goods-title">{{item.pointName}}</view>
-            <view wx:if="{{item.isWasteSum}}" data-point="{{item.pointId}}" class="wasteBtn"
-              bindtap="bindWaste">废弃分析</view>
-          </view>
-          <view class="goods-item">
-            <view class="goods-info" wx:for="{{item.psbList}}" wx:key="index" wx:for-item="items">
-              <view class="goods-productName">{{items.productName}}</view>
-              <view class="goods-amout">{{items.saleSum}}</view>
-              <view class="goods-saleSum">{{items.wasteSum}}</view>
+            <view class="price flex1 ">{{item.saleAmount}}</view>
+            <view class="num flex1 ">{{item.saleSum}}</view>
+            <view class="detail-btn">
+              <view data-productid="{{item.productId}}" bindtap="gotoCommodityDetailFn">明细
+              </view>
             </view>
           </view>
         </view>
       </block>
     </view>
   </view>
-
-
-  <view class="button-wrapper">
-    <button type="default" size="default" loading="{{loading}}" disabled="{{disabled}}" bindtap="bindLoading">
-      {{loadText}}
-    </button>
-  </view>
+  <view class="noDetail" wx:else>暂无数据</view>
 </view>

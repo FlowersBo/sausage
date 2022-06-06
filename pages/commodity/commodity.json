@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "商品",
-  "enablePullDownRefresh": false,
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "yycalendar": "plugin://myPlugin/yycalendar",
     "calendar": "../../component/v2/index",

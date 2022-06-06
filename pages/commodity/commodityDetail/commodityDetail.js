@@ -1,7 +1,7 @@
 // pages/pointLocation/pointLocation.js
-import * as mClient from '../../utils/customClient';
-import * as api from '../../config/api';
-import * as util from '../../utils/util';
+import * as mClient from '../../../utils/customClient';
+import * as api from '../../../config/api';
+import * as util from '../../../utils/util';
 let that;
 let app = getApp();
 
@@ -17,11 +17,11 @@ Page({
     date: util.customFormatTime(new Date()),
     reportDetail: {
       titles: ['商品名称', '销售额', '销售量', '点位'],
-      titleUrls: ['', '../../assets/img/arrow.png', '../../assets/img/arrow.png',''],
+      titleUrls: ['', '../../../assets/img/arrow.png', '../../../assets/img/arrow.png', ''],
     },
     goodsDetail: {
-      titles: ['点位', '商品名称', '销售量', '废弃量'],
-      titleUrls: ['', '', '../../assets/img/arrow.png', '../../assets/img/arrow.png'],
+      titles: ['点位', '商品名称', '销售量', '销售额'],
+      titleUrls: ['', '', '../../../assets/img/arrow.png', '../../../assets/img/arrow.png'],
     },
     isGoodsSaleSum: false,
     isGoodsWasteSum: false,
@@ -61,102 +61,6 @@ Page({
     cityId: '',
     fields: 'day',
   },
- 
-  // 日历、
-  // afterTapDate(e) {
-  //   let frequency = that.data.frequency;
-  //   if (e.detail.month <= 9) {
-  //     e.detail.month = `0${e.detail.month}`
-  //   }
-  //   if (e.detail.date <= 9) {
-  //     e.detail.date = `0${e.detail.date}`
-  //   }
-  //   if (frequency == 0) {
-  //     that.setData({
-  //       frequency: 1,
-  //       startTimer: `${e.detail.year}-${e.detail.month}-${e.detail.date}`
-  //     })
-  //   } else {
-  //     that.setData({
-  //       frequency: 0,
-  //       endTimer: `${e.detail.year}-${e.detail.month}-${e.detail.date}`
-  //     })
-  //     let startTimer = (new Date(that.data.startTimer.replace(/-/g, '/'))).getTime();
-  //     let endTimer = (new Date(that.data.endTimer.replace(/-/g, '/'))).getTime();
-  //     if (startTimer < endTimer) {
-  //       startTimer = that.data.startTimer;
-  //       endTimer = that.data.endTimer;
-  //     } else {
-  //       startTimer = that.data.endTimer;
-  //       endTimer = that.data.startTimer;
-  //     }
-  //     this.setData({
-  //       pointDetaillyDate: startTimer + '~' + endTimer,
-  //       startDate: startTimer,
-  //       endDate: endTimer,
-  //       isShow: false
-  //     });
-  //     that.fadeDown();
-  //     that.goodsList();
-  //     that.goodsDetailList();
-  //   }
-  // },
-
-  // cancelWindowFn() {
-  //   that.setData({
-  //     isShow: false
-  //   })
-  //   that.fadeDown();
-  // },
-
-
-  // fadeIn: function () {
-  //   var animation = wx.createAnimation({
-  //     duration: 300,
-  //     timingFunction: 'linear'
-  //   })
-  //   animation.bottom(60).step()
-  //   this.setData({
-  //     animationData: animation.export()
-  //   })
-  // },
-
-  // fadeDown: function () {
-  //   var animation = wx.createAnimation({
-  //     duration: 300,
-  //     timingFunction: 'linear', //动画的效果 默认值是linear
-  //   })
-  //   animation.bottom(-720).step()
-  //   this.setData({
-  //     animationData: animation.export()
-  //   })
-  // },
-
-  // _yybindchange: function (e) {
-  //   that.setData({
-  //     loadText: '',
-  //   })
-  //   let dateWrap = e.detail;
-  //   console.log('选择范围', dateWrap);
-  //   let startDate = dateWrap.startTime,
-  //     endDate = dateWrap.endTime;
-  //   that.setData({
-  //     pointDetaillyDate: `${startDate}~${endDate}`,
-  //     startDate,
-  //     endDate
-  //   })
-  //   that.goodsList();
-  //   that.goodsDetailList();
-  // },
-
-  // _yybindhide: function () {
-  //   console.log('隐藏')
-  // },
-
-  // _yybinddaychange: function (e) {
-  //   console.log('日期发生变化', e);
-  // },
-
 
   // 切换tab
   bindPointGenre: function (e) {
@@ -185,9 +89,8 @@ Page({
         fields: 'month',
         date: util.customFormatMonth(new Date())
       })
-      // that.fadeIn();
     }
-    that.goodsList();
+    that.goodsDetailList();
   },
 
   // 废弃跳转
@@ -204,27 +107,20 @@ Page({
     let date = e.detail.value;
     that.setData({
       date,
-      // startDate: date,
-      // endDate: date,
-      // pointDetaillyDate: date,
-      // oldStartDate: date,
-      // oldEndDate: date,
       pageNum: 1
     })
-    that.goodsList();
+    that.goodsDetailList();
   },
 
   // 下一日
   upJump: function (event) {
-    // let myDate = new Date().getTime();
-    // console.log('13位时间戳', myDate);
     let converedDate = new Date(Date.parse(that.data.date));
     converedDate.setDate(converedDate.getDate() + 1);
     that.setData({
       date: `${that.data.selectedChild==0?util.customFormatTime(converedDate):util.addMonth(that.data.date,'add')}`,
       pageNum: 1
     })
-    that.goodsList();
+    that.goodsDetailList();
   },
 
   ///上一日
@@ -236,7 +132,7 @@ Page({
       date: `${that.data.selectedChild==0?util.customFormatTime(converedDate):util.customFormatMonth(converedDate)}`,
       pageNum: 1
     })
-    that.goodsList();
+    that.goodsDetailList();
   },
 
   // 时间
@@ -259,61 +155,63 @@ Page({
       oldEndDate: date,
       pageNum: 1
     })
-    that.goodsList();
+    that.goodsDetailList();
   },
 
-  // 商品排序
-  bindGoodsSort: function (e) {
-    let isSaleAmountSort = that.data.isSaleAmountSort;
-    let isSaleCountSort = that.data.isSaleCountSort;
+  // 点位排序
+  bindPointSort: function (e) {
+    let isGoodsSaleSum = that.data.isGoodsSaleSum;
+    let isGoodsWasteSum = that.data.isGoodsWasteSum;
     let index = e.currentTarget.dataset.index;
-    let reportDetail = that.data.reportDetail;
+    let goodsDetail = that.data.goodsDetail;
     console.info('当前销售量id', index);
-    if (index === 1) {
-      reportDetail.titleUrls[2] = '../../assets/img/arrow.png';
-      if (isSaleAmountSort === false) {
-        reportDetail.titleUrls[index] = '../../assets/img/arrow-h.png';
+    if (index === 2) {
+      goodsDetail.titleUrls[3] = '../../../assets/img/arrow.png';
+      if (isGoodsSaleSum === false) {
+        goodsDetail.titleUrls[index] = '../../../assets/img/arrow-h.png';
         this.setData({
-          isSaleAmountSort: true,
-          goodsPointSort: 2,
-          reportDetail: reportDetail
+          isGoodsSaleSum: true,
+          pointSort: 2,
+          goodsDetail
         })
       } else {
-        reportDetail.titleUrls[index] = '../../assets/img/arrow-l.png';
+        goodsDetail.titleUrls[index] = '../../../assets/img/arrow-l.png';
         this.setData({
-          isSaleAmountSort: false,
-          goodsPointSort: 1,
-          reportDetail: reportDetail
+          isGoodsSaleSum: false,
+          pointSort: 1,
+          goodsDetail
         })
       }
-    } else if (index === 2) {
-      reportDetail.titleUrls[1] = '../../assets/img/arrow.png';
-      if (isSaleCountSort === false) {
-        reportDetail.titleUrls[index] = '../../assets/img/arrow-h.png';
+    } else if (index === 3) {
+      goodsDetail.titleUrls[2] = '../../../assets/img/arrow.png';
+      if (isGoodsWasteSum === false) {
+        goodsDetail.titleUrls[index] = '../../../assets/img/arrow-h.png';
         this.setData({
-          isSaleCountSort: true,
-          goodsPointSort: 4,
-          reportDetail: reportDetail
+          isGoodsWasteSum: true,
+          pointSort: 4,
+          goodsDetail
         })
       } else {
-        reportDetail.titleUrls[index] = '../../assets/img/arrow-l.png';
+        goodsDetail.titleUrls[index] = '../../../assets/img/arrow-l.png';
         this.setData({
-          isSaleCountSort: false,
-          goodsPointSort: 3,
-          reportDetail: reportDetail
+          isGoodsWasteSum: false,
+          pointSort: 3,
+          goodsDetail
         })
       }
     } else {
       return;
     };
-    that.goodsList();
+    that.setData({
+      pageNum: 1
+    })
+    that.goodsDetailList();
   },
 
 
   // 城市下拉选择列表
   async selectAgencyItem() {
-    let data = {
-    };
+    let data = {};
     let result = await (mClient.get(api.SelectAgencyItem, data));
     console.log('合作商列表', result);
     if (result.data.code == 200) {
@@ -323,8 +221,7 @@ Page({
     }
   },
   async cityListItem() {
-    let data = {
-    };
+    let data = {};
     let result = await (mClient.get(api.SelectCityItem, data));
     console.log('城市列表', result);
     if (result.data.code == 200) {
@@ -333,6 +230,7 @@ Page({
       })
     }
   },
+
   bindPickerChange: function (e) {
     console.log(e)
     if (e.currentTarget.dataset.index == 0) {
@@ -352,7 +250,7 @@ Page({
         pageNum: 1
       })
     }
-    that.goodsList();
+    that.goodsDetailList();
   },
 
   /**
@@ -360,83 +258,103 @@ Page({
    */
   onLoad: function (options) {
     that = this;
-    let pointReportDate = new Date();
-    pointReportDate.setDate(pointReportDate.getDate());
-    pointReportDate = util.customFormatTime(pointReportDate);
+    let {
+      productId,
+      date,
+      selected
+    } = options;
+    console.log(productId, date)
+    // let pointReportDate = new Date();
+    // pointReportDate.setDate(pointReportDate.getDate());
+    // pointReportDate = util.customFormatTime(pointReportDate);
     that.setData({
-      date: pointReportDate,
-      startDate: pointReportDate,
-      endDate: pointReportDate,
-      oldStartDate: pointReportDate,
-      oldEndDate: pointReportDate,
+      date: date,
+      startDate: date,
+      endDate: date,
+      productId,
+      selected,
+      selectedChild: selected
+      // oldStartDate: date,
+      // oldEndDate: date,
     })
-    // const promise2 = new Promise((resolve, reject) => setTimeout(resolve, reject, 100, 'foo'));
-    // console.log(promise2);
     that.promiseAll();
     that.selectAgencyItem();
     that.cityListItem();
   },
 
-  async goodsList(commodityList = []) {
+  async goodsDetailList(commodityDetailList = []) {
     let {
       cityId,
       agencyId,
-      date
+      date,
+      productId
     } = that.data;
     let data = {
-      // pageNum: that.data.pageNum,
-      // pageSize: that.data.pageSize,
+      pageNum: that.data.pageNum,
+      pageSize: that.data.pageSize,
       searchDate: `${that.data.selectedChild==0?date:''}`,
       searchMonth: `${that.data.selectedChild==1?date:''}`,
       cityId,
       agencyId,
-      sortType: that.data.goodsPointSort,
+      productId,
+      sortType: that.data.pointSort,
     };
-    let result = await (mClient.get(api.ProductRanking, data));
-    console.log('商品列表', result);
-    //内容
+    let result = await (mClient.get(api.ProductRankingDetail, data));
+    console.log('点位列表', result);
     if (result.data.code == 200) {
-      commodityList = commodityList.concat(result.data.data);
+      let total = result.data.data.total;
+      commodityDetailList = commodityDetailList.concat(result.data.data.list);
+      // commodityDetailList.forEach(element => {
+      //   element.psbList.filter((item, index, arr) => {
+      //     if (item.wasteSum > 0) {
+      //       element.isWasteSum = true;
+      //     }
+      //   });
+      // });
+      console.log(commodityDetailList);
       that.setData({
-        commodityList,
+        commodityDetailList,
+        total,
       })
+      if ((that.data.pageNum * that.data.pageSize) >= total) {
+        that.setData({
+          loadText: '已经到底了',
+        });
+      } else {
+        that.setData({
+          loadText: '点击加载',
+        });
+      }
     } else {
       console.log('fail');
     }
   },
 
-  // bindLoading: function () {
-  //   let commodityDetailList = that.data.commodityDetailList;
-  //   let pageNum = that.data.pageNum;
-  //   let pageSize = that.data.pageSize;
-  //   let total = that.data.total;
-  //   pageNum = pageNum + 1;
-  //   if ((pageNum * pageSize) - total >= pageSize) {
-  //     that.setData({
-  //       loadText: '已经到底了',
-  //     })
-  //     return;
-  //   };
-  //   that.setData({
-  //     pageNum,
-  //   })
-  // },
+  bindLoading: function () {
+    let commodityDetailList = that.data.commodityDetailList;
+    let pageNum = that.data.pageNum;
+    let pageSize = that.data.pageSize;
+    let total = that.data.total;
+    pageNum = pageNum + 1;
+    if ((pageNum * pageSize) - total >= pageSize) {
+      that.setData({
+        loadText: '已经到底了',
+      })
+      return;
+    };
+    that.setData({
+      pageNum,
+    })
+    that.goodsDetailList(commodityDetailList);
+  },
 
 
   //Promise.allSettled
   promiseAll() {
-    const promises = [ 
-      that.goodsList(),
+    const promises = [
+      that.goodsDetailList()
     ];
-    mClient.allSettled(promises).then(res => {
-      console.log(res)
-    });
-  },
-
-  gotoCommodityDetailFn(e){
-    wx.navigateTo({
-      url: './commodityDetail/commodityDetail?productId='+e.currentTarget.dataset.productid+'&date='+that.data.date+'&selected='+that.data.selected,
-    })
+    mClient.allSettled(promises).then(res => {});
   },
 
   /**
@@ -482,7 +400,7 @@ Page({
       agencyIndex: '',
       pageNum: 1
     })
-    that.goodsList();
+    that.goodsDetailList();
   },
 
   /**

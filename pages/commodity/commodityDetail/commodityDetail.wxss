@@ -1,3 +1,4 @@
+/* pages/commodity/commodityDetail/commodityDetail.wxss */
 @import '/iconCss/icon.wxss';
 .pointLocation {
   width: 98%;
@@ -258,14 +259,12 @@
 }
 
 .title-waste {
-  width: 200rpx;
   box-sizing: border-box;
-  padding: 20rpx 6rpx;
-  margin: auto 0;
-  font-size: 28rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 20rpx 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 24rpx;
 }
 
 .goods-title {
@@ -297,6 +296,7 @@
 
 .goods-info {
   width: 100%;
+  font-size: 24rpx;
   display: flex;
   padding: 20rpx 0;
   border-bottom: 1rpx solid #E8E8E8;

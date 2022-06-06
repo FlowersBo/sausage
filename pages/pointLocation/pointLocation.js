@@ -281,23 +281,25 @@ Page({
       that.setData({
         selected: 1,
         reportDetail: {
-          titles: ['点位', '销售额', '销售量'],
-          titleUrls: ['', '../../assets/img/arrow.png', '../../assets/img/arrow.png'],
+          titles: ['点位', '销售额', '销售量','废弃量','废弃分析'],
+          titleUrls: ['', '../../assets/img/arrow.png', '../../assets/img/arrow.png','../../assets/img/arrow.png',''],
         },
       })
     } else {
-      if (reportDetail.titles.length < 4) {
-        reportDetail.titles[0] = '点位';
-        reportDetail.titles.push('明细');
-        reportDetail.titleUrls.push('');
-      }
-      let {
-        startDate,
-        endDate
-      } = that.data;
+      that.setData({
+        reportDetail: {
+          titles: ['点位', '销售额', '销售量','明细'],
+          titleUrls: ['', '../../assets/img/arrow.png', '../../assets/img/arrow.png',''],
+        },
+      })
+      // if (reportDetail.titles.length < 4) {
+      //   reportDetail.titles[0] = '点位';
+      //   reportDetail.titles.push('明细');
+      //   reportDetail.titleUrls.push('');
+      // }
       that.setData({
         selected: 2,
-        reportDetail,
+        // reportDetail,
         monthStartTime: '起始月份',
         monthEndTime: '结束月份',
         todayStartTime: '起始日期',
@@ -367,7 +369,7 @@ Page({
     //   pointEndDate = that.data.endDate;
     // };
     console.log('点位id', point);
-    console.log('明细时间', that.data.startTime,that.data.endTime);
+    console.log('明细时间', that.data.startTime, that.data.endTime);
     wx.navigateTo({
       url: '../tableDetail/tableDetail?pointId=' + point + "&pointStartDate=" + that.data.startTime + "&pointEndDate=" + that.data.endTime + '&startTime=' + startTime
     })
@@ -518,6 +520,15 @@ Page({
   },
   bindMultiPickerColumnChange(e) {
     console.log(e)
+  },
+
+  // 废弃跳转
+  bindWaste: function (e) {
+    let point = e.currentTarget.dataset.point;
+    console.log('点位id', point);
+    wx.navigateTo({
+      url: '../pointWaste/pointWaste?pointId=' + point + "&pointStartDate=" + that.data.date + "&pointEndDate=" + that.data.date
+    })
   },
 
   /**
@@ -687,7 +698,7 @@ Page({
       cityId: '',
       agencyId: '',
       cityIndex: '',
-      agencyIndex:''
+      agencyIndex: ''
     })
     that.rankingList();
   },

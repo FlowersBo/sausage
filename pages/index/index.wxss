@@ -13,12 +13,12 @@ page {
 
 .point {
 	width: 180rpx;
-  height: 60rpx;
+  height: 50rpx;
   border-radius: 10rpx;
   border: 1rpx solid #ccc;
   font-size: 24rpx;
 	position: relative;
-  margin: 20rpx 0;
+  margin: 10rpx 0;
 	margin-left: auto;
 }
 .point:last-child{
@@ -29,12 +29,12 @@ page {
   height: 100%;
   box-sizing: border-box;
   padding: 0 70rpx 0 16rpx;
-  line-height: 60rpx;
+  line-height: 50rpx;
 }
 
 .point_timg {
   position: absolute;
-  top: 8rpx;
+  top: 4rpx;
   right: 4rpx;
   width: 50rpx;
   height: 48rpx;
