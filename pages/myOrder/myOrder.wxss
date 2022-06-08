@@ -1,5 +1,71 @@
 /* pages/my_order/my_order.wxss */
 /*切换栏*/
+.scroll-wrapper {
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  background: #FFF;
+  height: 90rpx;
+  padding: 0 32rpx;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+/* 去掉滚动条 */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+.navigate-item {
+  display: inline-block;
+  text-align: center;
+  height: 90rpx;
+  line-height: 90rpx;
+  margin: 0 26rpx;
+}
+
+.names {
+  font-size: 28rpx;
+  color: #3c3c3c;
+}
+
+.names.active {
+  color: #db7c22;
+  font-weight: bold;
+  font-size: 30rpx;
+}
+
+.currtline {
+  margin: -18rpx auto 0 auto;
+  width: 80rpx;
+  height: 6rpx;
+  border-radius: 2rpx;
+}
+
+.currtline.active {
+  background: #db7c22;
+  transition: all .3s;
+}
+
+swiper {
+  margin-top: 90rpx;
+  min-height: calc(100vh - 100rpx);
+  background: #eee;
+}
+.swiper-item {
+  width: 100%;
+  padding: 32rpx ;
+  box-sizing: border-box;
+}
+
+scroll-view {
+  height: calc(100vh - 100rpx);
+}
+
+
 
 .nav_tab {
   display: flex;

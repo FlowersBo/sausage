@@ -466,6 +466,8 @@ Page({
           reportDetail: reportDetail
         })
       }
+    }else if(index === 3){
+      console.log('废弃量排序')
     } else {
       return;
     };

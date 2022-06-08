@@ -97,7 +97,7 @@
   </view>
 
   <!-- 统计表格 -->
-  <view class='history-table-wrap' wx:if="{{!isIds&&isDateRangeindex&&(dateRange==12||dateRange==13)&&statistics}}">
+  <view class='history-table-wrap' wx:if="{{isIds&&isDateRangeindex&&(dateRange==12||dateRange==13)&&statistics}}">
     <view class="detail">
       <view class="explain">
         销售统计(<text>{{pointDetaillyDate}}</text>)
@@ -128,7 +128,7 @@
   </block>
 
   <!-- 点位统计 -->
-  <view wx:if="{{isIds||(dateRange===0||dateRange===1||dateRange===2||dateRange===3||dateRange===10||dateRange===11)}}">
+  <view wx:if="{{dateRange===0||dateRange===1||dateRange===2||dateRange===3||dateRange===10||dateRange===11}}">
     <view class="detail">
       <view class="explain">
         点位销售统计(<text>{{pointDetaillyDate}}</text>)

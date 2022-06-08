@@ -6,7 +6,7 @@ import * as payment from '../../payment/payment';
 Page({
 
 	data: {
-		date: "2016-09-01",
+		date: "2021-01-01",
 		selected: 0,
 		btn: [
 			['立即支付', '取消订单'],
@@ -19,38 +19,92 @@ Page({
 		pageSize: 5,
 		pageTotal: 0,
 		orderList: [],
-		loadText: '点击加载...'
-	},
+		loadText: '点击加载...',
 
-	//tab框 
-	bindOrderGenre: function (e) {
-		console.log(e)
-		let that = this
-		let index = e.currentTarget.dataset.index;
+		isRefresh: false,
+    currentTab: 0,
+	},
+	
+	tabNav(e) {
+		let currentTab = e.currentTarget.dataset.index;
 		let status = '';
-		console.log(index)
-		if (index == 0) {
+		if (currentTab == 0) {
 			status = '';
-		} else if (index == 1) {
+		} else if (currentTab == 1) {
 			status = '0';
-		} else if (index == 2) {
+		} else if (currentTab == 2) {
 			status = '1';
-		} else if (index == 3) {
+		} else if (currentTab == 3) {
 			status = '2';
-		} else if (index == 4) {
+		} else if (currentTab == 4) {
 			status = '3';
 		}
-
-
 		this.setData({
-			selected: index,
+			currentTab,
 			pageIndex: 1,
 			pageSize: 5,
-			status: status
+			status
 		})
-
 		this.renderOrderList();
 	},
+	
+  handleSwiper(e) {
+    let {
+      current,
+      source
+    } = e.detail;
+    console.log(e)
+    if (source === 'autoplay' || source === 'touch') {
+      const currentTab = current
+      this.setData({
+        currentTab
+      })
+		}
+		this.renderOrderList();
+  },
+  handleTolower(e) {
+    wx.showToast({
+      title: '到底啦'
+    })
+  },
+  refresherpulling() {
+    wx.showLoading({
+      title: '刷新中'
+    })
+    setTimeout(() => {
+      this.setData({
+        isRefresh: false
+      })
+      wx.showToast({
+        title: '加载完成'
+      })
+    }, 1500)
+	},
+	
+	//tab框 
+	// bindOrderGenre: function (e) {
+	// 	let index = e.currentTarget.dataset.index;
+	// 	let status = '';
+	// 	if (index == 0) {
+	// 		status = '';
+	// 	} else if (index == 1) {
+	// 		status = '0';
+	// 	} else if (index == 2) {
+	// 		status = '1';
+	// 	} else if (index == 3) {
+	// 		status = '2';
+	// 	} else if (index == 4) {
+	// 		status = '3';
+	// 	}
+	// 	this.setData({
+	// 		selected: index,
+	// 		pageIndex: 1,
+	// 		pageSize: 5,
+	// 		status: status
+	// 	})
+
+	// 	this.renderOrderList();
+	// },
 
 	renderOrderList: function () {
 		let that = this;

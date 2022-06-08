@@ -1,39 +1,57 @@
 <!--pages/my_order/my_order.wxml-->
 <!-- 切换栏 -->
-<view class="nav_tab">
+<!-- <view class="nav_tab">
     <view wx:for="{{orderGenres}}" wx:key="order_tab" class="{{selected==index?'hidden':'show'}}" data-index="{{index}}"
         bindtap="bindOrderGenre">
         {{item}}</view>
-</view>
-<!-- tab框显示内容 -->
-<view class="tab_data">
-    <view class="list" wx:for="{{orderList}}" wx:key="list" wx:for-item="item" data-index="{{index}}"
-        bindtap="bindOrderDetail">
-        <view class="tit">
-            <text>{{item.merchantname}}</text><text>{{item.status}}</text>
-        </view>
-        <view class="time">{{item.orderTime}}</view>
-            <view class="more_detail" data-OrderId="{{item.id}}" bindtap = "bindNavigateOrderDetail">
-                <view class="img">
-                    <block wx:for="{{item.detail}}" wx:key="item" wx:for-item="index1">
-                        <image class="" src="{{index1.url}}"></image>
-                    </block>
-                </view>
-                <view class="right">
-                    <view class="">¥{{item.settlementPrice}}</view>
-                    <view class="num">共{{item.quantity}}件</view>
-                </view>
-            </view>
-        <view class="btn" >
-            <block wx:for="{{item.btn}}" wx:key="btn_more" wx:for-item="name">
-                <button data-OrderId="{{item.id}}" data-OperationGenre="{{name}}" catchtap = "bindOperationOrder">{{name}}</button>
-            </block>
-        </view>
-    </view>
-     <!-- 点击加载更多 -->
-    <view class="button-wrapper">
+</view> -->
+
+<scroll-view class="scroll-wrapper" scroll-x scroll-with-animation="true"
+	scroll-into-view="item{{currentTab<4?0:currentTab-2}}">
+	<view class="navigate-item" id="item{{index}}" wx:for="{{orderGenres}}" wx:key="index" data-index="{{index}}"
+		bindtap="tabNav">
+		<view class="names {{currentTab === index ? 'active' : ''}}">{{item}}</view>
+		<view class="currtline {{currentTab === index ? 'active' : ''}}" wx:if="{{currentTab === index}}"></view>
+	</view>
+</scroll-view>
+<swiper indicator-dots="{{false}}" bindchange="handleSwiper" current="{{currentTab}}">
+	<block wx:for="{{orderGenres}}" wx:key="index">
+		<swiper-item style="overflow: scroll;">
+			<scroll-view scroll-y refresher-enabled refresher-background="#F6F7F8" refresher-triggered="{{isRefresh}}"
+				bindrefresherrefresh="refresherpulling" bindscrolltolower="handleTolower">
+				<view class="list" wx:for="{{orderList}}" wx:key="list" wx:for-item="item" data-index="{{index}}"
+					bindtap="bindOrderDetail">
+					<view class="tit">
+						<text>{{item.merchantname}}</text><text>{{item.status}}</text>
+					</view>
+					<view class="time">{{item.orderTime}}</view>
+					<view class="more_detail" data-OrderId="{{item.id}}" bindtap="bindNavigateOrderDetail">
+						<view class="img">
+							<block wx:for="{{item.detail}}" wx:key="item" wx:for-item="index1">
+								<image class="" src="{{index1.url}}"></image>
+							</block>
+						</view>
+						<view class="right">
+							<view class="">¥{{item.settlementPrice}}</view>
+							<view class="num">共{{item.quantity}}件</view>
+						</view>
+					</view>
+					<view class="btn">
+						<block wx:for="{{item.btn}}" wx:key="btn_more" wx:for-item="name">
+							<button data-OrderId="{{item.id}}" data-OperationGenre="{{name}}"
+								catchtap="bindOperationOrder">{{name}}</button>
+						</block>
+					</view>
+				</view>
+			</scroll-view>
+		</swiper-item>
+	</block>
+</swiper>
+
+
+<!-- 点击加载更多 -->
+<!-- <view class="button-wrapper">
         <button type="default" size="default" loading="{{loading}}" disabled="{{disabled}}" bindtap="setLoading">
             {{loadText}}
         </button>
-    </view>
-</view>
+    </view> -->

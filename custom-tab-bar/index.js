@@ -23,7 +23,7 @@ Component({
 
   ready() {
     let roles = wx.getStorageSync('roles');
-    console.log('角色',roles);
+    console.log('角色', roles);
     let list = [{
         pagePath: "/pages/index/index",
         text: "报表",
@@ -58,7 +58,8 @@ Component({
     if (roles) {
       roles.forEach(element => {
         if (element === 'operate' || element === 'agency' || element === 'areaManager')
-          return
+          list.splice(3, 1); //临时隐藏订货
+        // return
         else if (element === 'cooperate' || element === 'companyOperate' || element === 'vp' || element === 'ceo')
           list.splice(3, 1);
         else if (element === 'mediate') {

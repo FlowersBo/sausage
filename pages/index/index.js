@@ -304,6 +304,7 @@ Page({
 
   onLoad: function (options) {
     that = this;
+    that.cityFn();
     that.initFn();
   },
   async initFn() {
@@ -796,6 +797,7 @@ Page({
         reportTotal: reportTotal,
         statistics: result.data.data.statistics
       })
+      that.renderChart(result.data.data.statistics); //echarts
       return
     }
     let data = {
@@ -898,18 +900,32 @@ Page({
   // 跳转明细
   bindDetail: function (e) {
     let point = e.currentTarget.dataset.point,
-    dateRange = that.data.dateRange,
       {
         startDate,
         endDate,
         startCustomDate,
-        endCustomDate
+        endCustomDate,
+        dateRange,
+        reportGenre,
+        dateRangeindex,
+        reportDetail
       } = that.data;
     console.log('跳转明细', point);
     if (point.agencyId) {
-      console.log(point);
+      let result = {
+        startDate,
+        endDate,
+        startCustomDate,
+        endCustomDate,
+        dateRange,
+        reportGenre,
+        dateRangeindex,
+        reportDetail
+      };
+      result = JSON.stringify(result);
+      console.log('跳转合作商', result);
       wx.navigateTo({
-        url: '../reportForms/reportForms?agencyId=' + point.agencyId + "&agencyName=" + point.agencyName + '&reportGenre=' + that.data.dateRange
+        url: '../reportForms/reportForms?agencyId=' + point.agencyId + "&agencyName=" + point.agencyName + '&result=' + result
       })
     } else {
       wx.navigateTo({
@@ -1049,7 +1065,6 @@ Page({
         selected: 0
       })
     }
-    that.cityFn();
   },
 
   // 城市选择

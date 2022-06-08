@@ -308,14 +308,54 @@ Page({
 		let {
 			agencyId,
 			agencyName,
-			reportGenre,
 		} = options;
+		let {
+			startDate,
+			endDate,
+			startCustomDate,
+			endCustomDate,
+			dateRange,
+			reportGenre,
+			dateRangeindex,
+			reportDetail
+		} = JSON.parse(options.result);
 		that.setData({
 			agencyId,
 			agencyName,
-			// dateRange: Number(reportGenre),
+			startDate,
+			endDate,
+			startCustomDate,
+			endCustomDate,
+			dateRange,
+			reportGenre,
+			dateRangeindex,
+			reportDetail,
 		})
-		that.renderTransactionSummation();
+		let pointDetaillyDate = '';
+		if (dateRange === 0 || dateRange === 1) {
+			pointDetaillyDate = startDate;
+			that.renderReport(that.data.dateRange, startDate);
+		} else if (dateRange === 2) {
+			pointDetaillyDate = startDate + '~' + endDate;
+			that.renderReport(that.data.dateRange, startDate, endDate);
+		} else if (dateRange === 3) {
+			pointDetaillyDate = startCustomDate + '~' + endCustomDate;
+			that.renderReport(that.data.dateRange, startCustomDate, endCustomDate);
+		} else if (dateRange == 10 || dateRange == 11) {
+			pointDetaillyDate = startDate;
+			that.renderReport(that.data.dateRange, '', startDate);
+		} else if (dateRange == 12) {
+			pointDetaillyDate = startDate + '~' + endDate;
+			that.monthlySalesVolume(startDate, endDate);
+		} else if (dateRange == 13) {
+			pointDetaillyDate = startCustomDate + '~' + endCustomDate;
+			that.monthlySalesVolume(startCustomDate, endCustomDate);
+		}
+		that.setData({
+			pointDetaillyDate
+		})
+
+		// that.renderTransactionSummation();
 		// that.initFn();
 	},
 	async initFn() {
@@ -471,7 +511,7 @@ Page({
 		this.setData({
 			dateRange: dateRange,
 			dateRangeindex: index,
-			dateRangeindex_off: index,
+			// dateRangeindex_off: index,
 			reportDetail: reportDetail,
 		});
 		this.renderTransactionSummation(dateRange);
