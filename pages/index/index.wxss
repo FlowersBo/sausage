@@ -1,4 +1,5 @@
 @import '../../iconCss/icon.wxss';
+
 /* /index.wxss */
 page {
 	padding: 0 20rpx 0;
@@ -7,39 +8,36 @@ page {
 
 /* 城市选择 */
 .pointWrap {
-  display: flex;
+	display: flex;
 	align-items: center;
 }
 
 .point {
 	width: 180rpx;
-  height: 50rpx;
-  border-radius: 10rpx;
-  border: 1rpx solid #ccc;
-  font-size: 24rpx;
+	height: 50rpx;
+	border-radius: 10rpx;
+	border: 1rpx solid #ccc;
+	font-size: 24rpx;
 	position: relative;
-  margin: 10rpx 0;
+	margin: 10rpx 0;
 	margin-left: auto;
-}
-.point:last-child{
-  margin-right: 0;
 }
 
 .picker {
-  height: 100%;
-  box-sizing: border-box;
-  padding: 0 70rpx 0 16rpx;
-  line-height: 50rpx;
+	height: 100%;
+	box-sizing: border-box;
+	padding-left: 16rpx;
+	line-height: 50rpx;
 }
 
 .point_timg {
-  position: absolute;
-  top: 4rpx;
-  right: 4rpx;
-  width: 50rpx;
-  height: 48rpx;
-  z-index: -1;
-  /* margin-left: 6rpx;
+	position: absolute;
+	top: 4rpx;
+	right: 4rpx;
+	width: 50rpx;
+	height: 48rpx;
+	z-index: -1;
+	/* margin-left: 6rpx;
   margin-top: 4rpx; */
 }
 
@@ -430,68 +428,73 @@ canvas {
 	left: 0;
 	z-index: 1000;
 }
-.homePage{
+
+.homePage {
 	padding-bottom: 150rpx;
 }
-.listStyle{
+
+.listStyle {
 	background: #f8f8f8;
 }
 
 /* 上下日 */
 /* 日期 */
 .timeWrap {
-  width: 60%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 20rpx;
+	width: 60%;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-bottom: 20rpx;
 }
 
 .cellWrap {
-  width: 226rpx;
-  height: 60rpx;
-  line-height: 60rpx;
-  border: 1px solid #c9c9c9;
-  background: #fff;
-  border-radius: 30rpx;
-  box-sizing: border-box;
-  padding-left: 10rpx;
-  position: relative;
+	/* width: 226rpx; */
+	height: 60rpx;
+	line-height: 60rpx;
+	border: 1px solid #c9c9c9;
+	background: #fff;
+	border-radius: 30rpx;
+	box-sizing: border-box;
+	padding: 0 60rpx 0 10rpx;
+	position: relative;
 }
 
 .cellWrap .cell {
-  width: 100%;
+	width: 100%;
 }
 
 .cell picker {
-  width: 100%;
-  font-size: 28rpx;
+	width: 100%;
+	font-size: 28rpx;
 }
 
 .icon-backwardcyclyo {
-  font-size: 60rpx;
-  color: rgb(110, 110, 110);
+	font-size: 60rpx;
+	color: rgb(110, 110, 110);
 }
 
 .icons {
-  transform: rotate(180deg);
+	transform: rotate(180deg);
 }
 
 .timg {
-  position: absolute;
-  right: 10rpx;
-  top: 50%;
-  margin-top: -22rpx;
-  width: 50rpx;
-  height: 50rpx;
+	position: absolute;
+	right: 10rpx;
+	top: 50%;
+	margin-top: -22rpx;
+	width: 50rpx;
+	height: 50rpx;
 }
-.custom{
+
+.custom {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	margin-bottom: 20rpx;
 }
-.queryDate{
+
+.queryDate {
 	width: 100rpx;
 	height: 50rpx;
 	line-height: 50rpx;
@@ -499,5 +502,5 @@ canvas {
 	border: 1rpx solid #ddd;
 	text-align: center;
 	font-size: 28rpx;
-	margin-left: 30rpx;
+	margin-left: 40rpx;
 }

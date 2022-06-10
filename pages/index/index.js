@@ -402,10 +402,10 @@ Page({
     if (that.data.isIds) {
       reportDetail.titles = ['合作商', '销售额', '销售量', '明细'];
       reportDetail.titleUrls = ['', '../../assets/img/arrow.png', '../../assets/img/arrow.png', '']
-    } else if (dateRange === 0, dateRange === 1, dateRange === 2) {
+    } else if (dateRange === 0 || dateRange === 1) {
       reportDetail.titles = ['点位', '销售额', '销售量', '时段'];
       reportDetail.titleUrls = ['', '../../assets/img/arrow.png', '../../assets/img/arrow.png', '']
-    } else if (dateRange === 3) {
+    } else if (dateRange === 2 || dateRange === 3|| dateRange === 10|| dateRange === 11) {
       reportDetail.titles = ['点位', '销售额', '销售量', '明细'];
       reportDetail.titleUrls = ['', '../../assets/img/arrow.png', '../../assets/img/arrow.png', '']
     } else {
@@ -441,10 +441,10 @@ Page({
     if (that.data.isIds) {
       reportDetail.titles = ['合作商', '销售额', '销售量', '明细'];
       reportDetail.titleUrls = ['', '../../assets/img/arrow.png', '../../assets/img/arrow.png', '']
-    } else if (dateRange === 0) {
+    } else if (dateRange === 0 || dateRange === 1) {
       reportDetail.titles = ['点位', '销售额', '销售量', '时段'];
       reportDetail.titleUrls = ['', '../../assets/img/arrow.png', '../../assets/img/arrow.png', ''];
-    } else if (dateRange === 1) {
+    } else if (dateRange === 2 || dateRange === 3|| dateRange === 10|| dateRange === 11) {
       reportDetail.titles = ['点位', '销售额', '销售量', '明细'];
       reportDetail.titleUrls = ['', '../../assets/img/arrow.png', '../../assets/img/arrow.png', ''];
       that.setData({
@@ -571,7 +571,7 @@ Page({
         case 2:
         case 3:
           data = {
-            startDat: searchDate,
+            startDate: searchDate,
             endDate: searchMonth,
             sortType: that.data.pointSort,
             pageNum: pageIndex,
@@ -1074,7 +1074,7 @@ Page({
     let cityItem = result.data.data;
     let item = {
       regionId: '',
-      regionName: '全部'
+      regionName: '全部城市'
     };
 
     function prepend(arr, item) {

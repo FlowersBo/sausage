@@ -107,18 +107,10 @@ Page({
   bindSelectAddress: function () {
     let that = this;
     let userInfo = that.data.userInfo;
-
-    wx.chooseLocation({
-      success: function (res) {
-        userInfo.address = res.address;
-        that.setData({
-          userInfo: userInfo
-        })
-      },
-      fail: function (err) {
-        console.log(err)
-      }
-    });
+    that.setData({
+      userInfo: userInfo
+    })
+   
   },
 
   bindSaveUserInfo: function(){

@@ -1,14 +1,14 @@
 <!--index.wxml-->
 <view class="homePage">
-  <view class="point">
-    <picker bindchange="bindPickerChange" data-index="0" value="{{index}}" range="{{cityItem}}" range-key='regionName'>
+  <view class="point" hidden="{{!isIds}}">
+    <picker class="pickerWrap" bindchange="bindPickerChange" data-index="0" value="{{index}}" range="{{cityItem}}" range-key='regionName'>
       <view class="picker">
-        {{cityItem[cityIndex].regionName?cityItem[cityIndex].regionName:'城市'}}
+        {{cityItem[cityIndex].regionName?cityItem[cityIndex].regionName:'全部城市'}}
       </view>
     </picker>
     <image class="point_timg" src="../../assets/img/timg.png" alt="" mode="aspectFit" />
   </view>
-
+  <view hidden="{{isIds}}" style="margin: 10rpx 0;width: 100%;"></view>
   <view class="nav_tab">
     <view wx:for="{{info.reportGenres}}" wx:key="index" class="{{reportGenre==index?'hidden':'show'}}"
       data-index="{{index}}" bindtap="selectedReportGenres">

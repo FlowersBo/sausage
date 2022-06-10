@@ -30,7 +30,7 @@ Page({
     isSaleCountSort: false,
     pointSort: 1, //默认点位表排序按销售额升序
     pageNum: 1,
-    pageSize: 10,
+    pageSize: 30,
     startDate: '',
     endDate: '',
     pointDetaillyDate: '',

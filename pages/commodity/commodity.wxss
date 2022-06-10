@@ -135,6 +135,7 @@
   width: 14rpx;
   height: 24rpx;
   margin-left: .066667rem;
+  margin-bottom: -2rpx;
 }
 
 .list>.list_item>.info {
@@ -395,7 +396,6 @@
 .pointWrap {
   display: flex;
   align-items: center;
-  margin: 20rpx 0;
 }
 
 .point {

@@ -95,16 +95,19 @@ Page({
     let {
       pointId,
       pointStartDate,
-      pointEndDate
+      pointEndDate,
+      selectedChild
     } = options;
-    that.wasteAnalyseFn(pointId, pointStartDate, pointEndDate);
+    that.wasteAnalyseFn(pointId, pointStartDate, pointEndDate,selectedChild);
   },
 
-  async wasteAnalyseFn(pointId, startDate, endDate) {
+  async wasteAnalyseFn(pointId, startDate, endDate,selectedChild) {
     let data = {
       pointId,
-      startDate,
-      endDate
+      startDate:`${selectedChild==0?startDate:''}`,
+      endDate:`${selectedChild==0?endDate:''}`,
+      startMonth:`${selectedChild==0?'':endDate}`,
+      endMonth:`${selectedChild==0?'':endDate}`,
     }
     let result = await (mClient.get(api.WasteAnalyse, data));
     console.log('点位饼图', result);

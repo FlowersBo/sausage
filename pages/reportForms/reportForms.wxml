@@ -1,12 +1,12 @@
 <!--index.wxml-->
 <view class="homePage">
-  <view class="point">
-    <picker bindchange="bindPickerChange" data-index="0" value="{{index}}" range="{{cityItem}}" range-key='regionName'>
+  <view class="point" style="border: none;height: 0;">
+    <!-- <picker bindchange="bindPickerChange" data-index="0" value="{{index}}" range="{{cityItem}}" range-key='regionName'>
       <view class="picker">
         {{cityItem[cityIndex].regionName?cityItem[cityIndex].regionName:'城市'}}
       </view>
     </picker>
-    <image class="point_timg" src="../../assets/img/timg.png" alt="" mode="aspectFit" />
+    <image class="point_timg" src="../../assets/img/timg.png" alt="" mode="aspectFit" /> -->
   </view>
 
   <view class="nav_tab">
@@ -157,7 +157,7 @@
               bindtap="bindReportDetaill" data-point="{{item}}">
               <image src="../../assets/img/baobiao.png" mode="scaleToFill"></image>
             </view>
-            <view wx:elif="{{isIds||dateRange!==1||dateRange!==2}}" class="report_details flex1" bindtap="bindDetail"
+            <view wx:elif="{{isIds||dateRange!==0||dateRange!==1}}" class="report_details flex1" bindtap="bindDetail"
               data-point="{{item}}">
               <view class="detail-btn">明细</view>
             </view>

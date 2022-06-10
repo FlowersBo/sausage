@@ -43,7 +43,7 @@ Page({
     isSaleCountSort: false,
     pointSort: 1, //默认点位表排序按销售额升序
     pageNum: 1,
-    pageSize: 10,
+    pageSize: 20,
     startDate: '',
     endDate: '',
     startMonth: '',
@@ -431,7 +431,7 @@ Page({
     let isSaleCountSort = that.data.isSaleCountSort;
     let index = e.currentTarget.dataset.index;
     let reportDetail = that.data.reportDetail;
-    console.info('当前销售量id', index);
+    console.info('当前排序id', index);
     if (index === 1) {
       reportDetail.titleUrls[2] = '../../assets/img/arrow.png';
       if (isSaleAmountSort === false) {
@@ -466,8 +466,24 @@ Page({
           reportDetail: reportDetail
         })
       }
-    }else if(index === 3){
+    }else if(index === 3&&that.data.selected!==2){
       console.log('废弃量排序')
+      reportDetail.titleUrls[1] = '../../assets/img/arrow.png';
+      if (isSaleCountSort === false) {
+        reportDetail.titleUrls[index] = '../../assets/img/arrow-h.png';
+        this.setData({
+          isSaleCountSort: true,
+          pointSort: 6,
+          reportDetail: reportDetail
+        })
+      } else {
+        reportDetail.titleUrls[index] = '../../assets/img/arrow-l.png';
+        this.setData({
+          isSaleCountSort: false,
+          pointSort: 5,
+          reportDetail: reportDetail
+        })
+      }
     } else {
       return;
     };
@@ -514,7 +530,7 @@ Page({
         cityIndex: '',
         cityId: '',
         agencyIndex: e.detail.value,
-        agencyId: that.data.agencyItem[e.detail.value].regionId
+        agencyId: that.data.agencyItem[e.detail.value].id
       })
     }
 
@@ -529,7 +545,7 @@ Page({
     let point = e.currentTarget.dataset.point;
     console.log('点位id', point);
     wx.navigateTo({
-      url: '../pointWaste/pointWaste?pointId=' + point + "&pointStartDate=" + that.data.date + "&pointEndDate=" + that.data.date
+      url: '../pointWaste/pointWaste?pointId=' + point + "&pointStartDate=" + that.data.date + "&pointEndDate=" + that.data.date+'&selectedChild='+that.data.selectedChild
     })
   },
 

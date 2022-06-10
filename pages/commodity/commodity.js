@@ -30,7 +30,7 @@ Page({
     isSaleCountSort: false,
     pointSort: 1, //默认点位表排序按销售额升序
     pageNum: 1,
-    pageSize: 10,
+    pageSize: 20,
     startDate: '',
     endDate: '',
     pointDetaillyDate: '',
@@ -348,7 +348,7 @@ Page({
         cityIndex: '',
         cityId: '',
         agencyIndex: e.detail.value,
-        agencyId: that.data.agencyItem[e.detail.value].regionId,
+        agencyId: that.data.agencyItem[e.detail.value].id,
         pageNum: 1
       })
     }
