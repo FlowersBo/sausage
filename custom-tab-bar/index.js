@@ -76,7 +76,7 @@ Component({
   methods: { //切换tabbar
     switchTab(e) {
       const data = e.currentTarget.dataset;
-      app.data.selected = data.index;
+      app.globalData.selected = data.index;
       wx.switchTab({
         url: data.path
       })

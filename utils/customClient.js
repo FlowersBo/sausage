@@ -1,49 +1,51 @@
 import * as api from '../config/api.js';
 
-function wxRequest(url, data = {}, method = 'POST'){
-  wx.showLoading({
-    // mask: true,
-    title: '加载中...',
-  })
-  // let param = objectToJsonParams(data);
-  console.log(data);
-  return new Promise(function (resolve, reject) {
-    wx.request({
-      url: url,
-      method: method,
-      data: data,
-      header: {
-        'charset': 'utf-8',
-        'Content-Type': 'application/json',
-        'grant-type': 'refresh-token',
-      },
-      success: function (res) {
-        // wx.hideLoading();
-        if (res.statusCode != 200) {
-          reject({
-            error: '服务器忙，请稍后重试',
-            code: 500
-          });
-          return;
-        }
-        resolve(res.data);
-      },
-      fail: function (res) {
-        // fail调用接口失败
-        reject({
-          error: '网络错误',
-          code: 0
-        });
-      },
-      complete: function (res) {
+function wxRequest(url, data = {}, method = 'POST') {
+	wx.showLoading({
+		// mask: true,
+		title: '加载中...',
+	})
+	// let param = objectToJsonParams(data);
+	console.log(data);
+	return new Promise(function (resolve, reject) {
+		wx.request({
+			url: url,
+			method: method,
+			data: data,
+			header: {
+				'charset': 'utf-8',
+				'Content-Type': 'application/json',
+				'grant-type': 'refresh-token',
+			},
+			success: function (res) {
+				// wx.hideLoading();
+				if (res.statusCode != 200) {
+					reject({
+						error: '服务器忙，请稍后重试',
+						code: 500
+					});
+					return;
+				}
+				resolve(res.data);
+			},
+			fail: function (res) {
+				// fail调用接口失败
+				reject({
+					error: '网络错误',
+					code: 0
+				});
+			},
+			complete: function (res) {
 				wx.hideLoading()
-      }
-    })
-  })
+			}
+		})
+	})
 }
 
 function request(url, data = {}, method = "GET") {
-
+	wx.showLoading({
+		title: '加载中',
+	})
 	let param = objectToJsonParams(data);
 	return new Promise(function (resolve, reject) {
 		console.log(url + param)
@@ -56,7 +58,7 @@ function request(url, data = {}, method = "GET") {
 				'app-access-token': wx.getStorageSync('accessToken')
 			},
 			success: function (resp) {
-				console.log('success',resp);
+				console.log('success', resp);
 				if (resp.data.code === 200) {
 					resolve(resp);
 				} else {
@@ -82,6 +84,9 @@ function request(url, data = {}, method = "GET") {
 			fail: function (err) {
 				reject(err)
 				console.log("failed")
+			},
+			complete: function () {
+				wx.hideLoading();
 			}
 		})
 	});
@@ -113,15 +118,15 @@ function PostIncludeData(url, data = {}, dataInfo = {}, method = "POST") {
 				//Unauthorized
 				if (resp.data.code === 401) {
 					refreshToken().then((resp) => {
-						if (resp.data.code === 200) {
-							request(url, data, method).then((resp) => {
-								resolve(resp);
-							});
-						} else {
-							reject(resp);
-						}
-					})
-					.catch(rej=>{})
+							if (resp.data.code === 200) {
+								request(url, data, method).then((resp) => {
+									resolve(resp);
+								});
+							} else {
+								reject(resp);
+							}
+						})
+						.catch(rej => {})
 				} else {
 					resolve(resp.data);
 				}
@@ -322,27 +327,29 @@ function objectToJsonParams(data = {}) {
 }
 
 let allSettled = (funcArr) => {
-  return new Promise((resolve) => {
-    let sttled = 0
-    let result = []
-    for(let index = 0;index<funcArr.length;index++){
-      const element = funcArr[index]
-      element
-      .then(res => { 
-        result[index] = {
-          status: 'fulfilled',
-          value: res
-        }
-      })
-      .catch(err => { 
-        result[index] = {
-          status: 'rejected',
-          reason: err
-        }
-      })
-      .finally(() => { ++sttled === funcArr.length && resolve(result) })
-    }
-  })
+	return new Promise((resolve) => {
+		let sttled = 0
+		let result = []
+		for (let index = 0; index < funcArr.length; index++) {
+			const element = funcArr[index]
+			element
+				.then(res => {
+					result[index] = {
+						status: 'fulfilled',
+						value: res
+					}
+				})
+				.catch(err => {
+					result[index] = {
+						status: 'rejected',
+						reason: err
+					}
+				})
+				.finally(() => {
+					++sttled === funcArr.length && resolve(result)
+				})
+		}
+	})
 };
 
 module.exports = {

@@ -69,7 +69,7 @@ Page({
     let that = this;
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({
-        selected: app.data.selected
+        selected: app.globalData.selected
       })
     }
     let goodsCategroy = that.data.goodsCategroy;

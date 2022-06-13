@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<cu-custom back text="{{agencyName?agencyName:'销售报表'}}" />
 <view class="homePage">
   <view class="point" style="border: none;height: 0;">
     <!-- <picker bindchange="bindPickerChange" data-index="0" value="{{index}}" range="{{cityItem}}" range-key='regionName'>
@@ -153,7 +154,7 @@
             <view class="title flex1 ">{{item.pointName?item.pointName:item.agencyName}}</view>
             <view class="price flex1 ">￥{{item.saleAmount}}</view>
             <view class="num flex1 ">{{item.productCount}}</view>
-            <view wx:if="{{!isIds&&(dateRange==0||dateRange==1)}}" class="report_details flex1"
+            <view wx:if="{{!isIds&&(dateRange==0||dateRange==1)||(!isIds&&isCustomDate&&dateRange==3)}}" class="report_details flex1"
               bindtap="bindReportDetaill" data-point="{{item}}">
               <image src="../../assets/img/baobiao.png" mode="scaleToFill"></image>
             </view>

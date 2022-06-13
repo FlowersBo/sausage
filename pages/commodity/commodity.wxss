@@ -401,7 +401,7 @@
 .point {
   height: 60rpx;
   border-radius: 10rpx;
-  border: 1rpx solid #ccc;
+  border: 2rpx solid #ccc;
   font-size: 24rpx;
   position: relative;
   margin-right: 60rpx;

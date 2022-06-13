@@ -157,7 +157,7 @@
               bindtap="bindReportDetaill" data-point="{{item}}">
               <image src="../../assets/img/baobiao.png" mode="scaleToFill"></image>
             </view>
-            <view wx:elif="{{isIds||dateRange!==1||dateRange!==2}}" class="report_details flex1" bindtap="bindDetail"
+            <view wx:elif="{{isIds||dateRange!==1||dateRange!==2||(!isIds&&dateRange==3&&isCustomDate)}}" class="report_details flex1" bindtap="bindDetail"
               data-point="{{item}}">
               <view class="detail-btn">明细</view>
             </view>

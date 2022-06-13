@@ -1,0 +1,33 @@
+<!--component/navigationBar/navigationBar.wxml-->
+<view class="navbar" style="{{'height:' + navigationBarHeight}}">
+  <image wx:if="{{isNav}}" style="width: 750rpx;height:auto;position: relative;" mode="widthFix"
+    src="../../assets/img/shopList.png">
+  </image>
+  <view class="backWrap">
+    <view style="{{'height: ' + statusBarHeight}}"></view>
+    <view class='title-container'>
+      <view class='capsule' style="{{'height:'+Custom.height+'px;'+'width:'+Custom.width+'px;'}}" wx:if="{{ back && home }}">
+        <view class="back" bindtap='back' wx:if="{{back}}">
+          <image class="img" src='/assets/img/back.png'></image>
+        </view>
+        <view class="back" bindtap='backHome' wx:if="{{home}}">
+          <image class="img" src='/assets/img/home.png'></image>
+        </view>
+      </view>
+      <view class='capsule capsules' style="{{'height:'+Custom.height+'px;'+'width:'+Custom.width+'px;'}}" wx:if="{{ back && !home }}">
+        <view class="back" bindtap='back' wx:if="{{back}}">
+          <!-- <image class="img" src='/assets/img/back1.png'></image> -->
+          <view style="width:100rpx;color: #fff;font-size: 28rpx;position: absolute;left: 50%; top: 50%; text-align: center; transform: translate(-30%, -50%);">返回</view>
+        </view>
+      </view>
+      <view class='capsule' style="{{'height:'+Custom.height+'px;'}}" wx:if="{{ !back && home }}">
+        <view class="back" bindtap='backHome' wx:if="{{home}}">
+          <image class="img" src='/assets/img/home.png'></image>
+        </view>
+      </view>
+      <view class='title'>{{text}}</view>
+    </view>
+  
+  </view>
+</view>
+<view style="background:#fff;height:{{isNav?'131px':navigationBarHeight}}"></view>

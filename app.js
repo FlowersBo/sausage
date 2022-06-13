@@ -1,45 +1,64 @@
 import * as mClient from 'utils/customClient';
 
 App({
-  data: {
+  globalData: {
     selected: null,
   },
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
    */
   onLaunch: function () {
+    let that = this;
     const statusBar = wx.getSystemInfoSync();
     console.log(statusBar);
     wx.getSystemInfo({
-      success: res => {
-        //导航高度
-        this.data.navHeight = res.statusBarHeight + 46;
-        this.data.height = res.statusBarHeight;
-        this.data.boundingClientRect = wx.getMenuButtonBoundingClientRect();
-        console.log(this.data.boundingClientRect);
-      },
-      fail(err) {
-        console.log(err);
-      }
-    })
-    // 分享
-  !function(){
-  var PageTmp = Page;
-  Page = function (pageConfig) {
-    // 设置全局默认分享
-    pageConfig = Object.assign({
-      onShareAppMessage:function () {
-        return {
-          title: '合作商小程序',
-          // imageUrl: '/public/img/cat.jpg',
-          path: '/pages/login/login'
+        success: e => {
+          that.globalData.screenWidth = e.screenWidth;
+          that.globalData.screenHeight = e.screenHeight;
+          that.globalData.windowWidth = e.windowWidth;
+          that.globalData.windowHeight = e.windowHeight;
+          that.globalData.StatusBar = e.statusBarHeight;
+          let capsule = wx.getMenuButtonBoundingClientRect();
+          let capsuleHeight = capsule.height;
+          if (capsuleHeight) {
+            that.globalData.Custom = capsule;
+            that.globalData.CustomBar = capsule.bottom + capsule.top - e.statusBarHeight;
+          } else {
+            let Custom = {
+              width: 87,
+              height: 32
+            }
+            that.globalData.Custom = Custom;
+            that.globalData.CustomBar = e.statusBarHeight + 46;
+          }
+          //导航高度
+          this.globalData.navHeight = e.statusBarHeight + 46;
+          this.globalData.height = e.statusBarHeight;
+          this.globalData.boundingClientRect = wx.getMenuButtonBoundingClientRect();
+          console.log(this.globalData.boundingClientRect);
+        },
+        fail(err) {
+          console.log(err);
+        }
+      })
+      // 分享
+      ! function () {
+        var PageTmp = Page;
+        Page = function (pageConfig) {
+          // 设置全局默认分享
+          pageConfig = Object.assign({
+            onShareAppMessage: function () {
+              return {
+                title: '合作商小程序',
+                // imageUrl: '/public/img/cat.jpg',
+                path: '/pages/login/login'
+              };
+            }
+          }, pageConfig);
+          PageTmp(pageConfig);
         };
-      }
-    },pageConfig);
-    PageTmp(pageConfig);
-  };
-}();
-  this.autoUpdate();
+      }();
+    this.autoUpdate();
   },
 
   // 版本更新

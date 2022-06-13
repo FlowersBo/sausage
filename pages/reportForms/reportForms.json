@@ -1,12 +1,14 @@
 {
   "navigationBarTitleText": "销售报表",
   "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
   "usingComponents": {
     "ec-canvas": "../../ec-canvas/ec-canvas",
     "yycalendar": "plugin://myPlugin/yycalendar",
     "selectTime": "../../component/selectTime/selectTime",
     "calendar": "../../component/v2/index",
     "ball":"../../component/ball/index",
-    "pickerView": "../../component/pickerView/index"
+    "pickerView": "../../component/pickerView/index",
+    "cu-custom": "../../component/cu-custom/cu-custom"
   }
 }

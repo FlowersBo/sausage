@@ -531,10 +531,13 @@ Page({
       let startCustomDate,
         endCustomDate;
       pointReportDate.setDate(1);
-      pointReportDate.setMonth(pointReportDate.getMonth() - 3);
-      startCustomDate = util.customFormatMonth(pointReportDate);
-      pointReportDate.setMonth(pointReportDate.getMonth() + 2);
-      endCustomDate = util.customFormatMonth(pointReportDate);
+      let month = new Date(new Date().getFullYear(), 0);
+			console.log('月数', month)
+			startCustomDate = util.customFormatMonth(month);
+			// pointReportDate.setMonth(pointReportDate.getMonth() - 3);
+			// startCustomDate = util.customFormatMonth(pointReportDate);
+			pointReportDate.setMonth(pointReportDate.getMonth() -1);
+			endCustomDate = util.customFormatMonth(pointReportDate);
       that.setData({
         startCustomDate,
         endCustomDate,
@@ -645,9 +648,8 @@ Page({
     }
 
     if (dateRange === 2 || dateRange === 3) {
-
       data = {
-        startDat: searchDate,
+        startDate: searchDate,
         endDate: searchMonth,
         sortType: that.data.pointSort,
         pageNum: pageIndex,
@@ -908,7 +910,9 @@ Page({
         dateRange,
         reportGenre,
         dateRangeindex,
-        reportDetail
+        reportDetail,
+        fields,
+        isCustomDate
       } = that.data;
     console.log('跳转明细', point);
     if (point.agencyId) {
@@ -920,7 +924,9 @@ Page({
         dateRange,
         reportGenre,
         dateRangeindex,
-        reportDetail
+        reportDetail,
+        fields,
+        isCustomDate
       };
       result = JSON.stringify(result);
       console.log('跳转合作商', result);
@@ -1163,12 +1169,29 @@ Page({
     })
   },
   queryDateFn() {
+		let reportDetail = that.data.reportDetail;
     if (that.data.dateRange == 3) {
+			if (that.data.startCustomDate === that.data.endCustomDate) {
+        if(!that.data.isIds){
+          reportDetail.titles = ['点位', '销售额', '销售量', '时段'];
+          reportDetail.titleUrls = ['', '../../assets/img/arrow.png', '../../assets/img/arrow.png', ''];
+        }
+				that.setData({
+					isCustomDate: true
+				})
+			} else {
+				reportDetail.titles = [`${!that.data.isIds?'点位':'合作商'}`, '销售额', '销售量', '明细'];
+				reportDetail.titleUrls = ['', '../../assets/img/arrow.png', '../../assets/img/arrow.png', '']
+				that.setData({
+					isCustomDate: false
+				})
+			}
       that.renderReport(that.data.dateRange, that.data.startCustomDate, that.data.endCustomDate);
     } else {
       that.monthlySalesVolume(that.data.startCustomDate, that.data.endCustomDate);
     }
     that.setData({
+      reportDetail,
       pointDetaillyDate: that.data.startCustomDate + '~' + that.data.endCustomDate
     })
   },

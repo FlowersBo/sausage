@@ -1,0 +1,146 @@
+/* component/navigationBar/navigationBar.wxss */
+/* @import "/utils/iconfont.wxss"; */
+
+.navbar {
+  width: 100%;
+  position: fixed;
+  /* background: linear-gradient(to right, #FF6F04,10%,#FEB906); */
+  background: #F75910;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.backWrap {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.title-container {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  /* background:
+  radial-gradient(circle at 50% 0,
+    rgba(255,0,0,.5),
+    rgba(255,0,0,0) 70.71%),
+  radial-gradient(circle at 6.7% 75%,
+    rgba(0,0,255,.5),
+    rgba(0,0,255,0) 70.71%),
+  radial-gradient(circle at 93.3% 75%,
+    rgba(0,255,0,.5),
+    rgba(0,255,0,0) 70.71%) beige;
+border-radius: 50%; */
+}
+
+.capsule {
+  /* height: 30px; */
+  background: rgba(255, 255, 255, .7);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  margin-left: 10rpx;
+}
+
+.capsules {
+  background: none;
+  margin-left: 0;
+}
+
+.back {
+  width: 45px;
+  height: 100%;
+  position: relative;
+}
+
+.back:nth-child(2) {
+  border-left: 1px solid #fff;
+}
+
+.capsule .img {
+  width: 48%;
+  height: 60%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.title {
+  color: white;
+  position: absolute;
+  top: 6px;
+  left: 104px;
+  right: 104px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nav-inp{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10rpx;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+}
+
+.inpWrap {
+  width: 510rpx;
+  height: 74rpx;
+  background: #FFFFFF;
+  border-radius: 38rpx;
+  box-sizing: border-box;
+  padding-left: 30rpx;
+  font-size: 24rpx;
+  position: relative;
+}
+
+.inp {
+  width: 410rpx;
+  height: 74rpx;
+}
+
+.searcah {
+  position: absolute;
+  right: 10rpx;
+  top: 50%;
+  margin-top: -31rpx;
+  width: 62rpx;
+  height: 62rpx;
+  line-height: 62rpx;
+  text-align: center;
+  background: linear-gradient(90deg, #FF6F03 0%, #FEB906 100%);
+  border-radius: 50%;
+}
+
+.icon-fangdajing {
+  font-size: 40rpx;
+  color: #fff;
+}
+
+.section {
+  width: 150rpx;
+  height: 74rpx;
+  background: #FFFFFF;
+  box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.08);
+  border-radius: 38rpx;
+  font-size: 24rpx;
+}
+.picker{
+  height: 74rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
