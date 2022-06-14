@@ -232,8 +232,7 @@ Page({
 
       mClient.wxRequest(api.AddCart, data)
         .then(resp => {
-          let result = resp.data;
-          if (result === "添加成功") {
+          if (resp.code == 200) {
             // that.renderBuyCar();
             shelvesGoodsInfos.forEach(element => {
               if (element.id === goodsId) {
@@ -313,9 +312,17 @@ Page({
   // },
 
   bindLookBuyCar: function () {
-    wx.navigateTo({
-      url: '../shopping_cart/shopping_cart'
-    })
+    if (that.data.shoppingCartGoodsCount > 0) {
+      wx.navigateTo({
+        url: '../shopping_cart/shopping_cart'
+      })
+    } else {
+      wx.showToast({
+        title: '购物车不能为空',
+        icon: 'none',
+        duration: 2000
+      })
+    }
   },
 
   onPullDownRefresh: function () {

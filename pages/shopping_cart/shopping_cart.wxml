@@ -1,7 +1,9 @@
 <!--pages/shopping_cart/shopping_cart.wxml-->
 <!-- 物品展示 -->
 <view class="container">
-  <view class="address" style="background: #eee;width: 97%;margin: 20rpx auto;padding: 30rpx;box-sizing: border-box;border-radius: 10rpx;" bindtap="gotoAddress">
+  <view class="address"
+    style="background: #eee;width: 97%;margin: 20rpx auto;padding: 30rpx;box-sizing: border-box;border-radius: 10rpx;"
+    bindtap="gotoAddress">
     <view style="font-weight: bold;font-size: 32rpx;margin-bottom: 20rpx;">北京温榆河分仓</view>
     <view style="font-size: 28rpx;">北京市朝阳区温榆河公园北区小河边上大柳树旁边</view>
   </view>
@@ -18,16 +20,17 @@
           <view class="text name">{{goods.goodsName}}</view>
           <view class="text specifications">{{goods.quantity}}箱</view>
           <view class="text price">
-            <text>¥{{goods.retailPrice}}</text>
             <text>¥{{goods.tradePrice}}</text>
+            <!-- <text>¥{{goods.retailPrice}}</text> -->
           </view>
         </view>
         <view class="stepper">
           <view class="subtract" data-index="{{index}}" catchtap="bindReduceGoods">-</view>
-          <input class="count" value="{{goods.quantity}}" disabled type="number" confirm-type="done" bindconfirm="bindChangeGoodsNum" data-id="goods." />
+          <input class="count" value="{{goods.quantity}}" disabled type="number" confirm-type="done"
+            bindconfirm="bindChangeGoodsNum" data-id="{{goods.id}}" />
           <view class="add" data-index="{{index}}" catchtap="bindAddGoods">+</view>
         </view>
-        <view data-index="{{index}}" class="inner del" bindtap="bindDeleteGoods">删除</view>
+        <!-- <view data-index="{{index}}" class="inner del" bindtap="bindDeleteGoods">删除</view> -->
       </view>
     </checkbox-group>
   </view>
@@ -42,15 +45,16 @@
     </checkbox-group>
     <view class="total">
       <view class="totalPrice">合计：
-        <text>¥{{cartSettlement.moneyPaid}}</text>
+        <text>¥{{cartSettlement.goodsOutOfPocketExpenses}}</text>
       </view>
-      <view class="totalPrice">立省：
+      <!-- <view class="totalPrice">立省：
         <text>¥{{cartSettlement.economize}}</text>
-      </view>
+      </view> -->
     </view>
 
-    <view class="btn {{cartSettlement.moneyPaid > 0 ? 'btn-primary': 'btn-default'}}" url="../confirmation_order/confirmation_order" bindtap="bindSettlementMoney">
-      去结算
+    <view class="btn {{cartSettlement.goodsCount > 0 ? 'btn-primary': 'btn-default'}}"
+      url="../confirmation_order/confirmation_order" bindtap="bindSettlementMoney">
+      去结算({{cartSettlement.goodsCount}})
       <!--({{cartSettlement.moneyPaid}})-->
     </view>
 

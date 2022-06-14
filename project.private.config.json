@@ -58,6 +58,12 @@
           "pathName": "pages/myOrder/myOrder",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "购物车",
+          "pathName": "pages/shopping_cart/shopping_cart",
+          "query": "",
+          "scene": null
         }
       ]
     }

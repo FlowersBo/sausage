@@ -107,13 +107,17 @@ Page({
 
   onLoad: function (options) {
     that = this;
-    let pointid = options.pointid;
-    let pointName = options.pointName;
-    let agencyId = options.agencyId;
+    let {
+      pointid,
+      pointName,
+      agencyId,
+      date
+    } = options;
     that.setData({
       pointid,
       pointName,
-      agencyId
+      agencyId,
+      date
     })
     that.PointDataByHourList();
   },
@@ -255,6 +259,7 @@ Page({
   // 双折线图
   initGraph: function (lastSevenDaysDataAgency) {
     console.log('折线图数据', lastSevenDaysDataAgency);
+
     function gainKey(list) { //第一个0的key
       for (const key in list) {
         if (Object.hasOwnProperty.call(list, key)) {
@@ -268,7 +273,7 @@ Page({
       }
     };
 
-    function segmentation(list, item) {//截取
+    function segmentation(list, item) { //截取
       const obj = {
         before: [],
         after: []
@@ -278,13 +283,13 @@ Page({
       obj.after = list.slice(item - 2);
       return obj
     };
-    
+
     console.log(gainKey(lastSevenDaysDataAgency));
     let afterArry = segmentation(lastSevenDaysDataAgency, parseFloat(gainKey(lastSevenDaysDataAgency))).after;
-    console.log('初截取首个0后的',afterArry);
+    console.log('初截取首个0后的', afterArry);
     let neWafterArry = afterArry.reverse();
     let neWgainKey = gainKey(neWafterArry);
-    let neWArry = segmentation(neWafterArry,neWgainKey).after;
+    let neWArry = segmentation(neWafterArry, neWgainKey).after;
     console.log('反序', neWafterArry);
     console.log('反序首个0的key', neWgainKey);
     console.log('反序截取', neWArry);

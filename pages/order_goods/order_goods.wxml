@@ -16,10 +16,10 @@
 						src="{{item.goodsPic}}" role="img"></image>
 					<text class="right_list_item_title">{{item.goodsName}}</text>
 					<text class="right_list_item_specification">规格：{{item.goodsUnitNum}}{{item.goodsBaseUnit}} / {{item.goodsUnit}}</text>
-					<text class="right_list_item_price">¥{{item.retailPrice}}</text>
-					<text class="right_list_item_market_price">
-						¥{{item.tradePrice}}
-					</text>
+					<text class="right_list_item_price">¥{{item.tradePrice}}</text>
+					<!-- <text class="right_list_item_market_price">
+						¥{{item.retailPrice}}
+					</text> -->
 				</view>
 				<view class="right_line"></view>
 				<view class="right_list_itemnumber">

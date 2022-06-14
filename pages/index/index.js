@@ -895,7 +895,7 @@ Page({
   bindReportDetaill: function (e) {
     let point = e.currentTarget.dataset.point;
     wx.navigateTo({
-      url: '../report_details/report_details?pointid=' + point.pointId + "&pointName=" + point.pointName + '&agencyId=' + that.data.agencyId
+      url: '../report_details/report_details?pointid=' + point.pointId + "&pointName=" + point.pointName + '&agencyId=' + that.data.agencyId+'&date='+that.data.startDate
     })
   },
 

@@ -152,7 +152,7 @@ page {
 	width: 50rpx;
 	height: 50rpx;
 	line-height: 44rpx;
-	font-size: 28rpx;
+	font-size: 46rpx;
 	border: 1px solid #ccc;
 	box-sizing: border-box;
 }
