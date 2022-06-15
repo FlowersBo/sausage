@@ -22,6 +22,7 @@ Page({
     cartGoodsPriceTotal: 0,
     cartGoodsEconomizeTotal: 0,
     cartGoodsNumberTotal: 0,
+    cartIds: []
   },
 
   gotoAddress() {
@@ -61,7 +62,7 @@ Page({
       })
   },
 
-  renderCartList: function (page = 1) {
+  renderCartList: function (page = 1, index) {
     let that = this;
     // let cartInfo = that.data.cartGoodsList;
     mClient.wxRequest(api.CartList, {
@@ -75,9 +76,13 @@ Page({
         // let cartGoodsEconomizeTotal = resp.data.data.discount;
         let cartGoodsList = resp.data.list;
         let cartGoodsNumberTotal = 0;
-
+        let cartIds = that.data.cartIds;
         cartGoodsList.forEach(element => {
-          element.isChecked = false;
+          if (cartIds.some(f => f == element.id)) {
+            element.isChecked = true;
+          } else {
+            element.isChecked = false;
+          }
           // cartGoodsNumberTotal += element.count;
         });
 
@@ -93,14 +98,33 @@ Page({
         //   }
         // }
 
+
+        // that.setData({
+        //   isSelectAllGoods: true
+        // })
         this.setData({
           // cartGoodsEconomizeTotal: cartGoodsEconomizeTotal,
           // cartGoodsPriceTotal: cartGoodsPriceTotal,
-          cartGoodsList: cartGoodsList,
+          cartGoodsList
           // cartGoodsNumberTotal: cartGoodsNumberTotal,
         });
-
+        that.renderCartGoodsTotal();
         // this.renderCartGoodsTotal();
+
+
+        // let param=  {pageIndex: this.data.pageIndex};
+        // var that = this;
+        // app.HttpClient.request(url, param, function(res){
+        //   let list = res.data;
+        //   let index = that.data.serviceList.length;
+        //   let data = that.data;  
+        //   list.forEach((item)=>{
+        //     data['serviceList[' + (index++) + ']'] = item;
+        //   });
+        //   that.setData(data);
+        // })
+
+
       });
   },
 
@@ -147,7 +171,7 @@ Page({
     let index = e.currentTarget.dataset.index;
     let cartid = cartGoodsList[index].goodsId;
     let goodsCount = cartGoodsList[index].quantity + 1;
-    that.andminusGoods(cartid, goodsCount);
+    that.andminusGoods(cartid, goodsCount, index);
   },
   bindReduceGoods: function (e) {
     let that = this;
@@ -163,17 +187,17 @@ Page({
         content: '确定删除此商品？',
         success(res) {
           if (res.confirm) {
-            that.andminusGoods(cartid, goodsCount);
+            that.andminusGoods(cartid, goodsCount, index);
           } else if (res.cancel) {
             return
           }
         }
       })
     } else {
-      that.andminusGoods(cartid, goodsCount);
+      that.andminusGoods(cartid, goodsCount, index);
     }
   },
-  andminusGoods(cartid, goodsCount) {
+  andminusGoods(cartid, goodsCount, index) {
     let data = {
       userId: wx.getStorageSync('userID'),
       goodsId: cartid,
@@ -183,6 +207,9 @@ Page({
       .then(resp => {
         if (resp.code == 200) {
           that.renderCartList();
+          // that.setData({
+          //   ["cartGoodsList[" + index + "].quantity"]: goodsCount
+          // })
         } else {
           wx.showToast({
             title: resp.msg,
@@ -195,30 +222,30 @@ Page({
 
 
   // 移除购物车中选中商品
-  // bindDeleteGoods: function (e) {
-  //   let that = this;
-  //   let cartGoodsList = that.data.cartGoodsList;
-  //   let index = e.currentTarget.dataset.index;
-  //   let cartid = cartGoodsList[index].id;
+  bindDeleteGoods: function (e) {
+    let that = this;
+    let cartGoodsList = that.data.cartGoodsList;
+    let index = e.currentTarget.dataset.index;
+    let cartid = cartGoodsList[index].id;
 
-  //   let data = {
-  //     cartid: cartid,
-  //   };
+    let data = {
+      cartid: cartid,
+    };
 
-  //   mClient.post(api.RemoveShoppingCart, data)
-  //     .then(resp => {
-  //       let result = resp.data.data.result;
-  //       if (result === true) {
-  //         that.renderCartList();
-  //       } else {
-  //         wx.showToast({
-  //           title: '移除商品操作失败',
-  //           icon: 'none',
-  //           duration: 1000
-  //         });
-  //       };
-  //     });
-  // },
+    mClient.post(api.RemoveShoppingCart, data)
+      .then(resp => {
+        let result = resp.data.data.result;
+        if (result === true) {
+          that.renderCartList();
+        } else {
+          wx.showToast({
+            title: '移除商品操作失败',
+            icon: 'none',
+            duration: 1000
+          });
+        };
+      });
+  },
 
 
   //计算价格
@@ -251,7 +278,7 @@ Page({
             SettlementTotal += goodsPriceTotal;
             goodsCount += quantity;
             cartIds.push(element.id);
-            console.log('所有id',cartIds);
+            console.log('所有id', cartIds);
             console.log('总金额', SettlementTotal);
             console.log('总数', goodsCount);
 
@@ -279,6 +306,7 @@ Page({
     console.log(cartSettlement);
     this.setData({
       cartSettlement: cartSettlement,
+      cartIds
     });
   },
 
@@ -319,6 +347,7 @@ Page({
     let cartGoodsList = that.data.cartGoodsList;
     let isSelectAll = that.data.isSelectAllGoods;
     let cartSettlement = that.data.cartSettlement;
+    let cartIds = [];
     // let cartGoodsPriceTotal = that.data.cartGoodsPriceTotal;
     // let cartGoodsNumberTotal = that.data.cartGoodsNumberTotal;
     // let cartGoodsEconomizeTotal = that.data.cartGoodsEconomizeTotal;
@@ -343,40 +372,36 @@ Page({
       element.isChecked = !isSelectAll;
       SettlementTotal += element.tradePrice * element.quantity;
       goodsCount += element.quantity;
+      cartIds.push(element.id);
     });
     cartSettlement.goodsCount = goodsCount;
     cartSettlement.goodsOutOfPocketExpenses = SettlementTotal.toFixed(2);
     if (isSelectAll) {
       cartSettlement.goodsCount = 0;
       cartSettlement.goodsOutOfPocketExpenses = 0;
+      cartIds = []
     }
     this.setData({
       isSelectAllGoods: !isSelectAll,
       cartGoodsList: cartGoodsList,
       cartSettlement,
+      cartIds
     });
   },
 
   //结算
   bindSettlementMoney: function () {
     let that = this;
-    let cartSelectedGoodsIds = [];
-    let cartList = that.data.cartGoodsList;
-    let cartSettlement = that.data.cartSettlement;
-
-    if (cartSettlement.goodsOutOfPocketExpenses == 0) {
+    if (that.data.cartSettlement.goodsOutOfPocketExpenses == 0) {
+      wx.showToast({
+        title: '请选择商品后下单',
+        icon: 'none',
+        duration: 2000
+      })
       return;
     }
-
-    for (let index = 0; index < cartList.length; index++) {
-      if (cartList[index].isChecked === true) {
-        cartSelectedGoodsIds.push(cartList[index].id)
-      }
-    }
-    let cartSelectedGoodsIdsJson = JSON.stringify(cartSelectedGoodsIds);
-    console.log(cartSelectedGoodsIds)
     wx.navigateTo({
-      url: '../confirmation_order/confirmation_order?cartSelectedGoodsIds=' + cartSelectedGoodsIdsJson
+      url: '../confirmation_order/confirmation_order?cartSelectedGoodsIds=' + JSON.stringify(that.data.cartIds)
     })
   },
 })

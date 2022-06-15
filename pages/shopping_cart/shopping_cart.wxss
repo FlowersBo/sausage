@@ -64,11 +64,8 @@ page {
 }
 
 .section {
-	display: flex;
-	flex-direction: column;
-	padding-left: 30rpx;
-	padding-right: 30rpx;
-	margin-bottom: 30rpx;
+	width: 98%;
+	margin: 0 auto;
 }
 
 .section-good {
@@ -229,19 +226,22 @@ page {
 	font-size: 26rpx;
 }
 
-
-
 .total .totalPrice {
 	font-size: 26rpx;
 	margin-left: 20rpx;
 	vertical-align: middle;
 }
 
-
-
 .total .totalPrice text {
 	color: #e4452a;
 	font-size: 30rpx;
+}
+
+.content .price text:nth-child(2) {
+	font-size: 24rpx;
+	color: #999;
+	text-decoration: line-through;
+	margin-left: 20rpx;
 }
 
 /* 滑动删除 */
@@ -250,7 +250,7 @@ page {
 	top: 0;
 }
 
-.inner.txt {
+.txt {
 	width: 100%;
 	z-index: 5;
 	padding: 0 10rpx;
@@ -260,17 +260,10 @@ page {
 	text-overflow: ellipsis;
 }
 
-.inner.del {
+.del {
 	width: 180rpx;
 	text-align: center;
 	z-index: 4;
 	right: 0;
 	color: #fff
-}
-
-.content .price text:nth-child(2) {
-	font-size: 24rpx;
-	color: #999;
-	text-decoration: line-through;
-	margin-left: 20rpx;
 }

@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "我的地址",
+  "disableScroll": true,
+  "enablePullDownRefresh": false,
   "usingComponents": {}
 }

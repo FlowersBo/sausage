@@ -305,7 +305,6 @@ Page({
   onLoad: function (options) {
     that = this;
     that.cityFn();
-    that.initFn();
   },
   async initFn() {
     let result = await (mClient.post(api.Init));
@@ -1071,6 +1070,7 @@ Page({
         selected: 0
       })
     }
+    that.initFn();
   },
 
   // 城市选择

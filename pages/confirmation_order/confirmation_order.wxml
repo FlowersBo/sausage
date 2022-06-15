@@ -1,18 +1,25 @@
 <!--pages/confirmation_order/confirmation_order.wxml-->
 <!-- 地址 -->
+<!-- <view class="address"
+  style="background: #eee;width: 97%;margin: 20rpx auto;padding: 30rpx;box-sizing: border-box;border-radius: 10rpx;"
+  bindtap="gotoAddress">
+  <view style="font-weight: bold;font-size: 32rpx;margin-bottom: 20rpx;">北京温榆河分仓</view>
+  <view style="font-size: 28rpx;">北京市朝阳区温榆河公园北区小河边上大柳树旁边</view>
+</view> -->
+
 <view class="contion">
-    <view class="con_top" bindtap = "bindSelectUserAddress">
-      <view class="characterIcon">
-          <text>{{userInfo.name[0]}}</text>
-          <view class="circle"></view>
+  <view class="con_top" bindtap="bindSelectUserAddress">
+    <view class="characterIcon">
+      <text>{{userInfo.name[0]}}</text>
+      <view class="circle"></view>
+    </view>
+    <view class="left">
+      <view>
+        <!-- <image src="../../assets/img/add.png"></image> -->
+        <text>{{userInfo.name}}</text> <text>{{userInfo.mobile}}</text>
       </view>
-      <view class="left">
-          <view>
-              <!-- <image src="../../assets/img/add.png"></image> -->
-              <text>{{userInfo.name}}</text> <text>{{userInfo.mobile}}</text>
-          </view>
-          <view><text>{{userInfo.address}}</text></view>
-      </view>
+      <view><text>{{userInfo.address}}</text></view>
+    </view>
   </view>
 </view>
 
@@ -20,11 +27,11 @@
 <view class="container">
 
   <view class="section section-good">
- 
+
     <view class="total">
       共{{cartSettlement.goodsCount}}件
     </view>
-    <view class="good" wx:for="{{cartGoodsList}}" wx:for-item="goods" wx:key="index"> 
+    <view class="good" wx:for="{{cartGoodsList}}" wx:for-item="goods" wx:key="index">
       <view class="cover">
         <image src="{{goods.cover}}"></image>
       </view>
@@ -34,7 +41,7 @@
         <view class="text price">
           <text>¥{{goods.realprice}}</text>
           <text>¥{{goods.price}}</text>
-      </view>
+        </view>
       </view>
       <view class="stepper">
         <input class="count" type="number" value="x{{goods.count}}" />
@@ -53,26 +60,27 @@
       <text>优惠</text><text> - ¥ {{cartSettlement.economize}}</text>
     </view>
     <view class="total">
-      <text>总计  </text> <text>¥ {{cartSettlement.moneyPaid}}</text>
+      <text>总计 </text> <text>¥ {{cartSettlement.moneyPaid}}</text>
     </view>
   </view>
   <!-- 支付方式 -->
   <view class="weui-cell weui-cell_input">
     <view class="weui-cell__bd">
-        <radio-group class="item-right radio-group">
-            <label class="radio" wx:for="{{items}}" wx:key="index">
-              <image src="{{item.src}}"></image>
-              {{item.name}}
-                <radio value="{{item.name}}" checked="{{item.checked}}" style="zoom:.7;" />
-            </label>
-        </radio-group>
+      <radio-group class="item-right radio-group">
+        <label class="radio" wx:for="{{items}}" wx:key="index">
+          <image src="{{item.src}}"></image>
+          {{item.name}}
+          <radio value="{{item.name}}" checked="{{item.checked}}" style="zoom:.7;" />
+        </label>
+      </radio-group>
     </view>
-</view>
-<!-- 备注 -->
-<view class="remarks">
-  <text>订单备注：</text>
-  <textarea class="text-area" maxlength="50" placeholder="最大输入长度为50" name="tarea" id="" cols="30" rows="10" bindinput="bindOrderCommentInput"></textarea>
-</view>
+  </view>
+  <!-- 备注 -->
+  <view class="remarks">
+    <text>订单备注：</text>
+    <textarea class="text-area" maxlength="50" placeholder="最大输入长度为50" name="tarea" id="" cols="30" rows="10"
+      bindinput="bindOrderCommentInput"></textarea>
+  </view>
   <!-- 去支付 -->
   <view class="section-bottom">
     <view class="total">

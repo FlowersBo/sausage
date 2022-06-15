@@ -2,7 +2,7 @@
 import * as mClient from '../../utils/customClient';
 import * as api from '../../config/api';
 import * as util from '../../utils/util';
-
+let that;
 Page({
   /**
    * 页面的初始数据
@@ -11,43 +11,36 @@ Page({
     userInfos: [],
     startX: 0,
     endX: 0,
-    startX:0,
     delBtnWidth:160,
-    isScroll: false,
-    userid:0,
-
+    isScroll: false
   },
 
   onLoad: function (options) {
-    let userid=options.userid;
-    this.setData({
-      userid: userid
-    })
+    that = this;
     this.renderUserInfoList();
   },
   
   onShow: function () {
-    this.renderUserInfoList();
+
   },
 
   renderUserInfoList: function () {
-    let that = this;
-    let userid=that.data.userid;
     let data = {
-      isdefault: false
+      userId: wx.getStorageSync('userID')
     }
-    mClient.get(api.userContactInfo, data).then(resp => {
-      let userInfos = resp.data.data.list;
-      for(var index in userInfos) {
-        var userInfo = userInfos[index]
-        userInfo.right = 0
+    mClient.get(api.AgencyListCK, data).then(resp => {
+      console.log('地址列表',resp)
+      let userInfos = resp.data.data;
+      // for(var index in userInfos) {
+      //   var userInfo = userInfos[index]
+      //   userInfo.right = 0
         
-        if(userInfo.id == userid){
-          userInfo.usedStatus = true;
-        } else{
-          userInfo.usedStatus =false;
-        }
-      }
+      //   if(userInfo.id == userid){
+      //     userInfo.usedStatus = true;
+      //   } else{
+      //     userInfo.usedStatus =false;
+      //   }
+      // }
       this.setData({
         userInfos: userInfos
       })
@@ -58,13 +51,10 @@ Page({
 drawStart: function (e) {
     // console.log("drawStart");  
     var touch = e.touches[0]
-    let that = this;
     let userInfos = that.data.userInfos;
-
-    for (let index = 0; index < userInfos.length; index++) {
-      userInfos[index].right = 0;
-    }
-
+    userInfos.forEach(element => {
+      element.right = 0;
+    });
     this.setData({
       userInfos: userInfos,
       startX: touch.clientX,
@@ -164,36 +154,33 @@ drawStart: function (e) {
     })
   },
   bindChangeDefalutAddress: function(e){
-    let that = this;
     let index = e.currentTarget.dataset.index;
     let userInfo = that.data.userInfos[index];
-    let data = {
-      name: userInfo.name,
-      contactid: userInfo.id,
-      mobile: userInfo.mobile,
-      address: userInfo.address,
-      isdefault: true
-    }
-
-    mClient.post(api.UserUpdateContactInfo, data).then(resp => {
-      let result = resp.data.data.result;
-      if (result === true) {
-        this.renderUserInfoList();
-      } else {
-        wx.showToast({
-          title: '选择地址失败，请稍后再试',
-          icon: 'fail',
-          duration: 2000
-        })
-      }
-    })
+    
+    // let data = {
+    //   name: userInfo.name,
+    //   contactid: userInfo.id,
+    //   mobile: userInfo.mobile,
+    //   address: userInfo.address,
+    //   isdefault: true
+    // }
+    // mClient.post(api.UserUpdateContactInfo, data).then(resp => {
+    //   let result = resp.data.data.result;
+    //   if (result === true) {
+    //     this.renderUserInfoList();
+    //   } else {
+    //     wx.showToast({
+    //       title: '选择地址失败，请稍后再试',
+    //       icon: 'fail',
+    //       duration: 2000
+    //     })
+    //   }
+    // })
   },
 
   bindSettingTop: function(e){
-    let that = this;
     let index = e.currentTarget.dataset.index;
     let userInfos = that.data.userInfos;
-
     [userInfos[0], userInfos[index]]=[userInfos[index], userInfos[0]]
     this.setData({
       userInfos: userInfos

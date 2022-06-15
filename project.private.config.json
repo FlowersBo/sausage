@@ -30,12 +30,6 @@
           "scene": null
         },
         {
-          "name": "购物车",
-          "pathName": "pages/shopping_cart/shopping_cart",
-          "query": "",
-          "scene": null
-        },
-        {
           "name": "仓库",
           "pathName": "pages/shopping_cart/myAddress/myAddress",
           "query": "",
@@ -62,6 +56,18 @@
         {
           "name": "购物车",
           "pathName": "pages/shopping_cart/shopping_cart",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "确认订单",
+          "pathName": "pages/confirmation_order/confirmation_order",
+          "query": "cartSelectedGoodsIds=%5B%221536988815472721920%22%2C%221536988802726232064%22%2C%221536586430015340544%22%2C%221536586424642437120%22%5D",
+          "scene": null
+        },
+        {
+          "name": "地址选择",
+          "pathName": "pages/address/address",
           "query": "",
           "scene": null
         }
