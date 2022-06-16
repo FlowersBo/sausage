@@ -7,6 +7,7 @@ import {
 	userContactInfo
 } from '../../config/api';
 
+let that;
 Page({
 
 	/**
@@ -29,34 +30,81 @@ Page({
 		orderComment: '',
 		userid: 0
 	},
+
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		console.log(options)
-		if (options.hasOwnProperty('id')) {
-			this.setData({
-				userid: options.id
-			})
-			this.renderUserContactInfo();
+		that = this;
+		that.renderUserInfoList();
+		that.setData({
+			cartIds: JSON.parse(options.cartSelectedGoodsIds),
+			goodsCount: options.goodsCount
+		})
+		// if (options.hasOwnProperty('id')) {
+		// 	this.setData({
+		// 		userid: options.id
+		// 	})
+		// 	this.renderUserContactInfo();
 
-		} else {
-			let cartSelectedGoodsIds = JSON.parse(options.cartSelectedGoodsIds);
+		// } else {
+		// 	let cartSelectedGoodsIds = JSON.parse(options.cartSelectedGoodsIds);
 
-			this.setData({
-				cartSelectedGoodsIds: cartSelectedGoodsIds
+		// 	this.setData({
+		// 		cartSelectedGoodsIds: cartSelectedGoodsIds
+		// 	})
+		// 	this.renderUserDefaultContactInfo();
+		// }
+		// this.renderShipfee();
+		// this.renderCartList();
+	},
+	async orderGoodsList() {
+		let cartIds = that.data.cartIds;
+		console.log('合作商ID', that.data.agencyId)
+		let cartId = cartIds.map(id => {
+			return id
+		}).join(',');
+		// cartId = encodeURIComponent(cartId);
+		that.setData({
+			cartId
+		})
+		let data = {
+			agencyId: that.data.agencyId,
+			cartIds: cartId
+		};
+		try {
+			let result = await (mClient.wxRequest(api.getRetailPrice, data));
+			console.log('订单列表', result);
+			that.setData({
+				totalPrice: result.data,
+				goodsList: result.data.goodsList
 			})
-			this.renderUserDefaultContactInfo();
+		} catch (err) {
+			wx.showToast({
+				title: err.data.msg,
+				icon: 'none',
+				duration: 2000
+			})
 		}
-
-		this.renderShipfee();
-		this.renderCartList();
 	},
 
-	onShow: function () {
-		this.renderUserContactInfo();
-		this.renderShipfee();
-		this.renderCartGoodsTotal();
+
+
+
+
+
+	renderUserInfoList: function () {
+		let data = {
+			userId: wx.getStorageSync('userID')
+		}
+		mClient.get(api.AgencyListCK, data).then(resp => {
+			console.log('地址列表', resp)
+			this.setData({
+				addressList: resp.data.data,
+				agencyId: resp.data.data[0].agencyId
+			})
+			that.orderGoodsList();
+		})
 	},
 
 	bindSelectUserAddress: function () {
@@ -68,9 +116,16 @@ Page({
 				// 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
 				acceptDataFromOpenedPage: function (data) {
 					console.log(data)
-					that.setData({
-						userid: data.userid
-					})
+					let addressList = that.data.addressList;
+					addressList.forEach(element => {
+						if (element.agencyId == data.agencyId) {
+							that.setData({
+								addressListel: element,
+								agencyId: data.agencyId
+							})
+							that.orderGoodsList();
+						}
+					});
 				},
 			},
 
@@ -102,7 +157,7 @@ Page({
 							cartSelectedGoodsList.push(cartGoodsList[key]);
 						}
 					}
-				} 
+				}
 				this.setData({
 					cartGoodsList: cartSelectedGoodsList,
 				});
@@ -205,10 +260,24 @@ Page({
 
 
 	bindPayOrder: function () {
-     wx.navigateTo({
-       url: './cashierDesk/cashierDesk',
-     })
-    return false
+		let data = {
+			"userId": wx.getStorageSync('userID'), //用户id
+			"agencyId": that.data.agencyId, //合作商id
+			"storeId": 1496665747793903600, //仓库id
+			"cartIds": that.data.cartId,
+			"orderMemo": that.data.orderComment //备注
+		}
+		mClient.wxRequest(api.createOrder, data)
+			.then(res => {
+
+				wx.navigateTo({
+					url: './cashierDesk/cashierDesk',
+				})
+			}).catch(err => {
+
+			})
+
+		return
 		let that = this;
 		let dataInfo = [{
 			details: []
@@ -289,6 +358,12 @@ Page({
 			});
 
 		})
+	},
+
+	onShow: function () {
+		// this.renderUserContactInfo();
+		// this.renderShipfee();
+		// this.renderCartGoodsTotal();
 	},
 
 	bindOrderCommentInput: function (e) {

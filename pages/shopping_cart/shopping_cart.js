@@ -112,8 +112,8 @@ Page({
         // this.renderCartGoodsTotal();
 
 
+        // 
         // let param=  {pageIndex: this.data.pageIndex};
-        // var that = this;
         // app.HttpClient.request(url, param, function(res){
         //   let list = res.data;
         //   let index = that.data.serviceList.length;
@@ -401,7 +401,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: '../confirmation_order/confirmation_order?cartSelectedGoodsIds=' + JSON.stringify(that.data.cartIds)
+      url: '../confirmation_order/confirmation_order?cartSelectedGoodsIds=' + JSON.stringify(that.data.cartIds)+'&goodsCount='+that.data.cartSettlement.goodsCount
     })
   },
 })

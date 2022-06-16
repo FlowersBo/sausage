@@ -9,17 +9,19 @@
 
 <view class="contion">
   <view class="con_top" bindtap="bindSelectUserAddress">
-    <view class="characterIcon">
-      <text>{{userInfo.name[0]}}</text>
+    <view style="font-weight: bold;margin-bottom: 10rpx;">
+      {{addressListel.agencyName?addressListel.storeName:addressList[0].agencyName}}</view>
+    <view>{{addressListel?addressListel.address:addressList[0].address}}</view>
+    <!-- <view class="characterIcon">
       <view class="circle"></view>
-    </view>
-    <view class="left">
+    </view> -->
+    <!-- <view class="left">
       <view>
-        <!-- <image src="../../assets/img/add.png"></image> -->
+        <image src="../../assets/img/add.png"></image>
         <text>{{userInfo.name}}</text> <text>{{userInfo.mobile}}</text>
       </view>
       <view><text>{{userInfo.address}}</text></view>
-    </view>
+    </view> -->
   </view>
 </view>
 
@@ -27,40 +29,39 @@
 <view class="container">
 
   <view class="section section-good">
-
     <view class="total">
-      共{{cartSettlement.goodsCount}}件
+      共{{goodsCount}}件
     </view>
-    <view class="good" wx:for="{{cartGoodsList}}" wx:for-item="goods" wx:key="index">
+    <view class="good" wx:for="{{goodsList}}" wx:for-item="goods" wx:key="index">
       <view class="cover">
-        <image src="{{goods.cover}}"></image>
+        <image src="{{goods.goodsPic}}"></image>
       </view>
       <view class="content">
-        <view class="text name">{{goods.goodsname}}</view>
-        <view class="text specifications">{{goods.norm}}</view>
+        <view class="text name">{{goods.goodsName}}</view>
+        <view class="text specifications">{{goods.goodsUnitNum}}/{{goods.goodsUnit}}</view>
         <view class="text price">
-          <text>¥{{goods.realprice}}</text>
-          <text>¥{{goods.price}}</text>
+          <text>¥{{goods.agencyPrice}}</text>
+          <text>¥{{goods.tradePrice}}</text>
         </view>
       </view>
       <view class="stepper">
-        <input class="count" type="number" value="x{{goods.count}}" />
+        <input class="count" type="number" value="x{{goods.quantity}}" />
       </view>
     </view>
   </view>
   <!-- 商品金额 -->
   <view class="money">
     <view>
-      <text>商品金额</text><text>¥ {{cartSettlement.goodsSettlement}}</text>
+      <text>商品总金额</text><text>¥ {{totalPrice.totalTradePrice}}</text>
     </view>
     <view>
-      <text>配送费</text><text>¥ {{cartSettlement.freight}}</text>
+      <!-- <text>配送费</text><text>¥ {{cartSettlement.freight}}</text> -->
     </view>
     <view>
-      <text>优惠</text><text> - ¥ {{cartSettlement.economize}}</text>
+      <text>优惠</text><text> - ¥ {{totalPrice.totalDiscountPrice}}</text>
     </view>
     <view class="total">
-      <text>总计 </text> <text>¥ {{cartSettlement.moneyPaid}}</text>
+      <text>合计 </text> <text>¥ {{totalPrice.totalPrice}}</text>
     </view>
   </view>
   <!-- 支付方式 -->
@@ -85,7 +86,7 @@
   <view class="section-bottom">
     <view class="total">
       <view class="totalPrice">应付金额：
-        <text>¥{{cartSettlement.moneyPaid}}</text>
+        <text>¥ <text style="font-size: 40rpx;font-weight: bold;">{{totalPrice.totalPrice}}</text> </text>
       </view>
     </view>
     <view class="btn btn-primary" catchtap="bindPayOrder">

@@ -1,11 +1,11 @@
 <!-- pages/address/address.wxml -->
 <view class="">
   <scroll-view class="" scroll-y="true">
-    <view class="list" wx:for="{{userInfos}}" wx:for-index="idx" data-index='{{idx}}' bindtouchstart="drawStart"
+    <view class="list" wx:for="{{userInfos}}" wx:for-index="idx" wx:key="index" data-index='{{idx}}' bindtouchstart="drawStart"
       bindtouchmove="drawMove" bindtouchend="drawEnd" style="right:{{item.right}}rpx">
       <radio-group class="radio-group">
         <label class="radio">
-          <radio value="设为默认" checked="{{item.isdefault}}" data-index="{{idx}}" bindtap="bindChangeDefalutAddress" />
+          <radio value="设为默认" data-agencyId="{{item.agencyId}}" checked="{{item.isdefault}}" data-index="{{idx}}" bindtap="bindSettingUsedInfo" />
           <!-- <block wx:if="{{item.isdefault}}">
             <text>默认地址</text>
           </block>

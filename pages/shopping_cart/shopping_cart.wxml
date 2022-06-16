@@ -12,7 +12,7 @@
         <image class="cover" src="{{goods.goodsPic}}"></image>
         <view class="content">
           <view class="text name">{{goods.goodsName}}</view>
-          <view class="text specifications">{{goods.quantity}}箱</view>
+          <view class="text specifications">{{goods.goodsUnitNum}}/{{goods.goodsUnit}}</view>
           <view class="text price">
             <text>¥{{goods.tradePrice}}</text>
             <!-- <text>¥{{goods.retailPrice}}</text> -->

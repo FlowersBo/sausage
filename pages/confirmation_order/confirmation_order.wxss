@@ -11,10 +11,16 @@ page {
 
 /* 地址 */
 .contion .con_top {
-  display: flex;
-  padding: 40rpx;
-  font-size: 36rpx;
-  border: 1px solid #c9c9c9;
+  width: 96%;
+  margin: 20rpx auto;
+  font-size: 32rpx;
+  box-sizing: border-box;
+  padding: 30rpx;
+  background: #ddd;
+  border-radius: 10rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .contion image {
@@ -75,10 +81,11 @@ page {
 
 .section-good .total {
   font-size: 30rpx;
+  font-weight: bold;
   padding: 20rpx 0;
   color: #f75910;
   text-align: right;
-  border-bottom: 1px solid #c9c9c9;
+  border-bottom: 1rpx solid #c9c9c9;
 }
 
 .good {
@@ -100,6 +107,7 @@ page {
 .cover image {
   width: 150rpx;
   height: 150rpx;
+  border-radius: 10rpx;
 }
 .stepper{
   text-align: right;
@@ -120,7 +128,8 @@ page {
 
 .content .name {
   color: #333;
-  font-size: 36rpx;
+  font-size: 32rpx;
+  font-weight: bold;
 }
 
 .content .specifications {

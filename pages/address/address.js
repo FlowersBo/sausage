@@ -11,7 +11,7 @@ Page({
     userInfos: [],
     startX: 0,
     endX: 0,
-    delBtnWidth:160,
+    delBtnWidth: 160,
     isScroll: false
   },
 
@@ -19,7 +19,7 @@ Page({
     that = this;
     this.renderUserInfoList();
   },
-  
+
   onShow: function () {
 
   },
@@ -29,12 +29,12 @@ Page({
       userId: wx.getStorageSync('userID')
     }
     mClient.get(api.AgencyListCK, data).then(resp => {
-      console.log('地址列表',resp)
+      console.log('地址列表', resp)
       let userInfos = resp.data.data;
       // for(var index in userInfos) {
       //   var userInfo = userInfos[index]
       //   userInfo.right = 0
-        
+
       //   if(userInfo.id == userid){
       //     userInfo.usedStatus = true;
       //   } else{
@@ -47,8 +47,8 @@ Page({
     })
   },
 
-//滑动事件
-drawStart: function (e) {
+  //滑动事件
+  drawStart: function (e) {
     // console.log("drawStart");  
     var touch = e.touches[0]
     let userInfos = that.data.userInfos;
@@ -85,7 +85,7 @@ drawStart: function (e) {
         isScroll: false
       })
     }
-  },  
+  },
 
   drawEnd: function (e) {
     let that = this;
@@ -93,7 +93,7 @@ drawStart: function (e) {
     let delBtnWidth = that.data.delBtnWidth;
     let itemIndex = e.currentTarget.dataset.index;
 
-    if (userInfos[itemIndex].right >= delBtnWidth/2) {
+    if (userInfos[itemIndex].right >= delBtnWidth / 2) {
       userInfos[itemIndex].right = delBtnWidth
       this.setData({
         userInfos: userInfos,
@@ -128,22 +128,22 @@ drawStart: function (e) {
     let data = {
       contactid: addressCode
     }
-    mClient.post(api.UserRemoveContactInfo, data).then(resp=>{
-       let result=resp.data.data.result;
-       if(result === true){
+    mClient.post(api.UserRemoveContactInfo, data).then(resp => {
+      let result = resp.data.data.result;
+      if (result === true) {
         wx.showToast({
           title: '删除地址成功',
           icon: 'success',
           duration: 2000
         })
-       } else {
+      } else {
         wx.showToast({
           title: '删除地址失败，请稍后再试',
           icon: 'fail',
           duration: 2000
         })
-       }
-       this.renderUserInfoList();
+      }
+      this.renderUserInfoList();
     })
   },
 
@@ -153,10 +153,10 @@ drawStart: function (e) {
       url: '../new_address/new_address?index=' + index + '&generic=1'
     })
   },
-  bindChangeDefalutAddress: function(e){
+  bindChangeDefalutAddress: function (e) {
     let index = e.currentTarget.dataset.index;
     let userInfo = that.data.userInfos[index];
-    
+
     // let data = {
     //   name: userInfo.name,
     //   contactid: userInfo.id,
@@ -178,21 +178,26 @@ drawStart: function (e) {
     // })
   },
 
-  bindSettingTop: function(e){
+  bindSettingTop: function (e) {
     let index = e.currentTarget.dataset.index;
     let userInfos = that.data.userInfos;
-    [userInfos[0], userInfos[index]]=[userInfos[index], userInfos[0]]
+    [userInfos[0], userInfos[index]] = [userInfos[index], userInfos[0]]
     this.setData({
-      userInfos: userInfos
+      userInfos
     })
   },
-  bindSettingUsedInfo: function(e){
-    let userid = e.currentTarget.dataset.id;
+
+  bindSettingUsedInfo: function (e) {
+    let agencyId = e.currentTarget.dataset.agencyid;
+    console.log(e)
     const eventChannel = this.getOpenerEventChannel()
-    eventChannel.emit('acceptDataFromOpenedPage', {userid});
+    eventChannel.emit('acceptDataFromOpenedPage', {
+      agencyId
+    });
     this.setData({
-      userid: userid
+      userid: agencyId,
+      ["userInfos[" + e.currentTarget.dataset.index + "].isdefault"]: true
     })
-    this.renderUserInfoList();
+    wx.navigateBack()
   }
 })

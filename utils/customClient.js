@@ -62,7 +62,7 @@ function request(url, data = {}, method = "GET") {
 				if (resp.data.code === 200) {
 					resolve(resp);
 				} else {
-					reject(resp.errMsg);
+					reject(resp);
 				}
 
 				//Unauthorized

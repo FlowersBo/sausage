@@ -113,6 +113,8 @@ module.exports = {
     CartList: ApiRootUrl + "app/transfer/cartList", //购物车列表
     DeleteCart: ApiRootUrl + "app/transfer/deleteCart", //购物车为零删除
     AgencyListCK: ApiRootUrl + "app/transfer/agencyList", //获取合作商仓库地址
+    getRetailPrice: ApiRootUrl + "app/transfer/getRetailPrice", //订单
+    createOrder: ApiRootUrl + "app/transfer/createOrder", //订单
 
     // 点位
     CityBillboard: ApiRootUrl + "app/point/cityBillboard", //城市点位排行
