@@ -37,7 +37,7 @@
 		</view>
 	</view>
 	<view animation="{{ani}}" class="buycar" bindtap="bindLookBuyCar">
-		<text>{{shoppingCartGoodsCount>0?shoppingCartGoodsCount:0}}</text>
+		<text>{{shoppingCartGoodsCount?shoppingCartGoodsCount:0}}</text>
 		<image class="" src="../../assets/img/buycar.png"></image>
 	</view>
 </view>

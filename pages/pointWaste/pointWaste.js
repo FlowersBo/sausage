@@ -7,14 +7,15 @@ let that;
 function initChart(chart, dataItem) {
   var option = {
     backgroundColor: "#fff",
-    color: ['#29AAE3','#C33531', '#EFE42A', '#64BD3D', '#B74AE5', '#EE9201', '#0AAF9F', '#E89589', '#16A085'],
+    color: ['#29AAE3', '#C33531', '#EFE42A', '#64BD3D', '#B74AE5', '#EE9201', '#0AAF9F', '#E89589', '#16A085'],
     title: {
       text: '废弃原因分布',
       left: 'center',
       top: '2%',
       color: '#F75910',
       textStyle: {
-        fontSize: '16'
+        fontSize: '16',
+        fontWeight: 'bold',
       }
     },
     legend: { //图例
@@ -98,16 +99,16 @@ Page({
       pointEndDate,
       selectedChild
     } = options;
-    that.wasteAnalyseFn(pointId, pointStartDate, pointEndDate,selectedChild);
+    that.wasteAnalyseFn(pointId, pointStartDate, pointEndDate, selectedChild);
   },
 
-  async wasteAnalyseFn(pointId, startDate, endDate,selectedChild) {
+  async wasteAnalyseFn(pointId, startDate, endDate, selectedChild) {
     let data = {
       pointId,
-      startDate:`${selectedChild==0?startDate:''}`,
-      endDate:`${selectedChild==0?endDate:''}`,
-      startMonth:`${selectedChild==0?'':endDate}`,
-      endMonth:`${selectedChild==0?'':endDate}`,
+      startDate: `${selectedChild==0?startDate:''}`,
+      endDate: `${selectedChild==0?endDate:''}`,
+      startMonth: `${selectedChild==0?'':endDate}`,
+      endMonth: `${selectedChild==0?'':endDate}`,
     }
     let result = await (mClient.get(api.WasteAnalyse, data));
     console.log('点位饼图', result);
@@ -121,7 +122,7 @@ Page({
         });
         canvas.setChart(chart);
         let dayDateWrap = [{
-          name: '烤制超时废弃',
+          name: '预烤超时未售废弃',
           value: result.data.data.waste1
         }, {
           name: '烤制过程废弃',
@@ -135,6 +136,9 @@ Page({
         }, {
           name: '人工报损',
           value: result.data.data.waste5
+        }, {
+          name: '预订超时未取废弃',
+          value: result.data.data.waste6
         }];
         let dataItem = [];
         for (const key in dayDateWrap) {

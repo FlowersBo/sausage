@@ -6,7 +6,6 @@ page {
 	font-family: -apple-system-font, Arial, Helvetica, sans-serif;
 	color: #333;
 	font-size: 32rpx;
-	line-height: 1.42857;
 }
 
 /* 地址 */
@@ -64,8 +63,8 @@ page {
 }
 
 .section {
-	width: 98%;
-	margin: 0 auto;
+	/* width: 98%;
+	margin: 0 auto; */
 }
 
 .section-good {
@@ -79,10 +78,9 @@ page {
 	position: relative;
 	height: 215rpx;
 	border-bottom: 1px solid #ccc;
-}
-
-.good:last-child {
-	border-bottom: none;
+	position: relative;
+	box-sizing: border-box;
+	padding: 0 30rpx;
 }
 
 .checkbox {
@@ -138,7 +136,7 @@ page {
 .good .stepper {
 	display: flex;
 	position: absolute;
-	right: 0;
+	right: 30rpx;
 	bottom: 50rpx;
 	flex-direction: row;
 	text-align: center;
@@ -246,8 +244,16 @@ page {
 
 /* 滑动删除 */
 .inner {
+	width: 160rpx;
+	height: 100%;
+	background-color: red;
+	color: white;
 	position: absolute;
 	top: 0;
+	right: -160rpx;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .txt {

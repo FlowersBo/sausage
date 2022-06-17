@@ -79,6 +79,7 @@ Page({
       return;
     };
     this.renderGoodsList(goodsCategroyIndex);
+    this.cartNumFn();
   },
 
 

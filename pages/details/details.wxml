@@ -3,7 +3,7 @@
 <view>
   <!-- 单张图片展示 -->
   <view class="banner">
-    <image src="{{goodsDetaillyInfo.picname}}" mode="aspectFill"></image>
+    <image src="{{goodsDetaillyInfo.goodsPic}}" mode="aspectFill"></image>
   </view>
   <!-- 轮播 多张展示 暂无需求-->
   <!-- <swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000"
@@ -19,14 +19,14 @@
     <view class="good_info_back">
       <view class="good_info_price_back">
         <view class="price">
-          <text>¥{{goodsDetaillyInfo.price}}</text>
+          <text>¥{{goodsDetaillyInfo.purchasePrice}}</text>
         </view>
-        <view wx:if="{{special_offe}}" class="price_discount">
-          <text>¥{{special_offer}}</text>
+        <view class="price_discount">
+          <text>¥{{goodsDetaillyInfo.tradePrice}}</text>
         </view>
-        <view class="detail_num">库存数量：{{goodsDetaillyInfo.stock}}</view>
+        <!-- <view class="detail_num">库存数量：{{goodsDetaillyInfo.stock}}</view> -->
       </view>
-      <view class="good_info_title">{{goodsDetaillyInfo.goodsname}}</view>
+      <view class="good_info_title">{{goodsDetaillyInfo.goodsName}}</view>
     </view>
     <!-- 参数 -->
     <view class="comment_title_back_view">
@@ -34,28 +34,28 @@
     </view>
     <view class="integral_back_view">
       <text class="info_name">单位：</text>
-      <text class="info_content">{{goodsDetaillyInfo.unit}}</text>
+      <text class="info_content">{{goodsDetaillyInfo.goodsUnit}}</text>
     </view>
     <view class="integral_back_view">
       <text class="info_name">规格：</text>
-      <text class="info_content">{{goodsDetaillyInfo.norm}}</text>
+      <text class="info_content">{{goodsDetaillyInfo.goodsUnitNum}}</text>
     </view>
     <view class="integral_back_view">
       <text class="info_name">保质期：</text>
-      <text class="info_content">{{goodsDetaillyInfo.exp}}</text>
+      <text class="info_content">{{goodsDetaillyInfo.expireDay}}{{goodsDetaillyInfo.expireType==1?'天':(goodsDetaillyInfo.expireType==2?'月':'年')}}</text>
     </view>
 
     <view class="integral_back_view">
       <text class="info_name">储存方式：</text>
-      <text class="info_content">{{goodsDetaillyInfo.storage}}</text>
+      <text class="info_content">{{goodsDetaillyInfo.storageMode}}</text>
     </view>
     <!-- 图片详情 -->
     <view class="comment_title_back_view">
       <text class="comment_order_title">商品详情</text>
-      <text class="info_content">{{goodsDetaillyInfo.goodsdesc}}</text>
     </view>
-    <view class="description" wx:for="{{goodsDescriptivePicture}}">
-      <image src="{{item.picname}}" ></image>
+    <view class="description">
+      <!-- <image src="{{item.picname}}" ></image> -->
+      <text class="info_content">{{goodsDetaillyInfo.goodsTag}}</text>
     </view>
   </view>
   <!-- 底部首页购物车 -->

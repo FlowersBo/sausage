@@ -22,8 +22,66 @@ Page({
     cartGoodsPriceTotal: 0,
     cartGoodsEconomizeTotal: 0,
     cartGoodsNumberTotal: 0,
-    cartIds: []
+    cartIds: [],
+    delBtnWidth: 160,
+    isScroll: false
   },
+
+  drawStart(e) {
+    let touch = e.touches[0];
+    let cartGoodsList = that.data.cartGoodsList;
+    cartGoodsList.forEach(element => {
+      element.right = 0;
+    });
+    this.setData({
+      cartGoodsList,
+      startX: touch.clientX,
+    })
+  },
+  drawMove: function (e) {
+    let that = this;
+    let cartGoodsList = that.data.cartGoodsList;
+    let delBtnWidth = that.data.delBtnWidth;
+    let touch = e.touches[0];
+    let itemIndex = e.currentTarget.dataset.index;
+    let disX = this.data.startX - touch.clientX;
+    if (disX >= 20) {
+      if (disX > delBtnWidth) {
+        disX = delBtnWidth
+      }
+      cartGoodsList[itemIndex].right = disX;
+      this.setData({
+        cartGoodsList,
+        isScroll: false
+      })
+    } else {
+      cartGoodsList[itemIndex].right = 0
+      this.setData({
+        cartGoodsList,
+        isScroll: false
+      })
+    }
+  },
+
+  drawEnd: function (e) {
+    let cartGoodsList = that.data.cartGoodsList;
+    let delBtnWidth = that.data.delBtnWidth;
+    let itemIndex = e.currentTarget.dataset.index;
+    if (cartGoodsList[itemIndex].right >= delBtnWidth / 2) {
+      cartGoodsList[itemIndex].right = delBtnWidth;
+      this.setData({
+        cartGoodsList,
+        isScroll: true
+      })
+    } else {
+      cartGoodsList[itemIndex].right = 0
+      this.setData({
+        cartGoodsList,
+        isScroll: false
+      })
+    }
+  },
+
 
   gotoAddress() {
     wx.navigateTo({
@@ -75,6 +133,11 @@ Page({
         // let cartGoodsPriceTotal = resp.data.data.realamount;
         // let cartGoodsEconomizeTotal = resp.data.data.discount;
         let cartGoodsList = resp.data.list;
+        if (cartGoodsList.length == 0) {
+          wx.navigateBack({
+            delta: 1
+          })
+        }
         let cartGoodsNumberTotal = 0;
         let cartIds = that.data.cartIds;
         cartGoodsList.forEach(element => {
@@ -223,19 +286,12 @@ Page({
 
   // 移除购物车中选中商品
   bindDeleteGoods: function (e) {
-    let that = this;
-    let cartGoodsList = that.data.cartGoodsList;
-    let index = e.currentTarget.dataset.index;
-    let cartid = cartGoodsList[index].id;
-
-    let data = {
-      cartid: cartid,
-    };
-
-    mClient.post(api.RemoveShoppingCart, data)
+    console.log(e)
+    mClient.get(api.DeleteCart, {
+        id: e.currentTarget.dataset.id
+      })
       .then(resp => {
-        let result = resp.data.data.result;
-        if (result === true) {
+        if (resp.data.code == 200) {
           that.renderCartList();
         } else {
           wx.showToast({
@@ -401,7 +457,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: '../confirmation_order/confirmation_order?cartSelectedGoodsIds=' + JSON.stringify(that.data.cartIds)+'&goodsCount='+that.data.cartSettlement.goodsCount
+      url: '../confirmation_order/confirmation_order?cartSelectedGoodsIds=' + JSON.stringify(that.data.cartIds) + '&goodsCount=' + that.data.cartSettlement.goodsCount
     })
   },
 })

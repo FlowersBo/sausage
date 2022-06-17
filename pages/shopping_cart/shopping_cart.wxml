@@ -3,7 +3,8 @@
 <view class="container">
   <view class="section section-good">
     <checkbox-group>
-      <view class="good" wx:for="{{cartGoodsList}}" wx:key="index" wx:for-item="goods"  bindtouchstart="touchStart" bindtouchmove="touchMove">
+      <view class="good" wx:for="{{cartGoodsList}}" wx:key="index" wx:for-item="goods"  bindtouchstart="drawStart"
+      bindtouchmove="drawMove" bindtouchend="drawEnd" wx:for-index="index" data-index='{{index}}' style="right:{{goods.right}}rpx">
         <label class="checkbox" bindtap="bindCheckboxChange" data-index="{{index}}">
           <checkbox checked="{{goods.isChecked}}" hidden="hidden" />
           <icon type="circle" size="23" wx:if="{{!goods.isChecked}}"></icon>
@@ -24,7 +25,7 @@
             bindconfirm="bindChangeGoodsNum" data-id="{{goods.id}}" />
           <view class="add" data-index="{{index}}" catchtap="bindAddGoods">+</view>
         </view>
-        <view data-index="{{index}}" class="inner del txt" bindtap="bindDeleteGoods">删除</view>
+        <view data-index="{{index}}" data-id="{{goods.id}}" class="inner" bindtap="bindDeleteGoods">删除</view>
       </view>
     </checkbox-group>
   </view>

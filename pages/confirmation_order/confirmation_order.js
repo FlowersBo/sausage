@@ -101,7 +101,8 @@ Page({
 			console.log('地址列表', resp)
 			this.setData({
 				addressList: resp.data.data,
-				agencyId: resp.data.data[0].agencyId
+				agencyId: resp.data.data[0].agencyId,
+				storeId: resp.data.data[0].storeId
 			})
 			that.orderGoodsList();
 		})
@@ -121,7 +122,8 @@ Page({
 						if (element.agencyId == data.agencyId) {
 							that.setData({
 								addressListel: element,
-								agencyId: data.agencyId
+								agencyId: data.agencyId,
+								storeId: data.storeId
 							})
 							that.orderGoodsList();
 						}
@@ -260,104 +262,109 @@ Page({
 
 
 	bindPayOrder: function () {
-		let data = {
-			"userId": wx.getStorageSync('userID'), //用户id
-			"agencyId": that.data.agencyId, //合作商id
-			"storeId": 1496665747793903600, //仓库id
-			"cartIds": that.data.cartId,
-			"orderMemo": that.data.orderComment //备注
-		}
-		mClient.wxRequest(api.createOrder, data)
+		mClient.wxRequest(api.CreateOrder, {
+				userId: wx.getStorageSync('userID'),
+				agencyId: that.data.agencyId,
+				storeId: that.data.storeId, //仓库id
+				cartIds: that.data.cartId,
+				orderMemo: that.data.orderComment //备注
+			})
 			.then(res => {
-
-				wx.navigateTo({
-					url: './cashierDesk/cashierDesk',
-				})
+				console.log('提交返回', res)
+				if (!res.data.needPay) {
+					wx.redirectTo({
+						url: '../status_details/status_details?orderId=' + res.data.orderId,
+					})
+				} else {
+					wx.reLaunch({
+						url: './cashierDesk/cashierDesk',
+					})
+				}
 			}).catch(err => {
 
 			})
 
-		return
-		let that = this;
-		let dataInfo = [{
-			details: []
-		}];
-		let cartList = that.data.cartGoodsList;
-		let cartSettlement = that.data.cartSettlement;
-		let userInfo = that.data.userInfo;
-		let orderComment = that.data.orderComment;
+		return false;
+		// let that = this;
+		// let dataInfo = [{
+		// 	details: []
+		// }];
+		// let cartList = that.data.cartGoodsList;
+		// let cartSettlement = that.data.cartSettlement;
+		// let userInfo = that.data.userInfo;
+		// let orderComment = that.data.orderComment;
 
-		let data = {
-			quantity: cartSettlement.goodsCount,
-			goodsamount: cartSettlement.moneyPaid,
-			discount: cartSettlement.economize,
-			orderamount: cartSettlement.moneyPaid + cartSettlement.freight,
-			contactid: userInfo.id,
-			memo: orderComment,
-		};
-		console.log('结算传参', data);
-		for (let index = 0; index < cartList.length; index++) {
-			const goods = cartList[index];
-			dataInfo[0].details.push({
-				goodsid: goods.goodsid,
-				count: goods.count,
-				memo: '',
-			});
-		}
+		// let data = {
+		// 	quantity: cartSettlement.goodsCount,
+		// 	goodsamount: cartSettlement.moneyPaid,
+		// 	discount: cartSettlement.economize,
+		// 	orderamount: cartSettlement.moneyPaid + cartSettlement.freight,
+		// 	contactid: userInfo.id,
+		// 	memo: orderComment,
+		// };
+		// console.log('结算传参', data);
+		// for (let index = 0; index < cartList.length; index++) {
+		// 	const goods = cartList[index];
+		// 	dataInfo[0].details.push({
+		// 		goodsid: goods.goodsid,
+		// 		count: goods.count,
+		// 		memo: '',
+		// 	});
+		// }
 
-		let obj = JSON.stringify(dataInfo);
-		mClient.PostIncludeData(api.CreatGoodsOder, data, obj).then(resp => {
-			let orderId = resp.data.data.orderid;
+		// let obj = JSON.stringify(dataInfo);
+		// mClient.PostIncludeData(api.CreatGoodsOder, data, obj).then(resp => {
+		// 	let orderId = resp.data.data.orderid;
 
-			//暂时搁置 删除购物车中以结算的商品 
-			for (let index = 0; index < cartList.length; index++) {
-				const goods = cartList[index];
-				let data = {
-					cartid: goods.id
-				}
+		// 	//暂时搁置 删除购物车中以结算的商品 
+		// 	for (let index = 0; index < cartList.length; index++) {
+		// 		const goods = cartList[index];
+		// 		let data = {
+		// 			cartid: goods.id
+		// 		}
 
-				mClient.post(api.RemoveShoppingCart, data);
-			}
-			//调起支付
-			payment.payOrder(orderId).then(resp => {
-				let isOrderComplete = resp;
-				if (isOrderComplete === true) {
-					wx.showToast({
-						title: '支付成功',
-						icon: 'success',
-						duration: 2000
-					})
-					wx.navigateBack({
-						delta: 1
-					})
-				} else if (isOrderComplete === false) {
-					wx.showModal({
-						title: '提示',
-						content: '以产生未支付订单,请前往支付',
-						success: function (res) {
+		// 		mClient.post(api.RemoveShoppingCart, data);
+		// 	}
+		// 	//调起支付
+		// 	payment.payOrder(orderId).then(resp => {
+		// 		let isOrderComplete = resp;
+		// 		if (isOrderComplete === true) {
+		// 			wx.showToast({
+		// 				title: '支付成功',
+		// 				icon: 'success',
+		// 				duration: 2000
+		// 			})
+		// 			wx.navigateBack({
+		// 				delta: 1
+		// 			})
+		// 		} else if (isOrderComplete === false) {
+		// 			wx.showModal({
+		// 				title: '提示',
+		// 				content: '以产生未支付订单,请前往支付',
+		// 				success: function (res) {
 
-							if (res.confirm) { //这里是点击了确定以后            
-								wx.redirectTo({
-									url: '../status_details/status_details?orderId=' + orderId,
-								})
-							} else { //这里是点击了取消以后
-								wx.navigateBack({
-									delta: 1
-								})
-							}
-						}
-					})
-				} else {
-					wx.showToast({
-						title: '网络出现错误，请重新尝试',
-						icon: 'fail',
-						duration: 2000
-					})
-					return false;
-				}
-			});
+		// 					if (res.confirm) { //这里是点击了确定以后            
+		// 						wx.redirectTo({
+		// 							url: '../status_details/status_details?orderId=' + orderId,
+		// 						})
+		// 					} else { //这里是点击了取消以后
+		// 						wx.navigateBack({
+		// 							delta: 1
+		// 						})
+		// 					}
+		// 				}
+		// 			})
+		// 		} else {
+		// 			wx.showToast({
+		// 				title: '网络出现错误，请重新尝试',
+		// 				icon: 'fail',
+		// 				duration: 2000
+		// 			})
+		// 			return false;
+		// 		}
+		// 	});
 
-		})
+		// })
 	},
 
 	onShow: function () {

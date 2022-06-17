@@ -49,7 +49,6 @@ Page({
 
   //滑动事件
   drawStart: function (e) {
-    // console.log("drawStart");  
     var touch = e.touches[0]
     let userInfos = that.data.userInfos;
     userInfos.forEach(element => {
@@ -188,11 +187,12 @@ Page({
   },
 
   bindSettingUsedInfo: function (e) {
-    let agencyId = e.currentTarget.dataset.agencyid;
-    console.log(e)
+    let agencyId = e.currentTarget.dataset.agencyid,
+      storeId = e.currentTarget.dataset.storeid;
     const eventChannel = this.getOpenerEventChannel()
     eventChannel.emit('acceptDataFromOpenedPage', {
-      agencyId
+      agencyId,
+      storeId
     });
     this.setData({
       userid: agencyId,

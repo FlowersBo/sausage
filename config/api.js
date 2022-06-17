@@ -113,8 +113,10 @@ module.exports = {
     CartList: ApiRootUrl + "app/transfer/cartList", //购物车列表
     DeleteCart: ApiRootUrl + "app/transfer/deleteCart", //购物车为零删除
     AgencyListCK: ApiRootUrl + "app/transfer/agencyList", //获取合作商仓库地址
-    getRetailPrice: ApiRootUrl + "app/transfer/getRetailPrice", //订单
-    createOrder: ApiRootUrl + "app/transfer/createOrder", //订单
+    getRetailPrice: ApiRootUrl + "app/transfer/getRetailPrice", //订单列表
+    CreateOrder: ApiRootUrl + "app/transfer/createOrder", //创建订单
+    GoodsDetail: ApiRootUrl + "app/transfer/goodsDetail", //删除商品
+    GoodsOrderDetail: ApiRootUrl + "app/transfer/orderDetail", //下单详情
 
     // 点位
     CityBillboard: ApiRootUrl + "app/point/cityBillboard", //城市点位排行
