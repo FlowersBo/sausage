@@ -70,6 +70,12 @@
           "pathName": "pages/order_goods/order_goods",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "进货列表",
+          "pathName": "pages/myOrder/myOrder",
+          "query": "",
+          "scene": null
         }
       ]
     }

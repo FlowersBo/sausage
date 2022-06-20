@@ -12,6 +12,7 @@
   left: 0;
   z-index: 999;
 }
+
 /* 去掉滚动条 */
 ::-webkit-scrollbar {
   width: 0;
@@ -40,8 +41,8 @@
 
 .currtline {
   margin: -18rpx auto 0 auto;
-  width: 80rpx;
-  height: 6rpx;
+  width: 100%;
+  height: 5rpx;
   border-radius: 2rpx;
 }
 
@@ -55,9 +56,10 @@ swiper {
   min-height: calc(100vh - 100rpx);
   background: #eee;
 }
+
 .swiper-item {
   width: 100%;
-  padding: 32rpx ;
+  padding: 32rpx;
   box-sizing: border-box;
 }
 
@@ -140,36 +142,49 @@ scroll-view {
   font-size: 24rpx;
   color: #999;
 }
-.list .more_detail>view{
+
+.list .more_detail>view {
   display: inline-block;
 }
+
 .list .more_detail .img {
   width: 480rpx;
   height: 150rpx;
   overflow: hidden;
 }
 
-.list .more_detail  image {
+.list .more_detail image {
   display: inline-block;
   width: 100rpx;
   height: 100rpx;
-  margin:20rpx 10rpx;
+  border-radius: 6rpx;
+  margin: 20rpx 10rpx;
 }
-.list .more_detail .right{
+
+.list .more_detail image:first-child {
+  margin-left: 0;
+}
+
+.list .more_detail .right {
   float: right;
   font-size: 26rpx;
   margin-top: 40rpx;
   text-align: right;
-}.list .more_detail .right .num{
+}
+
+.list .more_detail .right .num {
   font-size: 22rpx;
   color: #999;
+  margin-top: 20rpx;
 }
-.btn{
+
+.btn {
   height: 60rpx;
   text-align: right;
   margin-bottom: 30rpx;
 }
-.btn button{
+
+.btn button {
   float: right;
   width: 150rpx;
   height: 60rpx;
@@ -181,7 +196,8 @@ scroll-view {
   margin-left: 20rpx;
   background: #e8e8e8;
 }
-.btn button:first-child{
+
+.btn button:first-child {
   color: #fff;
   background: #f75910;
 }

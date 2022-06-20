@@ -59,7 +59,7 @@
 
     <navigator url="/pages/myOrder/myOrder" hover-class="none" class="weui-cell weui-cell_access">
       <view class="weui-cell__bd">
-        <view style="display: inline-block; vertical-align: middle">进货详情</view>
+        <view style="display: inline-block; vertical-align: middle">进货列表</view>
       </view>
       <view class="weui-cell__ft weui-cell__ft_in-access"></view>
     </navigator>

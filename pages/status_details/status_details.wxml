@@ -5,16 +5,16 @@
 
 	<view class="user-info">
 		<view class="characterIcon">
-			<text>{{userInfo.name[0]}}</text>
+			<text>{{storeInfo.contactName[0]}}</text>
 			<view class="circle"></view>
 		</view>
 		<!-- <canvas disable-scroll="true" type="2d" id="characterIcon" width="100rpx" height="100rpx"></canvas> -->
 		<view class="left">
 			<view>
 				<!-- <image src="../../assets/img/add.png"></image> -->
-				<text>{{userInfo.name}}</text> <text>{{userInfo.mobile}}</text>
+				<text>{{storeInfo.contactName}}</text> <text>{{userInfo.contactPhone}}</text>
 			</view>
-			<view><text>{{userInfo.address}}</text></view>
+			<view><text>{{storeInfo.address}}</text></view>
 		</view>
 	</view>
 
@@ -30,22 +30,22 @@
 
 	<view class="section section-good">
 
-		<view class="good" wx:for="{{orderInfo.detail}}" wx:for-item="goods">
+		<view class="good" wx:for="{{orderDetail}}" wx:for-item="goods">
 			<view class="cover">
-				<image src="{{goods.url}}"></image>
+				<image src="{{goods.goodsPic}}"></image>
 			</view>
 			<view class="content">
-				<view class="text name">{{goods.goodsname}}</view>
+				<view class="text name">{{goods.goodsName}}</view>
 				<view class="text specifications">
 					{{goods.norm}}
 				</view>
 				<view class="text price">
-					<text>¥{{goods.realprice}}</text>
-					<text>¥{{goods.price}}</text>
+					<text>¥{{goods.payPrice}}</text>
+					<text>¥{{goods.goodsPrice}}</text>
 				</view>
 			</view>
 			<view class="stepper">
-				<input class="count" type="number" value="x{{goods.count}}" />
+				<input class="count" type="number" value="x{{goods.quantity}}" />
 			</view>
 		</view>
 	</view>

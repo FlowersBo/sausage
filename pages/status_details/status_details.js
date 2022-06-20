@@ -22,31 +22,31 @@ Page({
 
 	onLoad: function (options) {
 		let orderId = options.orderId;
-		let backpageGenre = 1;
-		if (options.hasOwnProperty('backpagegenre')) {
-			backpageGenre = options.backpagegenre;
-		}
-
+		// if (options.hasOwnProperty('orderId')) {
+		// 	orderId = options.orderId;
+		// }
 		let data = {
-			orderid: orderId,
-			backpageGenre: backpageGenre
+			orderId
 		};
 
-		mClient.get(api.GetGoodsDetail, data).then(resp => {
+		mClient.get(api.GoodsOrderDetail, data).then(resp => {
+			console.log('订单详情',resp)
 			let orderInfo = resp.data.data;
-			orderInfo.settleAccounts = orderInfo.goodsamount; // + orderInfo.shipfee
-			orderInfo.orderTime = util.formatTime(new Date(orderInfo.orderdate));
+			// orderInfo.settleAccounts = orderInfo.goodsamount; // + orderInfo.shipfee
+			// orderInfo.orderTime = util.formatTime(new Date(orderInfo.orderdate));
 
-			if (orderInfo.isextenddelivery == true && orderInfo.statuscode == '2') {
-				orderInfo.status = '延长发货'
-			}
+			// if (orderInfo.isextenddelivery == true && orderInfo.statuscode == '2') {
+			// 	orderInfo.status = '延长发货'
+			// }
 
 			this.setData({
-				orderId: orderId,
-				orderInfo: orderInfo
+				orderId,
+				orderInfo,
+				orderDetail:resp.data.data.orderDetail,
+				storeInfo: resp.data.data.storeInfo
 			})
-			this.renderUserContactInfo();
-			this.renderBtn(orderInfo);
+			// this.renderUserContactInfo();
+			// this.renderBtn(orderInfo);
 
 		});
 	},

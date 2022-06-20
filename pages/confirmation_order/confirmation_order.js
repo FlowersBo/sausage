@@ -75,16 +75,20 @@ Page({
 		try {
 			let result = await (mClient.wxRequest(api.getRetailPrice, data));
 			console.log('订单列表', result);
-			that.setData({
-				totalPrice: result.data,
-				goodsList: result.data.goodsList
-			})
+			if (result.code == 200) {
+				that.setData({
+					totalPrice: result.data,
+					goodsList: result.data.goodsList
+				})
+			} else {
+				wx.showToast({
+					title: result.msg,
+					icon: 'none',
+					duration: 2000
+				})
+			}
 		} catch (err) {
-			wx.showToast({
-				title: err.data.msg,
-				icon: 'none',
-				duration: 2000
-			})
+
 		}
 	},
 

@@ -19,24 +19,24 @@
 		<swiper-item style="overflow: scroll;">
 			<scroll-view scroll-y refresher-enabled refresher-background="#F6F7F8" refresher-triggered="{{isRefresh}}"
 				bindrefresherrefresh="refresherpulling" bindscrolltolower="handleTolower">
-				<view class="list" wx:for="{{orderList}}" wx:key="list" wx:for-item="item" data-index="{{index}}"
+				<view class="list" wx:for="{{orderList}}" wx:key="list" wx:for-item="item" data-index="{{index}}" data-orderId="{{item.orderId}}"
 					bindtap="bindOrderDetail">
 					<view class="tit">
-						<text>{{item.merchantname}}</text><text>{{item.status}}</text>
+						<text>{{item.agencyName}}</text><text>{{item.orderStatusStr}}</text>
 					</view>
-					<view class="time">{{item.orderTime}}</view>
+					<view class="time">{{item.createTime}}</view>
 					<view class="more_detail" data-OrderId="{{item.id}}" bindtap="bindNavigateOrderDetail">
 						<view class="img">
-							<block wx:for="{{item.detail}}" wx:key="item" wx:for-item="index1">
-								<image class="" src="{{index1.url}}"></image>
+							<block wx:for="{{item.detailVos}}" wx:key="item" wx:for-item="index1">
+								<image class="" src="{{index1.goodsPic}}"></image>
 							</block>
 						</view>
 						<view class="right">
-							<view class="">¥{{item.settlementPrice}}</view>
+							<view class="" style="font-size: 38rpx; font-weight: bold;">¥{{item.orderPrice}}</view>
 							<view class="num">共{{item.quantity}}件</view>
 						</view>
 					</view>
-					<view class="btn">
+					<view class="btn" wx:if="{{item.btn.length>0}}">
 						<block wx:for="{{item.btn}}" wx:key="btn_more" wx:for-item="name">
 							<button data-OrderId="{{item.id}}" data-OperationGenre="{{name}}"
 								catchtap="bindOperationOrder">{{name}}</button>

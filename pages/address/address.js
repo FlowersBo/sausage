@@ -48,64 +48,64 @@ Page({
   },
 
   //滑动事件
-  drawStart: function (e) {
-    var touch = e.touches[0]
-    let userInfos = that.data.userInfos;
-    userInfos.forEach(element => {
-      element.right = 0;
-    });
-    this.setData({
-      userInfos: userInfos,
-      startX: touch.clientX,
-    })
-  },
+  // drawStart: function (e) {
+  //   var touch = e.touches[0]
+  //   let userInfos = that.data.userInfos;
+  //   userInfos.forEach(element => {
+  //     element.right = 0;
+  //   });
+  //   this.setData({
+  //     userInfos: userInfos,
+  //     startX: touch.clientX,
+  //   })
+  // },
 
-  drawMove: function (e) {
-    let that = this;
-    let userInfos = that.data.userInfos;
-    let delBtnWidth = that.data.delBtnWidth;
-    let touch = e.touches[0];
-    let itemIndex = e.currentTarget.dataset.index;
-    let disX = this.data.startX - touch.clientX;
-    if (disX >= 20) {
-      if (disX > delBtnWidth) {
-        disX = delBtnWidth
-      }
-      userInfos[itemIndex].right = disX
+  // drawMove: function (e) {
+  //   let that = this;
+  //   let userInfos = that.data.userInfos;
+  //   let delBtnWidth = that.data.delBtnWidth;
+  //   let touch = e.touches[0];
+  //   let itemIndex = e.currentTarget.dataset.index;
+  //   let disX = this.data.startX - touch.clientX;
+  //   if (disX >= 20) {
+  //     if (disX > delBtnWidth) {
+  //       disX = delBtnWidth
+  //     }
+  //     userInfos[itemIndex].right = disX
 
-      this.setData({
-        userInfos: userInfos,
-        isScroll: false
-      })
-    } else {
-      userInfos[itemIndex].right = 0
-      this.setData({
-        userInfos: userInfos,
-        isScroll: false
-      })
-    }
-  },
+  //     this.setData({
+  //       userInfos: userInfos,
+  //       isScroll: false
+  //     })
+  //   } else {
+  //     userInfos[itemIndex].right = 0
+  //     this.setData({
+  //       userInfos: userInfos,
+  //       isScroll: false
+  //     })
+  //   }
+  // },
 
-  drawEnd: function (e) {
-    let that = this;
-    let userInfos = that.data.userInfos;
-    let delBtnWidth = that.data.delBtnWidth;
-    let itemIndex = e.currentTarget.dataset.index;
+  // drawEnd: function (e) {
+  //   let that = this;
+  //   let userInfos = that.data.userInfos;
+  //   let delBtnWidth = that.data.delBtnWidth;
+  //   let itemIndex = e.currentTarget.dataset.index;
 
-    if (userInfos[itemIndex].right >= delBtnWidth / 2) {
-      userInfos[itemIndex].right = delBtnWidth
-      this.setData({
-        userInfos: userInfos,
-        isScroll: true
-      })
-    } else {
-      userInfos[itemIndex].right = 0
-      this.setData({
-        userInfos: userInfos,
-        isScroll: false
-      })
-    }
-  },
+  //   if (userInfos[itemIndex].right >= delBtnWidth / 2) {
+  //     userInfos[itemIndex].right = delBtnWidth
+  //     this.setData({
+  //       userInfos: userInfos,
+  //       isScroll: true
+  //     })
+  //   } else {
+  //     userInfos[itemIndex].right = 0
+  //     this.setData({
+  //       userInfos: userInfos,
+  //       isScroll: false
+  //     })
+  //   }
+  // },
 
   bindAddNewAddress: function () {
     wx.navigateTo({

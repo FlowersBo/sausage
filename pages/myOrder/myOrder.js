@@ -3,18 +3,17 @@ import * as mClient from '../../utils/customClient';
 import * as api from '../../config/api';
 import * as util from '../../utils/util';
 import * as payment from '../../payment/payment';
+let that;
 Page({
-
 	data: {
 		date: "2021-01-01",
 		selected: 0,
 		btn: [
 			['立即支付', '取消订单'],
-			['取消订单'],
-			['延长收货', '确认收货']
+			['确认收货']
 		],
-		orderGenres: ['全部', '待付款', '待发货', '待收货', '已完成','已取消','未通过'],
-		status: '',
+		orderGenres: ['全部', '待付款', '待财务审核', '待发货', '待收货', '已完成', '已取消', '财务审核未通过'],
+		orderStatus: '',
 		pageIndex: 1,
 		pageSize: 5,
 		pageTotal: 0,
@@ -22,132 +21,135 @@ Page({
 		loadText: '点击加载...',
 
 		isRefresh: false,
-    currentTab: 0,
+		currentTab: 0,
 	},
-	
+
 	tabNav(e) {
 		let currentTab = e.currentTarget.dataset.index;
-		let status = '';
+		let orderStatus = '';
 		if (currentTab == 0) {
-			status = '';
+			orderStatus = '';
 		} else if (currentTab == 1) {
-			status = '0';
+			orderStatus = '1';
 		} else if (currentTab == 2) {
-			status = '1';
+			orderStatus = '22';
 		} else if (currentTab == 3) {
-			status = '2';
+			orderStatus = '3';
 		} else if (currentTab == 4) {
-			status = '3';
+			orderStatus = '4';
+		} else if (currentTab == 5) {
+			orderStatus = '5';
+		} else if (currentTab == 6) {
+			orderStatus = '0';
+		} else if (currentTab == 7) {
+			orderStatus = '20';
 		}
 		this.setData({
 			currentTab,
 			pageIndex: 1,
-			pageSize: 5,
-			status
+			orderStatus,
+			orderList: []
 		})
 		this.renderOrderList();
 	},
-	
-  handleSwiper(e) {
-    let {
-      current,
-      source
-    } = e.detail;
-    console.log(e)
-    if (source === 'autoplay' || source === 'touch') {
-      const currentTab = current
-      this.setData({
-        currentTab
-      })
+
+	handleSwiper(e) {
+		let {
+			current,
+			source
+		} = e.detail;
+		console.log(e)
+		if (source === 'autoplay' || source === 'touch') {
+			const currentTab = current;
+			let orderStatus = '';
+			if (currentTab == 0) {
+				orderStatus = '';
+			} else if (currentTab == 1) {
+				orderStatus = '1';
+			} else if (currentTab == 2) {
+				orderStatus = '22';
+			} else if (currentTab == 3) {
+				orderStatus = '3';
+			} else if (currentTab == 4) {
+				orderStatus = '4';
+			} else if (currentTab == 5) {
+				orderStatus = '5';
+			} else if (currentTab == 6) {
+				orderStatus = '0';
+			} else if (currentTab == 7) {
+				orderStatus = '20';
+			}
+			this.setData({
+				currentTab,
+				pageIndex: 1,
+				orderStatus,
+				orderList: []
+			})
 		}
 		this.renderOrderList();
-  },
-  handleTolower(e) {
-    wx.showToast({
-      title: '到底啦'
-    })
-  },
-  refresherpulling() {
-    wx.showLoading({
-      title: '刷新中'
-    })
-    setTimeout(() => {
-      this.setData({
-        isRefresh: false
-      })
-      wx.showToast({
-        title: '加载完成'
-      })
-    }, 1500)
 	},
-	
-	//tab框 
-	// bindOrderGenre: function (e) {
-	// 	let index = e.currentTarget.dataset.index;
-	// 	let status = '';
-	// 	if (index == 0) {
-	// 		status = '';
-	// 	} else if (index == 1) {
-	// 		status = '0';
-	// 	} else if (index == 2) {
-	// 		status = '1';
-	// 	} else if (index == 3) {
-	// 		status = '2';
-	// 	} else if (index == 4) {
-	// 		status = '3';
-	// 	}
-	// 	this.setData({
-	// 		selected: index,
-	// 		pageIndex: 1,
-	// 		pageSize: 5,
-	// 		status: status
-	// 	})
 
-	// 	this.renderOrderList();
-	// },
+	handleTolower(e) {
+		console.log(that.data.pageTotal <= (that.data.pageIndex * that.data.pageSize))
+		if (that.data.pageTotal <= that.data.pageIndex * that.data.pageSize) {
+			wx.showToast({
+				title: '到底啦',
+				icon: 'none'
+			})
+		} else {
+			that.setData({
+				pageIndex: that.data.pageIndex + 1,
+			})
+			this.renderOrderList();
+		}
+	},
+	refresherpulling() {
+		wx.showLoading({
+			title: '刷新中',
+			icon: 'none'
+		})
+		this.setData({
+			isRefresh: false,
+			pageIndex: 1,
+			orderStatus: '',
+			orderList: []
+		})
+		this.renderOrderList();
+	},
 
 	renderOrderList: function () {
 		let that = this;
-		let pageIndex = that.data.pageIndex;
-		let pageSize = that.data.pageSize;
 		let btn = that.data.btn;
-		let status = that.data.status;
-
 		let data = {
-			status: status,
-			pageindex: pageIndex,
-			pagesize: pageSize
+			userId: wx.getStorageSync('userID'),
+			orderStatus: that.data.orderStatus,
+			orderNo: '',
+			page: that.data.pageIndex,
+			pagesize: that.data.pageSize
 		}
-		console.log("first access");
-		mClient.get(api.GetGoodsOder, data).then(resp => {
-			let orderList = resp.data.data.list.list;
-			for (let index = 0; index < orderList.length; index++) {
-				const orderStatus = parseInt(orderList[index].statuscode);
-				orderList[index].orderStatus = orderStatus;
+		mClient.wxRequest(api.Examine, data).then(resp => {
+			console.log('订货列表', resp)
+			let orderList = that.data.orderList.concat(resp.data.list);
 
-				const orderTime = parseInt(orderList[index].orderdate);
-				orderList[index].orderTime = util.customFormatTime(new Date(orderTime));
-
-				orderList[index].settlementPrice = orderList[index].goodsamount;
-
-				if (orderStatus <= 2) {
+			orderList.forEach(element => {
+				element.orderStatus = parseInt(element.orderStatus);
+				// const orderTime = parseInt(element.orderdate);
+				// element.orderTime = util.customFormatTime(new Date(orderTime));
+				// element.settlementPrice = element.goodsamount;
+				if (element.orderStatus == 3) {
 					//判断订单是否已延长收货，是则移除收货按钮，并更改订单显示状态
-					let showbtn = btn[orderStatus].concat();
-					if (orderList[index].isextenddelivery == true && orderStatus == 2) {
-						showbtn.splice(0, 1);
-						orderList[index].status = '延长发货'
-					}
-					orderList[index].btn = showbtn;
-
+					// showbtn.splice(0, 1);
+					element.btn = btn[0];
+				} else if (element.orderStatus == 4) {
+					element.btn = btn[1];
 				} else {
-					orderList[index].btn = [];
+					element.btn = [];
 				}
-			}
+			});
 
 			this.setData({
-				orderList: orderList,
-				pageIndex: resp.data.data.list.pageNum,
-				pageTotal: resp.data.data.list.total
+				orderList,
+				pageTotal: resp.data.total
 			})
 		})
 	},
@@ -168,7 +170,7 @@ Page({
 					if (res.confirm) {
 						data = {
 							orderid: orderId,
-							status: 9
+							orderStatus: 9
 						}
 						that.changeOrderStatus(data);
 						for (let index = 0; index < orderList.length; index++) {
@@ -187,13 +189,13 @@ Page({
 		} else if (operationGenre === '延长收货') {
 			data = {
 				orderid: orderId,
-				status: 'd'
+				orderStatus: 'd'
 			}
 			this.changeOrderStatus(data);
 		} else if (operationGenre === '确认收货') {
 			data = {
 				orderid: orderId,
-				status: 3
+				orderStatus: 3
 			}
 			this.changeOrderStatus(data);
 		}
@@ -219,92 +221,84 @@ Page({
 		});
 	},
 
-	bindNavigateOrderDetail: function (e) {
+	bindOrderDetail: function (e) {
 		let orderId = e.currentTarget.dataset.orderid;
 		wx.navigateTo({
 			url: '../status_details/status_details?orderId=' + orderId,
 		})
 	},
+
 	/** 
 	 * 生命周期函数--监听页面加载 
 	 */
 	onLoad: function (options) {
-		// this.renderOrderList();
-		let a = '0',
-			b = '1',
-			c = [0, 1, 2, 3];
-		c.forEach(element => {
-			let d = parseInt(a + element);
-			let e = parseInt(b + element);
-			console.log('d', d);
-			console.log('e', e);
-		});
-
+		that = this;
 	},
 
 	onShow: function () {
 		this.renderOrderList();
 	},
-	setLoading: function () {
-		let that = this;
-		let pageIndex = that.data.pageIndex;
-		let pageSize = that.data.pageSize;
-		let btn = that.data.btn;
-		let status = that.data.status;
-		let pageTotal = that.data.pageTotal;
-		console.log("second == " + pageTotal);
-		if ((pageIndex * pageSize) > pageTotal) {
-			wx.showToast({
-				title: '已经到底了',
-				icon: 'none',
-				duration: 1000
-			});
-			return;
-		};
 
-		pageIndex = pageIndex + 1;
-		let data = {
-			status: status,
-			pageindex: pageIndex,
-			pagesize: pageSize
-		}
-		wx.showLoading({
-			title: '加载中',
-		})
-		console.log("second access");
-		mClient.get(api.GetGoodsOder, data).then(resp => {
-			let ol = resp.data.data.list.list;
-			for (let index = 0; index < ol.length; index++) {
-				const orderStatus = parseInt(ol[index].statuscode);
-				ol[index].orderStatus = orderStatus;
+	// setLoading: function () {
+	// 	let that = this;
+	// 	let pageIndex = that.data.pageIndex;
+	// 	let pageSize = that.data.pageSize;
+	// 	let btn = that.data.btn;
+	// 	let orderStatus = that.data.orderStatus;
+	// 	let pageTotal = that.data.pageTotal;
+	// 	console.log("second == " + pageTotal);
+	// 	if ((pageIndex * pageSize) > pageTotal) {
+	// 		wx.showToast({
+	// 			title: '已经到底了',
+	// 			icon: 'none',
+	// 			duration: 1000
+	// 		});
+	// 		return;
+	// 	};
 
-				const orderTime = parseInt(ol[index].orderdate);
-				ol[index].orderTime = util.customFormatTime(new Date(orderTime));
+	// 	pageIndex = pageIndex + 1;
+	// 	let data = {
+	// 		orderStatus: orderStatus,
+	// 		pageindex: pageIndex,
+	// 		pagesize: pageSize
+	// 	}
+	// 	wx.showLoading({
+	// 		title: '加载中',
+	// 	})
+	// 	console.log("second access");
+	// 	mClient.get(api.GetGoodsOder, data).then(resp => {
+	// 		let ol = resp.data.data.list.list;
+	// 		for (let index = 0; index < ol.length; index++) {
+	// 			const orderStatus = parseInt(ol[index].statuscode);
+	// 			ol[index].orderStatus = orderStatus;
 
-				ol[index].settlementPrice = ol[index].goodsamount;
+	// 			const orderTime = parseInt(ol[index].orderdate);
+	// 			ol[index].orderTime = util.customFormatTime(new Date(orderTime));
 
-				if (orderStatus <= 2) {
-					//判断订单是否已延长收货，是则移除收货按钮，并更改订单显示状态
-					let showbtn = btn[orderStatus].concat();
-					if (ol[index].isextenddelivery == true && orderStatus == 2) {
-						showbtn.splice(0, 1);
-						ol[index].status = '延长发货'
-					}
-					ol[index].btn = showbtn;
+	// 			ol[index].settlementPrice = ol[index].goodsamount;
 
-				} else {
-					ol[index].btn = [];
-				}
-			}
-			this.setData({
-				orderList: that.data.orderList.concat(ol),
-				pageIndex: resp.data.data.list.pageNum,
-				pageTotal: resp.data.data.list.total
-			});
+	// 			if (orderStatus <= 2) {
+	// 				//判断订单是否已延长收货，是则移除收货按钮，并更改订单显示状态
+	// 				let showbtn = btn[orderStatus].concat();
+	// 				if (ol[index].isextenddelivery == true && orderStatus == 2) {
+	// 					showbtn.splice(0, 1);
+	// 					ol[index].orderStatus = '延长发货'
+	// 				}
+	// 				ol[index].btn = showbtn;
 
-			wx.hideLoading();
-		}, );
+	// 			} else {
+	// 				ol[index].btn = [];
+	// 			}
+	// 		}
+	// 		this.setData({
+	// 			orderList: that.data.orderList.concat(ol),
+	// 			pageIndex: resp.data.data.list.pageNum,
+	// 			pageTotal: resp.data.data.list.total
+	// 		});
 
-	},
+	// 		wx.hideLoading();
+	// 	}, );
+
+	// },
 
 })
