@@ -69,6 +69,7 @@ page {
 .order-status {
 	background: #ff1493;
 	padding: 15rpx;
+	color: #fff;
 }
 
 canvas {
@@ -80,6 +81,7 @@ canvas {
 .user-info {
 	display: flex;
 	flex-direction: row;
+	margin-top: 20rpx;
 }
 
 .characterIcon {
@@ -106,5 +108,5 @@ canvas {
 	font-size: 50rpx;
 	color: #fff;
 	top: 25rpx;
-	left: 35rpx;
+	left: 50rpx;
 }

@@ -37,7 +37,8 @@
     "pages/shopping_cart/myAddress/myAddress",
     "pages/confirmation_order/cashierDesk/cashierDesk",
     "pages/examine/examine",
-    "pages/examine/examineDetail/examineDetail"
+    "pages/examine/examineDetail/examineDetail",
+    "pages/voucher/voucher"
   ],
   "window": {
     "backgroundTextStyle": "dark",

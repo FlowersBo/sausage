@@ -76,6 +76,18 @@
           "pathName": "pages/myOrder/myOrder",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "进货详情",
+          "pathName": "pages/status_details/status_details",
+          "query": "orderId=1538785124911415296",
+          "scene": null
+        },
+        {
+          "name": "上传凭证",
+          "pathName": "pages/voucher/voucher",
+          "query": "",
+          "scene": null
         }
       ]
     }

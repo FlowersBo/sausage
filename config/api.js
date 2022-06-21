@@ -117,6 +117,8 @@ module.exports = {
     CreateOrder: ApiRootUrl + "app/transfer/createOrder", //创建订单
     GoodsDetail: ApiRootUrl + "app/transfer/goodsDetail", //删除商品
     GoodsOrderDetail: ApiRootUrl + "app/transfer/orderDetail", //下单详情
+    CancelOrder: ApiRootUrl + "app/transfer/cancelOrder", //取消订单
+    OrderDeliver: ApiRootUrl + "app/transfer/orderDeliver", //确认收货
 
     // 点位
     CityBillboard: ApiRootUrl + "app/point/cityBillboard", //城市点位排行

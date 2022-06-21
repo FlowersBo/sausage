@@ -30,8 +30,7 @@ Page({
 		};
 
 		mClient.get(api.GoodsOrderDetail, data).then(resp => {
-			console.log('订单详情',resp)
-			let orderInfo = resp.data.data;
+			console.log('订单详情', resp)
 			// orderInfo.settleAccounts = orderInfo.goodsamount; // + orderInfo.shipfee
 			// orderInfo.orderTime = util.formatTime(new Date(orderInfo.orderdate));
 
@@ -41,12 +40,12 @@ Page({
 
 			this.setData({
 				orderId,
-				orderInfo,
-				orderDetail:resp.data.data.orderDetail,
+				orderInfo: resp.data.data.orderInfo,
+				orderDetail: resp.data.data.orderDetail,
 				storeInfo: resp.data.data.storeInfo
 			})
 			// this.renderUserContactInfo();
-			// this.renderBtn(orderInfo);
+			this.renderBtn(resp.data.data.orderInfo);
 
 		});
 	},
@@ -74,38 +73,21 @@ Page({
 			});
 	},
 
-	//订单状态，0:待付款，1:待发货，2:已发货，3:已完成，9:已取消;为空获取全部
+	//订单状态，0未通过1待支付2待审核20财务审核未通过22待财务审核3待运营审核4待确认5部分确认6已完成
 	renderBtn: function (orderInfo) {
-		let statusCode = orderInfo.statuscode;
-		let isextenddelivery = orderInfo.isextenddelivery;
-		if (statusCode === '0') {
+		let statusStr = orderInfo.statusStr;
+		statusStr = 20;
+		if (statusStr == 1) {
 			this.setData({
 				btnGenre: ['立即支付', '取消订单'],
-				isShowBtn: true
 			})
-		} else if (statusCode === '1') {
+		} else if (statusStr == 20) {
 			this.setData({
-				btnGenre: []
+				btnGenre: ['上传凭证']
 			})
-		} else if (statusCode === '2') {
-			if (isextenddelivery == true) {
-				this.setData({
-					btnGenre: ['确认收货'],
-					isShowBtn: true
-				})
-			} else {
-				this.setData({
-					btnGenre: ['延长收货', '确认收货'],
-					isShowBtn: true
-				})
-			}
-		} else if (statusCode === '3') {
+		} else if (statusStr == 4) {
 			this.setData({
-				btnGenre: []
-			})
-		} else if (statusCode === '9') {
-			this.setData({
-				btnGenre: []
+				btnGenre: ['确认收货']
 			})
 		} else {
 			this.setData({
@@ -117,36 +99,11 @@ Page({
 	bindOperationOrder: function (e) {
 		let that = this;
 		let orderId = e.currentTarget.dataset.orderid;
-		let backpageGenre = that.data.backpageGenre;
 		let operationGenre = e.currentTarget.dataset.operationgenre;
 		if (operationGenre === '立即支付') {
-			payment.payOrder(orderId).then(resp => {
-				let isOrderComplete = resp;
-				if (isOrderComplete === true) {
-					wx.showToast({
-						title: '支付成功',
-						icon: 'success',
-						duration: 2000
-					})
-					wx.navigateBack({
-						delta: 1
-					})
-				}
-				if (isOrderComplete === false) {
-					wx.showToast({
-						title: '支付失败',
-						icon: 'fail',
-						duration: 2000
-					})
-
-				} else {
-					wx.showToast({
-						title: '网络错误',
-						icon: 'fail',
-						duration: 2000
-					})
-				}
-			});
+			wx.navigateTo({
+				url: '../status_details/status_details?orderId=' + orderId,
+			})
 		} else if (operationGenre === '取消订单') {
 			wx.showModal({
 				title: '提示',
@@ -154,78 +111,78 @@ Page({
 				success(res) {
 					if (res.confirm) {
 						let data = {
-							orderid: orderId,
-							status: 9
+							orderId
 						}
-						that.changeOrderStatus(data).then(resp => {
-							let isCancel = resp;
-							if (isCancel === true) {
+						mClient.get(api.CancelOrder, data).then(resp => {
+								console.log(resp)
+								if (resp.data == 200) {
+									wx.showToast({
+										title: '取消订单成功',
+										icon: 'none',
+										duration: 2000
+									})
+								}
+							})
+							.catch(err => {
 								wx.showToast({
-									title: '取消订单成功',
-									icon: 'success',
+									title: err.data.msg,
+									icon: 'none',
 									duration: 2000
 								})
-								wx.navigateBack({
-									delta: 1
-								})
-							} else {
-								wx.showToast({
-									title: '取消订单失败',
-									icon: 'fail',
-									duration: 2000
-								})
-							}
-						});
+							})
 					} else if (res.cancel) {
 						console.log('用户点击取消');
 					}
 				}
 			})
 
-		} else if (operationGenre === '延长收货') {
-			let data = {
-				orderid: orderId,
-				status: 'd'
-			}
-			this.changeOrderStatus(data);
 		} else if (operationGenre === '确认收货') {
-			let data = {
-				orderid: orderId,
-				status: 3
-			}
-			this.changeOrderStatus(data);
+			wx.showModal({
+				title: '提示',
+				content: '是否确认收货',
+				success(res) {
+					if (res.confirm) {
+						mClient.wxRequest(api.OrderDeliver, {
+								orderId,
+								userId: wx.getStorageSync('userID')
+							}).then(resp => {
+								console.log(resp)
+								if (resp.data == 200) {
+									wx.showToast({
+										title: '确认收货成功',
+										icon: 'none',
+										duration: 2000
+									})
+								}else{
+									wx.showToast({
+										title: resp.msg,
+										icon: 'none',
+										duration: 2000
+									})
+								}
+							})
+							.catch(err => {
+								wx.showToast({
+									title: err.data.msg,
+									icon: 'none',
+									duration: 2000
+								})
+							})
+					} else if (res.cancel) {
+						console.log('用户点击取消');
+					}
+				}
+			})
+		}else if (operationGenre === '上传凭证'){
+			wx.navigateTo({
+				url: '../voucher/voucher',
+			})
 		}
 	},
 
 	bindPayOrder: function () {
 		let that = this;
 		let orderId = that.data.orderId;
-
 		payment.payOrder(orderId);
 	},
-
-	bindCancelOrder: function () {
-		let that = this;
-		let orderId = that.data.orderId;
-		let data = {
-			orderid: orderId,
-			status: 9
-		}
-		this.changeOrderStatus(data);
-	},
-
-	changeOrderStatus: function (data) {
-		return new Promise((resolve, reject) => {
-			mClient.post(api.UpdateOrderStatus, data).then(resp => {
-				let result = resp.data.data.result;
-				if (result === true) {
-					resolve(true);
-				} else {
-					resolve(false);
-				}
-			});
-		})
-
-	},
-
 })

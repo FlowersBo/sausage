@@ -1,0 +1,28 @@
+<!--pages/voucher/voucher.wxml-->
+<view class="voucher">
+  <form action="formFn" bindsubmit="formFn">
+    <view class="inpWrap">
+      转账账户：<input class="weui-input" type="text" name="inputName" placeholder="账户名称" />
+    </view>
+    <view class="inpWrap">
+      转账账号：<input class="weui-input" type="number" name="inputNumber" placeholder="账户号" />
+    </view>
+    <view class="inpWrap">
+      开户行：<input class="weui-input" type="text" name="inputBack" placeholder="开户行：" />
+    </view>
+    <view class="inpWrap">
+      转账金额：<input class="weui-input" type="digit" name="inputPrice" placeholder="转账金额：" />
+    </view>
+    <view class="pushVoucher">
+      <view class="title">上传支付凭证</view>
+      <view class="imgWrap">
+        +
+      </view>
+    </view>
+    <view class="btnWrap">
+      <button>稍后支付</button>
+      <button>提交</button>
+    </view>
+  </form>
+
+</view>

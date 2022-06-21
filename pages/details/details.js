@@ -19,8 +19,10 @@ Page({
       goodsId: goodsId
     })
     this.renderGoodsInfo();
-    this.cartNumFn();
     // this.renderGoodsImages();
+  },
+  onShow(){
+    this.cartNumFn();
   },
 
   renderGoodsInfo: function () {

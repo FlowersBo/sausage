@@ -1,7 +1,7 @@
 <!--pages/status_details/status_details.wxml-->
 <!-- 地址 -->
 <view class="contion">
-	<view class="order-status">{{orderInfo.status}}</view>
+	<view class="order-status">{{orderInfo.statusStr}}</view>
 
 	<view class="user-info">
 		<view class="characterIcon">
@@ -12,7 +12,8 @@
 		<view class="left">
 			<view>
 				<!-- <image src="../../assets/img/add.png"></image> -->
-				<text>{{storeInfo.contactName}}</text> <text>{{userInfo.contactPhone}}</text>
+				<text>{{storeInfo.contactName}}</text> <text
+					style="font-size:28rpx;color: #bbb;">{{storeInfo.contactPhone}}</text>
 			</view>
 			<view><text>{{storeInfo.address}}</text></view>
 		</view>
@@ -30,14 +31,14 @@
 
 	<view class="section section-good">
 
-		<view class="good" wx:for="{{orderDetail}}" wx:for-item="goods">
+		<view class="good" wx:for="{{orderDetail}}" wx:key="index" wx:for-item="goods">
 			<view class="cover">
 				<image src="{{goods.goodsPic}}"></image>
 			</view>
 			<view class="content">
 				<view class="text name">{{goods.goodsName}}</view>
 				<view class="text specifications">
-					{{goods.norm}}
+					{{goods.goodsUnitNum}}/{{goods.goodsUnit}}
 				</view>
 				<view class="text price">
 					<text>¥{{goods.payPrice}}</text>
@@ -56,28 +57,29 @@
 			<text>订单号</text>：<text>{{orderInfo.id}}</text>
 		</view>
 		<view>
-			<text>下单时间</text>：<text>{{orderInfo.orderTime}}</text>
+			<text>下单时间</text>：<text>{{orderInfo.createTime}}</text>
 		</view>
 		<view>
-			<text>商品金额</text>：<text>¥{{orderInfo.goodsamount}}</text>
+			<text>商品金额</text>：<text>¥{{orderInfo.payPrice}}</text>
 		</view>
 		<view>
-			<text>含配送费</text>：<text>¥{{orderInfo.shipfee}}</text>
+			<!-- <text>含配送费</text>：<text>¥{{orderInfo.shipfee}}</text> -->
 		</view>
-		<view>
-			<text>订单备注</text>：<text>{{orderInfo.memo}}</text>
+		<view style="word-wrap:break-word;">
+			<text>订单备注</text>：{{orderInfo.orderMemo}}
 		</view>
 	</view>
 
 	<!-- 去支付 -->
+	<!-- wx:if="{{orderInfo.statusStr==20||orderInfo.statusStr==1||orderInfo.statusStr==4}}" -->
 	<view class="section-bottom">
 		<view class="total">
 			<view class="totalPrice">应付金额：
-				<text>¥{{orderInfo.goodsamount}}</text>
+				<text>¥{{orderInfo.payPrice}}</text>
 			</view>
 		</view>
 		<view class="order-btn">
-			<block wx:if="{{isShowBtn}}" wx:for="{{btnGenre}}" wx:for-item="name">
+			<block wx:for="{{btnGenre}}" wx:key="index" wx:for-item="name">
 				<button data-OrderId="{{orderInfo.id}}" data-OperationGenre="{{name}}"
 					catchtap="bindOperationOrder">{{name}}</button>
 			</block>

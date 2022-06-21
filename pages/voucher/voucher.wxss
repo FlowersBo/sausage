@@ -1,0 +1,49 @@
+/* pages/voucher/voucher.wxss */
+.voucher{
+  width: 96%;
+  margin: 10rpx auto;
+}
+.inpWrap{
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  background: #eee;
+  border-radius: 10rpx;
+  height: 100rpx;
+  margin-top: 30rpx;
+  box-sizing: border-box;
+  padding-left: 20rpx;
+}
+.inpWrap input{
+  height: 100%;
+  width: 75%;
+}
+.pushVoucher{
+  margin-top: 50rpx;
+}
+.imgWrap{
+  width: 200rpx;
+  height: 200rpx;
+  border: 1rpx solid #bbb;
+  margin: 20rpx;
+  border-radius: 20rpx;
+  line-height: 185rpx;
+  text-align: center;
+  font-size: 100rpx;
+}
+.btnWrap{
+  width: 100%;
+  display: flex;
+  margin-top: 250rpx;
+}
+.btnWrap button{
+  width: 250rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 10rpx;
+  text-align: center;
+  background: #E48F00;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: bold;
+}
