@@ -88,5 +88,5 @@
  .mainBtn:first-child{
    background: #fff;
    color: #000;
-   border: 1rpx solid #ccc;
+   border: 2rpx solid #ccc;
  }

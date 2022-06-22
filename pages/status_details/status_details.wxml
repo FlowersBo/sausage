@@ -71,8 +71,7 @@
 	</view>
 
 	<!-- 去支付 -->
-	<!-- wx:if="{{orderInfo.statusStr==20||orderInfo.statusStr==1||orderInfo.statusStr==4}}" -->
-	<view class="section-bottom">
+	<view class="section-bottom" wx:if="{{orderInfo.orderStatus==20||orderInfo.orderStatus==1||orderInfo.orderStatus==4}}">
 		<view class="total">
 			<view class="totalPrice">应付金额：
 				<text>¥{{orderInfo.payPrice}}</text>

@@ -10,6 +10,7 @@
   background: #eee;
   border-radius: 10rpx;
   height: 100rpx;
+  line-height: 100rpx;
   margin-top: 30rpx;
   box-sizing: border-box;
   padding-left: 20rpx;
@@ -17,19 +18,45 @@
 .inpWrap input{
   height: 100%;
   width: 75%;
+  color: rgb(66, 66, 66);
 }
 .pushVoucher{
   margin-top: 50rpx;
 }
+.uploadImg{
+  display: flex;
+}
+.uploadImg image{
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 20rpx;
+}
+.img{
+  position: relative;
+  margin: 30rpx 20rpx;
+}
+.cancelImg{
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  line-height: 35rpx;
+  text-align: center;
+  background: rgb(248, 36, 36);
+  color: #fff;
+  position: absolute;
+  top: -10rpx;
+  right: -10rpx;
+}
 .imgWrap{
   width: 200rpx;
   height: 200rpx;
-  border: 1rpx solid #bbb;
-  margin: 20rpx;
+  margin: 30rpx 20rpx;
   border-radius: 20rpx;
   line-height: 185rpx;
   text-align: center;
   font-size: 100rpx;
+  border: 1rpx dashed #ccc;
+  color: #CCC;
 }
 .btnWrap{
   width: 100%;

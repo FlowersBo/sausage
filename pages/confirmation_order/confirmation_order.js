@@ -281,7 +281,7 @@ Page({
 					})
 				} else {
 					wx.reLaunch({
-						url: './cashierDesk/cashierDesk',
+						url: './cashierDesk/cashierDesk?totalPrice=' + that.data.totalPrice.totalPrice + '&orderId=' + res.data.orderId,
 					})
 				}
 			}).catch(err => {

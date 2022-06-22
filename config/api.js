@@ -2,6 +2,7 @@
 //  const ApiRootUrl = 'http://w3.morninggo.cn/'; //测试
 const ApiRootUrl = 'http://192.168.110.97:8080/app-http/';//13322265957
 module.exports = {
+    ApiRootUrl,
     Login: ApiRootUrl + 'app/user/auth', //登录授权
     LoginNew: ApiRootUrl + 'app/user/area/login',
     VerificationCode: ApiRootUrl + 'app/user/smscode', //验证码
@@ -119,6 +120,9 @@ module.exports = {
     GoodsOrderDetail: ApiRootUrl + "app/transfer/orderDetail", //下单详情
     CancelOrder: ApiRootUrl + "app/transfer/cancelOrder", //取消订单
     OrderDeliver: ApiRootUrl + "app/transfer/orderDeliver", //确认收货
+    BaseAccount: ApiRootUrl + "app/transfer/baseAccount", //获取公司账户
+    OrderBankPay: ApiRootUrl + "app/transfer/orderBankPay", //提交上传凭证
+    OrderPay: ApiRootUrl + "app/transfer/orderPay", //微信支付
 
     // 点位
     CityBillboard: ApiRootUrl + "app/point/cityBillboard", //城市点位排行

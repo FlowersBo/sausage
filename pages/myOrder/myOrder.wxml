@@ -19,8 +19,8 @@
 		<swiper-item style="overflow: scroll;">
 			<scroll-view scroll-y refresher-enabled refresher-background="#F6F7F8" refresher-triggered="{{isRefresh}}"
 				bindrefresherrefresh="refresherpulling" bindscrolltolower="handleTolower">
-				<view class="list" wx:for="{{orderList}}" wx:key="list" wx:for-item="item" data-index="{{index}}" data-orderId="{{item.orderId}}"
-					bindtap="bindOrderDetail">
+				<view class="list" wx:for="{{orderList}}" wx:key="list" wx:for-item="item" data-index="{{index}}"
+					data-orderId="{{item.orderId}}" bindtap="bindOrderDetail">
 					<view class="tit">
 						<text>{{item.agencyName}}</text><text>{{item.orderStatusStr}}</text>
 					</view>
@@ -38,7 +38,7 @@
 					</view>
 					<view class="btn" wx:if="{{item.btn.length>0}}">
 						<block wx:for="{{item.btn}}" wx:key="btn_more" wx:for-item="name">
-							<button data-OrderId="{{item.id}}" data-OperationGenre="{{name}}"
+							<button  data-payPrice="{{item.payPrice}}" data-OrderId="{{item.id}}" data-OperationGenre="{{name}}"
 								catchtap="bindOperationOrder">{{name}}</button>
 						</block>
 					</view>

@@ -25,6 +25,7 @@ Page({
 	},
 
 	tabNav(e) {
+		console.log('111111111111111111111111111')
 		let currentTab = e.currentTarget.dataset.index;
 		let orderStatus = '';
 		if (currentTab == 0) {
@@ -50,10 +51,11 @@ Page({
 			orderStatus,
 			orderList: []
 		})
-		this.renderOrderList();
+		// this.renderOrderList();
 	},
 
 	handleSwiper(e) {
+		console.log('22222222222222222222222')
 		let {
 			current,
 			source
@@ -136,7 +138,7 @@ Page({
 				// const orderTime = parseInt(element.orderdate);
 				// element.orderTime = util.customFormatTime(new Date(orderTime));
 				// element.settlementPrice = element.goodsamount;
-				if (element.orderStatus == 3) {
+				if (element.orderStatus == 1) {
 					//判断订单是否已延长收货，是则移除收货按钮，并更改订单显示状态
 					// showbtn.splice(0, 1);
 					element.btn = btn[0];
@@ -159,9 +161,12 @@ Page({
 		let orderList = that.data.orderList;
 		let orderId = e.currentTarget.dataset.orderid;
 		let operationGenre = e.currentTarget.dataset.operationgenre;
+		let payPrice = e.currentTarget.dataset.payprice;
 		let data = {};
 		if (operationGenre === '立即支付') {
-			payment.payOrder(orderId);
+			wx.navigateTo({
+				url: '../confirmation_order/cashierDesk/cashierDesk?orderId=' + orderId + '&totalPrice=' + payPrice,
+			})
 		} else if (operationGenre === '取消订单') {
 			wx.showModal({
 				title: '提示',
@@ -201,25 +206,25 @@ Page({
 		}
 	},
 
-	changeOrderStatus: function (data) {
-		mClient.post(api.UpdateOrderStatus, data).then(resp => {
-			let result = resp.data.data.result;
-			if (result === true) {
-				this.renderOrderList();
-				wx.showToast({
-					title: '成功',
-					icon: 'success',
-					duration: 2000
-				})
-			} else {
-				wx.showToast({
-					title: '异常',
-					icon: 'fail',
-					durat
-				});
-			}
-		});
-	},
+	// changeOrderStatus: function (data) {
+	// 	mClient.post(api.UpdateOrderStatus, data).then(resp => {
+	// 		let result = resp.data.data.result;
+	// 		if (result === true) {
+	// 			this.renderOrderList();
+	// 			wx.showToast({
+	// 				title: '成功',
+	// 				icon: 'success',
+	// 				duration: 2000
+	// 			})
+	// 		} else {
+	// 			wx.showToast({
+	// 				title: '异常',
+	// 				icon: 'fail',
+	// 				durat
+	// 			});
+	// 		}
+	// 	});
+	// },
 
 	bindOrderDetail: function (e) {
 		let orderId = e.currentTarget.dataset.orderid;
@@ -233,9 +238,13 @@ Page({
 	 */
 	onLoad: function (options) {
 		that = this;
-	},
+	}, 
 
 	onShow: function () {
+		this.setData({
+			pageIndex: 1,
+			orderList: []
+		})
 		this.renderOrderList();
 	},
 

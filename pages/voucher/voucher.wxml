@@ -2,26 +2,32 @@
 <view class="voucher">
   <form action="formFn" bindsubmit="formFn">
     <view class="inpWrap">
-      转账账户：<input class="weui-input" type="text" name="inputName" placeholder="账户名称" />
+      转账账户：<input class="weui-input" type="text" name="inputName" placeholder="账户名称" value="{{backDetail[0].value}}" disabled="true" />
     </view>
     <view class="inpWrap">
-      转账账号：<input class="weui-input" type="number" name="inputNumber" placeholder="账户号" />
+      转账账号：<input class="weui-input" type="number" name="inputNumber" placeholder="账户号" value="{{backDetail[2].value}}" disabled="true" />
     </view>
     <view class="inpWrap">
-      开户行：<input class="weui-input" type="text" name="inputBack" placeholder="开户行：" />
+      开户行：<input class="weui-input" type="text" name="inputBack" placeholder="开户行" value="{{backDetail[1].value}}" disabled="true" />
     </view>
     <view class="inpWrap">
-      转账金额：<input class="weui-input" type="digit" name="inputPrice" placeholder="转账金额：" />
+      转账金额：<input class="weui-input" type="digit" name="inputPrice" placeholder="转账金额" value="￥{{payPrice}}" disabled="true" />
     </view>
     <view class="pushVoucher">
       <view class="title">上传支付凭证</view>
-      <view class="imgWrap">
-        +
+      <view class="uploadImg">
+        <view class="img" wx:for="{{imgs}}" wx:key="index">
+          <view bindtap='deleteImgFn' data-index="{{index}}" class="cancelImg">x</view>
+          <image src="{{item}}"></image>
+        </view>
+        <view class="imgWrap" bindtap="pushImgFn" wx:if="{{imgs.length >= 1 ? false : true}}">
+          +
+        </view>
       </view>
     </view>
     <view class="btnWrap">
-      <button>稍后支付</button>
-      <button>提交</button>
+      <button bindtap="gotoOrderDetail">稍后支付</button>
+      <button	form-type="submit">提交</button>
     </view>
   </form>
 
