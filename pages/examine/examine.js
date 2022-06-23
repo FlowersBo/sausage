@@ -12,11 +12,11 @@ Page({
 		orderGenres: ['待审批', '已通过', '驳回'],
 		navAfter: [],
 		page: 1,
-		pageSize: 30,
+		pageSize: 10,
 		orderList: [],
 		loadText: '点击加载',
-    selected: 0,
-    orderStatus: 2
+		selected: 0,
+		orderStatus: 2
 	},
 
 	onLoad: function (options) {
@@ -26,17 +26,23 @@ Page({
 			searchDate,
 		})
 		that.orderListFn(that.data.page);
+		wx.createSelectorQuery().select('.nav_tab').boundingClientRect(function (rect) {
+			// 节点的上边界坐标
+			console.log(rect)
+
+		}).exec()
 	},
 
 	orderListFn(page) {
 		let pageSize = that.data.pageSize;
 		let searchType = that.data.searchType;
 		let searchDate = that.data.searchDate;
+		console.log(page)
 		let data = {
-      userId: wx.getStorageSync('userID'),
+			userId: wx.getStorageSync('userID'),
 			page,
-      pageSize,
-      orderStatus: that.data.orderStatus
+			pageSize,
+			orderStatus: that.data.orderStatus
 			// searchDate,
 			// searchType,
 			// agencyId:that.data.agencyId
@@ -61,17 +67,22 @@ Page({
 					// that.setData({
 					// 	navAfter
 					// });
+					let index = that.data.orderList.length;
+					orderList.forEach((item) => {
+						that.data.orderList[(index++)] = item;
+					});
 					this.setData({
-						orderList,
-            orderTotal,
-            // navAfter: resp.data
+						orderList: that.data.orderList,
+						orderTotal,
+						page
+						// navAfter: resp.data
 					});
 
 					if ((page * pageSize) >= orderTotal) {
 						that.setData({
 							loadText: '已经到底了',
 						});
-					}else{
+					} else {
 						that.setData({
 							loadText: '点击加载',
 						});
@@ -81,6 +92,21 @@ Page({
 					console.log('fail');
 				}
 			});
+	},
+
+	onReachBottom: function () {
+		if ((that.data.page * that.data.pageSize) >= that.data.orderTotal) {
+			wx.showToast({
+				title: '已加载完成',
+				icon: 'none',
+				duration: 1000
+			});
+			this.setData({
+				loadText: '已经到底了',
+			});
+			return;
+		}
+		this.orderListFn(that.data.page + 1);
 	},
 
 
@@ -103,32 +129,36 @@ Page({
 		if (index == 0) {
 			this.setData({
 				selected: 0,
-        searchType: '',
-        orderStatus: 2
+				searchType: '',
+				orderStatus: 2
 			})
 		} else if (index == 1) {
 			this.setData({
 				selected: 1,
-        searchType: '1',
-        orderStatus: 3
+				searchType: '1',
+				orderStatus: 3
 			})
 		} else if (index == 2) {
 			this.setData({
 				selected: 2,
-        searchType: '2',
-        orderStatus: 0
+				searchType: '2',
+				orderStatus: 0
 			});
 		}
+		that.setData({
+			orderList: []
+		})
 		that.orderListFn(page);
 	},
 
 	bindOrderDetail: function (e) {
+		console.log(e)
 		let orderList = that.data.orderList;
 		let index = e.currentTarget.dataset.index;
 		let order = orderList[index];
 		console.log(order)
 		wx.navigateTo({
-			url: './examineDetail/examineDetail'
+			url: './examineDetail/examineDetail?orderId='+e.currentTarget.dataset.orderid
 		})
 	},
 
@@ -152,7 +182,7 @@ Page({
 		let orderTotal = that.data.orderTotal;
 		let orderList = that.data.orderList;
 		console.log(page, searchType);
-		
+
 		wx.showToast({
 			title: '加载中',
 			icon: 'loading',
@@ -176,7 +206,7 @@ Page({
 			searchType,
 			page: page + 1,
 			pageSize,
-			agencyId:that.data.agencyId
+			agencyId: that.data.agencyId
 		};
 		mClient.get(api.OrderList, data).then((resp) => {
 			console.log(resp);

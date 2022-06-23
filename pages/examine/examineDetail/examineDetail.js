@@ -1,22 +1,51 @@
 // pages/examine/examineDetail/examineDetail.js
+import * as mClient from '../../../utils/customClient';
+import * as api from '../../../config/api';
+import * as util from '../../../utils/util';
+import * as payment from '../../../payment/payment';
+let that;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    tab:[
+    tab: [
       '商品名称',
       '数量',
       '单位',
       '金额',
     ],
-    items:[
-      {name:0,sex:'nan',index:'00000',phone:'1355555'},
-      {name:1,sex:'nv',index:'0002300',phone:'1355555'},
-      {name:2,sex:'n',index:'122222',phone:'1355555'},
-      {name:3,sex:'nan',index:'03330000',phone:'1355555'},
-      {name:4,sex:'nb',index:'004000',phone:'1355555'},
+    items: [{
+        name: 0,
+        sex: 'nan',
+        index: '00000',
+        phone: '1355555'
+      },
+      {
+        name: 1,
+        sex: 'nv',
+        index: '0002300',
+        phone: '1355555'
+      },
+      {
+        name: 2,
+        sex: 'n',
+        index: '122222',
+        phone: '1355555'
+      },
+      {
+        name: 3,
+        sex: 'nan',
+        index: '03330000',
+        phone: '1355555'
+      },
+      {
+        name: 4,
+        sex: 'nb',
+        index: '004000',
+        phone: '1355555'
+      },
     ]
   },
 
@@ -24,7 +53,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    that = this;
+    console.log(options.orderId)
+    that.examineDetailFn(options.orderId);
+  },
 
+  examineDetailFn(orderId) {
+    mClient.get(api.GoodsOrderDetail, {orderId}).then(resp => {
+      this.setData({
+        orderInfo: resp.data.data.orderInfo,
+        orderDetail: resp.data.data.orderDetail,
+        storeInfo: resp.data.data.storeInfo
+      })
+    });
   },
 
   /**

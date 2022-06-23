@@ -10,7 +10,8 @@ Page({
 		selected: 0,
 		btn: [
 			['立即支付', '取消订单'],
-			['确认收货']
+			['确认收货'],
+			['上传凭证']
 		],
 		orderGenres: ['全部', '待付款', '待财务审核', '待发货', '待收货', '已完成', '已取消', '财务审核未通过'],
 		orderStatus: '',
@@ -25,7 +26,6 @@ Page({
 	},
 
 	tabNav(e) {
-		console.log('111111111111111111111111111')
 		let currentTab = e.currentTarget.dataset.index;
 		let orderStatus = '';
 		if (currentTab == 0) {
@@ -55,7 +55,6 @@ Page({
 	},
 
 	handleSwiper(e) {
-		console.log('22222222222222222222222')
 		let {
 			current,
 			source
@@ -144,6 +143,8 @@ Page({
 					element.btn = btn[0];
 				} else if (element.orderStatus == 4) {
 					element.btn = btn[1];
+				} else if (element.orderStatus == 20) {
+					element.btn = btn[2];
 				} else {
 					element.btn = [];
 				}
@@ -157,6 +158,7 @@ Page({
 	},
 
 	bindOperationOrder: function (e) {
+		console.log(e)
 		let that = this;
 		let orderList = that.data.orderList;
 		let orderId = e.currentTarget.dataset.orderid;
@@ -173,36 +175,79 @@ Page({
 				content: '确定取消当前订单吗',
 				success(res) {
 					if (res.confirm) {
-						data = {
-							orderid: orderId,
-							orderStatus: 9
-						}
-						that.changeOrderStatus(data);
-						for (let index = 0; index < orderList.length; index++) {
-							if (orderList[index].id === orderId) {
-								orderList.slice(index, 1);
+						orderList.forEach((element, key) => {
+							if (element.orderId === orderId) {
+								data = {
+									orderid: orderId,
+									orderStatus: 9
+								}
+								mClient.get(api.CancelOrder, {
+									orderId
+								}).then(res => {
+									console.log(res)
+									if (res.data.code == 200) {
+										wx.showToast({
+											title: '取消订单成功',
+											icon: 'none',
+											duration: 2000
+										})
+										orderList.splice(key, 1);
+										that.setData({
+											orderList
+										})
+									}
+								}).catch(err => {
+
+								})
 							}
-						}
-						that.setData({
-							orderList: orderList
-						})
+						});
+
 					} else if (res.cancel) {
 						console.log('用户点击取消')
 					}
 				}
 			})
-		} else if (operationGenre === '延长收货') {
-			data = {
-				orderid: orderId,
-				orderStatus: 'd'
-			}
-			this.changeOrderStatus(data);
 		} else if (operationGenre === '确认收货') {
-			data = {
-				orderid: orderId,
-				orderStatus: 3
-			}
-			this.changeOrderStatus(data);
+			wx.showModal({
+				title: '提示',
+				content: '是否确认收货',
+				success(res) {
+					if (res.confirm) {
+						mClient.wxRequest(api.OrderDeliver, {
+								orderId,
+								userId: wx.getStorageSync('userID')
+							}).then(resp => {
+								console.log(resp)
+								if (resp.data == 200) {
+									wx.showToast({
+										title: '确认收货成功',
+										icon: 'none',
+										duration: 2000
+									})
+								} else {
+									wx.showToast({
+										title: resp.msg,
+										icon: 'none',
+										duration: 2000
+									})
+								}
+							})
+							.catch(err => {
+								wx.showToast({
+									title: err.data.msg,
+									icon: 'none',
+									duration: 2000
+								})
+							})
+					} else if (res.cancel) {
+						console.log('用户点击取消');
+					}
+				}
+			})
+		} else if (operationGenre === '上传凭证') {
+			wx.navigateTo({
+				url: '../voucher/voucher?orderId=' + orderId + '&payPrice=' + that.data.payPrice,
+			})
 		}
 	},
 
@@ -238,7 +283,7 @@ Page({
 	 */
 	onLoad: function (options) {
 		that = this;
-	}, 
+	},
 
 	onShow: function () {
 		this.setData({

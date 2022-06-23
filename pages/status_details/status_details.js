@@ -64,7 +64,6 @@ Page({
 	renderUserContactInfo: function () {
 		let that = this;
 		let orderInfo = that.data.orderInfo;
-
 		let data = {
 			isdefault: false,
 		};

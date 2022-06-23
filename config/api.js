@@ -114,7 +114,7 @@ module.exports = {
     CartList: ApiRootUrl + "app/transfer/cartList", //购物车列表
     DeleteCart: ApiRootUrl + "app/transfer/deleteCart", //购物车为零删除
     AgencyListCK: ApiRootUrl + "app/transfer/agencyList", //获取合作商仓库地址
-    getRetailPrice: ApiRootUrl + "app/transfer/getRetailPrice", //订单列表
+    GetRetailPrice: ApiRootUrl + "app/transfer/getRetailPrice", //订单列表
     CreateOrder: ApiRootUrl + "app/transfer/createOrder", //创建订单
     GoodsDetail: ApiRootUrl + "app/transfer/goodsDetail", //删除商品
     GoodsOrderDetail: ApiRootUrl + "app/transfer/orderDetail", //下单详情
@@ -123,6 +123,8 @@ module.exports = {
     BaseAccount: ApiRootUrl + "app/transfer/baseAccount", //获取公司账户
     OrderBankPay: ApiRootUrl + "app/transfer/orderBankPay", //提交上传凭证
     OrderPay: ApiRootUrl + "app/transfer/orderPay", //微信支付
+    Examine: ApiRootUrl + "app/transfer/orderList", //订货审批
+
 
     // 点位
     CityBillboard: ApiRootUrl + "app/point/cityBillboard", //城市点位排行
@@ -132,5 +134,4 @@ module.exports = {
     SelectAgencyItem: ApiRootUrl + "app/point/selectAgencyItem", //城市合作商下拉框数据
     PointCustomize: ApiRootUrl + "app/point/pointCustomize", //点位自定义查询
     ProductRanking: ApiRootUrl + "app/product/productRanking", //商品排行榜
-    Examine: ApiRootUrl + "app/transfer/orderList", //订货审批
 }

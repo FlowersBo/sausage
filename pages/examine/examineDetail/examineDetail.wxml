@@ -1,20 +1,20 @@
 <!--pages/examine/examineDetail/examineDetail.wxml-->
 <view class="examineDetail">
   <view class="orderGoods">
-    <view>订单编号：1111111111111</view>
-    <view>下单时间：1111111111111</view>
-    <view>订货金额：1111111111111</view>
-    <view>订货人：1111111111111</view>
+    <view>订单编号：{{orderInfo.id}}</view>
+    <view>下单时间：{{storeInfo.createTime}}</view>
+    <view>订货金额：￥{{orderInfo.payPrice}}</view>
+    <view>订货人：{{storeInfo.contactName}}</view>
   </view>
   <view class="tb_tl">
     <view class="tab">
       <view class="flex" wx:for="{{tab}}" wx:key="index">{{item}}</view>
     </view>
-      <view class="tab" wx:for="{{items}}" wx:key="index">
-        <view class="flex">{{item.name}}</view>
-        <view class="flex">{{item.sex}}</view>
-        <view class="flex">{{item.index}}</view>
-        <view class="flex">{{item.phone}}</view>
+      <view class="tab" wx:for="{{orderDetail}}" wx:key="index">
+        <view class="flex">{{item.goodsName}}</view>
+        <view class="flex">{{item.quantity}}</view>
+        <view class="flex">{{item.goodsUnit}}</view>
+        <view class="flex">￥{{item.payPrice}}</view>
       </view>
   </view>
 </view>

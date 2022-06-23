@@ -9,11 +9,11 @@
 			<image src="../../assets/img/timg.png" alt="" mode="aspectFit" />
 		</mp-cell>
 	</view> -->
-	<view class="nav_after">
+	<!-- <view class="nav_after">
 		<view class="afterItem" wx:for="{{navAfter}}" wx:key="index">
 			<view class="nav_item">{{item}}</view>
 		</view>
-	</view>
+	</view> -->
 	<view class="nav_tab">
 		<view wx:for="{{orderGenres}}" wx:key="index" class="{{selected==index?'hidden':'show'}}" data-index="{{index}}"
 			bindtap="bindOrderGenre">
@@ -21,21 +21,22 @@
 	</view>
 	<!-- tab框显示内容 -->
 	<view class="tab_data">
-		<view class="list" wx:for="{{orderList}}" wx:key="list" wx:for-item="item" data-index="{{index}}"
+		<view class="list" wx:for="{{orderList}}" wx:key="list" wx:for-item="item" data-index="{{index}}" data-orderid="{{item.orderId}}"
 			bindtap="bindOrderDetail">
 			<view class="list_tit">
-				<view class="right {{item.isSuccessfulTransaction===1?'':'nosuc'}}">{{item.statusStr}}</view>
+				<view class="right {{item.isSuccessfulTransaction===1?'':'nosuc'}}">{{item.orderStatusStr}}</view>
 			</view>
 			<view class="list_con">
-				<view class="name">订货人：{{item.createUsername}}</view>
+				<view class="name">订货人：{{item.createUserName}}</view>
 				<view>下单时间：{{item.createTime}}</view>
-				<view class="money">订单金额：￥{{item.orderPrice}}</view>
+				<view class="money">订货金额：￥{{item.orderPrice}}</view>
 			</view>
 		</view>
 	</view>
 	<!-- 点击加载更多 -->
 	<view class="button-wrapper">
-		<button type="default" size="default" loading="{{loading}}" disabled="{{disabled}}" bindtap="setLoading">
+		<button type="default" size="default" loading="{{loading}}" disabled="{{disabled}}">
+			<!-- bindtap="setLoading" -->
 			{{loadText}}
 		</button>
 	</view>

@@ -73,7 +73,7 @@ Page({
 			cartIds: cartId
 		};
 		try {
-			let result = await (mClient.wxRequest(api.getRetailPrice, data));
+			let result = await (mClient.wxRequest(api.GetRetailPrice, data));
 			console.log('订单列表', result);
 			if (result.code == 200) {
 				that.setData({

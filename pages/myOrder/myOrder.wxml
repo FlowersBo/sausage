@@ -38,7 +38,7 @@
 					</view>
 					<view class="btn" wx:if="{{item.btn.length>0}}">
 						<block wx:for="{{item.btn}}" wx:key="btn_more" wx:for-item="name">
-							<button  data-payPrice="{{item.payPrice}}" data-OrderId="{{item.id}}" data-OperationGenre="{{name}}"
+							<button  data-payPrice="{{item.payPrice}}" data-OrderId="{{item.orderId}}" data-OperationGenre="{{name}}"
 								catchtap="bindOperationOrder">{{name}}</button>
 						</block>
 					</view>
