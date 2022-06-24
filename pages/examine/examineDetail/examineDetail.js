@@ -59,13 +59,25 @@ Page({
   },
 
   examineDetailFn(orderId) {
-    mClient.get(api.GoodsOrderDetail, {orderId}).then(resp => {
+    mClient.get(api.GoodsOrderDetail, {
+      orderId
+    }).then(resp => {
       this.setData({
         orderInfo: resp.data.data.orderInfo,
         orderDetail: resp.data.data.orderDetail,
         storeInfo: resp.data.data.storeInfo
       })
     });
+  },
+
+  clickBtn(e) {
+    console.log(e);
+    let id = e.currentTarget.dataset.id;
+    if (id == 0) {
+
+    } else {
+
+    }
   },
 
   /**

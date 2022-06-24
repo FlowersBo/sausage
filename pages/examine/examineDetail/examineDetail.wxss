@@ -52,3 +52,28 @@
 .flex:nth-child(2),.flex:nth-child(3){
   flex: 0.5;
 }
+.btnWrap{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0 40rpx;
+  position: absolute;
+  left: 0;
+  bottom: 150rpx;
+}
+
+.btn{
+  width: 300rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 20rpx;
+  font-size: 28rpx;
+  background: #E48F00;
+  color: #fff;
+}
+.btn:first-child{
+  background: #F75910;
+}
