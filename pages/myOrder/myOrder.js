@@ -155,6 +155,9 @@ Page({
 				pageTotal: resp.data.total
 			})
 		})
+		.catch(err=>{
+			
+		})
 	},
 
 	bindOperationOrder: function (e) {

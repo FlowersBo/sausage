@@ -1,6 +1,6 @@
 // const ApiRootUrl = 'https://api.morninggo.cn/';
-//  const ApiRootUrl = 'http://w3.morninggo.cn/'; //测试
-const ApiRootUrl = 'http://192.168.110.97:8080/app-http/';//13322265957
+ const ApiRootUrl = 'http://w3.morninggo.cn/'; //测试
+// const ApiRootUrl = 'http://192.168.110.97:8080/app-http/';//13322265957
 module.exports = {
     ApiRootUrl,
     Login: ApiRootUrl + 'app/user/auth', //登录授权
@@ -32,7 +32,7 @@ module.exports = {
     PointList: ApiRootUrl + 'app/report/pointList', //点位下拉列表
     ProductRanking: ApiRootUrl + 'app/product/productRanking', //商品销量排行
     ProductRankingDetail: ApiRootUrl + 'app/product/productRankingDetail', //商品销售明细
-    WasteAnalyse: ApiRootUrl + 'app/product/wasteAnalyse', //废弃分析
+    WasteAnalyse: ApiRootUrl + 'app/product/2/wasteAnalyse', //废弃分析
     DeviceList: ApiRootUrl + 'app/device/list', //设备
 
 

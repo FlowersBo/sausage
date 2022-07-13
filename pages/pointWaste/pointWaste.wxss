@@ -75,7 +75,8 @@ canvas {
 .statement-waste{
   color: red;
   font-weight: bold;
-	animation: viewlinear 2s linear infinite;
+  animation: viewlinear 2s linear infinite;
+  margin: 6rpx 0;
 }
 
 @keyframes viewlinear {

@@ -12,6 +12,7 @@
   <view class="statement">
     <view>废弃率</view>
     <view class="statement-waste">{{waste.wasteRate}}%</view>
+    <view style="font-size: 24rpx;color: #aaa;">废弃量/(销售量+废弃量)</view>
   </view>
 </view>
 <block>

@@ -106,9 +106,9 @@ Page({
     let data = {
       pointId,
       startDate: `${selectedChild==0?startDate:''}`,
-      endDate: `${selectedChild==0?endDate:''}`,
+      // endDate: `${selectedChild==0?endDate:''}`,
       startMonth: `${selectedChild==0?'':endDate}`,
-      endMonth: `${selectedChild==0?'':endDate}`,
+      // endMonth: `${selectedChild==0?'':endDate}`,
     }
     let result = await (mClient.get(api.WasteAnalyse, data));
     console.log('点位饼图', result);
@@ -122,24 +122,26 @@ Page({
         });
         canvas.setChart(chart);
         let dayDateWrap = [{
-          name: '预烤超时未售废弃',
-          value: result.data.data.waste1
-        }, {
-          name: '烤制过程废弃',
-          value: result.data.data.waste2
-        }, {
-          name: '营业时间结束废弃',
-          value: result.data.data.waste3
-        }, {
-          name: '退货废弃',
-          value: result.data.data.waste4
-        }, {
-          name: '人工报损',
-          value: result.data.data.waste5
-        }, {
-          name: '预订超时未取废弃',
-          value: result.data.data.waste6
-        }];
+            name: `手工上报废弃${result.data.data.wasteOther!='0'?'('+result.data.data.wasteOther+')':''}`,
+            value: result.data.data.waste1
+          }, {
+            name: '退款废弃',
+            value: result.data.data.waste2
+          },
+          // {
+          //   name: '营业时间结束废弃',
+          //   value: result.data.data.waste3
+          // }, {
+          //   name: '退货废弃',
+          //   value: result.data.data.waste4
+          // }, {
+          //   name: '人工报损',
+          //   value: result.data.data.waste5
+          // }, {
+          //   name: '预订超时未取废弃',
+          //   value: result.data.data.waste6
+          // }  
+        ];
         let dataItem = [];
         for (const key in dayDateWrap) {
           if (Object.hasOwnProperty.call(dayDateWrap, key)) {
