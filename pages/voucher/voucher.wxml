@@ -2,16 +2,24 @@
 <view class="voucher">
   <form action="formFn" bindsubmit="formFn">
     <view class="inpWrap">
-      转账账户：<input class="weui-input" type="text" name="inputName" placeholder="账户名称" value="{{backDetail[0].value}}" disabled="true" />
+      转账账户：<input class="weui-input" type="text" name="inputName" placeholder="账户名称" value="{{backDetail[1].value}}"
+        disabled="true" />
+      <view class="driverMessage-btn" data-id="0" data-back="{{backDetail[1].value}}" bindtap="copyFn">复制
+      </view>
     </view>
     <view class="inpWrap">
-      转账账号：<input class="weui-input" type="number" name="inputNumber" placeholder="账户号" value="{{backDetail[2].value}}" disabled="true" />
+      转账账号：<input class="weui-input" type="number" name="inputNumber" placeholder="账户号" value="{{backDetail[2].value}}"
+        disabled="true" />
+      <view class="driverMessage-btn" data-id="1" data-back="{{backDetail[2].value}}" bindtap="copyFn">复制
+      </view>
     </view>
     <view class="inpWrap">
-      开户行：<input class="weui-input" type="text" name="inputBack" placeholder="开户行" value="{{backDetail[1].value}}" disabled="true" />
+      开户行：<input class="weui-input" type="text" name="inputBack" placeholder="开户行" value="{{backDetail[0].value}}"
+        disabled="true" />
     </view>
     <view class="inpWrap">
-      转账金额：<input class="weui-input" type="digit" name="inputPrice" placeholder="转账金额" value="￥{{payPrice}}" disabled="true" />
+      转账金额：<input class="weui-input" type="digit" name="inputPrice" placeholder="转账金额"
+        style="color: rgb(241, 33, 33);font-weight: bold;" value="￥{{payPrice}}" disabled="true" />
     </view>
     <view class="pushVoucher">
       <view class="title">上传支付凭证</view>
@@ -27,7 +35,7 @@
     </view>
     <view class="btnWrap">
       <button bindtap="gotoOrderDetail">稍后支付</button>
-      <button	form-type="submit">提交</button>
+      <button form-type="submit">提交</button>
     </view>
   </form>
 

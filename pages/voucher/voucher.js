@@ -34,6 +34,19 @@ Page({
     })
   },
 
+  copyFn: e => {
+    console.log(e)
+    wx.setClipboardData({
+      data: e.currentTarget.dataset.back,
+      success(res) {
+        wx.getClipboardData({
+          success(res) {
+            console.log('复制', res.data)
+          }
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -122,7 +135,7 @@ Page({
       console.log(that.data.imgs);
       wx.showModal({
         title: '提示',
-        content: '是否上传当前凭证信息',
+        content: '是否提交上传当前凭证信息',
         success(res) {
           if (res.confirm) {
             mClient.wxRequest(api.OrderBankPay, {
@@ -130,15 +143,15 @@ Page({
               payImage: that.data.imgs[0]
             }).then(res => {
               console.log('提交返回', res)
-              if (res.data !== 200) {
+              if (res.code !== 200) {
                 wx.showToast({
                   title: res.msg,
                   icon: 'none',
                   duration: 2000
                 })
               } else {
-                wx.navigateBack({
-                  delta: 1
+                wx.redirectTo({
+                  url: '../status_details/status_details?orderId=' + that.data.orderId,
                 })
               }
             }).catch(err => {

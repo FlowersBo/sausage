@@ -77,3 +77,28 @@
 .btn:first-child{
   background: #F75910;
 }
+.address{
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* 订单备注 */
+.remarks {
+  padding: 20rpx;
+}
+
+.remarks text {
+  font-size: 28rpx;
+}
+
+textarea {
+  width: 100%;
+  height: 200rpx;
+  background: #f1f1f1;
+  font-size: 28rpx;
+  box-sizing: border-box;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  letter-spacing: 2rpx;
+}

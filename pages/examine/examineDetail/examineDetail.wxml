@@ -1,24 +1,33 @@
 <!--pages/examine/examineDetail/examineDetail.wxml-->
 <view class="examineDetail">
   <view class="orderGoods">
-    <view>订单编号：{{orderInfo.id}}</view>
-    <view>下单时间：{{storeInfo.createTime}}</view>
-    <view>订货金额：￥{{orderInfo.payPrice}}</view>
+    <view>订单编号：{{orderInfo.orderNo}}</view>
+    <view>下单时间：{{orderInfo.createTime}}</view>
+    <view>订货金额：￥{{orderInfo.orderPrice}}</view>
     <view>订货人：{{storeInfo.contactName}}</view>
+    <view>收货仓库：{{storeInfo.storeName}}</view>
+    <view class="address">收货地址：{{storeInfo.address}}</view>
   </view>
   <view class="tb_tl">
     <view class="tab">
       <view class="flex" wx:for="{{tab}}" wx:key="index">{{item}}</view>
     </view>
-      <view class="tab" wx:for="{{orderDetail}}" wx:key="index">
-        <view class="flex">{{item.goodsName}}</view>
-        <view class="flex">{{item.quantity}}</view>
-        <view class="flex">{{item.goodsUnit}}</view>
-        <view class="flex">￥{{item.payPrice}}</view>
-      </view>
+    <view class="tab" wx:for="{{orderDetail}}" wx:key="index">
+      <view class="flex">{{item.goodsName}}</view>
+      <view class="flex">{{item.quantity}}</view>
+      <view class="flex">{{item.goodsUnit}}</view>
+      <view class="flex">￥{{item.payPrice}}</view>
+    </view>
   </view>
-  <view class="btnWrap">
-      <view class="btn" data-id="0" bindtap="clickBtn">拒绝</view>
-      <view class="btn" data-id="1" bindtap="clickBtn">同意</view>
+  <!-- 备注 -->
+  <view class="remarks" wx:if="{{orderInfo.statusStr==='待审核'}}">
+    <view style="height: 40rpx;border-left: 6rpx solid #aaa;line-height: 40rpx;padding-left: 20rpx;margin-bottom: 30rpx;">
+      审核备注：</view>
+    <textarea class="text-area" maxlength="50" placeholder="最大输入长度为50" name="tarea" id="" cols="30" rows="10"
+      bindinput="bindOrderCommentInput"></textarea>
+  </view>
+  <view class="btnWrap" wx:if="{{orderInfo.statusStr==='待审核'}}">
+    <view class="btn" data-id="0" bindtap="clickBtn">拒绝</view>
+    <view class="btn" data-id="1" bindtap="clickBtn">同意</view>
   </view>
 </view>

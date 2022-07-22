@@ -54,7 +54,10 @@ Page({
    */
   onLoad(options) {
     that = this;
-    console.log(options.orderId)
+    console.log(options.orderId);
+    that.setData({
+      orderId: options.orderId
+    })
     that.examineDetailFn(options.orderId);
   },
 
@@ -62,6 +65,7 @@ Page({
     mClient.get(api.GoodsOrderDetail, {
       orderId
     }).then(resp => {
+      console.log('详情', resp)
       this.setData({
         orderInfo: resp.data.data.orderInfo,
         orderDetail: resp.data.data.orderDetail,
@@ -73,11 +77,47 @@ Page({
   clickBtn(e) {
     console.log(e);
     let id = e.currentTarget.dataset.id;
-    if (id == 0) {
+    wx.showModal({
+      title: '提示',
+      content: `您确认${id==='0'?'拒绝':'同意'}当前订单审核吗？`,
+      success(res) {
+        if (res.confirm) {
+          mClient.wxRequest(api.AuthOrder, {
+            userId: wx.getStorageSync('userID'),
+            orderId: that.data.orderId,
+            authStatus: id, //1通过0未通过
+            authMemo: that.data.orderComment //审核备注
+          }).then(resp => {
+            if (resp.code == 200) {
+              wx.showToast({
+                title: '审核成功',
+                icon: 'none',
+                duration: 2000
+              })
+              setTimeout(function () {
+                wx.navigateBack({
+                  delta: 1
+                })
+              }, 1500)
+            } else {
+              wx.showToast({
+                title: resp.msg,
+                icon: 'none',
+                duration: 2000
+              })
+            }
+          })
+        } else if (res.cancel) {}
+      }
+    })
 
-    } else {
 
-    }
+  },
+
+  bindOrderCommentInput: function (e) {
+    this.setData({
+      orderComment: e.detail.value
+    })
   },
 
   /**

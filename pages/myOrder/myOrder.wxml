@@ -32,7 +32,7 @@
 							</block>
 						</view>
 						<view class="right">
-							<view class="" style="font-size: 38rpx; font-weight: bold;">¥{{item.orderPrice}}</view>
+							<view class="" style="font-size: 38rpx; font-weight: bold;">¥{{item.payPrice}}</view>
 							<view class="num">共{{item.quantity}}件</view>
 						</view>
 					</view>

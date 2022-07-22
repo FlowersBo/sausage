@@ -25,12 +25,16 @@ Page({
 		that.setData({
 			searchDate,
 		})
-		that.orderListFn(that.data.page);
-		wx.createSelectorQuery().select('.nav_tab').boundingClientRect(function (rect) {
-			// 节点的上边界坐标
+		wx.createSelectorQuery().select('.nav_tab').boundingClientRect(function (rect) { // 节点的上边界坐标
 			console.log(rect)
-
 		}).exec()
+	},
+
+	onShow: function () {
+		that.setData({
+			orderList:[]
+		})
+		that.orderListFn(that.data.page);
 	},
 
 	orderListFn(page) {
@@ -158,7 +162,7 @@ Page({
 		let order = orderList[index];
 		console.log(order)
 		wx.navigateTo({
-			url: './examineDetail/examineDetail?orderId='+e.currentTarget.dataset.orderid
+			url: './examineDetail/examineDetail?orderId=' + e.currentTarget.dataset.orderid
 		})
 	},
 

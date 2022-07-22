@@ -17,8 +17,18 @@
 }
 .inpWrap input{
   height: 100%;
-  width: 75%;
+  width: 65%;
   color: rgb(66, 66, 66);
+}
+.driverMessage-btn{
+  width: 80rpx;
+  height: 50rpx;
+  border-radius: 10rpx;
+  background: rgb(243, 187, 4);
+  color: #fff;
+  text-align: center;
+  line-height: 50rpx;
+  font-size: 24rpx;
 }
 .pushVoucher{
   margin-top: 50rpx;

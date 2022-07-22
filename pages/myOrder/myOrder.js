@@ -16,7 +16,7 @@ Page({
 		orderGenres: ['全部', '待付款', '待财务审核', '待发货', '待收货', '已完成', '已取消', '财务审核未通过'],
 		orderStatus: '',
 		pageIndex: 1,
-		pageSize: 5,
+		pageSize: 10,
 		pageTotal: 0,
 		orderList: [],
 		loadText: '点击加载...',
@@ -39,7 +39,7 @@ Page({
 		} else if (currentTab == 4) {
 			orderStatus = '4';
 		} else if (currentTab == 5) {
-			orderStatus = '5';
+			orderStatus = '6';
 		} else if (currentTab == 6) {
 			orderStatus = '0';
 		} else if (currentTab == 7) {
@@ -74,7 +74,7 @@ Page({
 			} else if (currentTab == 4) {
 				orderStatus = '4';
 			} else if (currentTab == 5) {
-				orderStatus = '5';
+				orderStatus = '6';
 			} else if (currentTab == 6) {
 				orderStatus = '0';
 			} else if (currentTab == 7) {
@@ -104,6 +104,7 @@ Page({
 			this.renderOrderList();
 		}
 	},
+	
 	refresherpulling() {
 		wx.showLoading({
 			title: '刷新中',
@@ -129,35 +130,35 @@ Page({
 			pagesize: that.data.pageSize
 		}
 		mClient.wxRequest(api.Examine, data).then(resp => {
-			console.log('订货列表', resp)
-			let orderList = that.data.orderList.concat(resp.data.list);
+				console.log('订货列表', resp)
+				let orderList = that.data.orderList.concat(resp.data.list);
 
-			orderList.forEach(element => {
-				element.orderStatus = parseInt(element.orderStatus);
-				// const orderTime = parseInt(element.orderdate);
-				// element.orderTime = util.customFormatTime(new Date(orderTime));
-				// element.settlementPrice = element.goodsamount;
-				if (element.orderStatus == 1) {
-					//判断订单是否已延长收货，是则移除收货按钮，并更改订单显示状态
-					// showbtn.splice(0, 1);
-					element.btn = btn[0];
-				} else if (element.orderStatus == 4) {
-					element.btn = btn[1];
-				} else if (element.orderStatus == 20) {
-					element.btn = btn[2];
-				} else {
-					element.btn = [];
-				}
-			});
+				orderList.forEach(element => {
+					element.orderStatus = parseInt(element.orderStatus);
+					// const orderTime = parseInt(element.orderdate);
+					// element.orderTime = util.customFormatTime(new Date(orderTime));
+					// element.settlementPrice = element.goodsamount;
+					if (element.orderStatus == 1) {
+						//判断订单是否已延长收货，是则移除收货按钮，并更改订单显示状态
+						// showbtn.splice(0, 1);
+						element.btn = btn[0];
+					} else if (element.orderStatus == 4) {
+						element.btn = btn[1];
+					} else if (element.orderStatus == 20) {
+						element.btn = btn[2];
+					} else {
+						element.btn = [];
+					}
+				});
 
-			this.setData({
-				orderList,
-				pageTotal: resp.data.total
+				this.setData({
+					orderList,
+					pageTotal: resp.data.total
+				})
 			})
-		})
-		.catch(err=>{
-			
-		})
+			.catch(err => {
+
+			})
 	},
 
 	bindOperationOrder: function (e) {
@@ -221,12 +222,17 @@ Page({
 								userId: wx.getStorageSync('userID')
 							}).then(resp => {
 								console.log(resp)
-								if (resp.data == 200) {
+								if (resp.code == 200) {
 									wx.showToast({
 										title: '确认收货成功',
 										icon: 'none',
 										duration: 2000
 									})
+									that.setData({
+										pageIndex: 1,
+										orderList: []
+									})
+									that.renderOrderList();
 								} else {
 									wx.showToast({
 										title: resp.msg,
@@ -249,7 +255,7 @@ Page({
 			})
 		} else if (operationGenre === '上传凭证') {
 			wx.navigateTo({
-				url: '../voucher/voucher?orderId=' + orderId + '&payPrice=' + that.data.payPrice,
+				url: '../voucher/voucher?orderId=' + orderId + '&payPrice=' + payPrice,
 			})
 		}
 	},

@@ -1,20 +1,11 @@
 <!--pages/confirmation_order/confirmation_order.wxml-->
-<view class="contion">
-  <view class="con_top" bindtap="bindSelectUserAddress">
-    <view style="font-weight: bold;margin-bottom: 10rpx;">
-      {{addressListel.agencyName?addressListel.storeName:addressList[0].agencyName}}</view>
-    <view>{{addressListel?addressListel.address:addressList[0].address}}</view>
-    <!-- <view class="characterIcon">
-      <view class="circle"></view>
-    </view> -->
-    <!-- <view class="left">
-      <view>
-        <image src="../../assets/img/add.png"></image>
-        <text>{{userInfo.name}}</text> <text>{{userInfo.mobile}}</text>
-      </view>
-      <view><text>{{userInfo.address}}</text></view>
-    </view> -->
+<view class="contion" bindtap="bindSelectUserAddress">
+  <view class="con_top">
+    <view style="font-weight: bold;">
+      {{addressListel.agencyName?addressListel.agencyName:addressList[0].agencyName}} <text style="font-size: 24rpx;">({{addressListel.storeName?addressListel.storeName:addressList[0].storeName}})</text></view>
+    <view style="font-size: 28rpx;margin-top: 30rpx;">地址：{{addressListel?addressListel.address:addressList[0].address}}</view>
   </view>
+  <icon class="iconfont icon-backwardcyclyo"></icon>
 </view>
 
 <!-- 物品展示 -->
@@ -50,14 +41,14 @@
       <!-- <text>配送费</text><text>¥ {{cartSettlement.freight}}</text> -->
     </view>
     <view>
-      <text>优惠</text><text> - ¥ {{totalPrice.totalDiscountPrice}}</text>
+      <text>优惠</text><text style="color: rgb(245, 210, 11);"> - ¥ {{totalPrice.totalDiscountPrice}}</text>
     </view>
     <view class="total">
-      <text>合计 </text> <text>¥ {{totalPrice.totalPrice}}</text>
+      <text>合计 ¥</text><text style="font-size: 38rpx;font-weight: bold;color: rgb(235, 21, 21);">{{totalPrice.totalPrice}}</text>
     </view>
   </view>
   <!-- 支付方式 -->
-  <view class="weui-cell weui-cell_input">
+  <!-- <view class="weui-cell weui-cell_input">
     <view class="weui-cell__bd">
       <radio-group class="item-right radio-group">
         <label class="radio" wx:for="{{items}}" wx:key="index">
@@ -67,7 +58,7 @@
         </label>
       </radio-group>
     </view>
-  </view>
+  </view> -->
   <!-- 备注 -->
   <view class="remarks">
     <text>订单备注：</text>

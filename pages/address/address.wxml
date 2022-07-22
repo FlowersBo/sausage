@@ -16,7 +16,7 @@
       </radio-group>
       <view class="product-name-wrap" data-index="{{idx}}">
         <view class="ui-list-item-info">
-          {{item.storeName}}
+          {{item.agencyName}} <text style="font-size: 24rpx;">({{item.storeName}})</text>
         </view>
         <view class="ui-list-item-address">{{item.address}}</view>
       </view>
