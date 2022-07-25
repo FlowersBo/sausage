@@ -41,6 +41,10 @@ Page({
    */
   onLoad: function (options) {
     that = this;
+    that.setData({
+      roles: wx.getStorageSync('roles')
+    })
+    console.log(wx.getStorageSync('roles')[0])
   },
 
   onShow: function () {
@@ -92,7 +96,7 @@ Page({
     wx.showModal({
       title: '退出登录',
       content: '确定退出当前账号吗？',
-      success (res) {
+      success(res) {
         if (res.confirm) {
           try {
             wx.clearStorageSync()
@@ -102,7 +106,7 @@ Page({
           } catch (e) {
             // Do something when catch error
           }
-        } 
+        }
       }
     })
   },

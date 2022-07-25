@@ -1,5 +1,7 @@
 // pages/confirmation_order/cashierDesk/cashierDesk.js
-import {payOrder} from '../../../payment/payment';
+import {
+  payOrder
+} from '../../../payment/payment';
 let that;
 Page({
 
@@ -59,15 +61,15 @@ Page({
 
   paymentFn() {
     if (that.data.id == 0) {
-      payOrder(that.data.orderId).then(res=>{
-        console.log('支付返回',res)
+      payOrder(that.data.orderId).then(res => {
+        console.log('支付返回', res)
         wx.reLaunch({
           url: '../../status_details/status_details?orderId=' + that.data.orderId,
         })
       })
     } else {
       wx.reLaunch({
-        url: '../../voucher/voucher?orderId=' + that.data.orderId+'&payPrice='+that.data.totalPrice,
+        url: '../../voucher/voucher?orderId=' + that.data.orderId + '&payPrice=' + that.data.totalPrice,
       })
     }
   },
@@ -81,6 +83,13 @@ Page({
       totalPrice: options.totalPrice,
       orderId: options.orderId
     })
+    if (Number(options.totalPrice) >= 50000) {
+      that.data.items.splice(0,1);
+      that.setData({
+        items: that.data.items
+      })
+      console.log(that.data.items)
+    }
   },
 
   /**
