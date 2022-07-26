@@ -53,9 +53,9 @@ page {
 	font-size: 50rpx;
 	color: #fff;
 	top: 25rpx;
-	left: 50rpx;
+	left: 48rpx;
 }
-
+ 
 .contions .total {
 	font-size: 30rpx;
 	color: #f75910;

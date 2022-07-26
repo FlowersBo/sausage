@@ -5,7 +5,7 @@
     bindtouchmove="drawMove" bindtouchend="drawEnd" style="right:{{item.right}}rpx" -->
     <view class="list" wx:for="{{userInfos}}" wx:for-index="idx" wx:key="index" data-index='{{idx}}'>
       <radio-group class="radio-group">
-        <label class="radio">
+        <label class="radio"> 
           <radio value="设为默认" data-storeId="{{item.storeId}}" data-agencyId="{{item.agencyId}}" checked="{{item.isdefault}}" data-index="{{idx}}" bindtap="bindSettingUsedInfo" />
           <!-- <block wx:if="{{item.isdefault}}">
             <text>默认地址</text>
