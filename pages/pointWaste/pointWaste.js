@@ -105,9 +105,9 @@ Page({
   async wasteAnalyseFn(pointId, startDate, endDate, selectedChild) {
     let data = {
       pointId,
-      startDate: `${selectedChild==0?startDate:''}`,
+      searchDate: `${selectedChild==0?startDate:''}`,
       // endDate: `${selectedChild==0?endDate:''}`,
-      startMonth: `${selectedChild==0?'':endDate}`,
+      searchMonth: `${selectedChild==0?'':endDate}`,
       // endMonth: `${selectedChild==0?'':endDate}`,
     }
     let result = await (mClient.get(api.WasteAnalyse, data));
