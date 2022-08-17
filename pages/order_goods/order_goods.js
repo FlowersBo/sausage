@@ -23,7 +23,7 @@ Page({
     hide_good_box: true, // 是否隐藏添加购物车时的圆点
     hidden: false,
     page: 1,
-    pageSize: 10,
+    pageSize: 20,
     // isAuthor: false,
     // result: 1
   },
@@ -78,6 +78,10 @@ Page({
     if (goodsCategroy.length === 0) {
       return;
     };
+    that.setData({
+      shelvesGoodsInfos: [],
+      page: 1
+    })
     this.renderGoodsList(goodsCategroyIndex);
     this.cartNumFn();
   },
@@ -86,11 +90,12 @@ Page({
   //select goods cattegroy
   bindSelectGoodsCategroy: function (e) {
     let index = parseInt(e.target.dataset.index);
-
-    this.renderGoodsList(index);
     this.setData({
-      goodsCategroyIndex: index
+      goodsCategroyIndex: index,
+      shelvesGoodsInfos: [],
+      page: 1
     })
+    this.renderGoodsList(index);
   },
 
   //render goods categroy
@@ -104,14 +109,17 @@ Page({
         let goodsCategroy = resp.data.data;
         this.setData({
           goodsCategroy: goodsCategroy,
+          shelvesGoodsInfos: [],
+          page: 1
         });
+
         this.renderGoodsList(goodsCategroyIndex);
         that.cartNumFn();
       });
   },
 
   //render goods list
-  renderGoodsList: function (index, page = 1) {
+  renderGoodsList: function (index) {
     let that = this;
     let {
       categoryId
@@ -120,7 +128,7 @@ Page({
       let data = {
         categoryId,
         userId: wx.getStorageSync('userID'),
-        page,
+        page: that.data.page,
         pageSize: that.data.pageSize
       };
 
@@ -128,8 +136,10 @@ Page({
         .then(resp => {
           console.log('商品列表', resp)
           this.setData({
-            shelvesGoodsInfos: resp.data.list,
+            shelvesGoodsInfos: that.data.shelvesGoodsInfos.concat(resp.data.list),
+            total: resp.data.total
           });
+          console.log('加商品', that.data.shelvesGoodsInfos)
           // this.renderBuyCar();
         });
     }
@@ -323,6 +333,16 @@ Page({
         icon: 'none',
         duration: 2000
       })
+    }
+  },
+  onReachBottom: function () {
+    let goodsCategroyIndex = that.data.goodsCategroyIndex;
+    let total = this.data.total;
+    if ((this.data.page * this.data.pageSize) < total) {
+      this.setData({
+        page: this.data.page + 1
+      })
+      this.renderGoodsList(goodsCategroyIndex);
     }
   },
 

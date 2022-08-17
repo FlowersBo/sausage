@@ -69,6 +69,9 @@ scroll-view .list {
 
 .ui-list-item-address {
 	color: #585c64;
+	text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .ui-list-item-time {

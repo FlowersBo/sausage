@@ -14,8 +14,9 @@ page {
 
 /*左侧栏主盒子*/
 .nav_left {
-  /* position: fixed; */
-  /*设置行内块级元素（没使用定位）*/
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   width: 25%;
   /*主盒子设置背景色为灰色*/
@@ -53,11 +54,11 @@ page {
   right: 0;
   /*宽度75%，高度占满，并使用百分比布局*/
   width: 75%;
-  height: 100vh;
+  /* height: 100vh; */
   box-sizing: border-box;
   background: #fff;
   overflow: hidden;
-
+  padding-bottom: 150rpx;
 }
 
 .nav_right navigator {
