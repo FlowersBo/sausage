@@ -1,6 +1,6 @@
 import * as mClient from '../../utils/customClient';
 
-Page({ //13322265957
+Page({ //18601969342
 	data: {
 		phoneNumber: '',
 		verificationCode: '',

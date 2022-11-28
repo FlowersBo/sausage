@@ -57,10 +57,10 @@ Component({
     ];
     if (roles) {
       roles.forEach(element => {
-        if (element === 'operate' || element === 'agency' || element === 'areaManager')
+        if (element === 'cooperate' || element === 'operate' || element === 'agency' || element === 'areaManager')
           // list.splice(3, 1); //临时隐藏订货
         return
-        else if (element === 'cooperate' || element === 'companyOperate' || element === 'vp' || element === 'ceo')
+        else if (element === 'companyOperate' || element === 'vp' || element === 'ceo')
           list.splice(3, 1);
         else if (element === 'mediate') {
           list.splice(1, 1);
