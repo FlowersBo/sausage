@@ -88,6 +88,12 @@
           "pathName": "pages/voucher/voucher",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "钱包",
+          "pathName": "pages/user/wallet/wallet",
+          "query": "",
+          "scene": null
         }
       ]
     }

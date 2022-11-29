@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: #fff;
 }
 
 .wallet {
@@ -17,8 +18,8 @@
   padding: 20rpx;
   box-sizing: border-box;
   border-radius: 20rpx;
-  background-image: linear-gradient(135deg, #b4a7a7,#9cdfdf);
-  color: #fff;
+  background: #f1f1f1;
+  color: #333;
 }
 
 .balanceTitle {
@@ -41,6 +42,7 @@
   font-size: 28rpx;
   margin: 0 10rpx;
   background-image: linear-gradient(135deg, #84ac29, #84ac29);
+  color: #fff;
 }
 
 .balanceSumWrap {
@@ -95,9 +97,8 @@
 .bindingPhone {
   width: 100%;
   height: 160rpx;
-  background-image: linear-gradient(135deg, #b4a7a7,#9cdfdf);
-  /* background: #eee; */
-  color: #fff;
+  background: #f1f1f1;
+  color: #333;
   margin-top: 20rpx;
   /* border-radius: 20rpx; */
   padding: 20rpx;
@@ -118,7 +119,7 @@
 }
 
 .bankCardName {
-  color: rgb(14, 223, 77);
+  color: rgb(1, 105, 32);
   font-size: 28rpx;
   padding-top: 20rpx;
 }
@@ -131,6 +132,7 @@
   border-radius: 10rpx;
   font-size: 28rpx;
   background-image: linear-gradient(135deg, #84ac29, #84ac29);
+  color: #fff;
 }
 
 .authentication {
@@ -140,8 +142,8 @@
   box-sizing: border-box;
   margin-top: 20rpx;
   border-radius: 2rpx;
-  background-image: linear-gradient(135deg, #b4a7a7,#9cdfdf);
-  color: #fff;
+  background: #f1f1f1;
+  color: #333;
 }
 
 .incomeDetailBtn {
@@ -152,6 +154,7 @@
   border-radius: 10rpx;
   font-size: 28rpx;
   background-image: linear-gradient(135deg, #84ac29, #84ac29);
+  color: #fff;
 }
 
 .income {

@@ -1,6 +1,6 @@
 <!--pages/shopping_cart/shopping_cart.wxml-->
 <!-- 物品展示 -->
-<view class="container">
+<view class="container" catchtouchmove="return">
   <view class="section section-good">
     <checkbox-group>
       <view class="good" wx:for="{{cartGoodsList}}" wx:key="index" wx:for-item="goods"  bindtouchstart="drawStart"

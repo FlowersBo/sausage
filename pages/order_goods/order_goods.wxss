@@ -58,7 +58,7 @@ page {
   box-sizing: border-box;
   background: #fff;
   overflow: hidden;
-  padding-bottom: 150rpx;
+  border-bottom: 150rpx solid #f5f5f5;
 }
 
 .nav_right navigator {
