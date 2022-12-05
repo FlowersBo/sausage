@@ -21,7 +21,7 @@
         </view>
         <view class="ui-list-item-address">{{item.address}}</view>
       </view>
-      <view class="ui-list-item-edit" data-index="{{idx}}" bindtap="bindSettingTop">置顶</view>
+      <view class="ui-list-item-edit" data-index="{{idx}}" bindtap="bindSettingTop">{{userInfos.length>1?'置顶':''}}</view>
       <view class="remove" data-addressCode="{{item.id}}" bindtap="bindDeleteAddress">删除 </view>
       <!-- <view wx:if="{{!item.usedStatus}}" class="product-btn">
         <button data-id="{{item.id}}" bindtap="bindSettingUsedInfo">使用</button>

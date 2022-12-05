@@ -250,7 +250,7 @@ Page({
         duration: 2000
       })
       return
-    }else if (unionBank.length != 12) {
+    } else if (unionBank.length != 12) {
       wx.showToast({
         title: '支付行号格式错误',
         icon: 'none',
@@ -271,36 +271,47 @@ Page({
       .then(resp => {
         console.log('绑卡', resp);
         if (resp.data.success) {
-          if (resp.data.data) {
-            if (that.data.routeName) {
-              wx.navigateBack({
-                delta: 1
-              })
-            } else {
-              wx.switchTab({
-                url: '/pages/user/user'
-              });
-            }
-          } else {
-            wx.showToast({
-              title: resp.data.msg,
-              icon: 'none',
-              duration: 2000
+          if (that.data.routeName) {
+            wx.navigateBack({
+              delta: 1
             })
-            return
+          } else {
+            let data = {
+              bizUserId: wx.getStorageSync('bizUserId')
+            };
+            mClient.PostIncludeData(api.SignContract, data)
+              .then(resp => {
+                console.log('签约', resp);
+                if (resp.data.success) {
+                  let parameter = resp.data.data;
+                  wx.navigateToMiniProgram({
+                    appId: 'wxc46c6d2eed27ca0a',
+                    path: 'pages/merchantAddress/merchantAddress',
+                    extraData: {
+                      targetUrl: parameter
+                    },
+                    // envVersion: 'develop',
+                    success(res) {
+                      console.log('打开成功', res)
+                    }
+                  })
+                } else {
+                  wx.showToast({
+                    title: resp.data.msg,
+                    icon: 'none',
+                    duration: 3000
+                  });
+                }
+              })
+              .catch(rej => {
+                console.log('错误', rej)
+              })
           }
-        } else {
-          wx.showToast({
-            title: resp.data.msg,
-            icon: 'none',
-            duration: 3000
-          });
         }
       })
-      .catch(rej => {
-        console.log('错误', rej)
-      })
   },
+
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成

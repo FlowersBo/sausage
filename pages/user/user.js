@@ -140,6 +140,10 @@ Page({
         wx.navigateTo({
           url: '/pages/authentication/authentication',
         })
+      } else if (!result.cardVerify) {
+        wx.navigateTo({
+          url: '/pages/bankCard/bankCard',
+        })
       } else if (!result.contractNo) {
         let data = {
           bizUserId: wx.getStorageSync('bizUserId')
@@ -147,7 +151,7 @@ Page({
         mClient.PostIncludeData(api.SignContract, data)
           .then(resp => {
             console.log('签约', resp);
-            if (resp.data.code == 0) {
+            if (resp.data.code == 200) {
               let parameter = resp.data.data;
               wx.navigateToMiniProgram({
                 // envVersion: 'trial',
@@ -165,10 +169,6 @@ Page({
           .catch(rej => {
             console.log('错误', rej)
           })
-      } else if (!result.cardVerify) {
-        wx.navigateTo({
-          url: '/pages/bankCard/bankCard',
-        })
       }
     }
   },

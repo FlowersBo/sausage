@@ -17,7 +17,7 @@ Page({
   onLoad: function (options) {
     that = this;
   },
-  
+
   //提交
   formFaceUpload: (e) => {
     console.log('提交表单', e)
@@ -53,38 +53,16 @@ Page({
       mClient.PostIncludeData(api.SetRealName, data)
         .then(resp => {
           console.log('个人认证', resp);
-          if (resp.data.code == 0) {
-            let attestation = resp.data.data;
-            let data = {
-              bizUserId: wx.getStorageSync('bizUserId')
-            };
-            mClient.PostIncludeData(api.SignContract, data)
-              .then(resp => {
-                console.log('签约', resp);
-                if (resp.data.success) {
-                  let parameter = resp.data.data;
-                  wx.navigateToMiniProgram({
-                    appId: 'wxc46c6d2eed27ca0a',
-                    path: 'pages/merchantAddress/merchantAddress',
-                    extraData: {
-                      targetUrl: parameter
-                    },
-                    // envVersion: 'develop',
-                    success(res) {
-                      console.log('打开成功', res)
-                    }
-                  })
-                } else {
-                  wx.showToast({
-                    title: resp.data.msg,
-                    icon: 'none',
-                    duration: 2000
-                  });
-                }
-              })
-              .catch(rej => {
-                console.log('错误', rej)
-              })
+          if (resp.data.code == 200) {
+            wx.redirectTo({
+              url: '/pages/bankCard/bankCard',
+            })
+          } else {
+            wx.showToast({
+              title: resp.data.msg,
+              icon: 'none',
+              duration: 2000
+            });
           }
         })
         .catch(rej => {

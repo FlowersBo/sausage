@@ -127,12 +127,12 @@ App({
   /**
    * 当小程序启动，或从后台进入前台显示，会触发 onShow
    */
-  onShow: function (options) {
+  onShow: function (options) {//options.scene==1038
     if (options.referrerInfo && options.referrerInfo.extraData) {
-      console.log(options);
+      console.log('小程序跳转回来',options);
       // this.globalData.backMerchantUrl = options.referrerInfo.extraData.backMerchantUrl;
-      wx.redirectTo({
-        url: '/pages/bankCard/bankCard'
+      wx.switchTab({
+        url: '/pages/user/user'
       });
     }
   },

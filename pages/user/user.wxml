@@ -29,8 +29,8 @@
       <view class="blankText">开通收款账户</view>
       <view class="flowPath">
         <view class="ynumber">1</view>实名认证 <view class="flowBlank"></view>
-        <view class="ynumber">2</view>签约协议<view class="flowBlank"></view>
-        <view class="ynumber">3</view>绑定卡号
+        <view class="ynumber">2</view>绑定卡号<view class="flowBlank"></view>
+        <view class="ynumber">3</view>签约协议
       </view>
     </view>
   </block>
