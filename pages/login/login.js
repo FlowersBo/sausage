@@ -197,9 +197,30 @@ Page({ //18601969342
 						if (resp.data.code == 200) {
 							wx.setStorageSync('userID', resp.data.data.info.id);
 							wx.setStorageSync('roles', resp.data.data.roles);
-							wx.switchTab({
-								url: '../index/index'
-							});
+							let deviceType = resp.data.data.deviceType;
+							console.log('数量',Object.keys(deviceType).length)
+							for (const key in deviceType) {
+								if (Object.hasOwnProperty.call(deviceType, key)) {
+									const element = deviceType[key];
+									if(Object.keys(deviceType).length==1){
+										wx.setStorageSync('facilityName', element);
+										if(element==='自助烤肠机'){
+											wx.switchTab({
+												url: '/pages/index/index'
+											});
+										}else{
+											wx.switchTab({
+												url: '/pages/index/index'
+											});
+										}
+									}else{
+										wx.reLaunch({
+											url: '/pages/selectFacility/selectFacility?deviceType='+encodeURIComponent(JSON.stringify(deviceType))
+										});
+										return
+									}
+								}
+							}
 						} else {
 							wx.showToast({
 								title: resp.data.message,

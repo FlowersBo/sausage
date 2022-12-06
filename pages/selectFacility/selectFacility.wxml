@@ -1,0 +1,6 @@
+<!--pages/selectFacility/selectFacility.wxml-->
+<view style="margin:260rpx 0 80rpx 40rpx;font-size: 50rpx;">设备选择</view>
+<view class="device" wx:for="{{deviceList}}" wx:key="index" data-name="{{item}}" bindtap="gotoHome">
+  <image style="width: 110rpx;height: 110rpx;" src="{{item=='自助蒸包机'?'/assets/img/bz.png':(item=='自助烤肠机'?'/assets/img/kc.png':'/assets/img/sp.png')}}" />
+  <view style="margin-left: 50rpx;font-size: 40rpx;color: #fff;">{{item}}</view>
+</view>

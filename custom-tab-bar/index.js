@@ -23,55 +23,79 @@ Component({
 
   ready() {
     let roles = wx.getStorageSync('roles');
+    let facilityName = wx.getStorageSync('facilityName');
     console.log('角色', roles);
-    let list = [{
-        pagePath: "/pages/index/index",
-        text: "报表",
-        iconPath: "/assets/tabbar/baobiao.png",
-        selectedIconPath: "/assets/tabbar/baobiao-h.png"
-      },
-      {
-        pagePath: "/pages/pointLocation/pointLocation",
-        text: "点位",
-        iconPath: "/assets/tabbar/dingdan.png",
-        selectedIconPath: "/assets/tabbar/dingdan-h.png"
-      },
-      {
-        pagePath: "/pages/commodity/commodity",
-        text: "商品",
-        iconPath: "/assets/tabbar/shebei.png",
-        selectedIconPath: "/assets/tabbar/shebei-h.png"
-      },
-      {
-        pagePath: "/pages/order_goods/order_goods",
-        text: "订货",
-        iconPath: "/assets/tabbar/dinghuo.png",
-        selectedIconPath: "/assets/tabbar/dinghuo-h.png"
-      },
-      {
-        pagePath: "/pages/user/user",
-        text: "我的",
-        iconPath: "/assets/tabbar/menu-mine.png",
-        selectedIconPath: "/assets/tabbar/menu-mine-h.png"
-      }
-    ];
-    if (roles) {
-      roles.forEach(element => {
-        if (element === 'cooperate' || element === 'operate' || element === 'agency' || element === 'areaManager')
-          // list.splice(3, 1); //临时隐藏订货
-        return
-        else if (element === 'companyOperate' || element === 'vp' || element === 'ceo')
-          list.splice(3, 1);
-        else if (element === 'mediate') {
-          list.splice(1, 1);
-          list.splice(1, 1);
-          list.splice(1, 1);
+    let list = [];
+    if (facilityName!=='自助烤肠机') {
+      list = [{
+          pagePath: "/pages/index/index",
+          text: "报表",
+          iconPath: "/assets/tabbar/baobiao.png",
+          selectedIconPath: "/assets/tabbar/baobiao-h.png"
+        },
+        {
+          pagePath: "/pages/pointLocation/pointLocation",
+          text: "订单",
+          iconPath: "/assets/tabbar/order.png",
+          selectedIconPath: "/assets/tabbar/order-h.png"
+        },
+        {
+          pagePath: "/pages/commodity/commodity",
+          text: "设备",
+          iconPath: "/assets/tabbar/equipment.png",
+          selectedIconPath: "/assets/tabbar/equipment-h.png"
         }
-      });
-      this.setData({
-        list
-      })
+      ]
+    } else {
+      list = [{
+          pagePath: "/pages/index/index",
+          text: "报表",
+          iconPath: "/assets/tabbar/baobiao.png",
+          selectedIconPath: "/assets/tabbar/baobiao-h.png"
+        },
+        {
+          pagePath: "/pages/pointLocation/pointLocation",
+          text: "点位",
+          iconPath: "/assets/tabbar/dingdan.png",
+          selectedIconPath: "/assets/tabbar/dingdan-h.png"
+        },
+        {
+          pagePath: "/pages/commodity/commodity",
+          text: "商品",
+          iconPath: "/assets/tabbar/shebei.png",
+          selectedIconPath: "/assets/tabbar/shebei-h.png"
+        },
+        {
+          pagePath: "/pages/order_goods/order_goods",
+          text: "订货",
+          iconPath: "/assets/tabbar/dinghuo.png",
+          selectedIconPath: "/assets/tabbar/dinghuo-h.png"
+        },
+        {
+          pagePath: "/pages/user/user",
+          text: "我的",
+          iconPath: "/assets/tabbar/menu-mine.png",
+          selectedIconPath: "/assets/tabbar/menu-mine-h.png"
+        }
+      ];
+      if (roles) {
+        roles.forEach(element => {
+          if (element === 'cooperate' || element === 'operate' || element === 'agency' || element === 'areaManager')
+            // list.splice(3, 1); //临时隐藏订货
+            return
+          else if (element === 'companyOperate' || element === 'vp' || element === 'ceo')
+            list.splice(3, 1);
+          else if (element === 'mediate') {
+            list.splice(1, 1);
+            list.splice(1, 1);
+            list.splice(1, 1);
+          }
+        });
+      }
     }
+    this.setData({
+      list
+    })
   },
   methods: { //切换tabbar
     switchTab(e) {

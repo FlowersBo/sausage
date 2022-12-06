@@ -1,0 +1,12 @@
+/* pages/selectFacility/selectFacility.wxss */
+.device{
+  width: 90%;
+  height: 200rpx;
+  border-radius: 10rpx;
+  margin: 50rpx auto;
+  box-sizing: border-box;
+  padding: 20rpx 30rpx;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+}

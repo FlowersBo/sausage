@@ -1,6 +1,6 @@
-const ApiRootUrl = 'https://api.morninggo.cn/';
+// const ApiRootUrl = 'https://api.morninggo.cn/';
 //  const ApiRootUrl = 'http://w3.morninggo.cn/'; //测试
-// const ApiRootUrl = 'http://192.168.110.97:8080/app-http/';//13322265957
+const ApiRootUrl = 'http://192.168.110.97:8080/app-http/';//13322265957
 module.exports = {
     ApiRootUrl,
     Login: ApiRootUrl + 'app/user/auth', //登录授权

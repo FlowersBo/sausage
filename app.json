@@ -38,7 +38,8 @@
     "pages/confirmation_order/cashierDesk/cashierDesk",
     "pages/examine/examine",
     "pages/examine/examineDetail/examineDetail",
-    "pages/voucher/voucher"
+    "pages/voucher/voucher",
+    "pages/selectFacility/selectFacility"
   ],
   "window": {
     "backgroundTextStyle": "dark",
