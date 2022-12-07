@@ -39,7 +39,10 @@
     "pages/examine/examine",
     "pages/examine/examineDetail/examineDetail",
     "pages/voucher/voucher",
-    "pages/selectFacility/selectFacility"
+    "pages/selectFacility/selectFacility",
+    "pages/childDetail/childIndex/childIndex",
+    "pages/childDetail/childOrderList/childOrderList",
+    "pages/childDetail/childDeviceList/childDeviceList"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -85,7 +88,9 @@
       }
     ]
   },
-  "usingComponents": {},
+  "usingComponents": {
+    "tabBar": "/component/tabBar/tabBar"
+  },
   "plugins": {
     "myPlugin": {
       "version": "2.2.1",

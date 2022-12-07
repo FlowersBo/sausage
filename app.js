@@ -3,6 +3,7 @@ import * as mClient from 'utils/customClient';
 App({
   globalData: {
     selected: null,
+    childSelected: 0
   },
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
@@ -127,9 +128,9 @@ App({
   /**
    * 当小程序启动，或从后台进入前台显示，会触发 onShow
    */
-  onShow: function (options) {//options.scene==1038
+  onShow: function (options) { //options.scene==1038
     if (options.referrerInfo && options.referrerInfo.extraData) {
-      console.log('小程序跳转回来',options);
+      console.log('小程序跳转回来', options);
       // this.globalData.backMerchantUrl = options.referrerInfo.extraData.backMerchantUrl;
       wx.switchTab({
         url: '/pages/user/user'

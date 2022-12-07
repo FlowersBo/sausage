@@ -27,25 +27,7 @@ Component({
     console.log('角色', roles);
     let list = [];
     if (facilityName!=='自助烤肠机') {
-      list = [{
-          pagePath: "/pages/index/index",
-          text: "报表",
-          iconPath: "/assets/tabbar/baobiao.png",
-          selectedIconPath: "/assets/tabbar/baobiao-h.png"
-        },
-        {
-          pagePath: "/pages/pointLocation/pointLocation",
-          text: "订单",
-          iconPath: "/assets/tabbar/order.png",
-          selectedIconPath: "/assets/tabbar/order-h.png"
-        },
-        {
-          pagePath: "/pages/commodity/commodity",
-          text: "设备",
-          iconPath: "/assets/tabbar/equipment.png",
-          selectedIconPath: "/assets/tabbar/equipment-h.png"
-        }
-      ]
+      list = []
     } else {
       list = [{
           pagePath: "/pages/index/index",

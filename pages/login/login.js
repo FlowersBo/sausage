@@ -205,12 +205,12 @@ Page({ //18601969342
 									if(Object.keys(deviceType).length==1){
 										wx.setStorageSync('facilityName', element);
 										if(element==='自助烤肠机'){
-											wx.switchTab({
+											wx.reLaunch({
 												url: '/pages/index/index'
 											});
 										}else{
-											wx.switchTab({
-												url: '/pages/index/index'
+											wx.reLaunch({
+												url: '/pages/childDetail/childIndex/childIndex'
 											});
 										}
 									}else{
@@ -241,7 +241,7 @@ Page({ //18601969342
 
 	// 跳转页面测试用
 	gotoBtnView: function () {
-		wx.switchTab({
+		wx.reLaunch({
 			url: '../index/index'
 		})
 	},
@@ -253,10 +253,16 @@ Page({ //18601969342
 			.then(resp => {
 				console.log(resp)
 				if (resp.data.code == 200) {
-					wx.switchTab({
-						url: '../index/index',
-					});
 					console.log('登录信息未过期，自动登录');
+					if(wx.getStorageSync('facilityName')==='自助烤肠机'){
+						wx.reLaunch({
+							url: '/pages/index/index',
+						});
+					}else{
+						wx.reLaunch({
+							url: '/pages/childDetail/childIndex/childIndex',
+						});
+					}
 				}
 				wx.hideLoading();
 			})

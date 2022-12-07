@@ -1,4 +1,5 @@
-@import '../../iconCss/icon.wxss';
+/* pages/childIndex/childIndex.wxss */
+@import '../../../iconCss/icon.wxss';
 
 /* /index.wxss */
 page {
