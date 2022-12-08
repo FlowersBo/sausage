@@ -1,5 +1,11 @@
 {
   "navigationBarTitleText":"报表",
   "usingComponents": {
+    "ec-canvas": "/ec-canvas/ec-canvas",
+    "yycalendar": "plugin://myPlugin/yycalendar",
+    "selectTime": "/component/selectTime/selectTime",
+    "calendar": "/component/v2/index",
+    "ball":"/component/ball/index",
+    "pickerView": "/component/pickerView/index"
   }
 }

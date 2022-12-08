@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="homePage">
   <view class="pointWrap">
-    <navigator	open-type="reLaunch" url="/pages/selectFacility/selectFacility" class="switchover" style="display: flex;align-items: center;font-size: 28rpx;">
+    <navigator hover-class="none" open-type="reLaunch" url="/pages/selectFacility/selectFacility" class="switchover" style="display: flex;align-items: center;font-size: 28rpx;">
       <image style="width: 40rpx;height: 40rpx;margin-right: 10rpx;" src="/assets/img/tab.png"></image>
       切换设备</navigator>
     <view class="point" hidden="{{!isIds}}">

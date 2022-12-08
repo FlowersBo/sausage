@@ -100,6 +100,12 @@
           "pathName": "pages/selectFacility/selectFacility",
           "query": "deviceType=%7B%221432247982589214723%22%3A%22%E5%BC%80%E9%97%A8%E8%B4%AD%22%2C%221432247982589214720%22%3A%22%E8%87%AA%E5%8A%A9%E8%92%B8%E5%8C%85%E6%9C%BA%22%2C%221303975981685407744%22%3A%22%E8%87%AA%E5%8A%A9%E7%83%A4%E8%82%A0%E6%9C%BA%22%7D",
           "scene": null
+        },
+        {
+          "name": "开门购首页",
+          "pathName": "pages/childDetail/childIndex/childIndex",
+          "query": "",
+          "scene": null
         }
       ]
     }

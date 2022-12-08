@@ -1,22 +1,14 @@
 <!--pages/childIndex/childIndex.wxml-->
 <view class="homePage">
   <view class="pointWrap">
-    <navigator open-type="reLaunch" url="/pages/selectFacility/selectFacility" class="switchover"
+    <navigator hover-class="none" open-type="reLaunch" url="/pages/selectFacility/selectFacility" class="switchover"
       style="display: flex;align-items: center;font-size: 28rpx;">
       <image style="width: 40rpx;height: 40rpx;margin-right: 10rpx;" src="/assets/img/tab.png"></image>
       切换设备
     </navigator>
-    <view class="point" hidden="{{!isIds}}">
-      <picker class="pickerWrap" bindchange="bindPickerChange" data-index="0" value="{{index}}" range="{{cityItem}}"
-        range-key='regionName'>
-        <view class="picker">
-          {{cityItem[cityIndex].regionName?cityItem[cityIndex].regionName:'全部城市'}}
-        </view>
-      </picker>
-      <image class="point_timg" src="../../../assets/img/timg.png" alt="" mode="aspectFit" />
-    </view>
+    <view class="point" catchtap="dropOutFn">退出登录</view>
   </view>
-  <view hidden="{{isIds}}" style="margin: 10rpx 0;width: 100%;"></view>
+  
   <view class="nav_tab">
     <view wx:for="{{info.reportGenres}}" wx:key="index" class="{{reportGenre==index?'hidden':'show'}}"
       data-index="{{index}}" bindtap="selectedReportGenres">
@@ -29,6 +21,7 @@
       {{item}}
     </view>
   </view>
+
   <view class="timeWrap" wx:if="{{dateRange==0||dateRange==1||dateRange==10||dateRange==11}}">
     <icon class="iconfont icon-backwardcyclyo" bindtap="lowerJump"></icon>
     <view class="cellWrap">
@@ -65,6 +58,7 @@
     <view class="queryDate" bindtap="queryDateFn">查询</view>
   </view>
   <view>
+
     <view class="sales">
       <view class="sales_list" wx:for="{{reportTotal}}" wx:key="index" wx:for-index="key" data-item="item">
         <view class="quantity"> {{key}}</view>
@@ -79,47 +73,12 @@
     </view>
   </view>
 
-  <!-- 统计表格 -->
-  <view class='history-table-wrap' wx:if="{{isIds&&isDateRangeindex&&(dateRange==12||dateRange==13)&&statistics}}">
-    <view class="detail">
-      <view class="explain">
-        销售统计(<text>{{pointDetaillyDate}}</text>)
-      </view>
-    </view>
-    <view class="table">
-      <view class="tr">
-        <view class="th th1">日期</view>
-        <view class="th th2">销售额(元)</view>
-        <view class="th th3">订单数(单)</view>
-        <view class="th th4">销售量(根)</view>
-      </view>
-      <view class="tr trs" wx:for="{{statistics}}" wx:key="index">
-        <view class="td td1">{{item.date}}</view>
-        <view class="td td2">{{item.saleAmount}}</view>
-        <view class="td td3">{{item.orderSum}}</view>
-        <view class="td td4">{{item.productCount}}</view>
-      </view>
-    </view>
-  </view>
-
-  <!-- 自定义月份统计图 -->
-  <block wx:if="{{isShowGraph&&(dateRange==12||dateRange==13)}}">
-    <view class="container" wx:for="{{graphGenres}}" wx:index="{{index}}" wx:key='index'>
-      <view class="tit">{{item.title}}</view>
-      <ec-canvas canvas-id="mychart-line" xsign="{{ecxsign}}" xdata="{{ecDatas[index]}}" ec="{{ ec }}"></ec-canvas>
-    </view>
-  </block>
-
-  <!-- 点位统计 -->
-  <view wx:if="{{dateRange===0||dateRange===1||dateRange===2||dateRange===3||dateRange===10||dateRange===11}}">
+  <!-- 统计 -->
+  <view>
     <view class="detail">
       <view class="explain">
         点位销售统计(<text>{{pointDetaillyDate}}</text>)
       </view>
-      <!-- <view class="point_name">
-        <input confirm-type="search" bindconfirm="bindPointSerch" placeholder="点位名称" />
-        <image src="../../assets/img/fangdajing.png"></image>
-      </view> -->
     </view>
     <view class="tabTit box">
       <view class="flex1" wx:for="{{reportDetail.titles}}" wx:key="type" data-index="{{index}}" bindtap="bindPointSort">

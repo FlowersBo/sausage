@@ -3,7 +3,7 @@ import * as mClient from 'utils/customClient';
 App({
   globalData: {
     selected: null,
-    childSelected: 0
+    childSelected: null
   },
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）

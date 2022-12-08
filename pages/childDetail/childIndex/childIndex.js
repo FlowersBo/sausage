@@ -1,103 +1,15 @@
-import * as echarts from '../../../ec-canvas/echarts';
 import * as mClient from '../../../utils/customClient';
 import * as api from '../../../config/api';
 import * as util from '../../../utils/util';
-
-import todo from '../../../component/v2/plugins/todo'
-import selectable from '../../../component/v2/plugins/selectable'
-import solarLunar from '../../../component/v2/plugins/solarLunar/index'
-import timeRange from '../../../component/v2/plugins/time-range'
-import week from '../../../component/v2/plugins/week'
-import holidays from '../../../component/v2/plugins/holidays/index'
-import plugin from '../../../component/v2/plugins/index'
-
-plugin
-  .use(todo)
-  .use(solarLunar)
-  .use(selectable)
-  .use(week)
-  .use(timeRange)
-  .use(holidays)
-
 let that;
 let app = getApp();
-import {
-  OrderList
-} from '../../../config/api';
-// let isReportGenre = "天数";
-
-function initChart(canvas, width, height, xsign, xdata, graphGenres) {
-  const chart = echarts.init(canvas, null, {
-    width: width,
-    height: height
-  });
-  canvas.setChart(chart);
-  var option = {
-    color: ["#3398DB", "#d9a8f2", "#b31fff", "#5c1cff"],
-    tooltip: {
-      trigger: "axis",
-      axisPointer: {
-        type: "shadow"
-      }
-    },
-    xAxis: {
-      // name: isReportGenre,
-      // nameLocation: 'end',	
-      // nameTextStyle: {
-      // 	color: '#BB0012',
-      // 	fontStyle: 'italic',
-      // 	fontSize: '8',
-      // 	verticalAlign: 'middle',
-      // 	align: 'left'
-      // },
-      // boundaryGap: false,
-      type: 'category',
-      data: xsign
-    },
-    yAxis: {
-      // name: '销售额(元)',
-      type: 'value'
-    },
-    nameTextStyle: {
-      color: '#BB0012',
-      fontStyle: 'italic',
-      fontSize: '8',
-      verticalAlign: 'middle',
-      align: 'left'
-    },
-    grid: {
-      top: 30,
-      left: 50,
-      height: 100
-    },
-    series: [{
-      // name: '金额',
-      barWidth: "50%",
-      data: xdata,
-      type: 'bar',
-      itemStyle: {
-        normal: {
-          // 随机显示
-          //color:function(d){return "#"+Math.floor(Math.random()*(256*256*256-1)).toString(16);}
-          // 定制显示（按顺序）
-          color: function (params) {
-            var colorList = ['#C33531', '#EFE42A', '#64BD3D', '#EE9201', '#29AAE3', '#B74AE5', '#0AAF9F', '#E89589', '#16A085', '#4A235A', '#C39BD3 ', '#F9E79F', '#BA4A00', '#ECF0F1', '#616A6B', '#EAF2F8', '#4A235A', '#3498DB'];
-            return colorList[params.dataIndex]
-          }
-        }
-      }
-    }, ]
-  };
-  chart.setOption(option);
-  return chart;
-}
 
 Page({
   data: {
     loadText: '点击加载更多',
     dateRangeindex: 0,
     info: {
-      reportGenres: ['销售日报', '销售月报'],
+      reportGenres: ['销售日报', '销售月报','销售年报'],
       dateRange: [
         ['今日', '昨日', '近7日', '自定义'],
         ['本月', '上月', '半年', '自定义'],
@@ -136,17 +48,9 @@ Page({
 
     serchContent: '',
     url: "../../../assets/img/arrow.png",
-
-    ec: { //ec
-      onInit: initChart
-    },
+  
     ecDatas: [],
-    ecxsign: [
-      // [1, 2, 3, 4, 5, 6, 7],
-      // [1, 2, 3],
-      // [1, 2, 3, 4, 5, 6],
-      // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-    ],
+    ecxsign: [],
     graphGenres: [{
       title: '销售额'
     }, {
@@ -165,16 +69,6 @@ Page({
 
     // 日历
     isShow: false,
-    // themeColor: '#ffd00a',
-    // calendarType: 'yydates',
-    // startMonthCount: -11,
-    // monthCount: 1,
-    // pastDateChoice: true,
-    // dateTitle: '',
-    // dateSubTitle: '开始',
-    // endDateSubTitle: '结束',
-    // endDateTitle: '',
-
     // 月份
     isPickerShow: false,
     isPickerRender: false,
@@ -204,6 +98,24 @@ Page({
     agencyId: '',
     isIds: false,
     fields: 'day'
+  },
+
+  dropOutFn(){
+    wx.showModal({
+      title: '退出登录',
+      content: '确定退出当前账号吗？',
+      success(res) {
+        if (res.confirm) {
+          try {
+            wx.clearStorageSync()
+            wx.reLaunch({
+              url: '/pages/login/login'
+            })
+          } catch (e) {
+          }
+        }
+      }
+    })
   },
 
   // 日历、
@@ -243,26 +155,7 @@ Page({
       });
       that.fadeDown();
     }
-    // switch (e) {
-    // 	case frequency: {
-    // const calendar = this.selectComponent('#calendar').calendar;
-    // const {
-    // 	year,
-    // 	month
-    // } = calendar.getCurrentYM();
-    // const selected = calendar['getSelectedDates']();
-    // if (!selected || !selected.length)
-    // 	return this.showToast('当前未选择任何日期')
-    // console.log('当前选择时间', selected)
-    // const rst = selected.map(item => JSON.stringify(item));
-    // console.log(rst)
-    //   break
-    //  }
-    // }
-    // console.log('afterTapDate', e.detail);
   },
-
-  afterCalendarRender(e) {},
 
   cancelWindowFn() {
     that.setData({
@@ -294,17 +187,8 @@ Page({
     })
   },
 
-  // 单日月
-  // dateTimeBody(e) {
-  // 	this.setData({
-  // 		dateTime: e.detail
-  // 	})
-  // 	this.renderTransactionSummation(that.data.dateRange);
-  // },
-
   onLoad: function (options) {
     that = this;
-    that.cityFn();
   },
   async initFn() {
     let result = await (mClient.post(api.Init));
@@ -381,22 +265,6 @@ Page({
     console.log(index, dateRangeindex);
     let dateRange = parseInt('' + index + dateRangeindex);
     console.log('上边', dateRange);
-    // if (dateRange === 13 && index === 1) {
-    // 	dateRange = 12;
-    // 	dateRangeindex = 2;
-    // 	that.setData({ //设置第四个变第三个
-    // 		dateRangeindex,
-    // 		selectIndex: index
-    // 	})
-    // }
-    // else if (that.data.dateRangeindex_off === 3) {//设置当下边为3切换日月报任为3的逻辑
-    // 	console.log('原来的', that.data.dateRangeindex_off);
-    // 	dateRange = 3;
-    // 	that.setData({
-    // 		dateRange,
-    // 		dateRangeindex: that.data.dateRangeindex_off
-    // 	})
-    // };
     let reportDetail = that.data.reportDetail;
     if (that.data.isIds) {
       reportDetail.titles = ['合作商', '销售额', '销售量', '明细'];
@@ -417,13 +285,6 @@ Page({
       reportDetail: reportDetail,
     });
     that.renderTransactionSummation();
-
-
-    //  else {
-    //   that.setData({
-    //     isShowGraph: false //现实图表
-    //   })
-    // }
   },
 
   // 切换天数/月数
@@ -551,12 +412,6 @@ Page({
       startDate,
       endDate
     })
-
-
-    // if (that.data.isIds) {
-    //   that.renderReport(that.data.dateRange, pointDetaillyDate, pointDetaillyDate);
-    //   return
-    // }
   },
 
   // 查询列表数据
@@ -798,7 +653,6 @@ Page({
         reportTotal: reportTotal,
         statistics: result.data.data.statistics
       })
-      that.renderChart(result.data.data.statistics); //echarts
       return
     }
     let data = {
@@ -827,67 +681,6 @@ Page({
       reportTotal: reportTotal,
       statistics: result.data.data.statistics
     })
-    that.renderChart(result.data.data.statistics); //echarts
-  },
-
-  //渲染echarts
-  renderChart: function (statistics) {
-    that.setData({
-      isShowGraph: false
-    });
-    console.log('自定义月份统计', statistics);
-    let monthList = [];
-    for (const key in statistics) {
-      if (Object.hasOwnProperty.call(statistics, key)) {
-        const element = statistics[key];
-        if (element.saleAmount) {
-          monthList.push(element);
-        }
-      }
-    }
-    console.log('有数据的', monthList);
-    let amountchartObject = [];
-    let orderCountchartObject = [];
-    let productCountchartObject = [];
-    let ecxsign = [],
-      amountchart = [],
-      orderCountchar = [],
-      productCountchart = [];
-    for (const key in monthList) {
-      if (Object.hasOwnProperty.call(monthList, key)) {
-        const element = monthList[key];
-        ecxsign.push(element.date);
-        amountchart.push(element.saleAmount);
-        orderCountchar.push(element.orderSum);
-        productCountchart.push(element.productCount);
-        // amountchart.date = element.date;
-        // amountchart.saleAmount = element.saleAmount;
-        // amountchartObject.push(amountchart);
-
-        // orderCountchar.date = element.date;
-        // orderCountchar.orderSum = element.orderSum;
-        // orderCountchartObject.push(orderCountchar);
-
-        // productCountchart.date = element.date;
-        // productCountchart.orderSum = element.productCount;
-        // productCountchartObject.push(productCountchart);
-      }
-    }
-    // console.log('时间&金额', amountchartObject);
-    // console.log('时间&订单', orderCountchartObject);
-    // console.log('时间&销量', productCountchartObject);
-    let ecDatas = [];
-    ecDatas.push(amountchart, orderCountchar, productCountchart);
-    // if (index == 0) {
-    // 	isReportGenre = '天数'
-    // } else {
-    // 	isReportGenre = '月份'
-    // }
-    that.setData({
-      ecDatas,
-      ecxsign,
-      isShowGraph: true
-    });
   },
 
   // 跳转日折线图
@@ -900,44 +693,7 @@ Page({
 
   // 跳转明细
   bindDetail: function (e) {
-    let point = e.currentTarget.dataset.point,
-      {
-        startDate,
-        endDate,
-        startCustomDate,
-        endCustomDate,
-        dateRange,
-        reportGenre,
-        dateRangeindex,
-        reportDetail,
-        fields,
-        isCustomDate
-      } = that.data;
-    console.log('跳转明细', point);
-    if (point.agencyId) {
-      let result = {
-        startDate,
-        endDate,
-        startCustomDate,
-        endCustomDate,
-        dateRange,
-        reportGenre,
-        dateRangeindex,
-        reportDetail,
-        fields,
-        isCustomDate
-      };
-      result = JSON.stringify(result);
-      console.log('跳转合作商', result);
-      wx.navigateTo({
-        url: '../reportForms/reportForms?agencyId=' + point.agencyId + "&agencyName=" + point.agencyName + '&result=' + result
-      })
-    } else {
-      wx.navigateTo({
-        url: '../tableDetail/tableDetail?pointId=' + point.pointId + "&pointName=" + point.pointName + '&agencyId=' + that.data.agencyId +
-          "&pointStartDate=" + `${dateRange === 3?startCustomDate:startDate}` + "&pointEndDate=" + `${dateRange === 3?endCustomDate:endDate}` + "&monthStart=" + `${(dateRange === 10||dateRange === 11)?'1':''}`
-      })
-    }
+   
   },
 
   // 点位销售统计列表排序
@@ -1050,9 +806,6 @@ Page({
         that.monthlySalesVolume(that.data.dateRange, that.data.startCustomDate, that.data.endCustomDate, pageIndex, pointsData);
       }
     }
-    // else {
-    //   that.renderReport(that.data.dateRange, that.data.monthStartTime, that.data.monthEndTime, pageIndex, pointsData);
-    // }
   },
 
   bindPickerChange: function (e) {
@@ -1065,29 +818,11 @@ Page({
   },
 
   onShow: function () {
-    app.globalData.childSelected = 0
+    wx.hideHomeButton(); 
+    app.globalData.childSelected = 0;
     that.initFn();
   },
 
-  // 城市选择
-  async cityFn() {
-    let result = await (mClient.get(api.SelectCityItem));
-    console.log('城市列表', result.data.data)
-    let cityItem = result.data.data;
-    let item = {
-      regionId: '',
-      regionName: '全部城市'
-    };
-
-    function prepend(arr, item) {
-      var newArr = arr.slice(0);
-      newArr.unshift(item); //newArr.splice(0,0,item);
-      return newArr;
-    }
-    that.setData({
-      cityItem: prepend(cityItem, item)
-    })
-  },
 
   // 日期选择
   bindDateChange: function (e) {
@@ -1191,18 +926,4 @@ Page({
       pointDetaillyDate: that.data.startCustomDate + '~' + that.data.endCustomDate
     })
   },
-
-  // 以点位名称搜索
-  // bindPointSerch: function (e) {
-  // 	let that = this;
-  // 	let dateRange = that.data.dateRange;
-  // 	let serchContent = e.detail.value;
-
-  // 	this.renderReport(dateRange, serchContent);
-  // },
-  // bindSerchContentInput: function (e) {
-  // 	this.setData({
-  // 		serchContent: e.detail.value
-  // 	})
-  // },
 })
