@@ -8,18 +8,30 @@
     </navigator>
     <view class="point" catchtap="dropOutFn">退出登录</view>
   </view>
-  
+
   <view class="nav_tab">
     <view wx:for="{{info.reportGenres}}" wx:key="index" class="{{reportGenre==index?'hidden':'show'}}"
       data-index="{{index}}" bindtap="selectedReportGenres">
       {{item}}
     </view>
   </view>
-  <view class="nav_tab nav_tabchild">
+  <view class="nav_tab nav_tabchild" wx:if="{{dateRange!=20&&dateRange != 21&&dateRange != 22&&dateRange != 23}}">
     <view class="{{dateRangeindex==index?'hidden':'show'}}" wx:for="{{info.dateRange[reportGenre]}}" wx:key="index"
       data-index="{{index}}" bindtap="selectedDateRange">
       {{item}}
     </view>
+  </view>
+  <view wx:else class="timeWrap" style="margin-top: 20rpx;">
+    <icon class="iconfont icon-backwardcyclyo" bindtap="lowerJump"></icon>
+    <view class="cellWrap">
+      <mp-cell class="cell" prop="date" title="日期">
+        <picker style="padding: 0 20rpx;" data-field="date" fields="{{yearfields}}" mode="date" value="{{startDate}}" bindchange="bindDateChange">
+          <view class="weui-input">{{startDate}}</view>
+        </picker>
+        <image class="timg" src="../../../assets/img/timg.png" alt="" mode="aspectFit" />
+      </mp-cell>
+    </view>
+    <icon class="iconfont icons icon-backwardcyclyo" bindtap="upJump"></icon>
   </view>
 
   <view class="timeWrap" wx:if="{{dateRange==0||dateRange==1||dateRange==10||dateRange==11}}">
@@ -117,4 +129,4 @@
     </view>
   </view>
 </view>
-<tabBar/>
+<tabBar />
